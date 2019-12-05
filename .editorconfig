@@ -1,0 +1,23 @@
+# http://editorconfig.org
+root = true
+
+# use 2 space identation, unix line endings, utf8 charset, with trailing whitespace removed and a final newline added globally
+[*]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# uee 4 spaces for the c, cpp, and their respective files
+[*.c,*.cpp,*.h]
+indent_size = 4
+
+# use real tab indentation for Make files
+[Makefile]
+indent_style = tab
+
+# disable trailing whitespace trimming for Markdown files
+[*.md]
+trim_trailing_whitespace = false
