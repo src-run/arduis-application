@@ -9,7 +9,7 @@
  */
 
 #ifndef _ARDUIS_HR_RELAY
-#define _ARDUIS_HR_RELAY 1
+#define _ARDUIS_HR_RELAY
 
 #include <Arduino.h>
 #include <Relay.h>

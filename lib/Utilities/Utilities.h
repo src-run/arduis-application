@@ -9,7 +9,7 @@
  */
 
 #ifndef _ARDUIS_HR_UTILITES
-#define _ARDUIS_HR_UTILITES 1
+#define _ARDUIS_HR_UTILITES
 
 #include <Arduino.h>
 

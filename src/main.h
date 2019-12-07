@@ -14,6 +14,7 @@
 #include <Arduino.h>
 #include <Relay.h>
 #include <FastLED.h>
+#include <RTClib.h>
 
 #include "Patterns.h"
 #include "Relays.h"

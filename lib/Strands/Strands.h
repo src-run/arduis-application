@@ -9,7 +9,7 @@
  */
 
 #ifndef _ARDUIS_HR_STRANDS
-#define _ARDUIS_HR_STRANDS 1
+#define _ARDUIS_HR_STRANDS
 
 #include <Arduino.h>
 #include <FastLED.h>
@@ -20,7 +20,7 @@
 #define LED_STRDS_CTL WS2812B
 #define LED_STRDS_ORD GRB
 #define LED_STRDS_FPS 240
-#define LED_STRDS_SEC_CYCLE 20
+#define LED_STRDS_SEC_CYCLE 20000
 #define LED_STRDS_SEC_COLOR 10
 
 extern CRGB ledStrandColors[LED_STRDS_LEN];

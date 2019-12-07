@@ -9,7 +9,7 @@
  */
 
 #ifndef _ARDUIS_HR_PATTERNS
-#define _ARDUIS_HR_PATTERNS 1
+#define _ARDUIS_HR_PATTERNS
 
 #include <Arduino.h>
 #include <FastLED.h>

@@ -17,6 +17,9 @@ void setup()
     ledStrandsRelay.begin();
     ledStrandsRelay.turnOn();
 
+    pinMode(LED_BUILTIN, OUTPUT);
+    digitalWrite(LED_BUILTIN, LOW);
+
     delay(2500);
 
     ledStrandsRelay.turnOff();
@@ -36,7 +39,15 @@ void loop()
         ledChainBaseColorHue++;
     }
 
-    EVERY_N_SECONDS(LED_STRDS_SEC_CYCLE) {
+    EVERY_N_MILLISECONDS(LED_STRDS_SEC_CYCLE) {
         incrementSelectedPattern();
+    }
+
+    EVERY_N_MILLISECONDS(20000) {
+        Serial.println("Toggling builtin LED [ ON] ...");
+        digitalWrite(LED_BUILTIN, HIGH);
+        delay(10000);
+        Serial.println("Toggling builtin LED [OFF] ...");
+        digitalWrite(LED_BUILTIN, LOW);
     }
 }
