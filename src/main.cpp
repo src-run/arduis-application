@@ -12,20 +12,12 @@
 
 void setup()
 {
+    while (!Serial);
     Serial.begin(9600);
 
-    ledStrandsRelay.begin();
-    ledStrandsRelay.turnOn();
-
-    pinMode(LED_BUILTIN, OUTPUT);
-    digitalWrite(LED_BUILTIN, LOW);
-
-    delay(2500);
-
-    ledStrandsRelay.turnOff();
-    FastLED.addLeds<LED_STRDS_CTL, LED_STRDS_PIN, LED_STRDS_ORD>(ledStrandColors, LED_STRDS_LEN);
-    FastLED.setCorrection(TypicalPixelString);
-    FastLED.setBrightness(LED_STRDS_BRT);
+    rtcInitialize();
+    selectorInitialize();
+    strandsInitialize();
 }
 
 void loop()
@@ -41,13 +33,5 @@ void loop()
 
     EVERY_N_MILLISECONDS(LED_STRDS_SEC_CYCLE) {
         incrementSelectedPattern();
-    }
-
-    EVERY_N_MILLISECONDS(20000) {
-        Serial.println("Toggling builtin LED [ ON] ...");
-        digitalWrite(LED_BUILTIN, HIGH);
-        delay(10000);
-        Serial.println("Toggling builtin LED [OFF] ...");
-        digitalWrite(LED_BUILTIN, LOW);
     }
 }

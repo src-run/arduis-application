@@ -8,16 +8,15 @@
  * file that was distributed with this source code.
  */
 
-#ifndef _ARDUIS_HR_RELAY
-#define _ARDUIS_HR_RELAY
+#ifndef _ARDUIS_HR_SELECTOR
+#define _ARDUIS_HR_SELECTOR
 
 #include <Arduino.h>
-#include <Relay.h>
+#include <Wire.h>
+#include <SparkFun_Qwiic_Twist_Arduino_Library.h>
 
-#ifndef LED_RELAY_PIN
-    #define LED_RELAY_PIN 33
-#endif
+extern TWIST selector;
 
-extern Relay ledStrandsRelay;
+void selectorInitialize(int colorR = 0, int colorG = 0, int colorB = 0, bool fastClock = true);
 
 #endif

@@ -14,15 +14,42 @@
 #include <Arduino.h>
 #include <FastLED.h>
 
-#define LED_STRDS_LEN 250
-#define LED_STRDS_PIN 6
-#define LED_STRDS_BRT 25
-#define LED_STRDS_CTL WS2812B
-#define LED_STRDS_ORD GRB
-#define LED_STRDS_FPS 240
-#define LED_STRDS_SEC_CYCLE 20000
-#define LED_STRDS_SEC_COLOR 10
+#include "Relays.h"
+
+#ifndef LED_STRDS_LEN
+    #define LED_STRDS_LEN 250
+#endif
+
+#ifndef LED_STRDS_PIN
+    #define LED_STRDS_PIN 6
+#endif
+
+#ifndef LED_STRDS_BRT
+    #define LED_STRDS_BRT 25
+#endif
+
+#ifndef LED_STRDS_CTL
+    #define LED_STRDS_CTL WS2812B
+#endif
+
+#ifndef LED_STRDS_ORD
+    #define LED_STRDS_ORD GRB
+#endif
+
+#ifndef LED_STRDS_FPS
+    #define LED_STRDS_FPS 240
+#endif
+
+#ifndef LED_STRDS_SEC_CYCLE
+    #define LED_STRDS_SEC_CYCLE 20000
+#endif
+
+#ifndef LED_STRDS_SEC_COLOR
+    #define LED_STRDS_SEC_COLOR 10
+#endif
 
 extern CRGB ledStrandColors[LED_STRDS_LEN];
+
+void strandsInitialize(int delayMilliseconds = 2500);
 
 #endif

@@ -8,16 +8,6 @@
  * file that was distributed with this source code.
  */
 
-#ifndef _ARDUIS_HR_RELAY
-#define _ARDUIS_HR_RELAY
+#include "Relays.h"
 
-#include <Arduino.h>
-#include <Relay.h>
-
-#ifndef LED_RELAY_PIN
-    #define LED_RELAY_PIN 33
-#endif
-
-extern Relay ledStrandsRelay;
-
-#endif
+Relay ledStrandsRelay(LED_RELAY_PIN, false);
