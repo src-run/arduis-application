@@ -15,7 +15,7 @@
 #include <EasyButton.h>
 
 #ifndef BTN_TOGLR_PIN
-    #define BTN_TOGLR_PIN A0
+    #define BTN_TOGLR_PIN PIN_A0
 #endif
 
 #ifndef BTN_TOGLR_MODE_SELECT_PRESSES

@@ -21,23 +21,26 @@ void setup()
     initializeSelector();
     initializeStrands();
     initializeLuminosity();
+    initializeToggler();
+    luminosityDebugWriteSerialSensorDetails();
+    luminosityDebugWriteSerialReadingValues();
 }
 
 void loop()
 {
-    Serial.println("[LOP] Running loop logic ...");
+  
+    toggler.read();
 
-    luminosityDebugWriteSerialSensorDetails();
-    luminosityDebugWriteSerialReadingValues();
+    //ledChainPatternItems[ledChainPatternIndex]();
+    //strandsDisplay();
 
-    ledChainPatternItems[ledChainPatternIndex]();
-    strandsDisplay();
+    //EVERY_N_MILLISECONDS(LED_STRDS_SEC_COLOR) {
+    //    ledChainBaseColorHue++;
+    //}
 
-    EVERY_N_MILLISECONDS(LED_STRDS_SEC_COLOR) {
-        ledChainBaseColorHue++;
-    }
+    //EVERY_N_MILLISECONDS(LED_STRDS_SEC_CYCLE) {
+    //    incrementSelectedPattern();
+    //}
 
-    EVERY_N_MILLISECONDS(LED_STRDS_SEC_CYCLE) {
-        incrementSelectedPattern();
-    }
+    delay(100);
 }
