@@ -22,10 +22,8 @@ void setup()
 
 void loop()
 {
-    ledChainPatternItems[ledChainPatternIndex]();
-
-    FastLED.show();
-    FastLED.delay(1000/LED_STRDS_FPS);
+    strandsPattern(ledChainPatternIndex);
+    strandsDisplay();
 
     EVERY_N_MILLISECONDS(LED_STRDS_SEC_COLOR) {
         ledChainBaseColorHue++;

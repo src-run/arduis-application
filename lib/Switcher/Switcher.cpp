@@ -8,6 +8,6 @@
  * file that was distributed with this source code.
  */
 
-#include "Relays.h"
+#include "Switcher.h"
 
 Relay ledStrandsRelay(LED_RELAY_PIN, false);

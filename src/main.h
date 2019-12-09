@@ -25,9 +25,11 @@
 #include <Arduino.h>
 #include <FastLED.h>
 
-#include "Strands.h"
-#include "Patterns.h"
 #include "RTC.h"
+#include "Switcher.h"
 #include "Selector.h"
+#include "Palettes.h"
+#include "Patterns.h"
+#include "Strands.h"
 
 #endif

@@ -11,8 +11,6 @@
 #ifndef _ARDUIS_HR_UTILITES
 #define _ARDUIS_HR_UTILITES
 
-#include <Arduino.h>
-
 #define ARRAY_SIZE(A) (sizeof(A) / sizeof((A)[0]))
 
 #endif
