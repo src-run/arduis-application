@@ -17,15 +17,18 @@ void setup()
 
     Serial.println("\n[STP] Configuring application environment ...");
 
-    rtcInitialize();
-    selectorInitialize();
-    strandsInitialize();
-    luminosityInitialize();
+    initializeRtc();
+    initializeSelector();
+    initializeStrands();
+    initializeLuminosity();
 }
 
 void loop()
 {
     Serial.println("[LOP] Running loop logic ...");
+
+    luminosityDebugWriteSerialSensorDetails();
+    luminosityDebugWriteSerialReadingValues();
 
     ledChainPatternItems[ledChainPatternIndex]();
     strandsDisplay();

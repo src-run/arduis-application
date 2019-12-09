@@ -43,7 +43,7 @@ String rtcFormatDateTimeLine(String startLineText, String closeLineText, String 
     return String(startLineText + rtcFormatDateTimeText(dateTimeFormat, appendNewLine) + closeLineText);
 }
 
-void rtcInitializeInstance() {
+void initializeRtcInstance() {
     Serial.print("[RTC] Initializing DC3231 device on I2C bus ... ");
 
     if (!rtc.begin()) {
@@ -54,7 +54,7 @@ void rtcInitializeInstance() {
     Serial.println("[OKAY] (found device at 0x68 I2C address)");
 }
 
-void rtcInitializeDateTime() {
+void initializeRtcDateTime() {
     if (rtc.lostPower()) {
         rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
         Serial.println("[RTC] Device is unconfigured (check and/or replace its battery) ...");
@@ -64,7 +64,7 @@ void rtcInitializeDateTime() {
     }
 }
 
-void rtcInitialize() {
-    rtcInitializeInstance();
-    rtcInitializeDateTime();
+void initializeRtc() {
+    initializeRtcInstance();
+    initializeRtcDateTime();
 }

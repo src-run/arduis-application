@@ -12,7 +12,7 @@
 
 TWIST selector;
 
-void selectorInitialize(int colorR, int colorG, int colorB, bool fastClock) {
+void initializeSelector(int colorR, int colorG, int colorB, bool fastClock) {
     Serial.print("[SLT] Initializing DEV-15083 switcher device on I2C bus ... ");
 
     if(!selector.begin()) {

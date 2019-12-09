@@ -50,9 +50,9 @@
 
 extern CRGB ledStrandColors[LED_STRDS_LEN];
 
-void strandsInitializePower(int delayMilliseconds);
-void strandsInitializeSetup();
-void strandsInitialize(int delayMilliseconds = 2500);
+void initializeStrandsPower(int delayMilliseconds);
+void initializeStrandsSetup();
+void initializeStrands(int delayMilliseconds = 2500);
 void strandsDisplay(int delay = -1);
 
 #endif

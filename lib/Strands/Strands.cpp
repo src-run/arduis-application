@@ -12,22 +12,22 @@
 
 CRGB ledStrandColors[LED_STRDS_LEN];
 
-void strandsInitializePower(int delayMilliseconds) {
+void initializeStrandsPower(int delayMilliseconds) {
     ledStrandsRelay.begin();
     ledStrandsRelay.turnOn();
     delay(delayMilliseconds);
     ledStrandsRelay.turnOff();
 }
 
-void strandsInitializeSetup() {
+void initializeStrandsSetup() {
     FastLED.addLeds<LED_STRDS_CTL, LED_STRDS_PIN, LED_STRDS_ORD>(ledStrandColors, LED_STRDS_LEN);
     FastLED.setCorrection(TypicalPixelString);
     FastLED.setBrightness(LED_STRDS_BRT);
 }
 
-void strandsInitialize(int delayMilliseconds) {
-    strandsInitializePower(delayMilliseconds);
-    strandsInitializeSetup();
+void initializeStrands(int delayMilliseconds) {
+    initializeStrandsPower(delayMilliseconds);
+    initializeStrandsSetup();
 }
 
 void strandsDisplay(int delay) {

@@ -28,6 +28,7 @@
 #include "DateTime.h"
 #include "Luminosity.h"
 #include "Switcher.h"
+#include "Togglers.h"
 #include "Selector.h"
 #include "Palettes.h"
 #include "Patterns.h"

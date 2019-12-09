@@ -19,8 +19,8 @@ extern RTC_DS3231 rtc;
 
 String rtcFormatDateTimeText(String dateTimeFormat = "YYYY-MM-DD hh:mm:ss", bool appendNewline = false);
 String rtcFormatDateTimeLine(String startLineText = "", String closeLineText = "", String dateTimeFormat = "YYYY-MM-DD hh:mm:ss", bool appendNewline = false);
-void rtcInitializeInstance();
-void rtcInitializeDateTime();
-void rtcInitialize();
+void initializeRtcInstance();
+void initializeRtcDateTime();
+void initializeRtc();
 
 #endif

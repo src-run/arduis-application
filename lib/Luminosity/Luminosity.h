@@ -16,10 +16,24 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_TSL2591.h>
 
+#include "DateTime.h"
+
 extern Adafruit_TSL2591 tsl;
 
-void luminosityDisplaySensorDetails(void);
-void luminosityConfigureSensor(void);
-void luminosityInitialize(void);
+struct LuminosityReading {
+    DateTime dateTime;
+    uint32_t rawData;
+    uint16_t infraRed;
+    uint16_t fullSpectrum;
+    uint16_t visible;
+    float    lux;
+};
+
+void initializeLuminosityLocation(void);
+void initializeLuminosityCfgSetup(void);
+void initializeLuminosity(void);
+LuminosityReading luminosityResolve(void);
+void luminosityDebugWriteSerialReadingValues(void);
+void luminosityDebugWriteSerialSensorDetails(void);
 
 #endif
