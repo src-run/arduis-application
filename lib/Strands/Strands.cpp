@@ -30,10 +30,6 @@ void strandsInitialize(int delayMilliseconds) {
     strandsInitializeSetup();
 }
 
-void strandsPattern(int index) {
-    ledChainPatternItems[index]();
-}
-
 void strandsDisplay(int delay) {
     FastLED.show();
     FastLED.delay(delay ? delay : 1000 / LED_STRDS_FPS);

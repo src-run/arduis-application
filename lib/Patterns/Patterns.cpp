@@ -70,7 +70,7 @@ void runLedSinelonPattern()
     ledStrandColors[p] += CHSV(ledChainBaseColorHue, 255, 192);
 }
 
-void runLedBpmPattern(CRGBPalette16 palette, uint8_t time = 62)
+void runLedBpmPattern(CRGBPalette16 palette, uint8_t time)
 {
     uint8_t b = beatsin8(time, 64, 255);
 
@@ -119,7 +119,7 @@ void runLedBpmHeatColorsPattern()
     runLedBpmPattern(HeatColors_p);
 }
 
-void runLedJugglePattern(uint8_t fade = 20) {
+void runLedJugglePattern(uint8_t fade) {
     byte dothue = 0;
 
     fadeToBlackBy(ledStrandColors, LED_STRDS_LEN, fade);

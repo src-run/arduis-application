@@ -15,7 +15,6 @@
 #include <FastLED.h>
 
 #include "Switcher.h"
-#include "Patterns.h"
 
 #ifndef LED_STRDS_LEN
     #define LED_STRDS_LEN 250
@@ -54,7 +53,6 @@ extern CRGB ledStrandColors[LED_STRDS_LEN];
 void strandsInitializePower(int delayMilliseconds);
 void strandsInitializeSetup();
 void strandsInitialize(int delayMilliseconds = 2500);
-void strandsPattern(int index);
 void strandsDisplay(int delay = -1);
 
 #endif

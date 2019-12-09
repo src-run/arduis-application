@@ -15,14 +15,19 @@ void setup()
     while (!Serial);
     Serial.begin(9600);
 
+    Serial.println("\n[STP] Configuring application environment ...");
+
     rtcInitialize();
     selectorInitialize();
     strandsInitialize();
+    luminosityInitialize();
 }
 
 void loop()
 {
-    strandsPattern(ledChainPatternIndex);
+    Serial.println("[LOP] Running loop logic ...");
+
+    ledChainPatternItems[ledChainPatternIndex]();
     strandsDisplay();
 
     EVERY_N_MILLISECONDS(LED_STRDS_SEC_COLOR) {

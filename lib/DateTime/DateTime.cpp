@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-#include "RTC.h"
+#include "DateTime.h"
 
 const char daysOfTheWeek[7][12] = {
     "Sunday",
@@ -39,12 +39,8 @@ String rtcFormatDateTimeText(String dateTimeFormat, bool appendNewline) {
     return dateTime;
 }
 
-String rtcFormatDateTimeLine(String textLineFormat, String dateTimeFormat, bool appendNewLine) {
-    char dateTimeTextLineBuffer[100];
-
-    snprintf(dateTimeTextLineBuffer, 100, rtcFormatDateTimeText(dateTimeFormat, appendNewLine).c_str());
-
-    return String(dateTimeTextLineBuffer);
+String rtcFormatDateTimeLine(String startLineText, String closeLineText, String dateTimeFormat, bool appendNewLine) {
+    return String(startLineText + rtcFormatDateTimeText(dateTimeFormat, appendNewLine) + closeLineText);
 }
 
 void rtcInitializeInstance() {
@@ -62,9 +58,9 @@ void rtcInitializeDateTime() {
     if (rtc.lostPower()) {
         rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
         Serial.println("[RTC] Device is unconfigured (check and/or replace its battery) ...");
-        Serial.println(rtcFormatDateTimeLine("[RTC] Assigning the current datetime to the device ... [OKAY] (datetime set to \"%s\")"));
+        Serial.println(rtcFormatDateTimeLine("[RTC] Assigning the current datetime to the device ... [OKAY] (datetime set to \"", "\")"));
     } else {
-        Serial.println(rtcFormatDateTimeLine("[RTC] Determined that device was previously configured ... (datetime set to \"%s\")"));
+        Serial.println(rtcFormatDateTimeLine("[RTC] Determined that device was previously configured ... (datetime set to \"", "\")"));
     }
 }
 

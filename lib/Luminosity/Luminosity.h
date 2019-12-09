@@ -8,16 +8,18 @@
  * file that was distributed with this source code.
  */
 
-#ifndef _ARDUIS_HR_SWITCHER
-#define _ARDUIS_HR_SWITCHER
+#ifndef _ARDUIS_HR_LUMINOSITY
+#define _ARDUIS_HR_LUMINOSITY
 
 #include <Arduino.h>
-#include <Relay.h>
+#include <Wire.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_TSL2591.h>
 
-#ifndef LED_RELAY_PIN
-    #define LED_RELAY_PIN 33
-#endif
+extern Adafruit_TSL2591 tsl;
 
-extern Relay ledStrandsRelay;
+void luminosityDisplaySensorDetails(void);
+void luminosityConfigureSensor(void);
+void luminosityInitialize(void);
 
 #endif

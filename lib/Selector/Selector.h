@@ -17,6 +17,6 @@
 
 extern TWIST selector;
 
-void selectorInitialize(int colorR = 0, int colorG = 0, int colorB = 0, bool fastClock = true);
+void selectorInitialize(int colorR = 255, int colorG = 0, int colorB = 0, bool fastClock = true);
 
 #endif

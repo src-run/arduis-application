@@ -25,7 +25,8 @@
 #include <Arduino.h>
 #include <FastLED.h>
 
-#include "RTC.h"
+#include "DateTime.h"
+#include "Luminosity.h"
 #include "Switcher.h"
 #include "Selector.h"
 #include "Palettes.h"
