@@ -12,42 +12,42 @@
 
 void setup()
 {
-    Serial.begin(9600);
+    Serial.begin(19200);
 
     ledStrandsRelay.begin();
-    ledStrandsRelay.turnOn();
+    ledStrandsRelay.turnOff();
 
     pinMode(LED_BUILTIN, OUTPUT);
     digitalWrite(LED_BUILTIN, LOW);
 
-    delay(2500);
+    FastLED.delay(2000);
 
-    ledStrandsRelay.turnOff();
+    ledStrandsRelay.turnOn();
     FastLED.addLeds<LED_STRDS_CTL, LED_STRDS_PIN, LED_STRDS_ORD>(ledStrandColors, LED_STRDS_LEN);
     FastLED.setCorrection(TypicalPixelString);
-    FastLED.setBrightness(LED_STRDS_BRT);
+    FastLED.setMaxPowerInVoltsAndMilliamps(LED_POWER_MAX_V, LED_POWER_MAX_MA);
+
+    setBrightnessNone();
+
+    FastLED.delay(2000);
+
+    incSelectedStep();
+    runSelectedStep();
+    ledFadeIn();
 }
 
 void loop()
 {
-    ledChainPatternItems[ledChainPatternIndex]();
-
-    FastLED.show();
-    FastLED.delay(1000/LED_STRDS_FPS);
+    runSelectedStep();
 
     EVERY_N_MILLISECONDS(LED_STRDS_SEC_COLOR) {
         ledChainBaseColorHue++;
     }
 
     EVERY_N_MILLISECONDS(LED_STRDS_SEC_CYCLE) {
-        incrementSelectedPattern();
-    }
-
-    EVERY_N_MILLISECONDS(20000) {
-        Serial.println("Toggling builtin LED [ ON] ...");
-        digitalWrite(LED_BUILTIN, HIGH);
-        delay(10000);
-        Serial.println("Toggling builtin LED [OFF] ...");
-        digitalWrite(LED_BUILTIN, LOW);
+        ledFadeOut();
+        incSelectedStep();
+        runSelectedStep();
+        ledFadeIn();
     }
 }

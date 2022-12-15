@@ -16,6 +16,6 @@
 
 #define LED_RELAY_PIN 33
 
-Relay ledStrandsRelay(LED_RELAY_PIN, false);
+Relay ledStrandsRelay(LED_RELAY_PIN, true);
 
 #endif
