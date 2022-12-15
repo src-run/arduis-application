@@ -20,11 +20,6 @@ void setup()
     pinMode(LED_BUILTIN, OUTPUT);
     digitalWrite(LED_BUILTIN, LOW);
 
-    if (!sanityCheckFuncPointers()) {
-        Serial.println("Invalid pattern func pointer lists!");
-        while(true) {}
-    }
-
     FastLED.delay(2000);
 
     ledStrandsRelay.turnOn();

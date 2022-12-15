@@ -18,92 +18,65 @@
 #include "Utilities.h"
 
 #define LED_PATTERN_STEP_DELAY 2000/LED_STRDS_FPS
-#define LED_PATTERN_TRAN_DELAY LED_PATTERN_STEP_DELAY/10
-#define LED_PATTERN_NEXT_DELAY 250
+#define LED_PATTERN_TRAN_DELAY 5
+#define LED_PATTERN_NEXT_DELAY 0
 
-bool sanityCheckFuncPointers();
-void incSelectedStep(int by = 1);
-void runSelectedStep(bool wait = true);
-bool runSelectedStepFadeOut();
-bool runSelectedStepFadeIn();
-void setBrightness(uint8_t level);
-void setBrightnessNone();
-void setBrightnessFull();
-void ledFadeOut(uint8_t increment = 1);
-void ledFadeIn();
-void runLedGenericInit();
-void  setLedSolidColor(uint8_t r = 150, uint8_t g = 150, uint8_t b = 150);
-float getLedSolidWhiteWait();
-void  runLedSolidWhiteStep();
-float getLedSolidGreenWait();
-void  runLedSolidGreenStep();
-float getLedSolidRedWait();
-void  runLedSolidRedStep();
-float getLedSolidBlueWait();
-void  runLedSolidBlueStep();
-float getLedSolidWhiteGlitterWait();
-void  runLedSolidWhiteGlitterStep();
-float getLedSolidGreenGlitterWait();
-void  runLedSolidGreenGlitterStep();
-float getLedSolidRedGlitterWait();
-void  runLedSolidRedGlitterStep();
-float getLedSolidBlueGlitterWait();
-void  runLedSolidBlueGlitterStep();
-float getLedRainbowWait();
-void  runLedRainbowStep();
-float getLedGlitterWait();
-void  runLedGlitterStep(fract8 chance = 80);
-float getLedRainbowWithGlitterWait();
-void  runLedRainbowWithGlitterStep();
-float getLedConfettiWait();
-void  runLedConfettiStep();
-float getLedSinelonWait();
-void  runLedSinelonStep();
-float getLedBpmWait();
-void  runLedBpmStep(CRGBPalette16 palette, uint8_t time = 8);
-float getLedBpmCloudColorsWait();
-void  runLedBpmCloudColorsStep();
-float getLedBpmLavaColorsWait();
-void  runLedBpmLavaColorsStep();
-float getLedBpmRainbowNormalColorsWait();
-void  runLedBpmRainbowNormalColorsStep();
-float getLedBpmRainbowStripeColorsWait();
-void  runLedBpmRainbowStripeColorsStep();
-float getLedBpmOceanColorsWait();
-void  runLedBpmOceanColorsStep();
-float getLedBpmForestColorsWait();
-void  runLedBpmForestColorsStep();
-float getLedBpmPartyColorsWait();
-void  runLedBpmPartyColorsStep();
-float getLedBpmHeatColorsWait();
-void  runLedBpmHeatColorsStep();
-float getLedJuggleWait();
-void  runLedJuggleStep(uint8_t fade = 20);
-float getLedJuggleFadeFastWait();
-void  runLedJuggleFadeFastStep();
-float getLedJuggleFadeNormWait();
-void  runLedJuggleFadeNormStep();
-float getLedJuggleFadeLongWait();
-void  runLedJuggleFadeLongStep();
+void  incSelectedStep(int by = 1);
+void  runSelectedStep(bool wait = true);
+bool  runSelectedStepFadeOut();
+bool  runSelectedStepFadeIn();
+void  setBrightness(uint8_t level);
+void  setBrightnessNone();
+void  setBrightnessFull();
+void  ledFadeOut(uint8_t increment = 1);
+void  ledFadeIn();
+void  runInitGeneric();
+float getWaitGeneric();
+float getWaitColoredStaticGeneric();
+void  runStepColoredStatic(uint8_t r = 150, uint8_t g = 150, uint8_t b = 150);
+void  runStepColoredStaticWithTwinkle(uint8_t r = 150, uint8_t g = 150, uint8_t b = 150);
+void  runStepColoredStaticWhite();
+void  runStepColoredStaticGreen();
+void  runStepColoredStaticRed();
+void  runStepColoredStaticBlue();
+void  runStepColoredStaticWhiteWithTwinkle();
+void  runStepColoredStaticGreenWithTwinkle();
+void  runStepColoredStaticRedWithTwinkle();
+void  runStepColoredStaticBlueWithTwinkle();
+void  runStepRainbowStatic();
+void  runStepRainbowStaticWithTwinkle();
+void  runStepRainbowNormal();
+void  runStepWithTwinkle(fract8 chance = 80);
+void  runStepRainbowNormalWithTwinkle();
+void  runStepBuilderNormal();
+void  runStepBuilderNormalWithTwinkle();
+void  runStepSinelonNormal();
+void  runStepSinelonNormalWithTwinkle();
+void  runStepSlidingBeat(CRGBPalette16 palette, uint8_t time = 8);
+void  runStepSlidingBeatCloud();
+void  runStepSlidingBeatLava();
+void  runStepRainbowSliderNormal();
+void  runStepRainbowSliderStripe();
+void  runStepSlidingBeatOcean();
+void  runStepSlidingBeatForest();
+void  runStepSlidingBeatParty();
+void  runStepSlidingBeatHeat();
+void  runStepJuggler(uint8_t fade = 20);
+void  runStepJugglerFadeFast();
+void  runStepJugglerFadeNorm();
+void  runStepJugglerFadeLong();
 
-//typedef struct {
-//    void (*init)();
-//    void (*call)();
-//    void (*wait)();
-//} ledChainListEntry;
+typedef struct {
+    String name;
+    void  (*call)();
+    void  (*init)();
+    float (*wait)();
+} ledChainListEntry;
 
-//extern ledChainListEntry ledChainList[100];
-
-typedef void (*ledChainInitFuncsList[])();
-typedef void (*ledChainCallFuncsList[])();
-typedef float (*ledChainWaitTimesList[])();
-
-extern ledChainInitFuncsList ledChainInitFuncs;
-extern ledChainCallFuncsList ledChainCallFuncs;
-extern ledChainWaitTimesList ledChainWaitTimes;
+extern ledChainListEntry ledChainList[];
 
 extern uint8_t ledChainCallRefIndex;
 extern uint8_t ledChainBaseColorHue;
-extern uint8_t ledBrightnessTracker;
+extern int8_t ledChainFadeLeveling;
 
 #endif

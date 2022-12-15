@@ -11,151 +11,106 @@
 #include "Patterns.h"
 #include "stdio.h"
 
-uint8_t ledBrightnessTracker = 0;
-
-ledChainWaitTimesList ledChainWaitTimes = {
-    getLedSolidWhiteWait,
-    getLedSolidWhiteGlitterWait,
-    getLedSolidGreenWait,
-    getLedSolidGreenGlitterWait,
-    getLedSolidRedWait,
-    getLedSolidRedGlitterWait,
-    getLedSolidBlueWait,
-    getLedSolidBlueGlitterWait,
-    getLedConfettiWait,
-    getLedRainbowWait,
-    getLedRainbowWithGlitterWait,
-    getLedBpmRainbowNormalColorsWait,
-    getLedBpmCloudColorsWait,
-    getLedBpmLavaColorsWait,
-    getLedBpmForestColorsWait,
-    getLedBpmOceanColorsWait,
-    getLedBpmPartyColorsWait,
-    getLedBpmHeatColorsWait,
-    getLedBpmRainbowStripeColorsWait,
-    getLedJuggleFadeFastWait,
-    getLedJuggleFadeNormWait,
-    getLedJuggleFadeLongWait,
-};
-
-ledChainInitFuncsList ledChainInitFuncs = {
-    runLedGenericInit,
-    runLedGenericInit,
-    runLedGenericInit,
-    runLedGenericInit,
-    runLedGenericInit,
-    runLedGenericInit,
-    runLedGenericInit,
-    runLedGenericInit,
-    runLedGenericInit,
-    runLedGenericInit,
-    runLedGenericInit,
-    runLedGenericInit,
-    runLedGenericInit,
-    runLedGenericInit,
-    runLedGenericInit,
-    runLedGenericInit,
-    runLedGenericInit,
-    runLedGenericInit,
-    runLedGenericInit,
-    runLedGenericInit,
-    runLedGenericInit,
-    runLedGenericInit,
-};
-
-ledChainCallFuncsList ledChainCallFuncs = {
-    runLedSolidWhiteStep,
-    runLedSolidWhiteGlitterStep,
-    runLedSolidGreenStep,
-    runLedSolidGreenGlitterStep,
-    runLedSolidRedStep,
-    runLedSolidRedGlitterStep,
-    runLedSolidBlueStep,
-    runLedSolidBlueGlitterStep,
-    runLedConfettiStep,
-    runLedRainbowStep,
-    runLedRainbowWithGlitterStep,
-    runLedBpmRainbowNormalColorsStep,
-    runLedBpmCloudColorsStep,
-    runLedBpmLavaColorsStep,
-    runLedBpmForestColorsStep,
-    runLedBpmOceanColorsStep,
-    runLedBpmPartyColorsStep,
-    runLedBpmHeatColorsStep,
-    runLedBpmRainbowStripeColorsStep,
-    runLedJuggleFadeFastStep,
-    runLedJuggleFadeNormStep,
-    runLedJuggleFadeLongStep,
+ledChainListEntry ledChainList[] = {
+    { "colored-static-white",         runStepColoredStaticWhite,            runInitGeneric, getWaitColoredStaticGeneric },
+    { "colored-static-white-twinkle", runStepColoredStaticWhiteWithTwinkle, runInitGeneric, getWaitGeneric              },
+    { "colored-static-green",         runStepColoredStaticGreen,            runInitGeneric, getWaitColoredStaticGeneric },
+    { "colored-static-green-twinkle", runStepColoredStaticGreenWithTwinkle, runInitGeneric, getWaitGeneric              },
+    { "colored-static-red",           runStepColoredStaticRed,              runInitGeneric, getWaitColoredStaticGeneric },
+    { "colored-static-red-twinkle",   runStepColoredStaticRedWithTwinkle,   runInitGeneric, getWaitGeneric              },
+    { "colored-static-blue",          runStepColoredStaticBlue,             runInitGeneric, getWaitColoredStaticGeneric },
+    { "colored-static-blue-twinkle",  runStepColoredStaticBlueWithTwinkle,  runInitGeneric, getWaitGeneric              },
+    { "rainbow-static",               runStepRainbowStatic,                 runInitGeneric, getWaitGeneric              },
+    { "rainbow-static-with-twinkle",  runStepRainbowStaticWithTwinkle,      runInitGeneric, getWaitGeneric              },
+    { "rainbow-normal",               runStepRainbowNormal,                 runInitGeneric, getWaitGeneric              },
+    { "rainbow-normal-with-twinkle",  runStepRainbowNormalWithTwinkle,      runInitGeneric, getWaitGeneric              },
+    { "rainbow-slider-normal",        runStepRainbowSliderNormal,           runInitGeneric, getWaitGeneric              },
+    { "rainbow-slider-stripe",        runStepRainbowSliderStripe,           runInitGeneric, getWaitGeneric              },
+    { "builder-normal",               runStepBuilderNormal,                 runInitGeneric, getWaitGeneric              },
+    { "builder-normal-with-twinkle",  runStepBuilderNormalWithTwinkle,      runInitGeneric, getWaitGeneric              },
+    { "sliding-beat-cloud",           runStepSlidingBeatCloud,              runInitGeneric, getWaitGeneric              },
+    { "sliding-beat-lava",            runStepSlidingBeatLava,               runInitGeneric, getWaitGeneric              },
+    { "sliding-beat-forest",          runStepSlidingBeatForest,             runInitGeneric, getWaitGeneric              },
+    { "sliding-beat-ocean",           runStepSlidingBeatOcean,              runInitGeneric, getWaitGeneric              },
+    { "sliding-beat-party",           runStepSlidingBeatParty,              runInitGeneric, getWaitGeneric              },
+    { "sliding-beat-heat",            runStepSlidingBeatHeat,               runInitGeneric, getWaitGeneric              },
+    { "juggler-fade-fast",            runStepJugglerFadeFast,               runInitGeneric, getWaitGeneric              },
+    { "juggler-fade-norm",            runStepJugglerFadeNorm,               runInitGeneric, getWaitGeneric              },
+    { "juggler-fade-long",            runStepJugglerFadeLong,               runInitGeneric, getWaitGeneric              },
+    { "sinelon-normal",               runStepSinelonNormal,                 runInitGeneric, getWaitGeneric              },
+    { "sinelon-normal-with-twinkle",  runStepSinelonNormalWithTwinkle,      runInitGeneric, getWaitGeneric              },
 };
 
 uint8_t ledChainCallRefIndex = 99;
 uint8_t ledChainBaseColorHue = 0;
-
-bool sanityCheckFuncPointers()
-{
-    if ((ARRAY_SIZE(ledChainCallFuncs)) != (ARRAY_SIZE(ledChainInitFuncs))) {
-        return false;
-    }
-
-    if ((ARRAY_SIZE(ledChainCallFuncs)) != (ARRAY_SIZE(ledChainWaitTimes))) {
-        return false;
-    }
-
-    return true;
-}
+int8_t ledChainFadeLeveling = 0;
 
 void incSelectedStep(int by)
 {
     if (ledChainCallRefIndex == 99) {
         ledChainCallRefIndex = 0;
     } else {
-        ledChainCallRefIndex = (ledChainCallRefIndex + 1) % ARRAY_SIZE(ledChainCallFuncs);
+        ledChainCallRefIndex = (ledChainCallRefIndex + 1) % ARRAY_SIZE(ledChainList);
     }
 
-    ledChainInitFuncs[ledChainCallRefIndex]();
+    ledChainList[ledChainCallRefIndex].init();
 
-    char str[100];
-    sprintf(str, "Selecting pattern index %d of %d.", ledChainCallRefIndex + 1, ARRAY_SIZE(ledChainCallFuncs));
-    Serial.println(str);
+    char buffer[100];
+    sprintf(
+        buffer,
+        "Selected pattern %02d of %02d: \"%s\"",
+        ledChainCallRefIndex + 1,
+        ARRAY_SIZE(ledChainList),
+        ledChainList[ledChainCallRefIndex].name.c_str()
+    );
+    Serial.println(buffer);
 }
 
 void runSelectedStep(bool wait)
 {
-    ledChainCallFuncs[ledChainCallRefIndex]();
+    ledChainList[ledChainCallRefIndex].call();
 
     FastLED.show();
 
     if (wait) {
-        FastLED.delay(ledChainWaitTimes[ledChainCallRefIndex]());
+        FastLED.delay(ledChainList[ledChainCallRefIndex].wait());
     }
 }
 
 bool runSelectedStepFadeOut()
 {
-    if (ledBrightnessTracker > 0) {
-        ledBrightnessTracker--;
+    if (ledChainFadeLeveling > 0) {
+        ledChainFadeLeveling = ledChainFadeLeveling - 1;
     }
 
-    setBrightness(ledBrightnessTracker);
+    if (ledChainFadeLeveling < 0) {
+        ledChainFadeLeveling = 0;
+    }
+
+    setBrightness(ledChainFadeLeveling);
     FastLED.delay(LED_PATTERN_TRAN_DELAY);
 
-    if (ledBrightnessTracker == 0) {
+    if (ledChainFadeLeveling == 0) {
         FastLED.delay(LED_PATTERN_NEXT_DELAY);
     }
 
-    return ledBrightnessTracker > 0;
+    return ledChainFadeLeveling > 0;
 }
 
 bool runSelectedStepFadeIn()
 {
-    if (ledBrightnessTracker < LED_STRDS_BRT) {
-        ledBrightnessTracker++;
+    if (ledChainFadeLeveling < LED_STRDS_BRT) {
+        ledChainFadeLeveling = ledChainFadeLeveling + 1;
     }
 
-    setBrightness(ledBrightnessTracker);
+    if (ledChainFadeLeveling > LED_STRDS_BRT) {
+        ledChainFadeLeveling = LED_STRDS_BRT;
+    }
+
+    setBrightness(ledChainFadeLeveling);
     FastLED.delay(LED_PATTERN_TRAN_DELAY);
 
-    return ledBrightnessTracker < LED_STRDS_BRT;
+    return ledChainFadeLeveling < LED_STRDS_BRT;
 }
 
 void setBrightness(uint8_t level)
@@ -197,136 +152,96 @@ void ledFadeIn()
     FastLED.delay(LED_PATTERN_STEP_DELAY * 2);
 }
 
-void runLedGenericInit()
+float getWaitGeneric() {
+    return LED_PATTERN_STEP_DELAY;
+}
+
+void runInitGeneric()
 {
     fill_solid(ledStrandColors, LED_STRDS_LEN, CRGB(0, 0, 0));
     FastLED.show();
 }
 
-void setLedSolidColor(uint8_t r, uint8_t g, uint8_t b)
+void runStepColoredStatic(uint8_t r, uint8_t g, uint8_t b)
 {
     fill_solid(ledStrandColors, LED_STRDS_LEN, CRGB(r, g, b));
 }
 
-void setLedSolidColorGlitter(uint8_t r, uint8_t g, uint8_t b)
+void runStepColoredStaticWithTwinkle(uint8_t r, uint8_t g, uint8_t b)
 {
-    setLedSolidColor(r, g, b);
-    runLedGlitterStep(100);
+    runStepColoredStatic(r, g, b);
+    runStepWithTwinkle(50);
 }
 
-float getLedSolidWhiteWait()
-{
-	return LED_PATTERN_STEP_DELAY * 10;
-}
-
-void runLedSolidWhiteStep() {
-    setLedSolidColor(120, 120, 120);
-}
-
-float getLedSolidGreenWait()
+float getWaitColoredStaticGeneric()
 {
 	return LED_PATTERN_STEP_DELAY * 10;
 }
 
-void runLedSolidGreenStep() {
-    setLedSolidColor(0, 255, 0);
+void runStepColoredStaticWhite() {
+    runStepColoredStatic(120, 120, 120);
 }
 
-float getLedSolidRedWait()
+void runStepColoredStaticGreen() {
+    runStepColoredStatic(0, 255, 0);
+}
+
+void runStepColoredStaticRed() {
+    runStepColoredStatic(255, 0, 0);
+}
+
+void runStepColoredStaticBlue() {
+    runStepColoredStatic(0, 0, 255);
+}
+
+void runStepColoredStaticWhiteWithTwinkle() {
+    runStepColoredStaticWithTwinkle(120, 120, 120);
+}
+
+void runStepColoredStaticGreenWithTwinkle() {
+    runStepColoredStaticWithTwinkle(0, 255, 0);
+}
+
+void runStepColoredStaticRedWithTwinkle() {
+    runStepColoredStaticWithTwinkle(255, 0, 0);
+}
+
+void runStepColoredStaticBlueWithTwinkle() {
+    runStepColoredStaticWithTwinkle(0, 0, 255);
+}
+
+void runStepRainbowStatic()
 {
-	return LED_PATTERN_STEP_DELAY * 10;
+    fill_rainbow(ledStrandColors, LED_STRDS_LEN, 1, 7);
 }
 
-void runLedSolidRedStep() {
-    setLedSolidColor(255, 0, 0);
-}
-
-float getLedSolidBlueWait()
+void runStepRainbowStaticWithTwinkle()
 {
-	return LED_PATTERN_STEP_DELAY * 10;
+    fill_rainbow(ledStrandColors, LED_STRDS_LEN, 1, 7);
+    runStepWithTwinkle(50);
 }
 
-void runLedSolidBlueStep() {
-    setLedSolidColor(0, 0, 255);
-}
-
-float getLedSolidWhiteGlitterWait()
-{
-	return LED_PATTERN_STEP_DELAY;
-}
-
-void runLedSolidWhiteGlitterStep() {
-    setLedSolidColorGlitter(120, 120, 120);
-}
-
-float getLedSolidGreenGlitterWait()
-{
-	return LED_PATTERN_STEP_DELAY;
-}
-
-void runLedSolidGreenGlitterStep() {
-    setLedSolidColorGlitter(0, 255, 0);
-}
-
-float getLedSolidRedGlitterWait()
-{
-	return LED_PATTERN_STEP_DELAY;
-}
-
-void runLedSolidRedGlitterStep() {
-    setLedSolidColorGlitter(255, 0, 0);
-}
-
-float getLedSolidBlueGlitterWait()
-{
-	return LED_PATTERN_STEP_DELAY;
-}
-
-void runLedSolidBlueGlitterStep() {
-    setLedSolidColorGlitter(0, 0, 255);
-}
-
-float getLedRainbowWait()
-{
-	return LED_PATTERN_STEP_DELAY;
-}
-
-void runLedRainbowStep()
+void runStepRainbowNormal()
 {
     fill_rainbow(ledStrandColors, LED_STRDS_LEN, ledChainBaseColorHue, 7);
 }
 
-float getLedRainbowWithGlitterWait()
+void runStepRainbowNormalWithTwinkle()
 {
-	return LED_PATTERN_STEP_DELAY;
+    runStepRainbowNormal();
+    runStepWithTwinkle(50);
 }
 
-void runLedRainbowWithGlitterStep()
+void runStepWithTwinkle(fract8 chance)
 {
-    runLedRainbowStep();
-    runLedGlitterStep(100);
-}
-
-float getLedGlitterWait()
-{
-	return LED_PATTERN_STEP_DELAY;
-}
-
-void runLedGlitterStep(fract8 chance)
-{
-    if(random8() < chance) {
-        ledStrandColors[random16(LED_STRDS_LEN)] += CRGB::White;
-        ledStrandColors[random16(LED_STRDS_LEN)] += CRGB::White;
-        ledStrandColors[random16(LED_STRDS_LEN)] += CRGB::White;
+    for (uint8_t i = 0; i < 24; i++) {
+        if(random8() < chance) {
+            ledStrandColors[random16(LED_STRDS_LEN)] += CRGB::WhiteSmoke;
+        }
     }
 }
 
-float getLedConfettiWait()
-{
-	return LED_PATTERN_STEP_DELAY;
-}
-
-void runLedConfettiStep()
+void runStepBuilderNormal()
 {
     int pos = random16(LED_STRDS_LEN);
 
@@ -334,25 +249,27 @@ void runLedConfettiStep()
     ledStrandColors[pos] += CHSV(ledChainBaseColorHue + random8(64), 200, 255);
 }
 
-float getLedSinelonWait()
+void runStepBuilderNormalWithTwinkle()
 {
-	return LED_PATTERN_STEP_DELAY;
+    runStepBuilderNormal();
+    runStepWithTwinkle(50);
 }
 
-void runLedSinelonStep()
+void runStepSinelonNormal()
 {
     int p = beatsin16(13, 0, LED_STRDS_LEN - 1);
 
-    fadeToBlackBy(ledStrandColors, LED_STRDS_LEN, 2);
+    fadeToBlackBy(ledStrandColors, LED_STRDS_LEN, 0);
     ledStrandColors[p] += CHSV(ledChainBaseColorHue, 255, 192);
 }
 
-float getLedBpmWait()
+void runStepSinelonNormalWithTwinkle()
 {
-	return LED_PATTERN_STEP_DELAY;
+    runStepSinelonNormal();
+    runStepWithTwinkle(50);
 }
 
-void runLedBpmStep(CRGBPalette16 palette, uint8_t time)
+void runStepSlidingBeat(CRGBPalette16 palette, uint8_t time)
 {
     uint8_t b = beatsin8(time, 64, 180);
 
@@ -361,92 +278,47 @@ void runLedBpmStep(CRGBPalette16 palette, uint8_t time)
     }
 }
 
-float getLedBpmCloudColorsWait()
+void runStepSlidingBeatCloud()
 {
-	return LED_PATTERN_STEP_DELAY;
+    runStepSlidingBeat(CloudColors_p);
 }
 
-void runLedBpmCloudColorsStep()
+void runStepSlidingBeatLava()
 {
-    runLedBpmStep(CloudColors_p);
+    runStepSlidingBeat(LavaColors_p);
 }
 
-float getLedBpmLavaColorsWait()
+void runStepRainbowSliderNormal()
 {
-	return LED_PATTERN_STEP_DELAY;
+    runStepSlidingBeat(RainbowColors_p);
 }
 
-void runLedBpmLavaColorsStep()
+void runStepRainbowSliderStripe()
 {
-    runLedBpmStep(LavaColors_p);
+    runStepSlidingBeat(RainbowStripeColors_p);
 }
 
-float getLedBpmRainbowNormalColorsWait()
+void runStepSlidingBeatOcean()
 {
-	return LED_PATTERN_STEP_DELAY;
+    runStepSlidingBeat(OceanColors_p);
 }
 
-void runLedBpmRainbowNormalColorsStep()
+void runStepSlidingBeatForest()
 {
-    runLedBpmStep(RainbowColors_p);
+    runStepSlidingBeat(ForestColors_p);
 }
 
-float getLedBpmRainbowStripeColorsWait()
+void runStepSlidingBeatParty()
 {
-	return LED_PATTERN_STEP_DELAY;
+    runStepSlidingBeat(PartyColors_p);
 }
 
-void runLedBpmRainbowStripeColorsStep()
+void runStepSlidingBeatHeat()
 {
-    runLedBpmStep(RainbowStripeColors_p);
+    runStepSlidingBeat(HeatColors_p);
 }
 
-float getLedBpmOceanColorsWait()
-{
-	return LED_PATTERN_STEP_DELAY;
-}
-
-void runLedBpmOceanColorsStep()
-{
-    runLedBpmStep(OceanColors_p);
-}
-
-float getLedBpmForestColorsWait()
-{
-	return LED_PATTERN_STEP_DELAY;
-}
-
-void runLedBpmForestColorsStep()
-{
-    runLedBpmStep(ForestColors_p);
-}
-
-float getLedBpmPartyColorsWait()
-{
-	return LED_PATTERN_STEP_DELAY;
-}
-
-void runLedBpmPartyColorsStep()
-{
-    runLedBpmStep(PartyColors_p);
-}
-
-float getLedBpmHeatColorsWait()
-{
-	return LED_PATTERN_STEP_DELAY;
-}
-
-void runLedBpmHeatColorsStep()
-{
-    runLedBpmStep(HeatColors_p);
-}
-
-float getLedJuggleWait()
-{
-	return LED_PATTERN_STEP_DELAY;
-}
-
-void runLedJuggleStep(uint8_t fade) {
+void runStepJuggler(uint8_t fade) {
     byte dothue = 0;
 
     fadeToBlackBy(ledStrandColors, LED_STRDS_LEN, fade);
@@ -457,32 +329,17 @@ void runLedJuggleStep(uint8_t fade) {
     }
 }
 
-float getLedJuggleFadeFastWait()
+void runStepJugglerFadeFast()
 {
-	return LED_PATTERN_STEP_DELAY;
+    runStepJuggler(80);
 }
 
-void runLedJuggleFadeFastStep()
+void runStepJugglerFadeNorm()
 {
-    runLedJuggleStep(80);
+    runStepJuggler(40);
 }
 
-float getLedJuggleFadeNormWait()
+void runStepJugglerFadeLong()
 {
-	return LED_PATTERN_STEP_DELAY;
-}
-
-void runLedJuggleFadeNormStep()
-{
-    runLedJuggleStep(40);
-}
-
-float getLedJuggleFadeLongWait()
-{
-	return LED_PATTERN_STEP_DELAY;
-}
-
-void runLedJuggleFadeLongStep()
-{
-    runLedJuggleStep(10);
+    runStepJuggler(10);
 }
