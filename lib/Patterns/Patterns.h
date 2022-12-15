@@ -17,10 +17,13 @@
 #include "Strands.h"
 #include "Utilities.h"
 
-#define LED_PATTERN_DELAY 100/LED_STRDS_FPS
+#define LED_PATTERN_STEP_DELAY 2000/LED_STRDS_FPS
+#define LED_PATTERN_TRAN_DELAY LED_PATTERN_STEP_DELAY/10
+#define LED_PATTERN_NEXT_DELAY 250
 
+bool sanityCheckFuncPointers();
 void incSelectedStep(int by = 1);
-void runSelectedStep();
+void runSelectedStep(bool wait = true);
 bool runSelectedStepFadeOut();
 bool runSelectedStepFadeIn();
 void setBrightness(uint8_t level);
@@ -30,12 +33,22 @@ void ledFadeOut(uint8_t increment = 1);
 void ledFadeIn();
 void runLedGenericInit();
 void  setLedSolidColor(uint8_t r = 150, uint8_t g = 150, uint8_t b = 150);
+float getLedSolidWhiteWait();
+void  runLedSolidWhiteStep();
 float getLedSolidGreenWait();
 void  runLedSolidGreenStep();
 float getLedSolidRedWait();
 void  runLedSolidRedStep();
 float getLedSolidBlueWait();
 void  runLedSolidBlueStep();
+float getLedSolidWhiteGlitterWait();
+void  runLedSolidWhiteGlitterStep();
+float getLedSolidGreenGlitterWait();
+void  runLedSolidGreenGlitterStep();
+float getLedSolidRedGlitterWait();
+void  runLedSolidRedGlitterStep();
+float getLedSolidBlueGlitterWait();
+void  runLedSolidBlueGlitterStep();
 float getLedRainbowWait();
 void  runLedRainbowStep();
 float getLedGlitterWait();
@@ -91,5 +104,6 @@ extern ledChainWaitTimesList ledChainWaitTimes;
 
 extern uint8_t ledChainCallRefIndex;
 extern uint8_t ledChainBaseColorHue;
+extern uint8_t ledBrightnessTracker;
 
 #endif

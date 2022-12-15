@@ -21,6 +21,6 @@
 #include "Relays.h"
 #include "Utilities.h"
 
-#define POWER_DEBUG_PRINT 1
+void cycle();
 
 #endif

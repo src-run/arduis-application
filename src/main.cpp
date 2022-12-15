@@ -20,6 +20,11 @@ void setup()
     pinMode(LED_BUILTIN, OUTPUT);
     digitalWrite(LED_BUILTIN, LOW);
 
+    if (!sanityCheckFuncPointers()) {
+        Serial.println("Invalid pattern func pointer lists!");
+        while(true) {}
+    }
+
     FastLED.delay(2000);
 
     ledStrandsRelay.turnOn();
@@ -31,9 +36,7 @@ void setup()
 
     FastLED.delay(2000);
 
-    incSelectedStep();
-    runSelectedStep();
-    ledFadeIn();
+    cycle();
 }
 
 void loop()
@@ -45,9 +48,20 @@ void loop()
     }
 
     EVERY_N_MILLISECONDS(LED_STRDS_SEC_CYCLE) {
-        ledFadeOut();
-        incSelectedStep();
-        runSelectedStep();
-        ledFadeIn();
+        cycle();
+    }
+}
+
+void cycle()
+{
+    while(runSelectedStepFadeOut()) {
+        runSelectedStep(false);
+    }
+
+    incSelectedStep();
+    runSelectedStep();
+
+    while(runSelectedStepFadeIn()) {
+        runSelectedStep(false);
     }
 }
