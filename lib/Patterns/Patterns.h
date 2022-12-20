@@ -18,9 +18,11 @@
 #include "Utilities.h"
 
 #define LED_PATTERN_STEP_DELAY 2000/LED_STRDS_FPS
-#define LED_PATTERN_TRAN_DELAY 5
+#define LED_PATTERN_TRAN_DELAY LED_PATTERN_STEP_DELAY
 #define LED_PATTERN_NEXT_DELAY 0
 
+uint16_t rgbMin(uint16_t val, uint16_t min = 0);
+uint16_t rgbMax(uint16_t val, uint16_t max = 255);
 void  incSelectedStep(int by = 1);
 void  runSelectedStep(bool wait = true);
 bool  runSelectedStepFadeOut();
@@ -43,6 +45,13 @@ void  runStepColoredStaticWhiteWithTwinkle();
 void  runStepColoredStaticGreenWithTwinkle();
 void  runStepColoredStaticRedWithTwinkle();
 void  runStepColoredStaticBlueWithTwinkle();
+float getWaitColoredStaticGenericBuilder();
+void  runStepColoredStaticBuilder(uint8_t r, uint8_t g, uint8_t b, uint8_t d = 25);
+void  runStepColoredStaticWithTwinkleBuilder(uint8_t r, uint8_t g, uint8_t b, uint8_t d = 25);
+void  runStepColoredStaticWhiteBuilder();
+void  runStepColoredStaticGreenBuilder();
+void  runStepColoredStaticRedBuilder();
+void  runStepColoredStaticBlueBuilder();
 void  runStepRainbowStatic();
 void  runStepRainbowStaticWithTwinkle();
 void  runStepRainbowNormal();
@@ -77,6 +86,6 @@ extern ledChainListEntry ledChainList[];
 
 extern uint8_t ledChainCallRefIndex;
 extern uint8_t ledChainBaseColorHue;
-extern int8_t ledChainFadeLeveling;
+extern int8_t  ledChainFadeLeveling;
 
 #endif

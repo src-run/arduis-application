@@ -12,33 +12,37 @@
 #include "stdio.h"
 
 ledChainListEntry ledChainList[] = {
-    { "colored-static-white",         runStepColoredStaticWhite,            runInitGeneric, getWaitColoredStaticGeneric },
-    { "colored-static-white-twinkle", runStepColoredStaticWhiteWithTwinkle, runInitGeneric, getWaitGeneric              },
-    { "colored-static-green",         runStepColoredStaticGreen,            runInitGeneric, getWaitColoredStaticGeneric },
-    { "colored-static-green-twinkle", runStepColoredStaticGreenWithTwinkle, runInitGeneric, getWaitGeneric              },
-    { "colored-static-red",           runStepColoredStaticRed,              runInitGeneric, getWaitColoredStaticGeneric },
-    { "colored-static-red-twinkle",   runStepColoredStaticRedWithTwinkle,   runInitGeneric, getWaitGeneric              },
-    { "colored-static-blue",          runStepColoredStaticBlue,             runInitGeneric, getWaitColoredStaticGeneric },
-    { "colored-static-blue-twinkle",  runStepColoredStaticBlueWithTwinkle,  runInitGeneric, getWaitGeneric              },
-    { "rainbow-static",               runStepRainbowStatic,                 runInitGeneric, getWaitGeneric              },
-    { "rainbow-static-with-twinkle",  runStepRainbowStaticWithTwinkle,      runInitGeneric, getWaitGeneric              },
-    { "rainbow-normal",               runStepRainbowNormal,                 runInitGeneric, getWaitGeneric              },
-    { "rainbow-normal-with-twinkle",  runStepRainbowNormalWithTwinkle,      runInitGeneric, getWaitGeneric              },
-    { "rainbow-slider-normal",        runStepRainbowSliderNormal,           runInitGeneric, getWaitGeneric              },
-    { "rainbow-slider-stripe",        runStepRainbowSliderStripe,           runInitGeneric, getWaitGeneric              },
-    { "builder-normal",               runStepBuilderNormal,                 runInitGeneric, getWaitGeneric              },
-    { "builder-normal-with-twinkle",  runStepBuilderNormalWithTwinkle,      runInitGeneric, getWaitGeneric              },
-    { "sliding-beat-cloud",           runStepSlidingBeatCloud,              runInitGeneric, getWaitGeneric              },
-    { "sliding-beat-lava",            runStepSlidingBeatLava,               runInitGeneric, getWaitGeneric              },
-    { "sliding-beat-forest",          runStepSlidingBeatForest,             runInitGeneric, getWaitGeneric              },
-    { "sliding-beat-ocean",           runStepSlidingBeatOcean,              runInitGeneric, getWaitGeneric              },
-    { "sliding-beat-party",           runStepSlidingBeatParty,              runInitGeneric, getWaitGeneric              },
-    { "sliding-beat-heat",            runStepSlidingBeatHeat,               runInitGeneric, getWaitGeneric              },
-    { "juggler-fade-fast",            runStepJugglerFadeFast,               runInitGeneric, getWaitGeneric              },
-    { "juggler-fade-norm",            runStepJugglerFadeNorm,               runInitGeneric, getWaitGeneric              },
-    { "juggler-fade-long",            runStepJugglerFadeLong,               runInitGeneric, getWaitGeneric              },
-    { "sinelon-normal",               runStepSinelonNormal,                 runInitGeneric, getWaitGeneric              },
-    { "sinelon-normal-with-twinkle",  runStepSinelonNormalWithTwinkle,      runInitGeneric, getWaitGeneric              },
+    { "colored-static-white",         runStepColoredStaticWhite,            runInitGeneric, getWaitColoredStaticGeneric        },
+    { "colored-static-white-twinkle", runStepColoredStaticWhiteWithTwinkle, runInitGeneric, getWaitGeneric                     },
+    { "colored-static-white-builder", runStepColoredStaticWhiteBuilder,     runInitGeneric, getWaitColoredStaticGenericBuilder },
+    { "colored-static-green",         runStepColoredStaticGreen,            runInitGeneric, getWaitColoredStaticGeneric        },
+    { "colored-static-green-twinkle", runStepColoredStaticGreenWithTwinkle, runInitGeneric, getWaitGeneric                     },
+    { "colored-static-green-builder", runStepColoredStaticGreenBuilder,     runInitGeneric, getWaitColoredStaticGenericBuilder },
+    { "colored-static-red",           runStepColoredStaticRed,              runInitGeneric, getWaitColoredStaticGeneric        },
+    { "colored-static-red-twinkle",   runStepColoredStaticRedWithTwinkle,   runInitGeneric, getWaitGeneric                     },
+    { "colored-static-red-builder",   runStepColoredStaticRedBuilder,       runInitGeneric, getWaitColoredStaticGenericBuilder },
+    { "colored-static-blue",          runStepColoredStaticBlue,             runInitGeneric, getWaitColoredStaticGeneric        },
+    { "colored-static-blue-twinkle",  runStepColoredStaticBlueWithTwinkle,  runInitGeneric, getWaitGeneric                     },
+    { "colored-static-blue-builder",  runStepColoredStaticBlueBuilder,      runInitGeneric, getWaitColoredStaticGenericBuilder },
+    { "rainbow-static",               runStepRainbowStatic,                 runInitGeneric, getWaitGeneric                     },
+    { "rainbow-static-with-twinkle",  runStepRainbowStaticWithTwinkle,      runInitGeneric, getWaitGeneric                     },
+    { "rainbow-normal",               runStepRainbowNormal,                 runInitGeneric, getWaitGeneric                     },
+    { "rainbow-normal-with-twinkle",  runStepRainbowNormalWithTwinkle,      runInitGeneric, getWaitGeneric                     },
+    { "rainbow-slider-normal",        runStepRainbowSliderNormal,           runInitGeneric, getWaitGeneric                     },
+    { "rainbow-slider-stripe",        runStepRainbowSliderStripe,           runInitGeneric, getWaitGeneric                     },
+    { "builder-normal",               runStepBuilderNormal,                 runInitGeneric, getWaitGeneric                     },
+    { "builder-normal-with-twinkle",  runStepBuilderNormalWithTwinkle,      runInitGeneric, getWaitGeneric                     },
+    { "sliding-beat-cloud",           runStepSlidingBeatCloud,              runInitGeneric, getWaitGeneric                     },
+    { "sliding-beat-lava",            runStepSlidingBeatLava,               runInitGeneric, getWaitGeneric                     },
+    { "sliding-beat-forest",          runStepSlidingBeatForest,             runInitGeneric, getWaitGeneric                     },
+    { "sliding-beat-ocean",           runStepSlidingBeatOcean,              runInitGeneric, getWaitGeneric                     },
+    { "sliding-beat-party",           runStepSlidingBeatParty,              runInitGeneric, getWaitGeneric                     },
+    { "sliding-beat-heat",            runStepSlidingBeatHeat,               runInitGeneric, getWaitGeneric                     },
+    { "juggler-fade-fast",            runStepJugglerFadeFast,               runInitGeneric, getWaitGeneric                     },
+    { "juggler-fade-norm",            runStepJugglerFadeNorm,               runInitGeneric, getWaitGeneric                     },
+    { "juggler-fade-long",            runStepJugglerFadeLong,               runInitGeneric, getWaitGeneric                     },
+    { "sinelon-normal",               runStepSinelonNormal,                 runInitGeneric, getWaitGeneric                     },
+    { "sinelon-normal-with-twinkle",  runStepSinelonNormalWithTwinkle,      runInitGeneric, getWaitGeneric                     },
 };
 
 uint8_t ledChainCallRefIndex = 99;
@@ -162,6 +166,54 @@ void runInitGeneric()
     FastLED.show();
 }
 
+uint16_t rgbMin(uint16_t val, uint16_t min) {
+    return val >= min ? val : min;
+}
+
+uint16_t rgbMax(uint16_t val, uint16_t max) {
+    return val <= max ? val : max;
+}
+
+void runStepColoredStaticBuilder(uint8_t r, uint8_t g, uint8_t b, uint8_t d)
+{
+    fadeToBlackBy(ledStrandColors, LED_STRDS_LEN, 3);
+
+    for (uint8_t i = 0; i < LED_STRDS_LEN/25; i++) {
+        ledStrandColors[random16(LED_STRDS_LEN)] = CRGB(
+            r == 0 ? random8(0, rgbMax(d * 4)) : random8(rgbMin(r - d), rgbMax(r + d)),
+            g == 0 ? random8(0, rgbMax(d * 4)) : random8(rgbMin(g - d), rgbMax(g + d)),
+            b == 0 ? random8(0, rgbMax(d * 4)) : random8(rgbMin(b - d), rgbMax(b + d))
+        );
+    }
+}
+
+void runStepColoredStaticWithTwinkleBuilder(uint8_t r, uint8_t g, uint8_t b, uint8_t d)
+{
+    runStepColoredStaticBuilder(r, g, b, d);
+    runStepWithTwinkle(50);
+}
+
+float getWaitColoredStaticGenericBuilder()
+{
+	return LED_PATTERN_STEP_DELAY * 10;
+}
+
+void runStepColoredStaticWhiteBuilder() {
+    runStepColoredStaticBuilder(120, 120, 120);
+}
+
+void runStepColoredStaticGreenBuilder() {
+    runStepColoredStaticBuilder(0, 255, 0);
+}
+
+void runStepColoredStaticRedBuilder() {
+    runStepColoredStaticBuilder(255, 0, 0);
+}
+
+void runStepColoredStaticBlueBuilder() {
+    runStepColoredStaticBuilder(0, 0, 255);
+}
+
 void runStepColoredStatic(uint8_t r, uint8_t g, uint8_t b)
 {
     fill_solid(ledStrandColors, LED_STRDS_LEN, CRGB(r, g, b));
@@ -234,7 +286,7 @@ void runStepRainbowNormalWithTwinkle()
 
 void runStepWithTwinkle(fract8 chance)
 {
-    for (uint8_t i = 0; i < 24; i++) {
+    for (uint8_t i = 0; i < 5; i++) {
         if(random8() < chance) {
             ledStrandColors[random16(LED_STRDS_LEN)] += CRGB::WhiteSmoke;
         }
@@ -245,7 +297,7 @@ void runStepBuilderNormal()
 {
     int pos = random16(LED_STRDS_LEN);
 
-    fadeToBlackBy(ledStrandColors, LED_STRDS_LEN, 0);
+    fadeToBlackBy(ledStrandColors, LED_STRDS_LEN, 1);
     ledStrandColors[pos] += CHSV(ledChainBaseColorHue + random8(64), 200, 255);
 }
 
@@ -259,7 +311,7 @@ void runStepSinelonNormal()
 {
     int p = beatsin16(13, 0, LED_STRDS_LEN - 1);
 
-    fadeToBlackBy(ledStrandColors, LED_STRDS_LEN, 0);
+    fadeToBlackBy(ledStrandColors, LED_STRDS_LEN, 1);
     ledStrandColors[p] += CHSV(ledChainBaseColorHue, 255, 192);
 }
 
