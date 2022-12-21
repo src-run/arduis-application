@@ -14,17 +14,21 @@
 #include <Arduino.h>
 #include <FastLED.h>
 
-#define LED_STRDS_LEN 250
-#define LED_STRDS_PIN 6
-#define LED_STRDS_BRT 60
-#define LED_STRDS_CTL WS2812B
-#define LED_STRDS_ORD RGB
-#define LED_STRDS_FPS 240
-#define LED_STRDS_SEC_CYCLE 180000
-#define LED_STRDS_SEC_COLOR 20
-#define LED_POWER_MAX_V 5
-#define LED_POWER_MAX_MA 60000
+#define LED_GRP_LEN       50
+#define LED_GRP_NUM       5
 
-extern CRGB ledStrandColors[LED_STRDS_LEN];
+#define LED_STR_NUM       LED_GRP_LEN * LED_GRP_NUM
+#define LED_STR_PIN       6
+#define LED_STR_BRT       60
+#define LED_STR_CTL       WS2812B
+#define LED_STR_ORD       RGB
+#define LED_STR_FPS       240
+#define LED_STR_SEC_CYCLE 20000
+#define LED_STR_SEC_COLOR 20
+
+#define LED_PWR_MAX_VOLTS 5
+#define LED_PWR_MAX_MAMPS 60000
+
+extern CRGB ledStrandColors[LED_STR_NUM];
 
 #endif

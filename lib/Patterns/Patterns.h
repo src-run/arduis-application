@@ -17,72 +17,100 @@
 #include "Strands.h"
 #include "Utilities.h"
 
-#define LED_PATTERN_STEP_DELAY 2000/LED_STRDS_FPS
-#define LED_PATTERN_TRAN_DELAY LED_PATTERN_STEP_DELAY
-#define LED_PATTERN_NEXT_DELAY 0
+#define LED_PATTERN_STEP_DELAY 3000/LED_STR_FPS
+#define LED_PATTERN_FADE_DELAY LED_PATTERN_STEP_DELAY
 
-uint16_t rgbMin(uint16_t val, uint16_t min = 0);
-uint16_t rgbMax(uint16_t val, uint16_t max = 255);
-void  incSelectedStep(int by = 1);
-void  runSelectedStep(bool wait = true);
-bool  runSelectedStepFadeOut();
-bool  runSelectedStepFadeIn();
-void  setBrightness(uint8_t level);
+uint8_t minint8(int16_t i);
+uint8_t maxint8(int16_t i);
+uint8_t useint8(int16_t i);
+
+void  setBrightness(int16_t level);
 void  setBrightnessNone();
 void  setBrightnessFull();
-void  ledFadeOut(uint8_t increment = 1);
-void  ledFadeIn();
+void  setHoldColoursActive();
+
+void  incSelectedStep(int by = 1);
+void  runSelectedStep();
+bool  runSelectedStepFadeInit();
+bool  runSelectedStepFadeEnds();
+
+void  runStepTwinkle(uint8_t level = 180, fract8 chance = 50, uint8_t iterations = 8);
 void  runInitGeneric();
-float getWaitGeneric();
-float getWaitColoredStaticGeneric();
+void  runInitColoredStatic(uint8_t r, uint8_t g, uint8_t b);
+void  runInitColoredStaticW();
+void  runInitColoredStaticR();
+void  runInitColoredStaticG();
+void  runInitColoredStaticB();
+
+void  runStepHoldingColors();
+
 void  runStepColoredStatic(uint8_t r = 150, uint8_t g = 150, uint8_t b = 150);
-void  runStepColoredStaticWithTwinkle(uint8_t r = 150, uint8_t g = 150, uint8_t b = 150);
-void  runStepColoredStaticWhite();
-void  runStepColoredStaticGreen();
-void  runStepColoredStaticRed();
-void  runStepColoredStaticBlue();
-void  runStepColoredStaticWhiteWithTwinkle();
-void  runStepColoredStaticGreenWithTwinkle();
-void  runStepColoredStaticRedWithTwinkle();
-void  runStepColoredStaticBlueWithTwinkle();
-float getWaitColoredStaticGenericBuilder();
-void  runStepColoredStaticBuilder(uint8_t r, uint8_t g, uint8_t b, uint8_t d = 25);
-void  runStepColoredStaticWithTwinkleBuilder(uint8_t r, uint8_t g, uint8_t b, uint8_t d = 25);
-void  runStepColoredStaticWhiteBuilder();
-void  runStepColoredStaticGreenBuilder();
-void  runStepColoredStaticRedBuilder();
-void  runStepColoredStaticBlueBuilder();
+void  runStepColoredStaticW();
+void  runStepColoredStaticR();
+void  runStepColoredStaticG();
+void  runStepColoredStaticB();
+void  runStepColoredStaticWTwinkle();
+void  runStepColoredStaticRTwinkle();
+void  runStepColoredStaticGTwinkle();
+void  runStepColoredStaticBTwinkle();
+
+void  runStepColoredBuilds(uint8_t r, uint8_t g, uint8_t b, uint8_t d = 25);
+void  runStepColoredBuildsW();
+void  runStepColoredBuildsR();
+void  runStepColoredBuildsG();
+void  runStepColoredBuildsB();
+void  runStepColoredBuildsWTwinkle();
+void  runStepColoredBuildsRTwinkle();
+void  runStepColoredBuildsGTwinkle();
+void  runStepColoredBuildsBTwinkle();
+
+void  runInitColoredVaried(uint8_t r, uint8_t g, uint8_t b, uint8_t d = 100);
+void  runInitColoredVariedW();
+void  runInitColoredVariedR();
+void  runInitColoredVariedG();
+void  runInitColoredVariedB();
+void  runStepColoredVariedWTwinkle();
+void  runStepColoredVariedRTwinkle();
+void  runStepColoredVariedGTwinkle();
+void  runStepColoredVariedBTwinkle();
+
 void  runStepRainbowStatic();
-void  runStepRainbowStaticWithTwinkle();
+void  runStepRainbowStaticTwinkle();
 void  runStepRainbowNormal();
-void  runStepWithTwinkle(fract8 chance = 80);
-void  runStepRainbowNormalWithTwinkle();
-void  runStepBuilderNormal();
-void  runStepBuilderNormalWithTwinkle();
-void  runStepSinelonNormal();
-void  runStepSinelonNormalWithTwinkle();
-void  runStepSlidingBeat(CRGBPalette16 palette, uint8_t time = 8);
-void  runStepSlidingBeatCloud();
-void  runStepSlidingBeatLava();
 void  runStepRainbowSliderNormal();
 void  runStepRainbowSliderStripe();
-void  runStepSlidingBeatOcean();
-void  runStepSlidingBeatForest();
-void  runStepSlidingBeatParty();
-void  runStepSlidingBeatHeat();
-void  runStepJuggler(uint8_t fade = 20);
-void  runStepJugglerFadeFast();
-void  runStepJugglerFadeNorm();
-void  runStepJugglerFadeLong();
+void  runStepRainbowNormalTwinkle();
+
+void  runStepBuilderNormal();
+void  runStepBuilderNormalTwinkle();
+
+void  runStepSinelonNormal();
+void  runStepSinelonNormalTwinkle();
+
+void  runStepSlidingBeater(CRGBPalette16 palette, uint8_t time = 8);
+void  runStepSlidingBeaterCloud();
+void  runStepSlidingBeaterLava();
+void  runStepSlidingBeaterOcean();
+void  runStepSlidingBeaterForest();
+void  runStepSlidingBeaterParty();
+void  runStepSlidingBeaterHeat();
+
+void  runStepJugglerFaders(uint8_t fade = 20);
+void  runStepJugglerFadersFast();
+void  runStepJugglerFadersLong();
 
 typedef struct {
     String name;
-    void  (*call)();
-    void  (*init)();
-    float (*wait)();
+    void          (*call)();
+    void          (*init)();
+    unsigned long waitLoopMili;
+    unsigned long waitFadeMili;
+    bool          autoShowInit;
+    bool          autoShowCall;
 } ledChainListEntry;
 
 extern ledChainListEntry ledChainList[];
+extern CRGB ledStrandHoldColors[LED_STR_NUM];
 
 extern uint8_t ledChainCallRefIndex;
 extern uint8_t ledChainBaseColorHue;

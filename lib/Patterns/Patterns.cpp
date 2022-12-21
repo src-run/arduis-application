@@ -10,116 +10,83 @@
 
 #include "Patterns.h"
 #include "stdio.h"
+#include "math.h"
 
 ledChainListEntry ledChainList[] = {
-    { "colored-static-white",         runStepColoredStaticWhite,            runInitGeneric, getWaitColoredStaticGeneric        },
-    { "colored-static-white-twinkle", runStepColoredStaticWhiteWithTwinkle, runInitGeneric, getWaitGeneric                     },
-    { "colored-static-white-builder", runStepColoredStaticWhiteBuilder,     runInitGeneric, getWaitColoredStaticGenericBuilder },
-    { "colored-static-green",         runStepColoredStaticGreen,            runInitGeneric, getWaitColoredStaticGeneric        },
-    { "colored-static-green-twinkle", runStepColoredStaticGreenWithTwinkle, runInitGeneric, getWaitGeneric                     },
-    { "colored-static-green-builder", runStepColoredStaticGreenBuilder,     runInitGeneric, getWaitColoredStaticGenericBuilder },
-    { "colored-static-red",           runStepColoredStaticRed,              runInitGeneric, getWaitColoredStaticGeneric        },
-    { "colored-static-red-twinkle",   runStepColoredStaticRedWithTwinkle,   runInitGeneric, getWaitGeneric                     },
-    { "colored-static-red-builder",   runStepColoredStaticRedBuilder,       runInitGeneric, getWaitColoredStaticGenericBuilder },
-    { "colored-static-blue",          runStepColoredStaticBlue,             runInitGeneric, getWaitColoredStaticGeneric        },
-    { "colored-static-blue-twinkle",  runStepColoredStaticBlueWithTwinkle,  runInitGeneric, getWaitGeneric                     },
-    { "colored-static-blue-builder",  runStepColoredStaticBlueBuilder,      runInitGeneric, getWaitColoredStaticGenericBuilder },
-    { "rainbow-static",               runStepRainbowStatic,                 runInitGeneric, getWaitGeneric                     },
-    { "rainbow-static-with-twinkle",  runStepRainbowStaticWithTwinkle,      runInitGeneric, getWaitGeneric                     },
-    { "rainbow-normal",               runStepRainbowNormal,                 runInitGeneric, getWaitGeneric                     },
-    { "rainbow-normal-with-twinkle",  runStepRainbowNormalWithTwinkle,      runInitGeneric, getWaitGeneric                     },
-    { "rainbow-slider-normal",        runStepRainbowSliderNormal,           runInitGeneric, getWaitGeneric                     },
-    { "rainbow-slider-stripe",        runStepRainbowSliderStripe,           runInitGeneric, getWaitGeneric                     },
-    { "builder-normal",               runStepBuilderNormal,                 runInitGeneric, getWaitGeneric                     },
-    { "builder-normal-with-twinkle",  runStepBuilderNormalWithTwinkle,      runInitGeneric, getWaitGeneric                     },
-    { "sliding-beat-cloud",           runStepSlidingBeatCloud,              runInitGeneric, getWaitGeneric                     },
-    { "sliding-beat-lava",            runStepSlidingBeatLava,               runInitGeneric, getWaitGeneric                     },
-    { "sliding-beat-forest",          runStepSlidingBeatForest,             runInitGeneric, getWaitGeneric                     },
-    { "sliding-beat-ocean",           runStepSlidingBeatOcean,              runInitGeneric, getWaitGeneric                     },
-    { "sliding-beat-party",           runStepSlidingBeatParty,              runInitGeneric, getWaitGeneric                     },
-    { "sliding-beat-heat",            runStepSlidingBeatHeat,               runInitGeneric, getWaitGeneric                     },
-    { "juggler-fade-fast",            runStepJugglerFadeFast,               runInitGeneric, getWaitGeneric                     },
-    { "juggler-fade-norm",            runStepJugglerFadeNorm,               runInitGeneric, getWaitGeneric                     },
-    { "juggler-fade-long",            runStepJugglerFadeLong,               runInitGeneric, getWaitGeneric                     },
-    { "sinelon-normal",               runStepSinelonNormal,                 runInitGeneric, getWaitGeneric                     },
-    { "sinelon-normal-with-twinkle",  runStepSinelonNormalWithTwinkle,      runInitGeneric, getWaitGeneric                     },
+
+    { "colored-static-w",            runStepHoldingColors,         runInitColoredStaticW, LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "colored-static-w-twinkle",    runStepColoredStaticWTwinkle, runInitColoredStaticW, LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "colored-varied-w",            runStepHoldingColors,         runInitColoredVariedW, LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "colored-varied-w-twinkle",    runStepColoredVariedWTwinkle, runInitColoredVariedW, LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "colored-builds-w",            runStepColoredBuildsW,        runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "colored-builds-w-twinkle",    runStepColoredBuildsWTwinkle, runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+
+    { "colored-static-r",            runStepHoldingColors,         runInitColoredStaticR, LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "colored-static-r-twinkle",    runStepColoredStaticRTwinkle, runInitColoredStaticR, LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "colored-varied-r",            runStepHoldingColors,         runInitColoredVariedR, LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "colored-varied-r-twinkle",    runStepColoredVariedRTwinkle, runInitColoredVariedR, LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "colored-builds-r",            runStepColoredBuildsR,        runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "colored-builds-r-twinkle",    runStepColoredBuildsRTwinkle, runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+
+    { "colored-static-g",            runStepHoldingColors,         runInitColoredStaticG, LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "colored-static-g-twinkle",    runStepColoredStaticGTwinkle, runInitColoredStaticG, LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "colored-varied-g",            runStepHoldingColors,         runInitColoredVariedG, LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "colored-varied-g-twinkle",    runStepColoredVariedGTwinkle, runInitColoredVariedG, LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "colored-builds-g",            runStepColoredBuildsG,        runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "colored-builds-g-twinkle",    runStepColoredBuildsGTwinkle, runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+
+    { "colored-static-b",            runStepHoldingColors,         runInitColoredStaticB, LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "colored-static-b-twinkle",    runStepColoredStaticBTwinkle, runInitColoredStaticB, LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "colored-varied-b",            runStepHoldingColors,         runInitColoredVariedB, LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "colored-varied-b-twinkle",    runStepColoredVariedBTwinkle, runInitColoredVariedB, LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "colored-builds-b",            runStepColoredBuildsB,        runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "colored-builds-b-twinkle",    runStepColoredBuildsBTwinkle, runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+
+    { "rainbow-static",              runStepRainbowStatic,         runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "rainbow-static-twinkle",      runStepRainbowStaticTwinkle,  runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "rainbow-normal",              runStepRainbowNormal,         runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "rainbow-normal-twinkle",      runStepRainbowNormalTwinkle,  runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "rainbow-slider-normal",       runStepRainbowSliderNormal,   runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "rainbow-slider-stripe",       runStepRainbowSliderStripe,   runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+
+    { "builder-normal",              runStepBuilderNormal,         runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "builder-normal-twinkle",      runStepBuilderNormalTwinkle,  runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+
+    { "sliding-beater-cloud",        runStepSlidingBeaterCloud,    runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "sliding-beater-lava",         runStepSlidingBeaterLava,     runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "sliding-beater-forest",       runStepSlidingBeaterForest,   runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "sliding-beater-ocean",        runStepSlidingBeaterOcean,    runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "sliding-beater-party",        runStepSlidingBeaterParty,    runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "sliding-beater-heat",         runStepSlidingBeaterHeat,     runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+
+    { "juggler-faders-fast",         runStepJugglerFadersFast,     runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "juggler-faders-long",         runStepJugglerFadersLong,     runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+
+    { "sinelon-normal",              runStepSinelonNormal,         runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+    { "sinelon-normal-twinkle",      runStepSinelonNormalTwinkle,  runInitGeneric,        LED_PATTERN_STEP_DELAY, LED_PATTERN_STEP_DELAY, true, true },
+
 };
 
 uint8_t ledChainCallRefIndex = 99;
 uint8_t ledChainBaseColorHue = 0;
-int8_t ledChainFadeLeveling = 0;
+int8_t  ledChainFadeLeveling = 0;
+CRGB    ledStrandHoldColors[];
 
-void incSelectedStep(int by)
-{
-    if (ledChainCallRefIndex == 99) {
-        ledChainCallRefIndex = 0;
-    } else {
-        ledChainCallRefIndex = (ledChainCallRefIndex + 1) % ARRAY_SIZE(ledChainList);
-    }
-
-    ledChainList[ledChainCallRefIndex].init();
-
-    char buffer[100];
-    sprintf(
-        buffer,
-        "Selected pattern %02d of %02d: \"%s\"",
-        ledChainCallRefIndex + 1,
-        ARRAY_SIZE(ledChainList),
-        ledChainList[ledChainCallRefIndex].name.c_str()
-    );
-    Serial.println(buffer);
+uint8_t minint8(int16_t i) {
+    return i >= 0 ? i : 0;
 }
 
-void runSelectedStep(bool wait)
-{
-    ledChainList[ledChainCallRefIndex].call();
-
-    FastLED.show();
-
-    if (wait) {
-        FastLED.delay(ledChainList[ledChainCallRefIndex].wait());
-    }
+uint8_t maxint8(int16_t i) {
+    return i <= 255 ? i : 255;
 }
 
-bool runSelectedStepFadeOut()
-{
-    if (ledChainFadeLeveling > 0) {
-        ledChainFadeLeveling = ledChainFadeLeveling - 1;
-    }
-
-    if (ledChainFadeLeveling < 0) {
-        ledChainFadeLeveling = 0;
-    }
-
-    setBrightness(ledChainFadeLeveling);
-    FastLED.delay(LED_PATTERN_TRAN_DELAY);
-
-    if (ledChainFadeLeveling == 0) {
-        FastLED.delay(LED_PATTERN_NEXT_DELAY);
-    }
-
-    return ledChainFadeLeveling > 0;
+uint8_t useint8(int16_t i) {
+    return i >= 0 ? (i <= 255 ? i : 255) : 0;
 }
 
-bool runSelectedStepFadeIn()
+void setBrightness(int16_t level)
 {
-    if (ledChainFadeLeveling < LED_STRDS_BRT) {
-        ledChainFadeLeveling = ledChainFadeLeveling + 1;
-    }
-
-    if (ledChainFadeLeveling > LED_STRDS_BRT) {
-        ledChainFadeLeveling = LED_STRDS_BRT;
-    }
-
-    setBrightness(ledChainFadeLeveling);
-    FastLED.delay(LED_PATTERN_TRAN_DELAY);
-
-    return ledChainFadeLeveling < LED_STRDS_BRT;
-}
-
-void setBrightness(uint8_t level)
-{
-    FastLED.setBrightness(level > 255 ? 255 : level);
+    FastLED.setBrightness(useint8(level));
 }
 
 void setBrightnessNone()
@@ -129,269 +96,418 @@ void setBrightnessNone()
 
 void setBrightnessFull()
 {
-    setBrightness(LED_STRDS_BRT);
+    setBrightness(LED_STR_BRT);
 }
 
-void ledFadeOut(uint8_t increment)
+void setHoldColoursActive()
 {
-    for (int i = LED_STRDS_BRT; i > 0; i = i - increment) {
-        setBrightness(i);
-        FastLED.delay(LED_PATTERN_STEP_DELAY);
+    for(int i = 0; i < LED_STR_NUM; ++i) {
+        ledStrandColors[i] = ledStrandHoldColors[i];
+    }
+}
+
+void incSelectedStep(int by)
+{
+    if (ledChainCallRefIndex == 99) {
+        ledChainCallRefIndex = 0;
+    } else {
+        ledChainCallRefIndex = (ledChainCallRefIndex + 1) % ARRAY_SIZE(ledChainList);
     }
 
-    setBrightnessNone();
-
-    FastLED.delay(LED_PATTERN_STEP_DELAY * 100);
-}
-
-void ledFadeIn()
-{
-    for (int i = 0; i <= LED_STRDS_BRT; i++) {
-        setBrightness(i);
-        FastLED.delay(LED_PATTERN_STEP_DELAY);
+    if (ledChainList[ledChainCallRefIndex].init != nullptr) {
+        ledChainList[ledChainCallRefIndex].init();
     }
 
-    setBrightnessFull();
+    if (ledChainList[ledChainCallRefIndex].autoShowInit) {
+        FastLED.show();
+    }
 
-    FastLED.delay(LED_PATTERN_STEP_DELAY * 2);
+    char buffer[100];
+    sprintf(
+        buffer,
+        "Selected pattern %02d of %02d: \"%s\" (%d)",
+        ledChainCallRefIndex + 1,
+        ARRAY_SIZE(ledChainList),
+        ledChainList[ledChainCallRefIndex].name.c_str(),
+        static_cast<int>(ledChainList[ledChainCallRefIndex].waitLoopMili)
+    );
+    Serial.println(buffer);
 }
 
-float getWaitGeneric() {
-    return LED_PATTERN_STEP_DELAY;
+void runSelectedStep()
+{
+    if (ledChainList[ledChainCallRefIndex].call != nullptr) {
+        ledChainList[ledChainCallRefIndex].call();
+    }
+
+    if (ledChainList[ledChainCallRefIndex].autoShowCall) {
+        FastLED.show();
+    }
+
+    FastLED.delay(ledChainList[ledChainCallRefIndex].waitLoopMili);
+}
+
+bool runSelectedStepFadeInit()
+{
+    if (ledChainFadeLeveling > LED_STR_BRT) {
+        ledChainFadeLeveling = LED_STR_BRT;
+    }
+
+    if (ledChainFadeLeveling <= LED_STR_BRT) {
+        ledChainFadeLeveling = ledChainFadeLeveling + 1;
+    }
+
+    setBrightness(ledChainFadeLeveling);
+
+    return ledChainFadeLeveling <= LED_STR_BRT;
+}
+
+bool runSelectedStepFadeEnds()
+{
+    if (ledChainFadeLeveling < 0) {
+        ledChainFadeLeveling = 0;
+    }
+
+    if (ledChainFadeLeveling > 0) {
+        ledChainFadeLeveling = ledChainFadeLeveling - 1;
+    }
+
+    setBrightness(ledChainFadeLeveling);
+
+    return ledChainFadeLeveling > 0;
 }
 
 void runInitGeneric()
 {
-    fill_solid(ledStrandColors, LED_STRDS_LEN, CRGB(0, 0, 0));
-    FastLED.show();
+    fill_solid(ledStrandColors, LED_STR_NUM, CRGB(0, 0, 0));
 }
 
-uint16_t rgbMin(uint16_t val, uint16_t min) {
-    return val >= min ? val : min;
-}
-
-uint16_t rgbMax(uint16_t val, uint16_t max) {
-    return val <= max ? val : max;
-}
-
-void runStepColoredStaticBuilder(uint8_t r, uint8_t g, uint8_t b, uint8_t d)
+void runStepTwinkle(uint8_t level, fract8 chance, uint8_t iterations)
 {
-    fadeToBlackBy(ledStrandColors, LED_STRDS_LEN, 3);
-
-    for (uint8_t i = 0; i < LED_STRDS_LEN/25; i++) {
-        ledStrandColors[random16(LED_STRDS_LEN)] = CRGB(
-            r == 0 ? random8(0, rgbMax(d * 4)) : random8(rgbMin(r - d), rgbMax(r + d)),
-            g == 0 ? random8(0, rgbMax(d * 4)) : random8(rgbMin(g - d), rgbMax(g + d)),
-            b == 0 ? random8(0, rgbMax(d * 4)) : random8(rgbMin(b - d), rgbMax(b + d))
-        );
+    if (random8() < chance) {
+        ledStrandColors[random16(LED_STR_NUM)] += CRGB(maxint8(level + 20), maxint8(level + 20), maxint8(level + 20));
     }
-}
 
-void runStepColoredStaticWithTwinkleBuilder(uint8_t r, uint8_t g, uint8_t b, uint8_t d)
-{
-    runStepColoredStaticBuilder(r, g, b, d);
-    runStepWithTwinkle(50);
-}
-
-float getWaitColoredStaticGenericBuilder()
-{
-	return LED_PATTERN_STEP_DELAY * 10;
-}
-
-void runStepColoredStaticWhiteBuilder() {
-    runStepColoredStaticBuilder(120, 120, 120);
-}
-
-void runStepColoredStaticGreenBuilder() {
-    runStepColoredStaticBuilder(0, 255, 0);
-}
-
-void runStepColoredStaticRedBuilder() {
-    runStepColoredStaticBuilder(255, 0, 0);
-}
-
-void runStepColoredStaticBlueBuilder() {
-    runStepColoredStaticBuilder(0, 0, 255);
-}
-
-void runStepColoredStatic(uint8_t r, uint8_t g, uint8_t b)
-{
-    fill_solid(ledStrandColors, LED_STRDS_LEN, CRGB(r, g, b));
-}
-
-void runStepColoredStaticWithTwinkle(uint8_t r, uint8_t g, uint8_t b)
-{
-    runStepColoredStatic(r, g, b);
-    runStepWithTwinkle(50);
-}
-
-float getWaitColoredStaticGeneric()
-{
-	return LED_PATTERN_STEP_DELAY * 10;
-}
-
-void runStepColoredStaticWhite() {
-    runStepColoredStatic(120, 120, 120);
-}
-
-void runStepColoredStaticGreen() {
-    runStepColoredStatic(0, 255, 0);
-}
-
-void runStepColoredStaticRed() {
-    runStepColoredStatic(255, 0, 0);
-}
-
-void runStepColoredStaticBlue() {
-    runStepColoredStatic(0, 0, 255);
-}
-
-void runStepColoredStaticWhiteWithTwinkle() {
-    runStepColoredStaticWithTwinkle(120, 120, 120);
-}
-
-void runStepColoredStaticGreenWithTwinkle() {
-    runStepColoredStaticWithTwinkle(0, 255, 0);
-}
-
-void runStepColoredStaticRedWithTwinkle() {
-    runStepColoredStaticWithTwinkle(255, 0, 0);
-}
-
-void runStepColoredStaticBlueWithTwinkle() {
-    runStepColoredStaticWithTwinkle(0, 0, 255);
-}
-
-void runStepRainbowStatic()
-{
-    fill_rainbow(ledStrandColors, LED_STRDS_LEN, 1, 7);
-}
-
-void runStepRainbowStaticWithTwinkle()
-{
-    fill_rainbow(ledStrandColors, LED_STRDS_LEN, 1, 7);
-    runStepWithTwinkle(50);
-}
-
-void runStepRainbowNormal()
-{
-    fill_rainbow(ledStrandColors, LED_STRDS_LEN, ledChainBaseColorHue, 7);
-}
-
-void runStepRainbowNormalWithTwinkle()
-{
-    runStepRainbowNormal();
-    runStepWithTwinkle(50);
-}
-
-void runStepWithTwinkle(fract8 chance)
-{
-    for (uint8_t i = 0; i < 5; i++) {
+    for (uint8_t i = 0; i < iterations; i++) {
         if(random8() < chance) {
-            ledStrandColors[random16(LED_STRDS_LEN)] += CRGB::WhiteSmoke;
+            ledStrandColors[random16(LED_STR_NUM)] += CRGB(random8(level), random8(level), random8(level));
         }
     }
 }
 
-void runStepBuilderNormal()
+void runInitColoredVaried(uint8_t r, uint8_t g, uint8_t b, uint8_t d)
 {
-    int pos = random16(LED_STRDS_LEN);
+    runInitGeneric();
 
-    fadeToBlackBy(ledStrandColors, LED_STRDS_LEN, 1);
-    ledStrandColors[pos] += CHSV(ledChainBaseColorHue + random8(64), 200, 255);
+    for(int i = 0; i < LED_STR_NUM; ++i) {
+        ledStrandHoldColors[i] = CRGB(
+            random8(minint8(r - d), maxint8(r + d)),
+            random8(minint8(g - d), maxint8(g + d)),
+            random8(minint8(b - d), maxint8(b + d))
+        );
+    }
+
+    setHoldColoursActive();
 }
 
-void runStepBuilderNormalWithTwinkle()
+void runInitColoredVariedW()
+{
+    runInitColoredVaried(140, 140, 140, 60);
+}
+
+void runInitColoredVariedR()
+{
+    runInitColoredVaried(220, 0, 0);
+}
+
+void runInitColoredVariedG()
+{
+    runInitColoredVaried(0, 220, 0);
+}
+
+void runInitColoredVariedB()
+{
+    runInitColoredVaried(0, 0, 220);
+}
+
+void runStepColoredVariedWTwinkle()
+{
+    setHoldColoursActive();
+    runStepTwinkle(220);
+}
+
+void runStepColoredVariedRTwinkle()
+{
+    setHoldColoursActive();
+    runStepTwinkle();
+}
+
+void runStepColoredVariedGTwinkle()
+{
+    setHoldColoursActive();
+    runStepTwinkle();
+}
+
+void runStepColoredVariedBTwinkle()
+{
+    setHoldColoursActive();
+    runStepTwinkle();
+}
+
+void runStepColoredBuilds(uint8_t r, uint8_t g, uint8_t b, uint8_t d)
+{
+    fadeToBlackBy(ledStrandColors, LED_STR_NUM, 3);
+
+    for (uint8_t i = 0; i < LED_STR_NUM/25; i++) {
+        ledStrandColors[random16(LED_STR_NUM)] = CRGB(
+            r == 0 ? random8(0, maxint8(d * 4)) : random8(minint8(r - d), maxint8(r + d)),
+            g == 0 ? random8(0, maxint8(d * 4)) : random8(minint8(g - d), maxint8(g + d)),
+            b == 0 ? random8(0, maxint8(d * 4)) : random8(minint8(b - d), maxint8(b + d))
+        );
+    }
+}
+
+void runStepColoredBuildsW()
+{
+    runStepColoredBuilds(140, 140, 140);
+}
+
+void runStepColoredBuildsR()
+{
+    runStepColoredBuilds(220, 0, 0);
+}
+
+void runStepColoredBuildsG()
+{
+    runStepColoredBuilds(0, 220, 0);
+}
+
+void runStepColoredBuildsB()
+{
+    runStepColoredBuilds(0, 0, 220);
+}
+
+void runStepColoredBuildsWTwinkle()
+{
+    runStepColoredBuildsW();
+    runStepTwinkle(220);
+}
+
+void runStepColoredBuildsRTwinkle()
+{
+    runStepColoredBuildsR();
+    runStepTwinkle();
+}
+
+void runStepColoredBuildsGTwinkle()
+{
+    runStepColoredBuildsG();
+    runStepTwinkle();
+}
+
+void runStepColoredBuildsBTwinkle()
+{
+    runStepColoredBuildsB();
+    runStepTwinkle();
+}
+
+void runStepColoredStatic(uint8_t r, uint8_t g, uint8_t b)
+{
+    runInitColoredStatic(r, g, b);
+}
+
+void runStepHoldingColors()
+{
+    setHoldColoursActive();
+}
+
+void runInitColoredStatic(uint8_t r, uint8_t g, uint8_t b)
+{
+    auto color = CRGB(r, g, b);
+
+    for(int i = 0; i < LED_STR_NUM; ++i) {
+        ledStrandHoldColors[i] = color;
+    }
+
+    setHoldColoursActive();
+}
+
+void runInitColoredStaticW()
+{
+    runInitColoredStatic(140, 140, 140);
+}
+
+void runInitColoredStaticR()
+{
+    runInitColoredStatic(240, 0, 0);
+}
+
+void runInitColoredStaticG()
+{
+    runInitColoredStatic(0, 240, 0);
+}
+
+void runInitColoredStaticB()
+{
+    runInitColoredStatic(0, 0, 240);
+}
+
+void runStepColoredStaticW()
+{
+    runInitColoredStaticW();
+}
+
+void runStepColoredStaticR()
+{
+    runInitColoredStaticR();
+}
+
+void runStepColoredStaticG()
+{
+    runInitColoredStaticG();
+}
+
+void runStepColoredStaticB()
+{
+    runInitColoredStaticB();
+}
+
+void runStepColoredStaticWTwinkle()
+{
+    runStepColoredStaticW();
+    runStepTwinkle(220);
+}
+
+void runStepColoredStaticRTwinkle()
+{
+    runStepColoredStaticR();
+    runStepTwinkle();
+}
+
+void runStepColoredStaticGTwinkle()
+{
+    runStepColoredStaticG();
+    runStepTwinkle();
+}
+
+void runStepColoredStaticBTwinkle()
+{
+    runStepColoredStaticB();
+    runStepTwinkle();
+}
+
+void runStepRainbowStatic()
+{
+    fill_rainbow(ledStrandColors, LED_STR_NUM, 1, 7);
+}
+
+void runStepRainbowStaticTwinkle()
+{
+    fill_rainbow(ledStrandColors, LED_STR_NUM, 1, 7);
+    runStepTwinkle();
+}
+
+void runStepRainbowNormal()
+{
+    fill_rainbow(ledStrandColors, LED_STR_NUM, ledChainBaseColorHue, 7);
+}
+
+void runStepRainbowNormalTwinkle()
+{
+    runStepRainbowNormal();
+    runStepTwinkle();
+}
+
+void runStepBuilderNormal()
+{
+    fadeToBlackBy(ledStrandColors, LED_STR_NUM, 1);
+    ledStrandColors[random16(LED_STR_NUM)] += CHSV(ledChainBaseColorHue + random8(64), 200, 255);
+}
+
+void runStepBuilderNormalTwinkle()
 {
     runStepBuilderNormal();
-    runStepWithTwinkle(50);
+    runStepTwinkle();
 }
 
 void runStepSinelonNormal()
 {
-    int p = beatsin16(13, 0, LED_STRDS_LEN - 1);
-
-    fadeToBlackBy(ledStrandColors, LED_STRDS_LEN, 1);
-    ledStrandColors[p] += CHSV(ledChainBaseColorHue, 255, 192);
+    fadeToBlackBy(ledStrandColors, LED_STR_NUM, 1);
+    ledStrandColors[beatsin16(13, 0, LED_STR_NUM - 1)] += CHSV(ledChainBaseColorHue, 255, 192);
 }
 
-void runStepSinelonNormalWithTwinkle()
+void runStepSinelonNormalTwinkle()
 {
     runStepSinelonNormal();
-    runStepWithTwinkle(50);
+    runStepTwinkle();
 }
 
-void runStepSlidingBeat(CRGBPalette16 palette, uint8_t time)
+void runStepSlidingBeater(CRGBPalette16 palette, uint8_t time)
 {
-    uint8_t b = beatsin8(time, 64, 180);
+    uint8_t beat = beatsin8(time, 64, 180);
 
-    for(int i = 0; i < LED_STRDS_LEN; i++) {
-        ledStrandColors[i] = ColorFromPalette(palette, ledChainBaseColorHue + (i * 2), b-ledChainBaseColorHue+(i * 10));
+    for(int i = 0; i < LED_STR_NUM; i++) {
+        ledStrandColors[i] = ColorFromPalette(palette, ledChainBaseColorHue + (i * 2), beat - ledChainBaseColorHue + (i * 10));
     }
 }
 
-void runStepSlidingBeatCloud()
+void runStepSlidingBeaterCloud()
 {
-    runStepSlidingBeat(CloudColors_p);
+    runStepSlidingBeater(CloudColors_p);
 }
 
-void runStepSlidingBeatLava()
+void runStepSlidingBeaterLava()
 {
-    runStepSlidingBeat(LavaColors_p);
+    runStepSlidingBeater(LavaColors_p);
 }
 
 void runStepRainbowSliderNormal()
 {
-    runStepSlidingBeat(RainbowColors_p);
+    runStepSlidingBeater(RainbowColors_p);
 }
 
 void runStepRainbowSliderStripe()
 {
-    runStepSlidingBeat(RainbowStripeColors_p);
+    runStepSlidingBeater(RainbowStripeColors_p);
 }
 
-void runStepSlidingBeatOcean()
+void runStepSlidingBeaterOcean()
 {
-    runStepSlidingBeat(OceanColors_p);
+    runStepSlidingBeater(OceanColors_p);
 }
 
-void runStepSlidingBeatForest()
+void runStepSlidingBeaterForest()
 {
-    runStepSlidingBeat(ForestColors_p);
+    runStepSlidingBeater(ForestColors_p);
 }
 
-void runStepSlidingBeatParty()
+void runStepSlidingBeaterParty()
 {
-    runStepSlidingBeat(PartyColors_p);
+    runStepSlidingBeater(PartyColors_p);
 }
 
-void runStepSlidingBeatHeat()
+void runStepSlidingBeaterHeat()
 {
-    runStepSlidingBeat(HeatColors_p);
+    runStepSlidingBeater(HeatColors_p);
 }
 
-void runStepJuggler(uint8_t fade) {
+void runStepJugglerFaders(uint8_t fade) {
     byte dothue = 0;
 
-    fadeToBlackBy(ledStrandColors, LED_STRDS_LEN, fade);
+    fadeToBlackBy(ledStrandColors, LED_STR_NUM, fade);
 
     for(int i = 0; i < 8; i++) {
-        ledStrandColors[beatsin16(i + 7, 0, LED_STRDS_LEN - 1)] |= CHSV(dothue, 200, 255);
+        ledStrandColors[beatsin16(i + 7, 0, LED_STR_NUM - 1)] |= CHSV(dothue, 200, 255);
         dothue += 32;
     }
 }
 
-void runStepJugglerFadeFast()
+void runStepJugglerFadersFast()
 {
-    runStepJuggler(80);
+    runStepJugglerFaders(80);
 }
 
-void runStepJugglerFadeNorm()
+void runStepJugglerFadersLong()
 {
-    runStepJuggler(40);
-}
-
-void runStepJugglerFadeLong()
-{
-    runStepJuggler(10);
+    runStepJugglerFaders(10);
 }
