@@ -24,11 +24,9 @@ void setup()
 
     ledStrandsRelay.turnOn();
     FastLED.addLeds<LED_STR_CTL, LED_STR_PIN, LED_STR_ORD>(ledStrandColors, LED_STR_NUM);
-    FastLED.setCorrection(UncorrectedColor); //TypicalPixelString
+    FastLED.setCorrection(CRGB(255, 224, 204)); //UncorrectedColor, TypicalPixelString
     FastLED.setMaxPowerInVoltsAndMilliamps(LED_PWR_MAX_VOLTS, LED_PWR_MAX_MAMPS);
-
-    setBrightnessNone();
-
+    FastLED.setBrightness(LED_STR_BRT);
     FastLED.delay(2000);
 
     cycle(false);
@@ -49,14 +47,14 @@ void loop()
 
 void cycle(bool fadeOut)
 {
-    while(runSelectedStepFadeEnds()) {
-        runSelectedStep();
-    }
+    //while(fadeOut && runSelectedStepFadeEnds()) {
+    //    runSelectedStep(false);
+    //}
 
     incSelectedStep();
     runSelectedStep();
 
-    while(runSelectedStepFadeInit()) {
-        runSelectedStep();
-    }
+    //while(runSelectedStepFadeInit()) {
+    //    runSelectedStep(false);
+    //}
 }

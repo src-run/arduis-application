@@ -18,19 +18,16 @@
 #include "Utilities.h"
 
 #define LED_PATTERN_STEP_DELAY 3000/LED_STR_FPS
-#define LED_PATTERN_FADE_DELAY LED_PATTERN_STEP_DELAY
+#define LED_PATTERN_FADE_DELAY LED_PATTERN_STEP_DELAY / 3
 
-uint8_t minint8(int16_t i);
-uint8_t maxint8(int16_t i);
-uint8_t useint8(int16_t i);
+uint8_t minInt8(int16_t i);
+uint8_t maxInt8(int16_t i);
+uint8_t useInt8(int16_t i);
 
-void  setBrightness(int16_t level);
-void  setBrightnessNone();
-void  setBrightnessFull();
 void  setHoldColoursActive();
 
 void  incSelectedStep(int by = 1);
-void  runSelectedStep();
+void  runSelectedStep(bool wait = true);
 bool  runSelectedStepFadeInit();
 bool  runSelectedStepFadeEnds();
 
@@ -81,23 +78,29 @@ void  runStepRainbowSliderNormal();
 void  runStepRainbowSliderStripe();
 void  runStepRainbowNormalTwinkle();
 
+void  runStepBuilder(uint8_t iterations = 4);
 void  runStepBuilderNormal();
 void  runStepBuilderNormalTwinkle();
+void  runStepBuilderFaster();
+void  runStepBuilderFasterTwinkle();
 
+void  runStepSinelon(uint8_t iterations = 6);
 void  runStepSinelonNormal();
 void  runStepSinelonNormalTwinkle();
 
 void  runStepSlidingBeater(CRGBPalette16 palette, uint8_t time = 8);
-void  runStepSlidingBeaterCloud();
-void  runStepSlidingBeaterLava();
-void  runStepSlidingBeaterOcean();
+void  runStepSlidingBeaterClouds();
+void  runStepSlidingBeaterMagmas();
+void  runStepSlidingBeaterOceans();
 void  runStepSlidingBeaterForest();
-void  runStepSlidingBeaterParty();
-void  runStepSlidingBeaterHeat();
+void  runStepSlidingBeaterRandom();
+void  runStepSlidingBeaterHeater();
 
 void  runStepJugglerFaders(uint8_t fade = 20);
-void  runStepJugglerFadersFast();
-void  runStepJugglerFadersLong();
+void  runStepJugglerFadersFaster();
+void  runStepJugglerFadersFasterTwinkle();
+void  runStepJugglerFadersLonger();
+void  runStepJugglerFadersLongerTwinkle();
 
 typedef struct {
     String name;
