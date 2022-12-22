@@ -17,24 +17,25 @@
 #include "Strands.h"
 #include "Utilities.h"
 
-#define LED_PTN_STEP_MILI 1000/LED_STR_FPS
-#define LED_PTN_FADE_MILI LED_PTN_STEP_MILI / 3
-#define LED_PTN_NEXT_MILI 1000
-#define LED_PTN_FADE_ENBL ((bool)false)
+#define LED_PTN_STEP_MILI 1000 / LED_STR_FPS
+#define LED_PTN_FADE_MILI LED_PTN_STEP_MILI
+#define LED_PTN_FADE_STEP LED_STR_BRT / 6
+#define LED_PTN_NEXT_MILI 250
+#define LED_PTN_FADE_ENBL ((bool)true)
 
 uint8_t minInt8(int16_t i);
 uint8_t maxInt8(int16_t i);
 uint8_t useInt8(int16_t i);
 
-void  incSelectedStep(int by = 1);
+void  incSelectedStep(bool fade = LED_PTN_FADE_ENBL);
 void  runSelectedStep(bool wait = true);
-bool  runSelectedStepFadeInit();
-bool  runSelectedStepFadeEnds();
+bool  runSelectedStepFadeInit(int increment = LED_PTN_FADE_STEP);
+bool  runSelectedStepFadeEnds(int decrement = LED_PTN_FADE_STEP);
 
 void  setHoldColoursActive();
 void  runStepHoldingColors();
 
-void  runStepTwinkle(uint8_t level = 100, fract8 chance = 50, uint8_t iterations = 8);
+void  runStepTwinkle(uint8_t level = 120, fract8 chance = 40, uint8_t iterations = 8);
 
 void  runInitGeneric();
 void  runInitColoredStatic(uint8_t r, uint8_t g, uint8_t b);
@@ -99,6 +100,20 @@ void  runStepSlidingBeaterForest();
 void  runStepSlidingBeaterRandom();
 void  runStepSlidingBeaterHeater();
 
+void  runStepPaletteRounds(CRGBPalette16 palette);
+void  runStepPaletteRoundsClouds();
+void  runStepPaletteRoundsMagmas();
+void  runStepPaletteRoundsOceans();
+void  runStepPaletteRoundsForest();
+void  runStepPaletteRoundsRandom();
+void  runStepPaletteRoundsHeater();
+void  runStepPaletteRoundsCloudsTwinkle();
+void  runStepPaletteRoundsMagmasTwinkle();
+void  runStepPaletteRoundsOceansTwinkle();
+void  runStepPaletteRoundsForestTwinkle();
+void  runStepPaletteRoundsRandomTwinkle();
+void  runStepPaletteRoundsHeaterTwinkle();
+
 void  runStepJuggler(uint8_t fade = 20);
 void  runStepJugglerFaster();
 void  runStepJugglerFasterTwinkle();
@@ -118,8 +133,9 @@ typedef struct {
 extern ledChainListEntry ledChainList[];
 extern CRGB ledStrandHoldColors[LED_STR_NUM];
 
-extern uint8_t ledChainCallRefIndex;
+extern uint8_t ledChainNameCharsMax;
+extern int16_t ledChainCallRefIndex;
+extern int16_t ledChainFadeLeveling;
 extern uint8_t ledChainBaseColorHue;
-extern int8_t  ledChainFadeLeveling;
 
 #endif

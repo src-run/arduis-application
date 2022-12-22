@@ -22,6 +22,6 @@
 #include "Relays.h"
 #include "Utilities.h"
 
-void cycle(bool fadeOut = true);
+void cycle(bool fadeEnds = LED_PTN_FADE_ENBL, bool fadeInit = LED_PTN_FADE_ENBL);
 
 #endif
