@@ -18,14 +18,17 @@
 #include "Utilities.h"
 
 #define LED_PTN_STEP_MILI 1000 / LED_STR_FPS
+#define LED_PTN_NEXT_MILI 100
 #define LED_PTN_FADE_MILI LED_PTN_STEP_MILI
-#define LED_PTN_FADE_STEP LED_STR_BRT / 6
-#define LED_PTN_NEXT_MILI 250
+#define LED_PTN_FADE_STEP LED_STR_BRT / 4
 #define LED_PTN_FADE_ENBL ((bool)true)
+#define LED_PTN_INIT_RAND ((bool)false)
 
 uint8_t minInt8(int16_t i);
 uint8_t maxInt8(int16_t i);
 uint8_t useInt8(int16_t i);
+void    setRandom16Seed();
+int16_t getRandRefIndex();
 
 void  incSelectedStep(bool fade = LED_PTN_FADE_ENBL);
 void  runSelectedStep(bool wait = true);
@@ -119,6 +122,12 @@ void  runStepJugglerFaster();
 void  runStepJugglerFasterTwinkle();
 void  runStepJugglerLonger();
 void  runStepJugglerLongerTwinkle();
+
+void runStepRainbowFading(uint8_t bmp1 = 1, uint8_t bpm2 = 2);
+void runStepRainbowFadingSlow();
+void runStepRainbowFadingFast();
+void runStepRainbowWholed();
+
 
 typedef struct {
     String   name;

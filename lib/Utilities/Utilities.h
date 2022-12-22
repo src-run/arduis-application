@@ -13,6 +13,6 @@
 
 #include <Arduino.h>
 
-#define ARRAY_SIZE(A) (sizeof(A) / sizeof((A)[0]))
+#define ARRAY_SIZE(A) ((int)(sizeof(A) / sizeof((A)[0])))
 
 #endif
