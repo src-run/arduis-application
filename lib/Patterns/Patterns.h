@@ -33,7 +33,7 @@ void  runSelectedStep(bool wait = true);
 bool  runSelectedStepFadeInit();
 bool  runSelectedStepFadeEnds();
 
-void  runStepTwinkle(uint8_t level = 120, fract8 chance = 50, uint8_t iterations = 8);
+void  runStepTwinkle(uint8_t level = 100, fract8 chance = 50, uint8_t iterations = 8);
 void  runInitGeneric();
 void  runInitColoredStatic(uint8_t r, uint8_t g, uint8_t b);
 void  runInitColoredStaticW();
