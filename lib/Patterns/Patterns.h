@@ -26,22 +26,22 @@ uint8_t minInt8(int16_t i);
 uint8_t maxInt8(int16_t i);
 uint8_t useInt8(int16_t i);
 
-void  setHoldColoursActive();
-
 void  incSelectedStep(int by = 1);
 void  runSelectedStep(bool wait = true);
 bool  runSelectedStepFadeInit();
 bool  runSelectedStepFadeEnds();
 
+void  setHoldColoursActive();
+void  runStepHoldingColors();
+
 void  runStepTwinkle(uint8_t level = 100, fract8 chance = 50, uint8_t iterations = 8);
+
 void  runInitGeneric();
 void  runInitColoredStatic(uint8_t r, uint8_t g, uint8_t b);
 void  runInitColoredStaticW();
 void  runInitColoredStaticR();
 void  runInitColoredStaticG();
 void  runInitColoredStaticB();
-
-void  runStepHoldingColors();
 
 void  runStepColoredStatic(uint8_t r = 150, uint8_t g = 150, uint8_t b = 150);
 void  runStepColoredStaticW();
@@ -68,6 +68,7 @@ void  runInitColoredVariedW();
 void  runInitColoredVariedR();
 void  runInitColoredVariedG();
 void  runInitColoredVariedB();
+
 void  runStepColoredVariedWTwinkle();
 void  runStepColoredVariedRTwinkle();
 void  runStepColoredVariedGTwinkle();
@@ -76,9 +77,9 @@ void  runStepColoredVariedBTwinkle();
 void  runStepRainbowStatic();
 void  runStepRainbowStaticTwinkle();
 void  runStepRainbowNormal();
+void  runStepRainbowNormalTwinkle();
 void  runStepRainbowSliderNormal();
 void  runStepRainbowSliderStripe();
-void  runStepRainbowNormalTwinkle();
 
 void  runStepBuilder(uint8_t iterations = 4);
 void  runStepBuilderNormal();

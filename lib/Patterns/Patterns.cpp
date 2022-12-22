@@ -89,13 +89,6 @@ uint8_t useInt8(int16_t i) {
     return i <= 255 ? (i >= 0 ? i : 0) : 255;
 }
 
-void setHoldColoursActive()
-{
-    for(int i = 0; i < LED_STR_NUM; ++i) {
-        ledStrandColors[i] = ledStrandHoldColors[i];
-    }
-}
-
 void incSelectedStep(int by)
 {
     if (ledChainCallRefIndex == 99) {
@@ -130,7 +123,7 @@ void incSelectedStep(int by)
         ledChainCallRefIndex + 1,
         listArrLen,
         String("\"" + ledChainList[ledChainCallRefIndex].name + "\"").c_str(),
-        ledChainList[ledChainCallRefIndex].callExecMili/1000,
+        ledChainList[ledChainCallRefIndex].callExecMili / 1000,
         ledChainList[ledChainCallRefIndex].randHuesMili,
         ledChainList[ledChainCallRefIndex].waitLoopMili,
         ledChainList[ledChainCallRefIndex].waitFadeMili
@@ -147,44 +140,6 @@ void runSelectedStep(bool wait)
     }
 
     FastLED.delay(wait ? ledChainList[ledChainCallRefIndex].waitLoopMili : 0);
-}
-
-bool runSelectedStepFadeInitNew()
-{
-    if (ledChainFadeLeveling > 255) {
-        ledChainFadeLeveling = 255;
-    }
-
-    if (ledChainFadeLeveling < 255) {
-        ledChainFadeLeveling = ledChainFadeLeveling + 1;
-    }
-
-    for(int i = 0; i < LED_STR_NUM; ++i) {
-        ledStrandColors[i] = CHSV(ledStrandColors[i], 255, ledChainFadeLeveling);
-    }
-
-    FastLED.show();
-
-    return ledChainFadeLeveling < 255;
-}
-
-bool runSelectedStepFadeEndsNew()
-{
-    if (ledChainFadeLeveling < 0) {
-        ledChainFadeLeveling = 0;
-    }
-
-    if (ledChainFadeLeveling > 0) {
-        ledChainFadeLeveling = ledChainFadeLeveling - 1;
-    }
-
-    for(int i = 0; i < LED_STR_NUM; ++i) {
-        ledStrandColors[i] = CHSV(ledStrandColors[i], 255, ledChainFadeLeveling);
-    }
-
-    FastLED.show();
-
-    return ledChainFadeLeveling > 0;
 }
 
 bool runSelectedStepFadeInit()
@@ -237,9 +192,16 @@ bool runSelectedStepFadeEnds()
     return ledChainFadeLeveling > 0;
 }
 
-void runInitGeneric()
+void setHoldColoursActive()
 {
-    fill_solid(ledStrandColors, LED_STR_NUM, CRGB(0, 0, 0));
+    for(int i = 0; i < LED_STR_NUM; ++i) {
+        ledStrandColors[i] = ledStrandHoldColors[i];
+    }
+}
+
+void runStepHoldingColors()
+{
+    setHoldColoursActive();
 }
 
 void runStepTwinkle(uint8_t level, fract8 chance, uint8_t iterations)
@@ -249,6 +211,148 @@ void runStepTwinkle(uint8_t level, fract8 chance, uint8_t iterations)
     for (uint8_t i = 0; i < iterations; i++) {
         ledStrandColors[random16(LED_STR_NUM)] += CRGB(random8(level), random8(level), random8(level));
     }
+}
+
+void runInitGeneric()
+{
+    fill_solid(ledStrandColors, LED_STR_NUM, CRGB(0, 0, 0));
+}
+
+void runInitColoredStatic(uint8_t r, uint8_t g, uint8_t b)
+{
+    auto color = CRGB(r, g, b);
+
+    for(int i = 0; i < LED_STR_NUM; ++i) {
+        ledStrandHoldColors[i] = color;
+    }
+
+    setHoldColoursActive();
+}
+
+void runInitColoredStaticW()
+{
+    runInitColoredStatic(140, 140, 140);
+}
+
+void runInitColoredStaticR()
+{
+    runInitColoredStatic(240, 0, 0);
+}
+
+void runInitColoredStaticG()
+{
+    runInitColoredStatic(0, 240, 0);
+}
+
+void runInitColoredStaticB()
+{
+    runInitColoredStatic(0, 0, 240);
+}
+
+void runStepColoredStatic(uint8_t r, uint8_t g, uint8_t b)
+{
+    runInitColoredStatic(r, g, b);
+}
+
+void runStepColoredStaticW()
+{
+    runInitColoredStaticW();
+}
+
+void runStepColoredStaticR()
+{
+    runInitColoredStaticR();
+}
+
+void runStepColoredStaticG()
+{
+    runInitColoredStaticG();
+}
+
+void runStepColoredStaticB()
+{
+    runInitColoredStaticB();
+}
+
+void runStepColoredStaticWTwinkle()
+{
+    runStepColoredStaticW();
+    runStepTwinkle();
+}
+
+void runStepColoredStaticRTwinkle()
+{
+    runStepColoredStaticR();
+    runStepTwinkle();
+}
+
+void runStepColoredStaticGTwinkle()
+{
+    runStepColoredStaticG();
+    runStepTwinkle();
+}
+
+void runStepColoredStaticBTwinkle()
+{
+    runStepColoredStaticB();
+    runStepTwinkle();
+}
+
+void runStepColoredBuilds(uint8_t r, uint8_t g, uint8_t b, uint8_t d)
+{
+    fadeToBlackBy(ledStrandColors, LED_STR_NUM, 3);
+
+    for (uint8_t i = 0; i < LED_STR_NUM/25; i++) {
+        ledStrandColors[random16(LED_STR_NUM)] = CRGB(
+            r == 0 ? random8(0, maxInt8(d * 4)) : random8(minInt8(r - d), maxInt8(r + d)),
+            g == 0 ? random8(0, maxInt8(d * 4)) : random8(minInt8(g - d), maxInt8(g + d)),
+            b == 0 ? random8(0, maxInt8(d * 4)) : random8(minInt8(b - d), maxInt8(b + d))
+        );
+    }
+}
+
+void runStepColoredBuildsW()
+{
+    runStepColoredBuilds(140, 140, 140);
+}
+
+void runStepColoredBuildsR()
+{
+    runStepColoredBuilds(220, 0, 0);
+}
+
+void runStepColoredBuildsG()
+{
+    runStepColoredBuilds(0, 220, 0);
+}
+
+void runStepColoredBuildsB()
+{
+    runStepColoredBuilds(0, 0, 220);
+}
+
+void runStepColoredBuildsWTwinkle()
+{
+    runStepColoredBuildsW();
+    runStepTwinkle();
+}
+
+void runStepColoredBuildsRTwinkle()
+{
+    runStepColoredBuildsR();
+    runStepTwinkle();
+}
+
+void runStepColoredBuildsGTwinkle()
+{
+    runStepColoredBuildsG();
+    runStepTwinkle();
+}
+
+void runStepColoredBuildsBTwinkle()
+{
+    runStepColoredBuildsB();
+    runStepTwinkle();
 }
 
 void runInitColoredVaried(uint8_t r, uint8_t g, uint8_t b, uint8_t d)
@@ -310,148 +414,6 @@ void runStepColoredVariedBTwinkle()
     runStepTwinkle();
 }
 
-void runStepColoredBuilds(uint8_t r, uint8_t g, uint8_t b, uint8_t d)
-{
-    fadeToBlackBy(ledStrandColors, LED_STR_NUM, 3);
-
-    for (uint8_t i = 0; i < LED_STR_NUM/25; i++) {
-        ledStrandColors[random16(LED_STR_NUM)] = CRGB(
-            r == 0 ? random8(0, maxInt8(d * 4)) : random8(minInt8(r - d), maxInt8(r + d)),
-            g == 0 ? random8(0, maxInt8(d * 4)) : random8(minInt8(g - d), maxInt8(g + d)),
-            b == 0 ? random8(0, maxInt8(d * 4)) : random8(minInt8(b - d), maxInt8(b + d))
-        );
-    }
-}
-
-void runStepColoredBuildsW()
-{
-    runStepColoredBuilds(140, 140, 140);
-}
-
-void runStepColoredBuildsR()
-{
-    runStepColoredBuilds(220, 0, 0);
-}
-
-void runStepColoredBuildsG()
-{
-    runStepColoredBuilds(0, 220, 0);
-}
-
-void runStepColoredBuildsB()
-{
-    runStepColoredBuilds(0, 0, 220);
-}
-
-void runStepColoredBuildsWTwinkle()
-{
-    runStepColoredBuildsW();
-    runStepTwinkle();
-}
-
-void runStepColoredBuildsRTwinkle()
-{
-    runStepColoredBuildsR();
-    runStepTwinkle();
-}
-
-void runStepColoredBuildsGTwinkle()
-{
-    runStepColoredBuildsG();
-    runStepTwinkle();
-}
-
-void runStepColoredBuildsBTwinkle()
-{
-    runStepColoredBuildsB();
-    runStepTwinkle();
-}
-
-void runStepColoredStatic(uint8_t r, uint8_t g, uint8_t b)
-{
-    runInitColoredStatic(r, g, b);
-}
-
-void runStepHoldingColors()
-{
-    setHoldColoursActive();
-}
-
-void runInitColoredStatic(uint8_t r, uint8_t g, uint8_t b)
-{
-    auto color = CRGB(r, g, b);
-
-    for(int i = 0; i < LED_STR_NUM; ++i) {
-        ledStrandHoldColors[i] = color;
-    }
-
-    setHoldColoursActive();
-}
-
-void runInitColoredStaticW()
-{
-    runInitColoredStatic(140, 140, 140);
-}
-
-void runInitColoredStaticR()
-{
-    runInitColoredStatic(240, 0, 0);
-}
-
-void runInitColoredStaticG()
-{
-    runInitColoredStatic(0, 240, 0);
-}
-
-void runInitColoredStaticB()
-{
-    runInitColoredStatic(0, 0, 240);
-}
-
-void runStepColoredStaticW()
-{
-    runInitColoredStaticW();
-}
-
-void runStepColoredStaticR()
-{
-    runInitColoredStaticR();
-}
-
-void runStepColoredStaticG()
-{
-    runInitColoredStaticG();
-}
-
-void runStepColoredStaticB()
-{
-    runInitColoredStaticB();
-}
-
-void runStepColoredStaticWTwinkle()
-{
-    runStepColoredStaticW();
-    runStepTwinkle();
-}
-
-void runStepColoredStaticRTwinkle()
-{
-    runStepColoredStaticR();
-    runStepTwinkle();
-}
-
-void runStepColoredStaticGTwinkle()
-{
-    runStepColoredStaticG();
-    runStepTwinkle();
-}
-
-void runStepColoredStaticBTwinkle()
-{
-    runStepColoredStaticB();
-    runStepTwinkle();
-}
-
 void runStepRainbowStatic()
 {
     fill_rainbow(ledStrandColors, LED_STR_NUM, 1, 7);
@@ -472,6 +434,16 @@ void runStepRainbowNormalTwinkle()
 {
     runStepRainbowNormal();
     runStepTwinkle();
+}
+
+void runStepRainbowSliderNormal()
+{
+    runStepSlidingBeater(RainbowColors_p);
+}
+
+void runStepRainbowSliderStripe()
+{
+    runStepSlidingBeater(RainbowStripeColors_p);
 }
 
 void runStepBuilder(uint8_t iterations)
@@ -542,16 +514,6 @@ void runStepSlidingBeaterClouds()
 void runStepSlidingBeaterMagmas()
 {
     runStepSlidingBeater(LavaColors_p);
-}
-
-void runStepRainbowSliderNormal()
-{
-    runStepSlidingBeater(RainbowColors_p);
-}
-
-void runStepRainbowSliderStripe()
-{
-    runStepSlidingBeater(RainbowStripeColors_p);
 }
 
 void runStepSlidingBeaterOceans()
