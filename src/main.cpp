@@ -26,7 +26,7 @@ void setup()
     FastLED.addLeds<LED_STR_CTL, LED_STR_PIN, LED_STR_ORD>(ledStrandColors, LED_STR_NUM);
     FastLED.setCorrection(CRGB(255, 224, 204)); //UncorrectedColor, TypicalPixelString
     FastLED.setMaxPowerInVoltsAndMilliamps(LED_PWR_MAX_VOLTS, LED_PWR_MAX_MAMPS);
-    FastLED.setBrightness(LED_STR_BRT);
+    FastLED.setBrightness(0);
     FastLED.delay(2000);
 
     cycle(false);
@@ -36,25 +36,25 @@ void loop()
 {
     runSelectedStep();
 
-    EVERY_N_MILLISECONDS(LED_STR_SEC_COLOR) {
+    EVERY_N_MILLISECONDS(ledChainList[ledChainCallRefIndex].randHuesMili) {
         ledChainBaseColorHue++;
     }
 
-    EVERY_N_MILLISECONDS(LED_STR_SEC_CYCLE) {
+    EVERY_N_MILLISECONDS(ledChainList[ledChainCallRefIndex].callExecMili) {
         cycle();
     }
 }
 
 void cycle(bool fadeOut)
 {
-    //while(fadeOut && runSelectedStepFadeEnds()) {
-    //    runSelectedStep(false);
-    //}
+    while(fadeOut && runSelectedStepFadeEnds()) {
+        runSelectedStep(false);
+    }
 
     incSelectedStep();
     runSelectedStep();
 
-    //while(runSelectedStepFadeInit()) {
-    //    runSelectedStep(false);
-    //}
+    while(runSelectedStepFadeInit()) {
+        runSelectedStep(false);
+    }
 }

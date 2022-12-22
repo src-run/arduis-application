@@ -11,6 +11,8 @@
 #ifndef _ARDUIS_HR_MAIN
 #define _ARDUIS_HR_MAIN 1
 
+#define FASTLED_ALLOW_INTERRUPTS 0
+
 #include <Arduino.h>
 #include <Relay.h>
 #include <FastLED.h>

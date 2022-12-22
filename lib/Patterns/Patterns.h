@@ -17,8 +17,10 @@
 #include "Strands.h"
 #include "Utilities.h"
 
-#define LED_PATTERN_STEP_DELAY 3000/LED_STR_FPS
-#define LED_PATTERN_FADE_DELAY LED_PATTERN_STEP_DELAY / 3
+#define LED_PTN_STEP_MILI 1000/LED_STR_FPS
+#define LED_PTN_FADE_MILI LED_PTN_STEP_MILI / 3
+#define LED_PTN_NEXT_MILI 1000
+#define LED_PTN_FADE_ENBL ((bool)false)
 
 uint8_t minInt8(int16_t i);
 uint8_t maxInt8(int16_t i);
@@ -31,7 +33,7 @@ void  runSelectedStep(bool wait = true);
 bool  runSelectedStepFadeInit();
 bool  runSelectedStepFadeEnds();
 
-void  runStepTwinkle(uint8_t level = 180, fract8 chance = 50, uint8_t iterations = 8);
+void  runStepTwinkle(uint8_t level = 120, fract8 chance = 50, uint8_t iterations = 8);
 void  runInitGeneric();
 void  runInitColoredStatic(uint8_t r, uint8_t g, uint8_t b);
 void  runInitColoredStaticW();
@@ -96,20 +98,20 @@ void  runStepSlidingBeaterForest();
 void  runStepSlidingBeaterRandom();
 void  runStepSlidingBeaterHeater();
 
-void  runStepJugglerFaders(uint8_t fade = 20);
-void  runStepJugglerFadersFaster();
-void  runStepJugglerFadersFasterTwinkle();
-void  runStepJugglerFadersLonger();
-void  runStepJugglerFadersLongerTwinkle();
+void  runStepJuggler(uint8_t fade = 20);
+void  runStepJugglerFaster();
+void  runStepJugglerFasterTwinkle();
+void  runStepJugglerLonger();
+void  runStepJugglerLongerTwinkle();
 
 typedef struct {
-    String name;
-    void          (*call)();
-    void          (*init)();
-    unsigned long waitLoopMili;
-    unsigned long waitFadeMili;
-    bool          autoShowInit;
-    bool          autoShowCall;
+    String   name;
+    void     (*call)();
+    void     (*init)();
+    uint32_t callExecMili;
+    uint32_t randHuesMili;
+    uint32_t waitLoopMili;
+    uint32_t waitFadeMili;
 } ledChainListEntry;
 
 extern ledChainListEntry ledChainList[];
