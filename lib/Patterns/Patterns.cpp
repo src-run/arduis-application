@@ -116,14 +116,16 @@ void incSelectedStep(int by)
         nameMaxLen = ledChainList[i].name.length() > nameMaxLen ? ledChainList[i].name.length() : nameMaxLen;
     }
 
+    nameMaxLen += 2;
+
     String outsFmtBeg = "Selected pattern %02d of %02d: %-";
     String outsFmtEnd = "s (%03lus / %02lums / %02lums / %02lums)";
     String outsFormat = outsFmtBeg + String(nameMaxLen) + outsFmtEnd;
-    char   outsBuffer[outsFormat.length() + nameMaxLen + 2];
+    char   outsBuffer[outsFormat.length() + nameMaxLen];
 
     snprintf(
         outsBuffer,
-        outsFormat.length() + nameMaxLen + 2,
+        outsFormat.length() + nameMaxLen,
         outsFormat.c_str(),
         ledChainCallRefIndex + 1,
         listArrLen,
