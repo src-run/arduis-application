@@ -15,19 +15,18 @@
 #include <FastLED.h>
 
 #include "Strands.h"
+#include "Palettes.h"
+#include "Output.h"
 #include "Utilities.h"
 
 #define LED_PTN_STEP_MILI 1000 / LED_STR_FPS
-#define LED_PTN_NEXT_MILI 100
+#define LED_PTN_NEXT_MILI 0
 #define LED_PTN_FADE_MILI LED_PTN_STEP_MILI
 #define LED_PTN_FADE_STEP LED_STR_BRT / 4
 #define LED_PTN_FADE_ENBL ((bool)true)
 #define LED_PTN_INIT_RAND ((bool)false)
+#define LED_PTN_CPAL_RAND ((bool)true)
 
-uint8_t minInt8(int16_t i);
-uint8_t maxInt8(int16_t i);
-uint8_t useInt8(int16_t i);
-void    setRandom16Seed();
 int16_t getRandRefIndex();
 
 void  incSelectedStep(bool fade = LED_PTN_FADE_ENBL);
@@ -117,6 +116,8 @@ void  runStepPaletteRoundsForestTwinkle();
 void  runStepPaletteRoundsRandomTwinkle();
 void  runStepPaletteRoundsHeaterTwinkle();
 
+void  runStepPaletteCircle();
+
 void  runStepJuggler(uint8_t fade = 20);
 void  runStepJugglerFaster();
 void  runStepJugglerFasterTwinkle();
@@ -128,21 +129,21 @@ void runStepRainbowFadingSlow();
 void runStepRainbowFadingFast();
 void runStepRainbowWholed();
 
-
 typedef struct {
-    String   name;
-    void     (*call)();
-    void     (*init)();
-    uint32_t callExecMili;
-    uint32_t randHuesMili;
-    uint32_t waitLoopMili;
-    uint32_t waitFadeMili;
+    const char *name;
+    void      (*call)();
+    void      (*init)();
+    uint32_t   callExecMili;
+    uint32_t   randHuesMili;
+    uint32_t   waitLoopMili;
+    uint32_t   waitFadeMili;
 } ledChainListEntry;
 
-extern ledChainListEntry ledChainList[];
+extern const ledChainListEntry ledChainList[];
+extern const uint16_t          ledChainSize;
+
 extern CRGB ledStrandHoldColors[LED_STR_NUM];
 
-extern uint8_t ledChainNameCharsMax;
 extern int16_t ledChainCallRefIndex;
 extern int16_t ledChainFadeLeveling;
 extern uint8_t ledChainBaseColorHue;

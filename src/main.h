@@ -11,13 +11,14 @@
 #ifndef _ARDUIS_HR_MAIN
 #define _ARDUIS_HR_MAIN 1
 
-#define FASTLED_ALLOW_INTERRUPTS 0
+//#define FASTLED_ALLOW_INTERRUPTS 0
 
 #include <Arduino.h>
 #include <Relay.h>
 #include <FastLED.h>
 #include <stdio.h>
 
+#include "Palettes.h"
 #include "Patterns.h"
 #include "Relays.h"
 #include "Utilities.h"

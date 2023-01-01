@@ -36,6 +36,10 @@ void loop()
 {
     runSelectedStep();
 
+    EVERY_N_MILLISECONDS(LED_STR_PAL_CYCLE) {
+        incCPaletteStep();
+    }
+
     EVERY_N_MILLISECONDS(ledChainList[ledChainCallRefIndex].randHuesMili) {
         ledChainBaseColorHue++;
     }
@@ -52,6 +56,7 @@ void cycle(bool fadeEnds, bool fadeInit)
     }
 
     incSelectedStep();
+    incCPaletteStep();
     runSelectedStep();
 
     while(fadeInit && runSelectedStepFadeInit()) {
