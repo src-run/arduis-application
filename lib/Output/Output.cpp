@@ -10,26 +10,26 @@
 
 #include "Output.h"
 
-uint8_t getLedChainListMaxNameLen()
+uint8_t getLedPatternListMaxNameLen()
 {
     static uint8_t length = 0;
 
     if (0 == length) {
-        for (auto i = 0; i < ledChainSize; i++) {
-            length = max(length, String(ledChainList[i].name).length());
+        for (unsigned int i = 0; i < ledPatternSize; i++) {
+            length = max(length, String(ledPatternList[i].name).length());
         }
     }
 
     return length;
 }
 
-uint8_t getCPaletteListMaxNameLen()
+uint8_t getLedPaletteListMaxNameLen()
 {
     static uint8_t length = 0;
 
     if (0 == length) {
-        for (auto i = 0; i < ledChainSize; i++) {
-            length = max(length, String(ledChainList[i].name).length());
+        for (unsigned int i = 0; i < ledPatternSize; i++) {
+            length = max(length, String(ledPatternList[i].name).length());
         }
     }
 
@@ -38,30 +38,30 @@ uint8_t getCPaletteListMaxNameLen()
 
 void outStepInfo()
 {
-    if (ledChainListMaxNameLen == 0) {
-        for (uint16_t i = 0; i < ledChainSize; i++) {
-            ledChainListMaxNameLen = String(ledChainList[i].name).length() > ledChainListMaxNameLen
-                ? String(ledChainList[i].name).length()
-                : ledChainListMaxNameLen;
+    if (ledPatternListMaxNameLen == 0) {
+        for (uint16_t i = 0; i < ledPatternSize; i++) {
+            ledPatternListMaxNameLen = String(ledPatternList[i].name).length() > ledPatternListMaxNameLen
+                ? String(ledPatternList[i].name).length()
+                : ledPatternListMaxNameLen;
         }
 
-        ledChainListMaxNameLen += 2;
+        ledPatternListMaxNameLen += 2;
     }
 
-    String outsFormat = "Selected pattern %02d of %02d: %-" + String(ledChainListMaxNameLen) + "s (%03lus / %03lums / %03lums / %03lums)";
-    char   outsBuffer[outsFormat.length() + ledChainListMaxNameLen];
+    String outsFormat = "Selected pattern %02d of %02d: %-" + String(ledPatternListMaxNameLen) + "s (%03lus / %03lums / %03lums / %03lums)";
+    char   outsBuffer[outsFormat.length() + ledPatternListMaxNameLen];
 
     snprintf(
         outsBuffer,
-        outsFormat.length() + ledChainListMaxNameLen,
+        outsFormat.length() + ledPatternListMaxNameLen,
         outsFormat.c_str(),
-        ledChainCallRefIndex + 1,
-        ledChainSize,
-        String('"' + String(ledChainList[ledChainCallRefIndex].name) + '"').c_str(),
-        ledChainList[ledChainCallRefIndex].callExecMili / 1000,
-        ledChainList[ledChainCallRefIndex].randHuesMili,
-        ledChainList[ledChainCallRefIndex].waitLoopMili,
-        ledChainList[ledChainCallRefIndex].waitFadeMili
+        ledPatternCallRefIndex + 1,
+        ledPatternSize,
+        String('"' + String(ledPatternList[ledPatternCallRefIndex].name) + '"').c_str(),
+        ledPatternList[ledPatternCallRefIndex].callExecMili / 1000,
+        ledPatternList[ledPatternCallRefIndex].randHuesMili,
+        ledPatternList[ledPatternCallRefIndex].waitLoopMili,
+        ledPatternList[ledPatternCallRefIndex].waitFadeMili
     );
 
     Serial.print(outsBuffer);
@@ -79,7 +79,7 @@ void outStepInfo()
 
 String getStepInfoExtra()
 {
-    if (isCPaletteStepRunning()) {
+    if (isLedPaletteStepRunning()) {
         String outsFormat = "%03d/%03d:";
         char   outsBuffer[outsFormat.length()];
 
@@ -87,14 +87,14 @@ String getStepInfoExtra()
             outsBuffer,
             outsFormat.c_str(),
             ledPaletteArrayIndex,
-            cPaletteSize
+            ledPaletteSize
         );
 
-        return String(outsBuffer) + getCPaletteName() + String("(") + String(LED_STR_PAL_CYCLE / 1000) + String(")");
+        return String(outsBuffer) + getLedPaletteName() + String("(") + String(LED_STR_PAL_CYCLE / 1000) + String(")");
     }
 
     return String("");
 }
 
-uint8_t ledChainListMaxNameLen = 0;
-uint8_t cPaletteListMaxNameLen = 0;
+uint8_t ledPatternListMaxNameLen = 0;
+uint8_t ledPaletteListMaxNameLen = 0;

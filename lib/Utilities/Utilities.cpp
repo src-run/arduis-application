@@ -28,3 +28,8 @@ void setRandom16Seed(uint8_t iterations)
         random16_set_seed(analogRead(LED_BUILTIN) * analogRead(LED_BUILTIN) * analogRead(LED_BUILTIN));
     }
 }
+
+unsigned int getRandomArrayIndex(unsigned int size)
+{
+    return random16(0, max(0, size - 1));
+}

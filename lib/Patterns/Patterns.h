@@ -137,15 +137,15 @@ typedef struct {
     uint32_t   randHuesMili;
     uint32_t   waitLoopMili;
     uint32_t   waitFadeMili;
-} ledChainListEntry;
+} ledPatternListEntry;
 
-extern const ledChainListEntry ledChainList[];
-extern const uint16_t          ledChainSize;
+extern const ledPatternListEntry ledPatternList[];
+extern const uint16_t            ledPatternSize;
 
 extern CRGB ledStrandHoldColors[LED_STR_NUM];
 
-extern int16_t ledChainCallRefIndex;
-extern int16_t ledChainFadeLeveling;
-extern uint8_t ledChainBaseColorHue;
+extern int16_t ledPatternCallRefIndex;
+extern int16_t ledPatternFadeLeveling;
+extern uint8_t ledPatternBaseColorHue;
 
 #endif

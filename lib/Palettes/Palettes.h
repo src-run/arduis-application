@@ -87,16 +87,16 @@ typedef struct {
     TProgmemRGBGradientPalette_byte *comp;
 } customPaletteEntry;
 
-extern customPaletteEntry cPaletteList[];
-extern uint16_t           cPaletteSize;
+extern customPaletteEntry ledPaletteList[];
+extern uint16_t           ledPaletteSize;
 
 extern int16_t ledPaletteArrayIndex;
 
-bool          isCPaletteStepStarted();
-bool          isCPaletteStepRunning();
+bool          isLedPaletteStepStarted();
+bool          isLedPaletteStepRunning();
 int16_t       getRandPalIndex();
-void          incCPaletteStep();
-CRGBPalette16 getCPaletteStep();
-String        getCPaletteName();
+void          incLedPaletteStep();
+CRGBPalette16 getLedPaletteStep();
+String        getLedPaletteName();
 
 #endif

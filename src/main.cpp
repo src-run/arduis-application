@@ -37,14 +37,14 @@ void loop()
     runSelectedStep();
 
     EVERY_N_MILLISECONDS(LED_STR_PAL_CYCLE) {
-        incCPaletteStep();
+        incLedPaletteStep();
     }
 
-    EVERY_N_MILLISECONDS(ledChainList[ledChainCallRefIndex].randHuesMili) {
-        ledChainBaseColorHue++;
+    EVERY_N_MILLISECONDS(ledPatternList[ledPatternCallRefIndex].randHuesMili) {
+        ledPatternBaseColorHue++;
     }
 
-    EVERY_N_MILLISECONDS(ledChainList[ledChainCallRefIndex].callExecMili) {
+    EVERY_N_MILLISECONDS(ledPatternList[ledPatternCallRefIndex].callExecMili) {
         cycle();
     }
 }
@@ -56,7 +56,7 @@ void cycle(bool fadeEnds, bool fadeInit)
     }
 
     incSelectedStep();
-    incCPaletteStep();
+    incLedPaletteStep();
     runSelectedStep();
 
     while(fadeInit && runSelectedStepFadeInit()) {

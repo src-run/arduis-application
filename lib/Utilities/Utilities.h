@@ -16,9 +16,10 @@
 
 #define ARRAY_SIZE(A) ((int)(sizeof(A) / sizeof((A)[0])))
 
-uint8_t minInt8(int16_t i);
-uint8_t maxInt8(int16_t i);
-uint8_t useInt8(int16_t i);
-void    setRandom16Seed(uint8_t iterations = 4);
+uint8_t      minInt8(int16_t i);
+uint8_t      maxInt8(int16_t i);
+uint8_t      useInt8(int16_t i);
+void         setRandom16Seed(uint8_t iterations = 4);
+unsigned int getRandomArrayIndex(unsigned int size);
 
 #endif
