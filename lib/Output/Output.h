@@ -17,11 +17,11 @@
 #include <Patterns.h>
 #include <Utilities.h>
 
-extern uint8_t ledPatternListMaxNameLen;
-extern uint8_t ledPaletteListMaxNameLen;
+extern byte ledPatternListMaxNameLen;
+extern byte ledPaletteListMaxNameLen;
 
-uint8_t getLedPatternListMaxNameLen();
-uint8_t getLedPaletteListMaxNameLen();
+byte getLedPatternListMaxNameLen();
+byte getLedPaletteListMaxNameLen();
 void    outStepInfo();
 String  getStepInfoExtra();
 

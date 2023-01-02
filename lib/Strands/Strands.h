@@ -13,22 +13,7 @@
 
 #include <Arduino.h>
 #include <FastLED.h>
-
-#define LED_GRP_LEN       50
-#define LED_GRP_NUM       5
-
-#define LED_STR_NUM       LED_GRP_LEN * LED_GRP_NUM
-#define LED_STR_PIN       6
-#define LED_STR_BRT       120
-#define LED_STR_CTL       WS2812B
-#define LED_STR_ORD       RGB
-#define LED_STR_FPS       60
-#define LED_STR_SEC_CYCLE 240000
-#define LED_STR_PAL_CYCLE 30000
-#define LED_STR_SEC_COLOR 20
-
-#define LED_PWR_MAX_VOLTS 5
-#define LED_PWR_MAX_MAMPS 60000
+#include <Config.h>
 
 extern CRGB ledStrandColors[LED_STR_NUM];
 

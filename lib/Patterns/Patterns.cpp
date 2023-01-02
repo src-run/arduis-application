@@ -11,7 +11,7 @@
 #include "Patterns.h"
 #include "stdio.h"
 
-const ledPatternListEntry ledPatternList[] = {
+const ledPatternItem ledPatternList[] = {
 
 //    { "rainbow-wholed-slow",     runStepRainbowWholed,              runInitGeneric,        LED_STR_SEC_CYCLE / 6,     LED_STR_SEC_COLOR * 8, LED_PTN_STEP_MILI, LED_PTN_FADE_MILI },
 //    { "rainbow-wholed-fast",     runStepRainbowWholed,              runInitGeneric,        LED_STR_SEC_CYCLE / 6,     LED_STR_SEC_COLOR / 6,     LED_PTN_STEP_MILI / 2, LED_PTN_FADE_MILI },
@@ -19,6 +19,7 @@ const ledPatternListEntry ledPatternList[] = {
 //    { "rainbow-fading-fast",     runStepRainbowFadingFast,          runInitGeneric,        LED_STR_SEC_CYCLE,     LED_STR_SEC_COLOR * 2, LED_PTN_STEP_MILI, LED_PTN_FADE_MILI },
 
     { "palette-circle",          runStepPaletteCircle,              runInitGeneric,        LED_STR_SEC_CYCLE * 4, LED_STR_SEC_COLOR,     LED_PTN_STEP_MILI, LED_PTN_FADE_MILI },
+    { "palette-circle-t",        runStepPaletteCircleTwinkle,       runInitGeneric,        LED_STR_SEC_CYCLE * 2, LED_STR_SEC_COLOR,     LED_PTN_STEP_MILI, LED_PTN_FADE_MILI },
 
     { "rainbow-static",          runStepRainbowStatic,              runInitGeneric,        LED_STR_SEC_CYCLE,     LED_STR_SEC_COLOR,     LED_PTN_STEP_MILI, LED_PTN_FADE_MILI },
     { "rainbow-static-t",        runStepRainbowStaticTwinkle,       runInitGeneric,        LED_STR_SEC_CYCLE,     LED_STR_SEC_COLOR,     LED_PTN_STEP_MILI, LED_PTN_FADE_MILI },
@@ -95,29 +96,113 @@ const ledPatternListEntry ledPatternList[] = {
 
 };
 
-const uint16_t ledPatternSize = ARRAY_SIZE(ledPatternList);
-uint8_t  ledPatternBaseColorHue = 0;
-int16_t  ledPatternFadeLeveling = 0;
-int16_t  ledPatternCallRefIndex = -1;
-CRGB     ledStrandHoldColors[];
+byte ledPatternBaseColorHue = 0;
+int  ledPatternFadeLeveling = 0;
+bool ledPatternStepInit     = false;
+bool ledPatternStepRuns     = false;
+CRGB ledStrandHoldColors[];
 
-int16_t getRandRefIndex()
+ledPatternItem getLedPatternItem() {
+    return ledPatternList[getLedPatternListStepIndx()];
+}
+
+const String getLedPatternName() {
+    return getLedPatternItem().name;
+}
+
+const unsigned long getLedPatternCallExecMili() {
+    return getLedPatternItem().callExecMili;
+}
+
+const unsigned long getLedPatternRandHuesMili() {
+    return getLedPatternItem().randHuesMili;
+}
+
+const unsigned long getLedPatternWaitLoopMili() {
+    return getLedPatternItem().waitLoopMili;
+}
+
+const unsigned long getLedPatternWaitFadeMili() {
+    return getLedPatternItem().waitFadeMili;
+}
+
+
+unsigned int getLedPatternListSize()
 {
-    return random16(0, ARRAY_SIZE(ledPatternList) - 1);
+    static unsigned int size = ARRAY_SIZE(ledPatternList);
+
+    return size;
+}
+
+unsigned int getLedPatternListRandIndx()
+{
+    return getRandomIndx(getLedPatternListSize());
+}
+
+unsigned int getLedPatternListStepInit()
+{
+    return LED_PTN_INIT_RAND ? getLedPatternListRandIndx() : 0;
+}
+
+unsigned int getLedPatternListStepNext(unsigned int idx)
+{
+    return LED_PTN_INIT_RAND ? getLedPatternListRandIndx() : ((idx + 1) % getLedPatternListSize());
+}
+
+unsigned int getLedPatternListStepIndx(bool inc)
+{
+    static unsigned int idx = getLedPatternListStepInit();
+    static bool         beg = false;
+
+    if (beg && inc == true) {
+        idx = getLedPatternListStepNext(idx);
+    }
+
+    beg = true;
+
+    return idx;
+}
+
+unsigned int incLedPatternListStepIndx()
+{
+    return getLedPatternListStepIndx(true);
+}
+
+unsigned int getLedPatternListStepNumb()
+{
+    return getLedPatternListStepIndx() + 1;
+}
+
+const ledPatternItem *getLedPatternListStepItem(unsigned int idx)
+{
+    static ledPatternItem def = {
+        "default",
+        runStepGeneric,
+        runInitGeneric,
+        LED_STR_SEC_CYCLE,
+        LED_STR_SEC_COLOR,
+        LED_PTN_STEP_MILI,
+        LED_PTN_FADE_MILI,
+    };
+
+    return idx >= getLedPatternListSize() ? &def : &ledPatternList[idx];
+}
+
+const ledPatternItem *getLedPatternListStepItem()
+{
+    return getLedPatternListStepItem(getLedPatternListStepIndx());
 }
 
 void incSelectedStep(bool fade)
 {
-    setRandom16Seed();
+    addRandomEntr();
 
-    if (ledPatternCallRefIndex == -1 && LED_PTN_INIT_RAND) {
-        ledPatternCallRefIndex = getRandRefIndex();
-    }
+    incLedPatternListStepIndx();
 
-    ledPatternCallRefIndex = (ledPatternCallRefIndex + 1) % ARRAY_SIZE(ledPatternList);
-
-    if (ledPatternList[ledPatternCallRefIndex].init != nullptr) {
-        ledPatternList[ledPatternCallRefIndex].init();
+    if (getLedPatternItem().init != nullptr) {
+        ledPatternStepInit = true;
+        ledPatternStepRuns = false;
+        getLedPatternItem().init();
         FastLED.show();
     }
 
@@ -130,12 +215,14 @@ void incSelectedStep(bool fade)
 
 void runSelectedStep(bool wait)
 {
-    if (ledPatternList[ledPatternCallRefIndex].call != nullptr) {
-        ledPatternList[ledPatternCallRefIndex].call();
+    if (getLedPatternItem().call != nullptr) {
+        ledPatternStepInit = false;
+        ledPatternStepRuns = true;
+        getLedPatternItem().call();
         FastLED.show();
     }
 
-    FastLED.delay(wait ? ledPatternList[ledPatternCallRefIndex].waitLoopMili : 0);
+    FastLED.delay(wait ? getLedPatternItem().waitLoopMili : 0);
 }
 
 bool runSelectedStepFadeInit(int increment)
@@ -145,7 +232,7 @@ bool runSelectedStepFadeInit(int increment)
     }
 
     FastLED.setBrightness(ledPatternFadeLeveling <= LED_STR_BRT ? ledPatternFadeLeveling : LED_STR_BRT);
-    FastLED.delay(ledPatternList[ledPatternCallRefIndex].waitFadeMili);
+    FastLED.delay(getLedPatternItem().waitFadeMili);
 
     return ledPatternFadeLeveling <= LED_STR_BRT;
 }
@@ -157,7 +244,7 @@ bool runSelectedStepFadeEnds(int decrement)
     }
 
     FastLED.setBrightness(ledPatternFadeLeveling >= 0 ? ledPatternFadeLeveling : 0);
-    FastLED.delay(ledPatternList[ledPatternCallRefIndex].waitFadeMili);
+    FastLED.delay(getLedPatternItem().waitFadeMili);
 
     if (ledPatternFadeLeveling == 0) {
         FastLED.delay(LED_PTN_NEXT_MILI);
@@ -178,16 +265,27 @@ void runStepHoldingColors()
     setHoldColoursActive();
 }
 
-void runStepTwinkle(uint8_t level, fract8 chance, uint8_t iterations)
+void runStepTwinkle(const byte inc, const byte minLevel, const byte maxLevel)
 {
-    // TODO: RE-ENABLE AFTER DEBUGGING FLASHING ISSUE
-    return;
+    const byte iterations = getRandInt08(0, inc);
 
-    iterations = random8(0, iterations);
-
-    for (uint8_t i = 0; i < iterations; i++) {
-        ledStrandColors[random16(LED_STR_NUM)] += CRGB(random8(level), random8(level), random8(level));
+    for (byte i = 0; i < iterations; i++) {
+        ledStrandColors[getRandInt16(LED_STR_NUM)] += CRGB(
+            getRandInt08(minLevel, maxLevel),
+            getRandInt08(minLevel, maxLevel),
+            getRandInt08(minLevel, maxLevel)
+        );
     }
+}
+
+void runStepTwinkle(const byte inc, const byte maxLevel)
+{
+    runStepTwinkle(inc, LED_PTN_TWIK_MINL, maxLevel);
+}
+
+void runStepTwinkle(const byte inc)
+{
+    runStepTwinkle(inc, LED_PTN_TWIK_MINL, LED_PTN_TWIK_MAXL);
 }
 
 void runInitGeneric()
@@ -195,7 +293,12 @@ void runInitGeneric()
     fill_solid(ledStrandColors, LED_STR_NUM, CRGB(0, 0, 0));
 }
 
-void runInitColoredStatic(uint8_t r, uint8_t g, uint8_t b)
+void runStepGeneric()
+{
+    fill_solid(ledStrandColors, LED_STR_NUM, CRGB(0, 0, 0));
+}
+
+void runInitColoredStatic(byte r, byte g, byte b)
 {
     auto color = CRGB(r, g, b);
 
@@ -226,7 +329,7 @@ void runInitColoredStaticB()
     runInitColoredStatic(0, 0, 240);
 }
 
-void runStepColoredStatic(uint8_t r, uint8_t g, uint8_t b)
+void runStepColoredStatic(byte r, byte g, byte b)
 {
     runInitColoredStatic(r, g, b);
 }
@@ -275,15 +378,15 @@ void runStepColoredStaticBTwinkle()
     runStepTwinkle();
 }
 
-void runStepColoredBuilds(uint8_t r, uint8_t g, uint8_t b, uint8_t d)
+void runStepColoredBuilds(byte r, byte g, byte b, byte d)
 {
     fadeToBlackBy(ledStrandColors, LED_STR_NUM, 3);
 
-    for (uint8_t i = 0; i < LED_STR_NUM/25; i++) {
-        ledStrandColors[random16(LED_STR_NUM)] = CRGB(
-            r == 0 ? random8(0, maxInt8(d * 4)) : random8(minInt8(r - d), maxInt8(r + d)),
-            g == 0 ? random8(0, maxInt8(d * 4)) : random8(minInt8(g - d), maxInt8(g + d)),
-            b == 0 ? random8(0, maxInt8(d * 4)) : random8(minInt8(b - d), maxInt8(b + d))
+    for (byte i = 0; i < LED_STR_NUM/25; i++) {
+        ledStrandColors[getRandInt16(LED_STR_NUM)] = CRGB(
+            r == 0 ? getRandInt08(0, byteLimitUpper(d * 4)) : getRandInt08(byteLimitLower(r - d), byteLimitUpper(r + d)),
+            g == 0 ? getRandInt08(0, byteLimitUpper(d * 4)) : getRandInt08(byteLimitLower(g - d), byteLimitUpper(g + d)),
+            b == 0 ? getRandInt08(0, byteLimitUpper(d * 4)) : getRandInt08(byteLimitLower(b - d), byteLimitUpper(b + d))
         );
     }
 }
@@ -332,15 +435,15 @@ void runStepColoredBuildsBTwinkle()
     runStepTwinkle();
 }
 
-void runInitColoredVaried(uint8_t r, uint8_t g, uint8_t b, uint8_t d)
+void runInitColoredVaried(byte r, byte g, byte b, byte d)
 {
     runInitGeneric();
 
     for (int i = 0; i < LED_STR_NUM; ++i) {
         ledStrandHoldColors[i] = CRGB(
-            random8(minInt8(r - d), maxInt8(r + d)),
-            random8(minInt8(g - d), maxInt8(g + d)),
-            random8(minInt8(b - d), maxInt8(b + d))
+            getRandInt08(byteLimitLower(r - d), byteLimitUpper(r + d)),
+            getRandInt08(byteLimitLower(g - d), byteLimitUpper(g + d)),
+            getRandInt08(byteLimitLower(b - d), byteLimitUpper(b + d))
         );
     }
 
@@ -423,12 +526,12 @@ void runStepRainbowSliderStripe()
     runStepSlidingBeater(RainbowStripeColors_p);
 }
 
-void runStepBuilder(uint8_t iterations)
+void runStepBuilder(byte iterations)
 {
     fadeToBlackBy(ledStrandColors, LED_STR_NUM, 1);
 
-    for (uint8_t i = 0; i < iterations; i++) {
-        ledStrandColors[random16(LED_STR_NUM)] += CHSV(ledPatternBaseColorHue + random8(64), 200, 255);
+    for (byte i = 0; i < iterations; i++) {
+        ledStrandColors[getRandInt16(LED_STR_NUM)] += CHSV(ledPatternBaseColorHue + getRandInt08(64), 200, 255);
     }
 }
 
@@ -454,11 +557,11 @@ void runStepBuilderFasterTwinkle()
     runStepTwinkle();
 }
 
-void runStepSinelon(uint8_t iterations)
+void runStepSinelon(byte iterations)
 {
     fadeToBlackBy(ledStrandColors, LED_STR_NUM, 1);
 
-    for (uint8_t i = 0; i < iterations; i++) {
+    for (byte i = 0; i < iterations; i++) {
         ledStrandColors[beatsin16(13, 10, LED_STR_NUM - 1)] += CHSV(ledPatternBaseColorHue, 255, 192);
     }
 }
@@ -474,9 +577,9 @@ void runStepSinelonNormalTwinkle()
     runStepTwinkle();
 }
 
-void runStepSlidingBeater(CRGBPalette16 palette, uint8_t time)
+void runStepSlidingBeater(CRGBPalette16 palette, byte time)
 {
-    uint8_t beat = beatsin8(time, 64, 180);
+    byte beat = beatsin8(time, 64, 180);
 
     for (int i = 0; i < LED_STR_NUM; i++) {
         ledStrandColors[i] = ColorFromPalette(palette, ledPatternBaseColorHue + (i * 2), beat - ledPatternBaseColorHue + (i * 10));
@@ -588,16 +691,22 @@ void runStepPaletteRoundsHeaterTwinkle()
 
 void runStepPaletteCircle()
 {
-    runStepPaletteRounds(getLedPaletteStep());
+    runStepPaletteRounds(getLedPaletteStepComp());
 }
 
-void runStepJuggler(uint8_t fade) {
+void runStepPaletteCircleTwinkle()
+{
+    runStepPaletteCircle();
+    runStepTwinkle(4, 0, 80);
+}
+
+void runStepJuggler(byte fade) {
     byte dothue = 0;
 
     fadeToBlackBy(ledStrandColors, LED_STR_NUM, fade);
 
     for (int i = 0; i < 12; i++) {
-        ledStrandColors[beatsin16(i + random8(5, 10), 0, LED_STR_NUM - 1)] |= CHSV(dothue, 200, 255);
+        ledStrandColors[beatsin16(i + getRandInt08(5, 10), 0, LED_STR_NUM - 1)] |= CHSV(dothue, 200, 255);
         dothue += 32;
     }
 }
@@ -626,12 +735,12 @@ void runStepJugglerLongerTwinkle()
 
 void runStepColoredGradedeeeeeeee()
 {
-    uint8_t hue = sin8(ledPatternBaseColorHue);
+    byte hue = sin8(ledPatternBaseColorHue);
 
     fill_gradient(ledStrandColors, LED_STR_NUM, CHSV(hue, 255, 255), CHSV(hue, 255, 255), FORWARD_HUES);
 }
 
-void runStepGradingStable(uint8_t hueBeg, uint8_t hueEnd)
+void runStepGradingStable(byte hueBeg, byte hueEnd)
 {
     if (hueBeg < hueEnd) {
         fill_gradient(ledStrandColors, LED_STR_NUM, CHSV(hueBeg, 255, 255), CHSV(hueEnd, 255, 255), FORWARD_HUES);
@@ -640,10 +749,10 @@ void runStepGradingStable(uint8_t hueBeg, uint8_t hueEnd)
     }
 }
 
-void runStepRainbowFading(uint8_t bmp1, uint8_t bpm2)
+void runStepRainbowFading(byte bmp1, byte bpm2)
 {
-    uint8_t hueBeg = beatsin8(bmp1, 0, 255);
-    uint8_t hueEnd = beatsin8(bpm2, 0, 255);
+    byte hueBeg = beatsin8(bmp1, 0, 255);
+    byte hueEnd = beatsin8(bpm2, 0, 255);
 
     if (hueBeg < hueEnd) {
         fill_gradient(ledStrandColors, LED_STR_NUM, CHSV(hueBeg, 255, 255), CHSV(hueEnd, 255, 255), FORWARD_HUES);
@@ -664,8 +773,8 @@ void runStepRainbowFadingFast()
 
 void runStepRainbowWholed()
 {
-    uint8_t hueBeg = ledPatternBaseColorHue;
-    uint8_t hueEnd = ledPatternBaseColorHue + 64;
+    byte hueBeg = ledPatternBaseColorHue;
+    byte hueEnd = ledPatternBaseColorHue + 64;
 
     if (hueBeg < hueEnd) {
         fill_gradient(ledStrandColors, LED_STR_NUM, CHSV(hueBeg, 255, 255), CHSV(hueEnd, 255, 255), FORWARD_HUES);

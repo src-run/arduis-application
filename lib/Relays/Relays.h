@@ -12,10 +12,25 @@
 #define _ARDUIS_HR_RELAY
 
 #include <Arduino.h>
-#include <Relay.h>
+#include <Config.h>
+#include <Utilities.h>
 
-#define LED_RELAY_PIN 33
+class Relay
+{
+    protected:
+        byte _pin;
+        bool _beg = false;
 
-Relay ledStrandsRelay(LED_RELAY_PIN, true);
+    public:
+        Relay(byte pin);
+
+        byte getPin();
+        bool setPin(byte pin);
+
+        bool isEnabled();
+        bool isDisabled();
+        bool enable();
+        bool disable();
+};
 
 #endif

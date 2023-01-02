@@ -14,14 +14,15 @@
 //#define FASTLED_ALLOW_INTERRUPTS 0
 
 #include <Arduino.h>
-#include <Relay.h>
 #include <FastLED.h>
-#include <stdio.h>
 
 #include "Palettes.h"
 #include "Patterns.h"
-#include "Relays.h"
+#include "Relay.h"
+#include "Config.h"
 #include "Utilities.h"
+
+Relay ledRelay(LED_RELAY_PIN, false);
 
 void cycle(bool fadeEnds = LED_PTN_FADE_ENBL, bool fadeInit = LED_PTN_FADE_ENBL);
 

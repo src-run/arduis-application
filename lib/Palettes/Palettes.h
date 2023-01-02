@@ -85,18 +85,23 @@ DECLARE_GRADIENT_PALETTE(Palette_CbQua_LtGrBl_LtYl_LtPu_LtRd_LtBl_LtOr_LtGr_LtPi
 typedef struct {
     const char                      *name;
     TProgmemRGBGradientPalette_byte *comp;
-} customPaletteEntry;
+} customPaletteItem;
 
-extern customPaletteEntry ledPaletteList[];
-extern uint16_t           ledPaletteSize;
+extern const customPaletteItem ledPaletteList[];
 
-extern int16_t ledPaletteArrayIndex;
-
+unsigned int  getLedPaletteListSize();
+unsigned int  getLedPaletteListRandIndx();
+unsigned int  getLedPaletteListStepInit();
+unsigned int  getLedPaletteListStepNext(unsigned int idx);
+unsigned int  getLedPaletteListStepIndx(bool inc = false);
+unsigned int  incLedPaletteListStepIndx();
+unsigned int  getLedPaletteListStepNumb();
 bool          isLedPaletteStepStarted();
 bool          isLedPaletteStepRunning();
-int16_t       getRandPalIndex();
 void          incLedPaletteStep();
-CRGBPalette16 getLedPaletteStep();
-String        getLedPaletteName();
+
+customPaletteItem getLedPaletteStepItem();
+CRGBPalette16     getLedPaletteStepComp();
+const String      getLedPaletteStepName();
 
 #endif

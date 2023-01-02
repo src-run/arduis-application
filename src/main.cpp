@@ -14,20 +14,18 @@ void setup()
 {
     Serial.begin(19200);
 
-    ledStrandsRelay.begin();
-    ledStrandsRelay.turnOff();
+    setPinModeOutput(LED_BUILTIN, LOW);
 
-    pinMode(LED_BUILTIN, OUTPUT);
-    digitalWrite(LED_BUILTIN, LOW);
-
-    FastLED.delay(2000);
-
-    ledStrandsRelay.turnOn();
+    FastLED.delay(1000);
     FastLED.addLeds<LED_STR_CTL, LED_STR_PIN, LED_STR_ORD>(ledStrandColors, LED_STR_NUM);
     FastLED.setCorrection(TypicalPixelString); //UncorrectedColor, TypicalPixelString, CRGB(255, 224, 204)
     FastLED.setMaxPowerInVoltsAndMilliamps(LED_PWR_MAX_VOLTS, LED_PWR_MAX_MAMPS);
+
+    ledRelay.begin();
+    ledRelay.turnOn();
+
     FastLED.setBrightness(0);
-    FastLED.delay(2000);
+    FastLED.delay(1000);
 
     cycle(false);
 }
@@ -40,11 +38,11 @@ void loop()
         incLedPaletteStep();
     }
 
-    EVERY_N_MILLISECONDS(ledPatternList[ledPatternCallRefIndex].randHuesMili) {
+    EVERY_N_MILLISECONDS(ledPatternList[getLedPatternListStepIndx()].randHuesMili) {
         ledPatternBaseColorHue++;
     }
 
-    EVERY_N_MILLISECONDS(ledPatternList[ledPatternCallRefIndex].callExecMili) {
+    EVERY_N_MILLISECONDS(ledPatternList[getLedPatternListStepIndx()].callExecMili) {
         cycle();
     }
 }
@@ -56,7 +54,6 @@ void cycle(bool fadeEnds, bool fadeInit)
     }
 
     incSelectedStep();
-    incLedPaletteStep();
     runSelectedStep();
 
     while(fadeInit && runSelectedStepFadeInit()) {

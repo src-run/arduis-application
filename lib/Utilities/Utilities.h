@@ -14,12 +14,45 @@
 #include <Arduino.h>
 #include <FastLED.h>
 
-#define ARRAY_SIZE(A) ((int)(sizeof(A) / sizeof((A)[0])))
+#define ARRAY_SIZE(A) (*(&A + 1) - A)
+//#define ARRAY_SIZE(A) ((int)(sizeof(A) / sizeof((A)[0])))
 
-uint8_t      minInt8(int16_t i);
-uint8_t      maxInt8(int16_t i);
-uint8_t      useInt8(int16_t i);
-void         setRandom16Seed(uint8_t iterations = 4);
-unsigned int getRandomArrayIndex(unsigned int size);
+#define PIN_MODE_UNKNOWN      0xff
+#define PIN_MODE_INPUT        INPUT
+#define PIN_MODE_INPUT_PULLUP INPUT_PULLUP
+#define PIN_MODE_OUTPUT       OUTPUT
+
+byte byteLimitLower(long i);
+byte byteLimitUpper(long i);
+byte byteLimit(long i);
+
+byte         getRandInt08(byte lim);
+byte         getRandInt08(byte min, byte lim);
+unsigned int getRandInt16(unsigned int lim);
+unsigned int getRandInt16(unsigned int min, unsigned int lim);
+unsigned int getRandomSeed();
+unsigned int addRandomEntr(byte min, byte max);
+unsigned int addRandomEntr(byte max = 8);
+unsigned int setRandomEntr(byte min, byte max);
+unsigned int setRandomEntr(byte max = 8);
+unsigned int getRandomIndx(unsigned int size);
+
+bool lt(int x, unsigned int y);
+bool lt(unsigned int x, int y);
+bool lt(unsigned int x, unsigned int y);
+bool lt(int x, int y);
+
+byte getPinMode(byte pin);
+
+bool setPinMode(byte pin, byte act);
+bool setPinModeOutput(byte pin);
+bool setPinModeOutput(byte pin, byte out);
+bool setPinModeInput(byte pin);
+bool setPinModeInputPullup(byte pin);
+
+bool isPinMode(byte pin, byte act);
+bool isPinModeOutput(byte pin);
+bool isPinModeInput(byte pin);
+bool isPinModeInputPullup(byte pin);
 
 #endif
