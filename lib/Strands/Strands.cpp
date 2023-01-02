@@ -10,4 +10,5 @@
 
 #include "Strands.h"
 
-CRGB ledStrandColors[LED_STR_NUM];
+CRGB ledStrandUsedColors[LED_STR_NUM];
+CRGB ledStrandHeldColors[LED_STR_NUM];

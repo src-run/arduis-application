@@ -15,6 +15,7 @@
 #include <FastLED.h>
 #include <Config.h>
 
-extern CRGB ledStrandColors[LED_STR_NUM];
+extern CRGB ledStrandUsedColors[LED_STR_NUM];
+extern CRGB ledStrandHeldColors[LED_STR_NUM];
 
 #endif

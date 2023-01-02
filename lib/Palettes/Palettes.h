@@ -83,25 +83,32 @@ DECLARE_GRADIENT_PALETTE(Palette_CbQua_LtGrBl_LtOr_LtPu_LtPi_LtGr_LtYl_LtBr_LtGy
 DECLARE_GRADIENT_PALETTE(Palette_CbQua_LtGrBl_LtYl_LtPu_LtRd_LtBl_LtOr_LtGr_LtPi_c);
 
 typedef struct {
+    const unsigned int curr;
+    const unsigned int next;
+} ledPaletteIndex;
+
+typedef struct {
     const char                      *name;
     TProgmemRGBGradientPalette_byte *comp;
 } customPaletteItem;
 
 extern const customPaletteItem ledPaletteList[];
 
-unsigned int  getLedPaletteListSize();
-unsigned int  getLedPaletteListRandIndx();
-unsigned int  getLedPaletteListStepInit();
-unsigned int  getLedPaletteListStepNext(unsigned int idx);
-unsigned int  getLedPaletteListStepIndx(bool inc = false);
-unsigned int  incLedPaletteListStepIndx();
-unsigned int  getLedPaletteListStepNumb();
-bool          isLedPaletteStepStarted();
-bool          isLedPaletteStepRunning();
-void          incLedPaletteStep();
+unsigned int    getLedPaletteListRandIndx();
+unsigned int    getLedPaletteListStepInit();
+unsigned int    getLedPaletteListStepNext(unsigned int idx);
+ledPaletteIndex getLedPaletteListStepIndx(bool inc = false);
+unsigned int    incLedPaletteListStepIndx();
+unsigned int    getLedPaletteListStepNumb();
+bool            isLedPaletteStepStarted();
+bool            isLedPaletteStepRunning();
+void            incLedPaletteStep();
 
-customPaletteItem getLedPaletteStepItem();
-CRGBPalette16     getLedPaletteStepComp();
-const String      getLedPaletteStepName();
+const unsigned int       getLedPaletteListSize();
+const customPaletteItem *getLedPaletteItem(const unsigned int idx);
+const customPaletteItem *getLedPaletteItem();
+const String             getLedPaletteItemName(const unsigned int idx);
+const String             getLedPaletteItemName();
+CRGBPalette16            getLedPaletteItemComp();
 
 #endif

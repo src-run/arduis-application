@@ -17,12 +17,13 @@
 #include <Patterns.h>
 #include <Utilities.h>
 
-extern byte ledPatternListMaxNameLen;
-extern byte ledPaletteListMaxNameLen;
+void         outSysSetup(unsigned long baud = OUT_SERIAL_BAUD);
+void         outStepInfo(bool skip = false);
+const String getStepInfoMain();
+const String getStepInfoMore();
+const String getStepInfoMorePalette();
 
-byte getLedPatternListMaxNameLen();
-byte getLedPaletteListMaxNameLen();
-void    outStepInfo();
-String  getStepInfoExtra();
+const byte   getLedPatternListNamesMaxLength();
+const byte   getLedPaletteListNamesMaxLength();
 
 #endif

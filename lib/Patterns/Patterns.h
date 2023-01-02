@@ -28,11 +28,10 @@ typedef struct {
     unsigned long randHuesMili;
     unsigned long waitLoopMili;
     unsigned long waitFadeMili;
+    fract8        skipItemFrac;
 } ledPatternItem;
 
 extern const ledPatternItem ledPatternList[];
-
-extern CRGB ledStrandHoldColors[LED_STR_NUM];
 
 extern int  ledPatternFadeLeveling;
 extern byte ledPatternBaseColorHue;
@@ -42,29 +41,32 @@ extern bool ledPatternStepRuns;
 
 typedef int (*fptr)();
 
-ledPatternItem      getLedPatternItem();
-const String        getLedPatternName();
-const unsigned long getLedPatternCallExecMili();
-const unsigned long getLedPatternRandHuesMili();
-const unsigned long getLedPatternWaitLoopMili();
-const unsigned long getLedPatternWaitFadeMili();
+const unsigned int    getLedPatternListSize();
+const ledPatternItem *getLedPatternItem(const unsigned int idx);
+const ledPatternItem *getLedPatternItem();
+const String          getLedPatternItemName(const unsigned int idx);
+const String          getLedPatternItemName();
+const unsigned long   getLedPatternItemCallExecMili();
+const unsigned long   getLedPatternItemRandHuesMili();
+const unsigned long   getLedPatternItemWaitLoopMili();
+const unsigned long   getLedPatternItemWaitFadeMili();
 
 int getRandRefIndex();
 
-void  incSelectedStep(bool fade = LED_PTN_FADE_ENBL);
-void  runSelectedStep(bool wait = true);
-bool  runSelectedStepFadeInit(int increment = LED_PTN_FADE_STEP);
-bool  runSelectedStepFadeEnds(int decrement = LED_PTN_FADE_STEP);
+void  incSelectedStep(const bool fade = LED_PTN_FADE_ENBL);
+void  runSelectedStep(const bool wait = true);
+bool  runSelectedStepFadeInit(const int increment = LED_PTN_FADE_STEP);
+bool  runSelectedStepFadeEnds(const int decrement = LED_PTN_FADE_STEP);
 
 void  setHoldColoursActive();
 void  runStepHoldingColors();
 
 void  runStepTwinkle(const byte inc, const byte minLevel, const byte maxLevel);
 void  runStepTwinkle(const byte inc, const byte maxLevel);
-void  runStepTwinkle(const byte inc = 8);
+void  runStepTwinkle(const byte inc = LED_PTN_TWIK_RAND);
 
 void  runInitGeneric();
-void  runInitColoredStatic(byte r, byte g, byte b);
+void  runInitColoredStatic(const byte r, const byte g, const byte b);
 void  runInitColoredStaticW();
 void  runInitColoredStaticR();
 void  runInitColoredStaticG();
@@ -72,7 +74,7 @@ void  runInitColoredStaticB();
 
 void  runStepGeneric();
 
-void  runStepColoredStatic(byte r = 150, byte g = 150, byte b = 150);
+void  runStepColoredStatic(const byte r = 150, const byte g = 150, const byte b = 150);
 void  runStepColoredStaticW();
 void  runStepColoredStaticR();
 void  runStepColoredStaticG();
@@ -82,7 +84,7 @@ void  runStepColoredStaticRTwinkle();
 void  runStepColoredStaticGTwinkle();
 void  runStepColoredStaticBTwinkle();
 
-void  runStepColoredBuilds(byte r, byte g, byte b, byte d = 25);
+void  runStepColoredBuilds(const byte r, const byte g, const byte b, const byte d = 25);
 void  runStepColoredBuildsW();
 void  runStepColoredBuildsR();
 void  runStepColoredBuildsG();
@@ -92,7 +94,7 @@ void  runStepColoredBuildsRTwinkle();
 void  runStepColoredBuildsGTwinkle();
 void  runStepColoredBuildsBTwinkle();
 
-void  runInitColoredVaried(byte r, byte g, byte b, byte d = 100);
+void  runInitColoredVaried(const byte r, const byte g, const byte b, const byte d = 100);
 void  runInitColoredVariedW();
 void  runInitColoredVariedR();
 void  runInitColoredVariedG();
@@ -110,17 +112,17 @@ void  runStepRainbowNormalTwinkle();
 void  runStepRainbowSliderNormal();
 void  runStepRainbowSliderStripe();
 
-void  runStepBuilder(byte iterations = 4);
+void  runStepBuilder(const byte iterations = 4);
 void  runStepBuilderNormal();
 void  runStepBuilderNormalTwinkle();
 void  runStepBuilderFaster();
 void  runStepBuilderFasterTwinkle();
 
-void  runStepSinelon(byte iterations = 6);
+void  runStepSinelon(const byte iterations = 6);
 void  runStepSinelonNormal();
 void  runStepSinelonNormalTwinkle();
 
-void  runStepSlidingBeater(CRGBPalette16 palette, byte time = 8);
+void  runStepSlidingBeater(const CRGBPalette16 palette, const byte time = 8);
 void  runStepSlidingBeaterClouds();
 void  runStepSlidingBeaterMagmas();
 void  runStepSlidingBeaterOceans();
@@ -128,7 +130,7 @@ void  runStepSlidingBeaterForest();
 void  runStepSlidingBeaterRandom();
 void  runStepSlidingBeaterHeater();
 
-void  runStepPaletteRounds(CRGBPalette16 palette);
+void  runStepPaletteRounds(const CRGBPalette16 palette);
 void  runStepPaletteRoundsClouds();
 void  runStepPaletteRoundsMagmas();
 void  runStepPaletteRoundsOceans();
@@ -145,26 +147,23 @@ void  runStepPaletteRoundsHeaterTwinkle();
 void  runStepPaletteCircle();
 void  runStepPaletteCircleTwinkle();
 
-void  runStepJuggler(byte fade = 20);
+void  runStepJuggler(const byte fade = 20);
 void  runStepJugglerFaster();
 void  runStepJugglerFasterTwinkle();
 void  runStepJugglerLonger();
 void  runStepJugglerLongerTwinkle();
 
-void runStepRainbowFading(byte bmp1 = 1, byte bpm2 = 2);
+void runStepRainbowFading(const byte bmp1 = 1, const byte bpm2 = 2);
 void runStepRainbowFadingSlow();
 void runStepRainbowFadingFast();
 void runStepRainbowWholed();
 
-unsigned int getLedPatternListSize();
 unsigned int getLedPatternListRandIndx();
 unsigned int getLedPatternListStepInit();
-unsigned int getLedPatternListStepNext(unsigned int idx);
-unsigned int getLedPatternListStepIndx(bool inc = false);
+unsigned int getLedPatternListStepNext(const unsigned int idx);
+unsigned int getLedPatternListStepIndx(const bool inc = false);
 unsigned int incLedPatternListStepIndx();
 unsigned int getLedPatternListStepNumb();
 
-const ledPatternItem *getLedPatternListStepItem(unsigned int idx);
-const ledPatternItem *getLedPatternListStepItem();
 
 #endif

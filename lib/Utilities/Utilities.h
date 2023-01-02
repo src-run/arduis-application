@@ -22,12 +22,20 @@
 #define PIN_MODE_INPUT_PULLUP INPUT_PULLUP
 #define PIN_MODE_OUTPUT       OUTPUT
 
+enum StringPadDirection {
+    lft = -1,
+    all =  0,
+    rgt =  1,
+};
+
 byte byteLimitLower(long i);
 byte byteLimitUpper(long i);
 byte byteLimit(long i);
 
+byte         getRandInt08();
 byte         getRandInt08(byte lim);
 byte         getRandInt08(byte min, byte lim);
+unsigned int getRandInt16();
 unsigned int getRandInt16(unsigned int lim);
 unsigned int getRandInt16(unsigned int min, unsigned int lim);
 unsigned int getRandomSeed();
@@ -54,5 +62,10 @@ bool isPinMode(byte pin, byte act);
 bool isPinModeOutput(byte pin);
 bool isPinModeInput(byte pin);
 bool isPinModeInputPullup(byte pin);
+
+const String strQuote(const String value, const String quote = "\"");
+const String strPadsChar(const String value, int padSize = -1, const String padChar = " ", const StringPadDirection padWhat = StringPadDirection::lft);
+const String strPadsCharLft(const String value, int padSize = -1, const String padChar = " ");
+const String strPadsCharRgt(const String value, int padSize = -1, const String padChar = " ");
 
 #endif

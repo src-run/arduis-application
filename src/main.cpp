@@ -12,12 +12,11 @@
 
 void setup()
 {
-    Serial.begin(19200);
-
+    outSysSetup();
     setPinModeOutput(LED_BUILTIN, LOW);
 
-    FastLED.delay(1000);
-    FastLED.addLeds<LED_STR_CTL, LED_STR_PIN, LED_STR_ORD>(ledStrandColors, LED_STR_NUM);
+    FastLED.delay(500);
+    FastLED.addLeds<LED_STR_CTL, LED_STR_PIN, LED_STR_ORD>(ledStrandUsedColors, LED_STR_NUM);
     FastLED.setCorrection(TypicalPixelString); //UncorrectedColor, TypicalPixelString, CRGB(255, 224, 204)
     FastLED.setMaxPowerInVoltsAndMilliamps(LED_PWR_MAX_VOLTS, LED_PWR_MAX_MAMPS);
 
@@ -25,9 +24,9 @@ void setup()
     ledRelay.turnOn();
 
     FastLED.setBrightness(0);
-    FastLED.delay(1000);
+    FastLED.delay(500);
 
-    cycle(false);
+    cyclePattern(false);
 }
 
 void loop()
@@ -35,19 +34,37 @@ void loop()
     runSelectedStep();
 
     EVERY_N_MILLISECONDS(LED_STR_PAL_CYCLE) {
-        incLedPaletteStep();
+        cyclePalette();
     }
 
-    EVERY_N_MILLISECONDS(ledPatternList[getLedPatternListStepIndx()].randHuesMili) {
-        ledPatternBaseColorHue++;
+    EVERY_N_MILLISECONDS(getLedPatternItemRandHuesMili()) {
+        cycleRandHue();
     }
 
-    EVERY_N_MILLISECONDS(ledPatternList[getLedPatternListStepIndx()].callExecMili) {
-        cycle();
+    EVERY_N_MILLISECONDS(getLedPatternItemCallExecMili()) {
+        cyclePattern();
     }
 }
 
-void cycle(bool fadeEnds, bool fadeInit)
+void cyclePalette(bool fadeEnds, bool fadeInit)
+{
+    if (!isLedPaletteStepStarted()) {
+        return;
+    }
+
+    while(fadeEnds && runSelectedStepFadeEnds()) {
+        runSelectedStep(false);
+    }
+
+    incLedPaletteStep();
+    runSelectedStep();
+
+    while(fadeInit && runSelectedStepFadeInit()) {
+        runSelectedStep(false);
+    }
+}
+
+void cyclePattern(bool fadeEnds, bool fadeInit)
 {
     while(fadeEnds && runSelectedStepFadeEnds()) {
         runSelectedStep(false);
@@ -59,4 +76,9 @@ void cycle(bool fadeEnds, bool fadeInit)
     while(fadeInit && runSelectedStepFadeInit()) {
         runSelectedStep(false);
     }
+}
+
+void cycleRandHue()
+{
+    ledPatternBaseColorHue++;
 }

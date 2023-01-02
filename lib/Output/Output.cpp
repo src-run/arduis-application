@@ -10,91 +10,116 @@
 
 #include "Output.h"
 
-byte ledPatternListMaxNameLen = 0;
-byte ledPaletteListMaxNameLen = 0;
-
-byte getLedPatternListMaxNameLen()
+void outSysSetup(unsigned long baud)
 {
-    static byte length = 0;
-
-    if (0 == length) {
-        for (unsigned int i = 0; i < getLedPatternListSize(); i++) {
-            length = max(length, String(ledPatternList[i].name).length());
-        }
-    }
-
-    return length;
-}
-
-byte getLedPaletteListMaxNameLen()
-{
-    static byte length = 0;
-
-    if (0 == length) {
-        for (unsigned int i = 0; i < getLedPatternListSize(); i++) {
-            length = max(length, String(ledPatternList[i].name).length());
-        }
-    }
-
-    return length;
-}
-
-void outStepInfo()
-{
-    if (ledPatternListMaxNameLen == 0) {
-        for (unsigned int i = 0; i < getLedPatternListSize(); i++) {
-            ledPatternListMaxNameLen = String(ledPatternList[i].name).length() > ledPatternListMaxNameLen
-                ? String(ledPatternList[i].name).length()
-                : ledPatternListMaxNameLen;
-        }
-
-        ledPatternListMaxNameLen += 2;
-    }
-
-    const String outsFormat = "Selected pattern %02d of %02d: %-" + String(ledPatternListMaxNameLen) + "s (%03lus / %03lums / %03lums / %03lums)";
-    char         outsBuffer[outsFormat.length() + ledPatternListMaxNameLen];
-
-    snprintf(
-        outsBuffer,
-        outsFormat.length() + ledPatternListMaxNameLen,
-        outsFormat.c_str(),
-        getLedPatternListStepNumb(),
-        getLedPatternListSize(),
-        String('"' + String(getLedPatternItem().name) + '"').c_str(),
-        getLedPatternItem().callExecMili / 1000,
-        getLedPatternItem().randHuesMili,
-        getLedPatternItem().waitLoopMili,
-        getLedPatternItem().waitFadeMili
-    );
-
-    Serial.print(outsBuffer);
-
-    String outsExtras = getStepInfoExtra();
-
-    if (outsExtras.length() > 0) {
-        Serial.print(" [");
-        Serial.print(outsExtras);
-        Serial.print("]");
-    }
-
+    Serial.begin(baud);
+    while(!Serial);
     Serial.println();
 }
 
-String getStepInfoExtra()
+const String getStepInfoSkip(bool skip)
 {
+    const String skipFormat = " (Skipping with chance of %03i%)";
+    char         skipBuffer[skipFormat.length()];
+
+    snprintf(
+        skipBuffer,
+        skipFormat.length(),
+        skipFormat.c_str(),
+        getLedPatternItem()->skipItemFrac
+    );
+
+    return String(skipBuffer);
+}
+
+void outStepInfo(bool skip)
+{
+    Serial.println(
+        getStepInfoMain() +
+        getStepInfoMore() +
+        getStepInfoSkip(skip)
+    );
+}
+
+const String getStepInfoMain()
+{
+    static const byte   nameMaxLen = getLedPatternListNamesMaxLength() + 2;
+    static const String outsFormat = "Selected pattern %02d of %02d (%s mode): %-" + String(nameMaxLen) + "s (%03lus / %03lums / %03lums / %03lums)";
+    char                outsBuffer[outsFormat.length() + nameMaxLen];
+
+    snprintf(
+        outsBuffer,
+        outsFormat.length() + nameMaxLen,
+        outsFormat.c_str(),
+        getLedPatternListStepNumb(),
+        getLedPatternListSize(),
+        LED_PTN_STEP_RAND ? "random" : "ordered",
+        strQuote(getLedPatternItemName()).c_str(),
+        getLedPatternItem()->callExecMili / 1000,
+        getLedPatternItem()->randHuesMili,
+        getLedPatternItem()->waitLoopMili,
+        getLedPatternItem()->waitFadeMili
+    );
+
+    return String(outsBuffer);
+}
+
+const String getStepInfoMore()
+{
+    String info = "";
+
     if (isLedPaletteStepRunning()) {
-        String outsFormat = "%03d/%03d:";
-        char   outsBuffer[outsFormat.length()];
-
-        sprintf(
-            outsBuffer,
-            outsFormat.c_str(),
-            getLedPaletteListStepNumb(),
-            getLedPaletteListSize()
-        );
-
-        return String(outsBuffer) + getLedPaletteStepName() + String("(") + String(LED_STR_PAL_CYCLE / 1000) + String(")");
+        info = info + getStepInfoMorePalette();
     }
 
-    return String("");
+    if (info.length() > 0) {
+        info = strPadsCharLft(info, -1);
+    }
+
+    return info;
+}
+
+const String getStepInfoMorePalette()
+{
+    const byte   nameMaxLen = getLedPaletteListNamesMaxLength() + 2;
+    const String moreFormat = "[Palette %03d of %03d (%s mode): %-" + String(nameMaxLen) + "s]";
+    char         moreBuffer[moreFormat.length() + nameMaxLen];
+
+    snprintf(
+        moreBuffer,
+        moreFormat.length() + nameMaxLen,
+        moreFormat.c_str(),
+        getLedPaletteListStepNumb(),
+        getLedPaletteListSize(),
+        LED_PTN_CPAL_RAND ? "random" : "ordered",
+        strQuote(getLedPaletteItemName()).c_str()
+    );
+
+    return " " + String(moreBuffer);
+}
+
+const byte getLedPatternListNamesMaxLength()
+{
+    static byte length = ([]() -> byte {
+        for (unsigned int i = 0; i < getLedPatternListSize(); i++) {
+            length = max(length, getLedPatternItemName(i).length());
+        }
+
+        return length;
+    })();
+
+    return length;
+}
+
+const byte getLedPaletteListNamesMaxLength()
+{
+    static byte length = ([]() -> byte {
+        for (unsigned int i = 0; i < getLedPaletteListSize(); i++) {
+            length = max(length, getLedPaletteItemName(i).length());
+        }
+
+        return length;
+    })();
+
+    return length;
 }

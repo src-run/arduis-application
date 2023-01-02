@@ -32,7 +32,12 @@ byte getRandInt08(byte min, byte lim)
 
 byte getRandInt08(byte lim)
 {
-    return getRandInt08(0, lim);
+    return random8(lim);
+}
+
+byte getRandInt08()
+{
+    return random8();
 }
 
 unsigned int getRandInt16(unsigned int min, unsigned int lim)
@@ -42,7 +47,12 @@ unsigned int getRandInt16(unsigned int min, unsigned int lim)
 
 unsigned int getRandInt16(unsigned int lim)
 {
-    return getRandInt16(0, lim);
+    return random16(lim);
+}
+
+unsigned int getRandInt16()
+{
+    return random16();
 }
 
 unsigned int getRandomSeed()
@@ -179,4 +189,77 @@ bool isPinModeInput(byte pin)
 bool isPinModeInputPullup(byte pin)
 {
     return isPinMode(pin, PIN_MODE_INPUT_PULLUP);
+}
+
+const String strQuote(const String value, const String quote)
+{
+    return String(quote) + value + String(quote);
+}
+
+const String strPadsCharLft(const String value, int padSize, const String padChar)
+{
+    const unsigned int valSize = value.length();
+
+    if (padSize < 0) {
+        padSize = abs(padSize);
+    } else {
+        padSize = (padSize - valSize) >= 0 ? (padSize - valSize) : 0;
+    }
+
+    String valRetn;
+
+    for (unsigned int i = 0; lt(i, padSize); i = i + padChar.length()) {
+        valRetn = valRetn + padChar;
+    }
+
+    return valRetn + value;
+}
+
+const String strPadsCharRgt(const String value, int padSize, const String padChar)
+{
+    const unsigned int valSize = value.length();
+
+    if (padSize < 0) {
+        padSize = abs(padSize);
+    } else {
+        padSize = (padSize - valSize) >= 0 ? (padSize - valSize) : 0;
+    }
+
+    String valRetn;
+
+    for (unsigned int i = 0; lt(i, padSize); i = i + padChar.length()) {
+        valRetn = valRetn + padChar;
+    }
+
+    return valRetn + value;
+}
+
+const String strPadsChar(const String value, int padSize, const String padChar, const StringPadDirection padWhat)
+{
+    switch (padWhat) {
+        case StringPadDirection::lft:
+            return strPadsCharLft(
+                value,
+                padSize,
+                padChar
+            );
+
+        case StringPadDirection::rgt:
+            return strPadsCharRgt(
+                value,
+                padSize,
+                padChar
+            );
+
+        default:
+            return strPadsCharLft(
+                strPadsCharRgt(
+                    value,
+                    floor(padSize / 2),
+                    padChar
+                ),
+                ceil(padSize / 2),
+                padChar
+            );
+    }
 }

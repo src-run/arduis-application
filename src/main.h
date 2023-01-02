@@ -24,6 +24,8 @@
 
 Relay ledRelay(LED_RELAY_PIN, false);
 
-void cycle(bool fadeEnds = LED_PTN_FADE_ENBL, bool fadeInit = LED_PTN_FADE_ENBL);
+void cyclePalette(bool fadeEnds = LED_PTN_FADE_ENBL, bool fadeInit = LED_PTN_FADE_ENBL);
+void cyclePattern(bool fadeEnds = LED_PTN_FADE_ENBL, bool fadeInit = LED_PTN_FADE_ENBL);
+void cycleRandHue();
 
 #endif

@@ -1338,11 +1338,40 @@ const customPaletteItem ledPaletteList[] = {
     { "CbQua_LtGrBl_LtYl_LtPu_LtRd_LtBl_LtOr_LtGr_LtPi",           Palette_CbQua_LtGrBl_LtYl_LtPu_LtRd_LtBl_LtOr_LtGr_LtPi_c           },
 };
 
-unsigned int getLedPaletteListSize()
+const unsigned int getLedPaletteListSize()
 {
     static unsigned int size = ARRAY_SIZE(ledPaletteList);
 
     return size;
+}
+
+const customPaletteItem* getLedPaletteItem(const unsigned int idx)
+{
+    static customPaletteItem def = {};
+
+    return idx >= getLedPaletteListSize() ? &def : &ledPaletteList[idx];
+}
+
+const customPaletteItem* getLedPaletteItem()
+{
+    return getLedPaletteItem(getLedPaletteListStepIndx().curr);
+}
+
+const String getLedPaletteItemName(const unsigned int idx)
+{
+    return getLedPaletteItem(idx)->name;
+}
+
+const String getLedPaletteItemName()
+{
+    return getLedPaletteItem()->name;
+}
+
+CRGBPalette16 getLedPaletteItemComp()
+{
+    CRGBPalette16 palette = getLedPaletteItem()->comp;
+
+    return palette;
 }
 
 unsigned int getLedPaletteListRandIndx()
@@ -1360,39 +1389,44 @@ unsigned int getLedPaletteListStepNext(unsigned int idx)
     return LED_PTN_CPAL_RAND ? getLedPaletteListRandIndx() : ((idx + 1) % getLedPaletteListSize());
 }
 
-unsigned int getLedPaletteListStepIndx(bool inc)
+ledPaletteIndex getLedPaletteListStepIndx(bool inc)
 {
-    static unsigned int idx = getLedPaletteListStepInit();
+    static unsigned int idxCurr = getLedPaletteListStepInit();
+    static unsigned int idxNext = getLedPaletteListStepNext(idxCurr);
     static bool         beg = false;
 
     if (beg && inc) {
-        idx = getLedPaletteListStepNext(idx);
+        idxCurr = idxNext;
+        idxNext = getLedPaletteListStepNext(idxCurr);
     }
 
     beg = true;
 
-    return idx;
+    return {
+        idxCurr,
+        idxNext,
+    };
 }
 
 unsigned int incLedPaletteListStepIndx()
 {
-    return getLedPaletteListStepIndx(true);
+    return getLedPaletteListStepIndx(true).curr;
 }
 
 unsigned int getLedPaletteListStepNumb()
 {
-    return getLedPaletteListStepIndx() + 1;
+    return getLedPaletteListStepIndx().curr + 1;
 }
 
 bool isLedPaletteStepStarted() {
     return (ledPatternStepInit || ledPatternStepRuns) && (
-        strcmp(getLedPatternItem().name, "palette-circle") == 0 ||
-        strcmp(getLedPatternItem().name, "palette-circle-t") == 0
+        strcmp(getLedPatternItem()->name, "palette-circle") == 0 ||
+        strcmp(getLedPatternItem()->name, "palette-circle-t") == 0
     );
 }
 
 bool isLedPaletteStepRunning() {
-    return isLedPaletteStepStarted() && (getLedPaletteListStepIndx() >= 0) && lt(getLedPaletteListStepIndx(), getLedPaletteListSize());
+    return isLedPaletteStepStarted() && (getLedPaletteListStepIndx().curr >= 0) && lt(getLedPaletteListStepIndx().curr, getLedPaletteListSize());
 }
 
 void incLedPaletteStep() {
@@ -1403,21 +1437,4 @@ void incLedPaletteStep() {
     if (isLedPaletteStepRunning()) {
         outStepInfo();
     }
-}
-
-customPaletteItem getLedPaletteStepItem()
-{
-    return ledPaletteList[getLedPaletteListStepIndx()];
-}
-
-CRGBPalette16 getLedPaletteStepComp()
-{
-    CRGBPalette16 palette = getLedPaletteStepItem().comp;
-
-    return palette;
-}
-
-const String getLedPaletteStepName()
-{
-    return isLedPaletteStepRunning() ? getLedPaletteStepItem().name : String();
 }
