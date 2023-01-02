@@ -19,17 +19,21 @@ void outSysSetup(unsigned long baud)
 
 const String getStepInfoSkip(bool skip)
 {
-    const String skipFormat = " (Skipping with chance of %03i%)";
+    if (!skip) {
+        return "";
+    }
+
+    const String skipFormat = "[Skipped due to %03i%% skip chance setting]";
     char         skipBuffer[skipFormat.length()];
 
     snprintf(
         skipBuffer,
         skipFormat.length(),
         skipFormat.c_str(),
-        getLedPatternItem()->skipItemFrac
+        getLedPatternItem()->skipItemFrac * 100 / 255
     );
 
-    return String(skipBuffer);
+    return strPadsCharLft(String(skipBuffer), -1);
 }
 
 void outStepInfo(bool skip)
@@ -95,7 +99,7 @@ const String getStepInfoMorePalette()
         strQuote(getLedPaletteItemName()).c_str()
     );
 
-    return " " + String(moreBuffer);
+    return moreBuffer;
 }
 
 const byte getLedPatternListNamesMaxLength()

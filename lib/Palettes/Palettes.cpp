@@ -1418,18 +1418,21 @@ unsigned int getLedPaletteListStepNumb()
     return getLedPaletteListStepIndx().curr + 1;
 }
 
-bool isLedPaletteStepStarted() {
+bool isLedPaletteStepStarted()
+{
     return (ledPatternStepInit || ledPatternStepRuns) && (
         strcmp(getLedPatternItem()->name, "palette-circle") == 0 ||
         strcmp(getLedPatternItem()->name, "palette-circle-t") == 0
     );
 }
 
-bool isLedPaletteStepRunning() {
+bool isLedPaletteStepRunning()
+{
     return isLedPaletteStepStarted() && (getLedPaletteListStepIndx().curr >= 0) && lt(getLedPaletteListStepIndx().curr, getLedPaletteListSize());
 }
 
-void incLedPaletteStep() {
+void incLedPaletteStep()
+{
     addRandomEntr();
 
     incLedPaletteListStepIndx();

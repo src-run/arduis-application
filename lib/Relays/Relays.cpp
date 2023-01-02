@@ -10,7 +10,8 @@
 
 #include <Relays.h>
 
-Relay::Relay(byte pin){
+Relay::Relay(byte pin)
+{
 	setPin(pin);
 }
 
