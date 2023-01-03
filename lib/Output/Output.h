@@ -22,6 +22,7 @@ void         outStepInfo(bool skip = false);
 const String getStepInfoMain();
 const String getStepInfoMore();
 const String getStepInfoMorePalette();
+const String getStepInfoSkip(bool skip);
 
 const byte   getLedPatternListNamesMaxLength();
 const byte   getLedPaletteListNamesMaxLength();

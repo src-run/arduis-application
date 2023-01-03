@@ -56,7 +56,7 @@ void cyclePalette(bool fadeEnds, bool fadeInit)
         runSelectedStep(false);
     }
 
-    incLedPaletteStep();
+    incPalettesStep();
     runSelectedStep();
 
     while(fadeInit && runSelectedStepFadeInit()) {
