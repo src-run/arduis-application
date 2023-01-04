@@ -10,70 +10,61 @@
 
 #include "Utilities.h"
 
-byte byteLimitLower(long i)
+byte cstrByte(const long i)
 {
-    return max(i, 0);
+    return constrain(i, 0, 255);
 }
 
-byte byteLimitUpper(long i)
+unsigned int cstrUInt(const long i)
 {
-    return min(i, 255);
+    return constrain(i, 0, 65535);
 }
 
-byte byteLimit(long i)
+byte randByte(byte min, byte lim)
 {
-    return byteLimitLower(byteLimitUpper(i));
-}
+    addRandomEntrEveryNCalls();
 
-byte getRandInt08(byte min, byte lim)
-{
     return random8(min, lim);
 }
 
-byte getRandInt08(byte lim)
+byte randByte(byte lim)
 {
-    return random8(lim);
+    addRandomEntrEveryNCalls();
+
+    return randByte(0, lim);
 }
 
-byte getRandInt08()
+byte randByte()
 {
-    return random8();
+    addRandomEntrEveryNCalls();
+
+    return randByte(0, 255);
 }
 
-unsigned int getRandInt16(unsigned int min, unsigned int lim)
+unsigned int randUInt(unsigned int min, unsigned int lim)
 {
+    addRandomEntrEveryNCalls();
+
     return random16(min, lim);
 }
 
-unsigned int getRandInt16(unsigned int lim)
+unsigned int randUInt(unsigned int lim)
 {
-    return random16(lim);
+    addRandomEntrEveryNCalls();
+
+    return randUInt(0, lim);
 }
 
-unsigned int getRandInt16()
+unsigned int randUInt()
 {
-    return random16();
+    addRandomEntrEveryNCalls();
+
+    return randUInt(0, 65535);
 }
 
 unsigned int getRandomSeed()
 {
     return random16_get_seed();
-}
-
-unsigned int addRandomEntr(byte min, byte max)
-{
-    max = max ? random8(min, max(1, max)) : 0;
-
-    for (byte i = 0; i < max; i++) {
-        random16_add_entropy(getRandomSeed() * (analogRead(LED_BUILTIN) / random8(1, 100)));
-    }
-
-    return getRandomSeed();
-}
-
-unsigned int addRandomEntr(byte max)
-{
-    return addRandomEntr(0, max);
 }
 
 unsigned int setRandomEntr(byte min, byte max)
@@ -88,11 +79,38 @@ unsigned int setRandomEntr(byte max)
     return setRandomEntr(0, max);
 }
 
+unsigned int addRandomEntr(byte min, byte max)
+{
+    max = max ? random8(min, max(1, max)) : 0;
+
+    for (byte i = 0; i < max; i++) {
+        random16_add_entropy(getRandomSeed() * (analogRead(LED_BUILTIN) / random8(1, 20) * random8(0, 2)));
+    }
+
+    return getRandomSeed();
+}
+
+unsigned int addRandomEntr(byte max)
+{
+    return addRandomEntr(0, max);
+}
+
+void addRandomEntrEveryNCalls(byte n)
+{
+    static unsigned int i = 0;
+
+    if (0 == (i % n)) {
+        addRandomEntr();
+    }
+
+    i++;
+}
+
 unsigned int getRandomIndx(unsigned int size)
 {
     addRandomEntr();
 
-    return getRandInt16(max(0, size - 1));
+    return randUInt(max(0, size - 1));
 }
 
 bool lt(int x, unsigned int y)
@@ -262,4 +280,19 @@ const String strPadsChar(const String value, int padSize, const String padChar, 
                 padChar
             );
     }
+}
+
+const unsigned int changeIntBase(unsigned int val, unsigned int curBase, unsigned int newBase)
+{
+    return ((val * newBase) / curBase);
+}
+
+const unsigned int fracToPercent(unsigned int val)
+{
+    return changeIntBase(val, 255, 100);
+}
+
+const unsigned int miliToSeconds(unsigned int val)
+{
+    return (val / 1000);
 }

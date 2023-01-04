@@ -18,7 +18,7 @@ const ledPatternItem ledPatternList[] = {
 //    { "rainbow-fading-slow",     runStepRainbowFadingSlow,          runInitGeneric,        LED_STR_SEC_CYCLE,     LED_STR_SEC_COLOR * 2, LED_PTN_STEP_MILI, LED_PTN_FADE_MILI, 0 },
 //    { "rainbow-fading-fast",     runStepRainbowFadingFast,          runInitGeneric,        LED_STR_SEC_CYCLE,     LED_STR_SEC_COLOR * 2, LED_PTN_STEP_MILI, LED_PTN_FADE_MILI, 0 },
 
-    { "palette-circle",          runStepPaletteCircle,              runInitGeneric,        LED_STR_SEC_CYCLE * 4, LED_STR_SEC_COLOR,     LED_PTN_STEP_MILI, LED_PTN_FADE_MILI,   0 },
+    { "palette-circle",          runStepPaletteCircle,              runInitGeneric,        LED_STR_SEC_CYCLE * 2, LED_STR_SEC_COLOR,     LED_PTN_STEP_MILI, LED_PTN_FADE_MILI,   0 },
     { "palette-circle-t",        runStepPaletteCircleTwinkle,       runInitGeneric,        LED_STR_SEC_CYCLE * 2, LED_STR_SEC_COLOR,     LED_PTN_STEP_MILI, LED_PTN_FADE_MILI, 128 },
 
     { "rainbow-static",          runStepRainbowStatic,              runInitGeneric,        LED_STR_SEC_CYCLE,     LED_STR_SEC_COLOR,     LED_PTN_STEP_MILI, LED_PTN_FADE_MILI,  64 },
@@ -202,13 +202,15 @@ void incSelectedStep(const bool fade)
     addRandomEntr();
 
     while (true) {
+        const fract8 perc = randByte();
+
         incLedPatternListStepIndx();
 
-        if (getRandInt08() > getLedPatternItem()->skipItemFrac) {
+        if (perc > getLedPatternItem()->skipItemFrac) {
             break;
         }
 
-        outStepInfo(true);
+        outStepInfo(true, perc);
     }
 
     if (getLedPatternItem()->init != nullptr) {
@@ -277,27 +279,17 @@ void runStepHoldingColors()
     setHoldColoursActive();
 }
 
-void runStepTwinkle(const byte inc, const byte minLevel, const byte maxLevel)
+void runStepTwinkle(const byte inc, const byte max, const byte min)
 {
-    const byte iterations = getRandInt08(0, inc);
+    const byte iterations = randByte(0, inc);
 
     for (byte i = 0; i < iterations; i++) {
-        ledStrandUsedColors[getRandInt16(LED_STR_NUM)] += CRGB(
-            getRandInt08(minLevel, maxLevel),
-            getRandInt08(minLevel, maxLevel),
-            getRandInt08(minLevel, maxLevel)
+        ledStrandUsedColors[randUInt(LED_STR_NUM)] += CRGB(
+            randByte(min, max),
+            randByte(min, max),
+            randByte(min, max)
         );
     }
-}
-
-void runStepTwinkle(const byte inc, const byte maxLevel)
-{
-    runStepTwinkle(inc, LED_PTN_TWIK_MINL, maxLevel);
-}
-
-void runStepTwinkle(const byte inc)
-{
-    runStepTwinkle(inc, LED_PTN_TWIK_MINL, LED_PTN_TWIK_MAXL);
 }
 
 void runInitGeneric()
@@ -395,10 +387,10 @@ void runStepColoredBuilds(const byte r, const byte g, const byte b, const byte d
     fadeToBlackBy(ledStrandUsedColors, LED_STR_NUM, 3);
 
     for (byte i = 0; i < LED_STR_NUM/25; i++) {
-        ledStrandUsedColors[getRandInt16(LED_STR_NUM)] = CRGB(
-            r == 0 ? getRandInt08(0, byteLimitUpper(d * 4)) : getRandInt08(byteLimitLower(r - d), byteLimitUpper(r + d)),
-            g == 0 ? getRandInt08(0, byteLimitUpper(d * 4)) : getRandInt08(byteLimitLower(g - d), byteLimitUpper(g + d)),
-            b == 0 ? getRandInt08(0, byteLimitUpper(d * 4)) : getRandInt08(byteLimitLower(b - d), byteLimitUpper(b + d))
+        ledStrandUsedColors[randUInt(LED_STR_NUM)] = CRGB(
+            r == 0 ? randByte(0, cstrByte(d * 4)) : randByte(cstrByte(r - d), cstrByte(r + d)),
+            g == 0 ? randByte(0, cstrByte(d * 4)) : randByte(cstrByte(g - d), cstrByte(g + d)),
+            b == 0 ? randByte(0, cstrByte(d * 4)) : randByte(cstrByte(b - d), cstrByte(b + d))
         );
     }
 }
@@ -453,9 +445,9 @@ void runInitColoredVaried(const byte r, const byte g, const byte b, const byte d
 
     for (int i = 0; i < LED_STR_NUM; ++i) {
         ledStrandHeldColors[i] = CRGB(
-            getRandInt08(byteLimitLower(r - d), byteLimitUpper(r + d)),
-            getRandInt08(byteLimitLower(g - d), byteLimitUpper(g + d)),
-            getRandInt08(byteLimitLower(b - d), byteLimitUpper(b + d))
+            randByte(cstrByte(r - d), cstrByte(r + d)),
+            randByte(cstrByte(g - d), cstrByte(g + d)),
+            randByte(cstrByte(b - d), cstrByte(b + d))
         );
     }
 
@@ -543,7 +535,7 @@ void runStepBuilder(const byte iterations)
     fadeToBlackBy(ledStrandUsedColors, LED_STR_NUM, 1);
 
     for (byte i = 0; i < iterations; i++) {
-        ledStrandUsedColors[getRandInt16(LED_STR_NUM)] += CHSV(ledPatternBaseColorHue + getRandInt08(64), 200, 255);
+        ledStrandUsedColors[randUInt(LED_STR_NUM)] += CHSV(ledPatternBaseColorHue + randByte(64), 200, 255);
     }
 }
 
@@ -719,7 +711,7 @@ void runStepJuggler(const byte fade)
     fadeToBlackBy(ledStrandUsedColors, LED_STR_NUM, fade);
 
     for (int i = 0; i < 12; i++) {
-        ledStrandUsedColors[beatsin16(i + getRandInt08(5, 10), 0, LED_STR_NUM - 1)] |= CHSV(dothue, 200, 255);
+        ledStrandUsedColors[beatsin16(i + randByte(5, 10), 0, LED_STR_NUM - 1)] |= CHSV(dothue, 200, 255);
         dothue += 32;
     }
 }

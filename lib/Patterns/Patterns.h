@@ -21,14 +21,14 @@
 #include "Utilities.h"
 
 typedef struct {
-    const char   *name;
-    void        (*call)();
-    void        (*init)();
-    unsigned long callExecMili;
-    unsigned long randHuesMili;
-    unsigned long waitLoopMili;
-    unsigned long waitFadeMili;
-    fract8        skipItemFrac;
+    const char         *name;
+    void              (*call)();
+    void              (*init)();
+    const unsigned long callExecMili;
+    const unsigned long randHuesMili;
+    const unsigned long waitLoopMili;
+    const unsigned long waitFadeMili;
+    const fract8        skipItemFrac;
 } ledPatternItem;
 
 extern const ledPatternItem ledPatternList[];
@@ -61,9 +61,7 @@ bool  runSelectedStepFadeEnds(const int decrement = LED_PTN_FADE_STEP);
 void  setHoldColoursActive();
 void  runStepHoldingColors();
 
-void  runStepTwinkle(const byte inc, const byte minLevel, const byte maxLevel);
-void  runStepTwinkle(const byte inc, const byte maxLevel);
-void  runStepTwinkle(const byte inc = LED_PTN_TWIK_RAND);
+void  runStepTwinkle(const byte inc = LED_PTN_TWIK_RAND, const byte max = LED_PTN_TWIK_MAXL, const byte min = LED_PTN_TWIK_MINL);
 
 void  runInitGeneric();
 void  runInitColoredStatic(const byte r, const byte g, const byte b);
@@ -164,6 +162,5 @@ unsigned int getLedPatternListStepNext(const unsigned int idx);
 unsigned int getLedPatternListStepIndx(const bool inc = false);
 unsigned int incLedPatternListStepIndx();
 unsigned int getLedPatternListStepNumb();
-
 
 #endif

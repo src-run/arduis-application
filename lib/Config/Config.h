@@ -21,6 +21,10 @@
 #define LED_GRP_LEN       50
 #define LED_GRP_NUM       5
 
+//#define LED_INDV_GROUPS_SEC 5
+//#define LED_INDV_GROUPS_LEN 50
+//#define LED_COMP_STRING_LEN LED_INDV_GROUPS_SEC * LED_INDV_GROUPS_LEN
+
 #define LED_STR_NUM       LED_GRP_LEN * LED_GRP_NUM
 #define LED_STR_PIN       6
 #define LED_STR_BRT       75
@@ -37,10 +41,10 @@
 #define LED_PTN_STEP_MILI 1000 / LED_STR_FPS
 #define LED_PTN_NEXT_MILI 0
 #define LED_PTN_FADE_MILI LED_PTN_STEP_MILI
-#define LED_PTN_FADE_STEP LED_STR_BRT / 8
+#define LED_PTN_FADE_STEP LED_STR_BRT / 10
 #define LED_PTN_FADE_ENBL ((bool)true)
 #define LED_PTN_STEP_RAND ((bool)false)
-#define LED_PTN_CPAL_RAND ((bool)false)
+#define LED_PTN_CPAL_RAND ((bool)true)
 
 #define LED_PTN_TWIK_RAND 10
 #define LED_PTN_TWIK_MAXL 120

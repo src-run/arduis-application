@@ -17,7 +17,7 @@ void setup()
 
     FastLED.delay(500);
     FastLED.addLeds<LED_STR_CTL, LED_STR_PIN, LED_STR_ORD>(ledStrandUsedColors, LED_STR_NUM);
-    FastLED.setCorrection(TypicalPixelString); //UncorrectedColor, TypicalPixelString, CRGB(255, 224, 204)
+    FastLED.setCorrection(TypicalPixelString); //UncorrectedColor, TypicalPixelString, Typical8mmPixel, CRGB(255, 224, 204)
     FastLED.setMaxPowerInVoltsAndMilliamps(LED_PWR_MAX_VOLTS, LED_PWR_MAX_MAMPS);
 
     ledRelay.begin();

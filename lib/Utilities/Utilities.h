@@ -28,21 +28,25 @@ enum StringPadDirection {
     rgt =  1,
 };
 
-byte byteLimitLower(long i);
-byte byteLimitUpper(long i);
-byte byteLimit(long i);
+byte         cstrByte(const long i);
+unsigned int cstrUInt(const long i);
 
-byte         getRandInt08();
-byte         getRandInt08(byte lim);
-byte         getRandInt08(byte min, byte lim);
-unsigned int getRandInt16();
-unsigned int getRandInt16(unsigned int lim);
-unsigned int getRandInt16(unsigned int min, unsigned int lim);
-unsigned int getRandomSeed();
-unsigned int addRandomEntr(byte min, byte max);
-unsigned int addRandomEntr(byte max = 8);
+byte         randByte();
+byte         randByte(byte lim);
+byte         randByte(byte min, byte lim);
+
+unsigned int randUInt();
+unsigned int randUInt(unsigned int lim);
+unsigned int randUInt(unsigned int min, unsigned int lim);
+
 unsigned int setRandomEntr(byte min, byte max);
 unsigned int setRandomEntr(byte max = 8);
+unsigned int addRandomEntr(byte min, byte max);
+unsigned int addRandomEntr(byte max = 8);
+
+void         addRandomEntrEveryNCalls(byte n = 20);
+
+unsigned int getRandomSeed();
 unsigned int getRandomIndx(unsigned int size);
 
 bool lt(int x, unsigned int y);
@@ -67,5 +71,9 @@ const String strQuote(const String value, const String quote = "\"");
 const String strPadsChar(const String value, int padSize = -1, const String padChar = " ", const StringPadDirection padWhat = StringPadDirection::lft);
 const String strPadsCharLft(const String value, int padSize = -1, const String padChar = " ");
 const String strPadsCharRgt(const String value, int padSize = -1, const String padChar = " ");
+
+const unsigned int changeIntBase(unsigned int val, unsigned int curBase = 100, unsigned int newBase = 100);
+const unsigned int fracToPercent(unsigned int val);
+const unsigned int miliToSeconds(unsigned int val);
 
 #endif
