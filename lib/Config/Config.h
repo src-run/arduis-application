@@ -46,8 +46,8 @@
 #define LED_PTN_STEP_RAND ((bool)false)
 #define LED_PTN_CPAL_RAND ((bool)true)
 
-#define LED_PTN_TWIK_RAND 8
-#define LED_PTN_TWIK_MAXL 126
-#define LED_PTN_TWIK_MINL LED_PTN_TWIK_MAXL / 10
+#define LED_PTN_TWIK_RAND 10
+#define LED_PTN_TWIK_MAXL 100
+#define LED_PTN_TWIK_MINL 0
 
 #endif

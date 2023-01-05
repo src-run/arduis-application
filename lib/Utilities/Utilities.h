@@ -66,7 +66,7 @@ inline unsigned int  setRandomEntr(byte min, byte max)                          
 inline unsigned int  setRandomEntr(byte max = 8)                                                      __attribute__((always_inline));
 inline unsigned int  addRandomEntr(byte min, byte max)                                                __attribute__((always_inline));
 inline unsigned int  addRandomEntr(byte max = 8)                                                      __attribute__((always_inline));
-inline void          addRandomEntrEveryNCalls(byte n = 8)                                            __attribute__((always_inline));
+inline void          addRandomEntrEveryNCalls(byte n = 16)                                            __attribute__((always_inline));
 
 inline unsigned int  getRandomSeed()                                                                  __attribute__((always_inline));
 inline unsigned int  getRandomIndx(unsigned int size)                                                 __attribute__((always_inline));

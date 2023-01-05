@@ -14,8 +14,11 @@
 #include <Arduino.h>
 #include <FastLED.h>
 #include <Config.h>
+#include <Relays.h>
 
 extern CRGB ledStrandUsedColors[LED_STR_NUM];
 extern CRGB ledStrandHeldColors[LED_STR_NUM];
+
+void initializeStrand();
 
 #endif

@@ -22,8 +22,8 @@
 #include "Config.h"
 #include "Utilities.h"
 
-Relay ledRelay(LED_RELAY_PIN, false);
-
+void setup();
+void loop();
 void cyclePalette(bool fadeEnds = LED_PTN_FADE_ENBL, bool fadeInit = LED_PTN_FADE_ENBL);
 void cyclePattern(bool fadeEnds = LED_PTN_FADE_ENBL, bool fadeInit = LED_PTN_FADE_ENBL);
 void cycleRandHue();

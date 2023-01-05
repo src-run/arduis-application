@@ -10,14 +10,9 @@
 
 #include "Output.h"
 
-void outSysSetup(const unsigned long baud)
+void initializeSerial(const unsigned long baud)
 {
     Serial.begin(baud);
-
-    while(!Serial) {
-        // wait for serial to become available
-    }
-
     Serial.println();
 }
 
@@ -32,7 +27,7 @@ void outStepInfo(const bool skip, const byte perc)
 
 String getStepInfoMain()
 {
-    static const String outsFormat = F("Selected pattern %02u of %02u (%s mode): %s (%03lus / %03lums / %03lums / %03lums / %03u%%)");
+    static const String outsFormat = F("Pattern %02u of %02u (%s mode): %s (%03lus / %03lums / %03lums / %03lums / %03u%%)");
     static const byte   outsBufLen = outsFormat.length() + getLedPatternListNamesMaxLength();
     char                outsBufOut[outsBufLen];
 
@@ -117,32 +112,35 @@ char* getItemsPlacementDesc(bool random)
     return random ? typeRand : typeOrdr;
 }
 
-byte getLedPatternListNamesMaxLength(const byte a)
+byte getListNamesMaxLength(const byte add, unsigned int (*getListSize)(), String (*getItemName)(const unsigned int))
 {
-    static byte length = ([a]() -> byte {
-        byte l = 0;
+    byte len = 0;
 
-        for (unsigned int i = 0; i < getLedPatternListSize(); i++) {
-            l = max(l, getLedPatternItemName(i).length());
-        }
+    for (unsigned int i = 0; i < getListSize(); i++) {
+        len = max(len, getItemName(i).length());
+    }
 
-        return l + a;
-    })();
-
-    return length;
+    return len + add;
 }
 
-byte getLedPaletteListNamesMaxLength(const byte a)
+byte getLedPatternListNamesMaxLength(const byte add)
 {
-    static byte length = ([a]() -> byte {
-        byte l = 0;
+    static const byte len = getListNamesMaxLength(
+        add,
+        &getLedPatternListSize,
+        &getLedPatternItemName
+    );
 
-        for (unsigned int i = 0; i < getLedPaletteListSize(); i++) {
-            l = max(l, getLedPaletteItemName(i).length());
-        }
+    return len;
+}
 
-        return l + a;
-    })();
+byte getLedPaletteListNamesMaxLength(const byte add)
+{
+    static const byte len = getListNamesMaxLength(
+        add,
+        &getLedPaletteListSize,
+        &getLedPaletteItemName
+    );
 
-    return length;
+    return len;
 }

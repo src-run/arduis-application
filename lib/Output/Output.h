@@ -17,7 +17,8 @@
 #include <Patterns.h>
 #include <Utilities.h>
 
-void   outSysSetup(const unsigned long baud = OUT_SERIAL_BAUD);
+void   initializeSerial(const unsigned long baud = OUT_SERIAL_BAUD);
+
 void   outStepInfo(const bool skip = false, const byte perc = 0);
 String getStepInfoMain();
 String getStepInfoMore();
@@ -26,7 +27,8 @@ String getStepInfoSkip(const bool skip, const byte perc);
 
 char*  getItemsPlacementDesc(bool random);
 
-byte   getLedPatternListNamesMaxLength(const byte a = 2);
-byte   getLedPaletteListNamesMaxLength(const byte a = 2);
+byte   getListNamesMaxLength(const byte add, unsigned int (*getListSize)(), String (*getItemName)(const unsigned int));
+byte   getLedPatternListNamesMaxLength(const byte add = 2);
+byte   getLedPaletteListNamesMaxLength(const byte add = 2);
 
 #endif
