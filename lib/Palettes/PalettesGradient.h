@@ -14,6 +14,7 @@
 #include <Arduino.h>
 #include <FastLED.h>
 
+DECLARE_GRADIENT_PALETTE(Palette_Mysts_Bk_Wi_c);
 DECLARE_GRADIENT_PALETTE(Palette_BhwS1_Or_Pk_Pu_c);
 DECLARE_GRADIENT_PALETTE(Palette_BhwS1_Bk_Bl_Gr_Wt_c);
 DECLARE_GRADIENT_PALETTE(Palette_BhwS1_Gr_Bl_Pu_c);

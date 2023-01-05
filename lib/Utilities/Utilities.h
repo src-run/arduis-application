@@ -24,35 +24,9 @@
 
 enum StringPadDirection {
     lft = -1,
-    all =  0,
+    eql =  0,
     rgt =  1,
 };
-
-byte         cstrByte(const long i);
-unsigned int cstrUInt(const long i);
-
-byte         randByte();
-byte         randByte(byte lim);
-byte         randByte(byte min, byte lim);
-
-unsigned int randUInt();
-unsigned int randUInt(unsigned int lim);
-unsigned int randUInt(unsigned int min, unsigned int lim);
-
-unsigned int setRandomEntr(byte min, byte max);
-unsigned int setRandomEntr(byte max = 8);
-unsigned int addRandomEntr(byte min, byte max);
-unsigned int addRandomEntr(byte max = 8);
-
-void         addRandomEntrEveryNCalls(byte n = 20);
-
-unsigned int getRandomSeed();
-unsigned int getRandomIndx(unsigned int size);
-
-bool lt(int x, unsigned int y);
-bool lt(unsigned int x, int y);
-bool lt(unsigned int x, unsigned int y);
-bool lt(int x, int y);
 
 byte getPinMode(byte pin);
 
@@ -67,13 +41,188 @@ bool isPinModeOutput(byte pin);
 bool isPinModeInput(byte pin);
 bool isPinModeInputPullup(byte pin);
 
-const String strQuote(const String value, const String quote = "\"");
-const String strPadsChar(const String value, int padSize = -1, const String padChar = " ", const StringPadDirection padWhat = StringPadDirection::lft);
-const String strPadsCharLft(const String value, int padSize = -1, const String padChar = " ");
-const String strPadsCharRgt(const String value, int padSize = -1, const String padChar = " ");
+String strPadsChar(const String value, const int padding = -1, const String useChar = " ", const StringPadDirection useSide = StringPadDirection::lft);
 
-const unsigned int changeIntBase(unsigned int val, unsigned int curBase = 100, unsigned int newBase = 100);
-const unsigned int fracToPercent(unsigned int val);
-const unsigned int miliToSeconds(unsigned int val);
+inline String        strPadsCharLft(const String value, int padding = -1, const String useChar = " ") __attribute__((always_inline));
+inline String        strPadsCharRgt(const String value, int padding = -1, const String useChar = " ") __attribute__((always_inline));
+inline String        strPadsCharEql(const String value, int padding = -1, const String useChar = " ") __attribute__((always_inline));
+inline String        strQuote(const String value, const String quote = "\"")                          __attribute__((always_inline));
+
+inline unsigned long miliToSeconds(const unsigned long val)                                           __attribute__((always_inline));
+
+inline unsigned int  cstrPerc(const long p)                                                           __attribute__((always_inline));
+inline byte          cstrByte(const long i)                                                           __attribute__((always_inline));
+inline unsigned int  cstrUInt(const long i)                                                           __attribute__((always_inline));
+
+inline byte          randByte()                                                                       __attribute__((always_inline));
+inline byte          randByte(byte lim)                                                               __attribute__((always_inline));
+inline byte          randByte(byte min, byte lim)                                                     __attribute__((always_inline));
+
+inline unsigned int  randUInt()                                                                       __attribute__((always_inline));
+inline unsigned int  randUInt(unsigned int lim)                                                       __attribute__((always_inline));
+inline unsigned int  randUInt(unsigned int min, unsigned int lim)                                     __attribute__((always_inline));
+
+inline unsigned int  setRandomEntr(byte min, byte max)                                                __attribute__((always_inline));
+inline unsigned int  setRandomEntr(byte max = 8)                                                      __attribute__((always_inline));
+inline unsigned int  addRandomEntr(byte min, byte max)                                                __attribute__((always_inline));
+inline unsigned int  addRandomEntr(byte max = 8)                                                      __attribute__((always_inline));
+inline void          addRandomEntrEveryNCalls(byte n = 8)                                            __attribute__((always_inline));
+
+inline unsigned int  getRandomSeed()                                                                  __attribute__((always_inline));
+inline unsigned int  getRandomIndx(unsigned int size)                                                 __attribute__((always_inline));
+
+inline bool          lt(int x, unsigned int y)                                                        __attribute__((always_inline));
+inline bool          lt(unsigned int x, int y)                                                        __attribute__((always_inline));
+inline bool          lt(unsigned int x, unsigned int y)                                               __attribute__((always_inline));
+inline bool          lt(int x, int y)                                                                 __attribute__((always_inline));
+
+String strPadsCharLft(const String value, int padding, const String useChar)
+{
+    return strPadsChar(value, padding, useChar, StringPadDirection::lft);
+}
+
+String strPadsCharRgt(const String value, int padding, const String useChar)
+{
+    return strPadsChar(value, padding, useChar, StringPadDirection::rgt);
+}
+
+String strPadsCharEql(const String value, int padding, const String useChar)
+{
+    return strPadsChar(value, padding, useChar, StringPadDirection::eql);
+}
+
+String strQuote(const String value, const String quote)
+{
+    return String(quote) + value + String(quote);
+}
+
+unsigned long miliToSeconds(const unsigned long val)
+{
+    return (val / 1000);
+}
+
+inline unsigned int cstrPerc(const long p)
+{
+    return constrain(p, 0, 100);
+}
+
+inline byte cstrByte(const long i)
+{
+    return constrain(i, 0, 255);
+}
+
+inline unsigned int cstrUInt(const long i)
+{
+    return constrain(i, 0, 65535);
+}
+
+byte randByte(byte min, byte lim)
+{
+    addRandomEntrEveryNCalls();
+
+    return random8(min, lim);
+}
+
+byte randByte(byte lim)
+{
+    addRandomEntrEveryNCalls();
+
+    return randByte(0, lim);
+}
+
+byte randByte()
+{
+    addRandomEntrEveryNCalls();
+
+    return randByte(0, 255);
+}
+
+unsigned int randUInt(unsigned int min, unsigned int lim)
+{
+    addRandomEntrEveryNCalls();
+
+    return random16(min, lim);
+}
+
+unsigned int randUInt(unsigned int lim)
+{
+    addRandomEntrEveryNCalls();
+
+    return randUInt(0, lim);
+}
+
+unsigned int randUInt()
+{
+    addRandomEntrEveryNCalls();
+
+    return randUInt(0, 65535);
+}
+
+unsigned int setRandomEntr(byte min, byte max)
+{
+    random16_set_seed(analogRead(LED_BUILTIN) * random8(100));
+
+    return addRandomEntr(max);
+}
+
+unsigned int setRandomEntr(byte max)
+{
+    return setRandomEntr(0, max);
+}
+
+unsigned int addRandomEntr(byte min, byte max)
+{
+    max = max ? random8(min, max(1, max)) : 0;
+
+    for (byte i = 0; i < max; i++) {
+        random16_add_entropy(getRandomSeed() * (analogRead(LED_BUILTIN) / random8(1, 20) * random8(0, 2)));
+    }
+
+    return getRandomSeed();
+}
+
+unsigned int addRandomEntr(byte max)
+{
+    return addRandomEntr(0, max);
+}
+
+void addRandomEntrEveryNCalls(byte n)
+{
+    static unsigned int i = 0;
+
+    if (0 == (i++ % n)) {
+        addRandomEntr();
+    }
+}
+
+unsigned int getRandomSeed()
+{
+    return random16_get_seed();
+}
+
+unsigned int getRandomIndx(unsigned int size)
+{
+    return randUInt(max(0, size - 1));
+}
+
+bool lt(int x, unsigned int y)
+{
+    return (x < 0) || (static_cast<unsigned int>(x) < y);
+}
+
+bool lt(unsigned int x, int y)
+{
+    return (y >= 0) && (x < static_cast<unsigned int>(y));
+}
+
+bool lt(unsigned int x, unsigned int y)
+{
+    return x < y;
+}
+
+bool lt(int x, int y)
+{
+    return x < y;
+}
 
 #endif

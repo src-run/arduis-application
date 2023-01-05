@@ -77,16 +77,18 @@ const customPaletteItem ledPaletteList[] = {
     { "CbQua_LtGrBl_LtYl_LtPu_LtRd_LtBl_LtOr_LtGr_LtPi",           Palette_CbQua_LtGrBl_LtYl_LtPu_LtRd_LtBl_LtOr_LtGr_LtPi_c           },
 };
 
-const unsigned int getLedPaletteListSize()
+unsigned int getLedPaletteListSize()
 {
-    static unsigned int size = ARRAY_SIZE(ledPaletteList);
+    static const unsigned int size = ARRAY_SIZE(ledPaletteList);
 
     return size;
 }
 
 const customPaletteItem* getLedPaletteItem(const unsigned int idx)
 {
-    static customPaletteItem def = {};
+    static const customPaletteItem def = {
+        "Mysts_Bk_Wi", Palette_Mysts_Bk_Wi_c
+    };
 
     return idx >= getLedPaletteListSize() ? &def : &ledPaletteList[idx];
 }
@@ -96,12 +98,12 @@ const customPaletteItem* getLedPaletteItem()
     return getLedPaletteItem(getLedPaletteListStepIndx().curr);
 }
 
-const String getLedPaletteItemName(const unsigned int idx)
+String getLedPaletteItemName(const unsigned int idx)
 {
     return getLedPaletteItem(idx)->name;
 }
 
-const String getLedPaletteItemName()
+String getLedPaletteItemName()
 {
     return getLedPaletteItem()->name;
 }

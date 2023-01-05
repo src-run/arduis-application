@@ -17,15 +17,16 @@
 #include <Patterns.h>
 #include <Utilities.h>
 
-void         outSysSetup(const unsigned long baud = OUT_SERIAL_BAUD);
+void   outSysSetup(const unsigned long baud = OUT_SERIAL_BAUD);
+void   outStepInfo(const bool skip = false, const byte perc = 0);
+String getStepInfoMain();
+String getStepInfoMore();
+String getStepInfoMorePalette();
+String getStepInfoSkip(const bool skip, const byte perc);
 
-void         outStepInfo(const bool skip = false, const fract8 perc = 0);
-const String getStepInfoMain();
-const String getStepInfoMore();
-const String getStepInfoMorePalette();
-const String getStepInfoSkip(const bool skip, const fract8 perc);
+char*  getItemsPlacementDesc(bool random);
 
-const byte   getLedPatternListNamesMaxLength(const byte a = 2);
-const byte   getLedPaletteListNamesMaxLength(const byte a = 2);
+byte   getLedPatternListNamesMaxLength(const byte a = 2);
+byte   getLedPaletteListNamesMaxLength(const byte a = 2);
 
 #endif

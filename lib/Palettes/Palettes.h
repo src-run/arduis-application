@@ -18,33 +18,37 @@
 #include <Output.h>
 #include <Utilities.h>
 
-typedef struct {
+struct ledPaletteIndex {
     const unsigned int curr;
     const unsigned int next;
-} ledPaletteIndex;
+};
 
-typedef struct {
+struct customPaletteItem {
     const char                      *name;
     TProgmemRGBGradientPalette_byte *comp;
-} customPaletteItem;
+};
 
 extern const customPaletteItem ledPaletteList[];
 
-const unsigned int       getLedPaletteListSize();
+unsigned int             getLedPaletteListSize();
+
 const customPaletteItem *getLedPaletteItem(const unsigned int idx);
 const customPaletteItem *getLedPaletteItem();
-const String             getLedPaletteItemName(const unsigned int idx);
-const String             getLedPaletteItemName();
+
+String                   getLedPaletteItemName(const unsigned int idx);
+String                   getLedPaletteItemName();
 CRGBPalette16            getLedPaletteItemComp();
 
-unsigned int    getLedPaletteListRandIndx();
-unsigned int    getLedPaletteListStepInit();
-unsigned int    getLedPaletteListStepNext(unsigned int idx);
-ledPaletteIndex getLedPaletteListStepIndx(bool inc = false);
-unsigned int    incLedPaletteListStepIndx();
-unsigned int    getLedPaletteListStepNumb();
-bool            isLedPaletteStepStarted();
-bool            isLedPaletteStepRunning();
-void            incPalettesStep();
+unsigned int             getLedPaletteListRandIndx();
+unsigned int             getLedPaletteListStepInit();
+unsigned int             getLedPaletteListStepNext(unsigned int idx);
+ledPaletteIndex          getLedPaletteListStepIndx(bool inc = false);
+unsigned int             incLedPaletteListStepIndx();
+unsigned int             getLedPaletteListStepNumb();
+
+bool                     isLedPaletteStepStarted();
+bool                     isLedPaletteStepRunning();
+
+void                     incPalettesStep();
 
 #endif

@@ -31,6 +31,15 @@
 //
 
 /**
+ * @type: Palette_Mysts_Bk_Wi_c
+ * @size: 8 bytes
+ */
+DEFINE_GRADIENT_PALETTE(Palette_Mysts_Bk_Wi_c) {
+      0,   0,   0,   0,
+    255, 255, 255, 255
+};
+
+/**
  * @type: BhwS1_Or_Pk_Pu
  * @link: soliton.vm.bytemark.co.uk/pub/cpt-city/bhw/bhw1/tn/bhw1_01.png.index.html
  * @size: 12 bytes
