@@ -12,7 +12,8 @@
 #define _ARDUIS_HR_RELAY
 
 #include <Arduino.h>
-#include "Relay.h"
+#include <Relay.h>
+
 #include "Config.h"
 #include "Utilities.h"
 

@@ -14,9 +14,9 @@
 #include <Arduino.h>
 #include <FastLED.h>
 
-#include <PalettesGradient.h>
-#include <Output.h>
-#include <Utilities.h>
+#include "PalettesGradient.h"
+#include "Output.h"
+#include "Utilities.h"
 
 struct ledPaletteIndex {
     const unsigned int curr;

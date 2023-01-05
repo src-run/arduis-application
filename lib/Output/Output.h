@@ -13,9 +13,9 @@
 
 #include <Arduino.h>
 
-#include <Palettes.h>
-#include <Patterns.h>
-#include <Utilities.h>
+#include "Palettes.h"
+#include "Patterns.h"
+#include "Utilities.h"
 
 void   initializeSerial(const unsigned long baud = OUT_SERIAL_BAUD);
 
@@ -30,5 +30,7 @@ char*  getItemsPlacementDesc(bool random);
 byte   getListNamesMaxLength(const byte add, unsigned int (*getListSize)(), String (*getItemName)(const unsigned int));
 byte   getLedPatternListNamesMaxLength(const byte add = 2);
 byte   getLedPaletteListNamesMaxLength(const byte add = 2);
+
+
 
 #endif

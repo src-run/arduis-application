@@ -9,7 +9,6 @@
  */
 
 #include "Patterns.h"
-#include "stdio.h"
 
 const ledPatternItem ledPatternList[] = {
 

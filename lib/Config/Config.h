@@ -21,10 +21,6 @@
 #define LED_GRP_LEN       50
 #define LED_GRP_NUM       5
 
-//#define LED_INDV_GROUPS_SEC 5
-//#define LED_INDV_GROUPS_LEN 50
-//#define LED_COMP_STRING_LEN LED_INDV_GROUPS_SEC * LED_INDV_GROUPS_LEN
-
 #define LED_STR_NUM       LED_GRP_LEN * LED_GRP_NUM
 #define LED_STR_PIN       6
 #define LED_STR_BRT       80
