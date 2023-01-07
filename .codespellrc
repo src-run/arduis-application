@@ -1,0 +1,10 @@
+[codespell]
+# In the event of a false positive, add the problematic word, in all lowercase, to a comma-separated list here:
+ignore-words-list = ,
+skip = ./.git,./.pio
+builtin = clear,rare,informal,usage,code,names,en-GB_to_en-US
+check-filenames =
+check-hidden =
+summary =
+count =
+quiet-level = 2

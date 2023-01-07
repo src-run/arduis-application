@@ -14,7 +14,11 @@
 #include <Arduino.h>
 #include <FastLED.h>
 
-#define OUT_SERIAL_BAUD   19200UL
+#define SYS_ONBLED_ENBL   ((bool)true)
+#define SYS_RANDOM_SMIN   20
+#define SYS_RANDOM_SMAX   60
+#define SYS_RANDOM_CALL   99
+#define OUT_SERIAL_BAUD   115200UL
 
 #define LED_RELAY_PIN     33
 
@@ -27,7 +31,7 @@
 #define LED_STR_CTL       WS2811
 #define LED_STR_ORD       RGB
 #define LED_STR_FPS       60
-#define LED_STR_SEC_CYCLE 120000UL
+#define LED_STR_SEC_CYCLE 90000UL
 #define LED_STR_PAL_CYCLE LED_STR_SEC_CYCLE / 3
 #define LED_STR_SEC_COLOR 20
 
@@ -40,10 +44,11 @@
 #define LED_PTN_FADE_STEP LED_STR_BRT / 6
 #define LED_PTN_FADE_ENBL ((bool)true)
 #define LED_PTN_STEP_RAND ((bool)false)
+#define LED_PTN_STEP_SKIP ((bool)true)
 #define LED_PTN_CPAL_RAND ((bool)true)
 
-#define LED_PTN_TWIK_RAND 10
-#define LED_PTN_TWIK_MAXL 100
+#define LED_PTN_TWIK_RAND 20
+#define LED_PTN_TWIK_MAXL 120
 #define LED_PTN_TWIK_MINL 0
 
 #endif

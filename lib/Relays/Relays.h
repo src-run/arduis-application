@@ -19,4 +19,6 @@
 
 extern Relay ledRelay;
 
+void initializeRelays();
+
 #endif

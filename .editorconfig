@@ -1,7 +1,7 @@
 # http://editorconfig.org
 root = true
 
-# use 2 space identation, unix line endings, utf8 charset, with trailing whitespace removed and a final newline added globally
+# use 2 space indentation, unix line endings, utf8 charset, with trailing whitespace removed and a final newline added globally
 [*]
 indent_style = space
 indent_size = 2

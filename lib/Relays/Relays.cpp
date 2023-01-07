@@ -11,3 +11,9 @@
 #include <Relays.h>
 
 Relay ledRelay(LED_RELAY_PIN, false);
+
+void initializeRelays()
+{
+    ledRelay.begin();
+    ledRelay.turnOn();
+}

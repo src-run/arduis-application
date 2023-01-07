@@ -12,9 +12,11 @@
 
 void setup()
 {
-    setPinModeOutput(LED_BUILTIN, LOW);
+    initializeSystem();
     initializeSerial();
+    initializeRandom();
     initializeStrand();
+    initializeRelays();
     cyclePattern(false);
 }
 
@@ -69,5 +71,5 @@ void cyclePattern(bool fadeEnds, bool fadeInit)
 
 void cycleRandHue()
 {
-    ledPatternBaseColorHue++;
+    ledPatternIncrByteNumb++;
 }

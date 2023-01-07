@@ -174,8 +174,6 @@ bool isLedPaletteStepRunning()
 
 void incPalettesStep()
 {
-    addRandomEntr();
-
     incLedPaletteListStepIndx();
 
     if (isLedPaletteStepRunning()) {

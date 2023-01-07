@@ -10,18 +10,14 @@
 
 #include "Strands.h"
 
-CRGB ledStrandUsedColors[LED_STR_NUM];
-CRGB ledStrandHeldColors[LED_STR_NUM];
+CRGB ledStrandsActiveColors[LED_STR_NUM];
+CRGB ledStrandsCustomColors[LED_STR_NUM];
 
 void initializeStrand()
 {
-    FastLED.addLeds<LED_STR_CTL, LED_STR_PIN, LED_STR_ORD>(ledStrandUsedColors, LED_STR_NUM);
-    FastLED.setCorrection(TypicalPixelString);
+    FastLED.addLeds<LED_STR_CTL, LED_STR_PIN, LED_STR_ORD>(ledStrandsActiveColors, LED_STR_NUM);
+    FastLED.clear(true);
     FastLED.setMaxPowerInVoltsAndMilliamps(LED_PWR_MAX_VOLTS, LED_PWR_MAX_MAMPS);
-
-    ledRelay.begin();
-    ledRelay.turnOn();
-
-    FastLED.setBrightness(0);
-    FastLED.delay(1000);
+    FastLED.setCorrection(TypicalPixelString);
+    FastLED.setBrightness(LED_PTN_FADE_ENBL ? 0 : LED_STR_BRT);
 }

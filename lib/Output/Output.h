@@ -31,6 +31,4 @@ byte   getListNamesMaxLength(const byte add, unsigned int (*getListSize)(), Stri
 byte   getLedPatternListNamesMaxLength(const byte add = 2);
 byte   getLedPaletteListNamesMaxLength(const byte add = 2);
 
-
-
 #endif

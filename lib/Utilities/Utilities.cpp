@@ -34,58 +34,6 @@ byte getPinMode(byte pin)
     return PIN_MODE_INPUT;
 }
 
-bool setPinMode(byte pin, byte act)
-{
-    pinMode(pin, act);
-    delay(100);
-
-    return isPinMode(pin, act);
-}
-
-bool setPinModeOutput(byte pin)
-{
-    return setPinMode(pin, PIN_MODE_OUTPUT);
-}
-
-bool setPinModeOutput(byte pin, byte out)
-{
-    setPinMode(pin, PIN_MODE_OUTPUT);
-    digitalWrite(pin, out);
-    delay(100);
-
-    return isPinModeOutput(pin);
-}
-
-bool setPinModeInput(byte pin)
-{
-    return setPinMode(pin, PIN_MODE_INPUT);
-}
-
-bool setPinModeInputPullup(byte pin)
-{
-    return setPinMode(pin, PIN_MODE_INPUT_PULLUP);
-}
-
-bool isPinMode(byte pin, byte act)
-{
-    return getPinMode(pin) == act;
-}
-
-bool isPinModeOutput(byte pin)
-{
-    return isPinMode(pin, PIN_MODE_OUTPUT);
-}
-
-bool isPinModeInput(byte pin)
-{
-    return isPinMode(pin, PIN_MODE_INPUT);
-}
-
-bool isPinModeInputPullup(byte pin)
-{
-    return isPinMode(pin, PIN_MODE_INPUT_PULLUP);
-}
-
 String strPadsChar(const String value, const int padding, const String useChar, const StringPadDirection useSide)
 {
     const unsigned int valSize = value.length();

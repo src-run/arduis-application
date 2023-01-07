@@ -13,6 +13,7 @@
 void initializeSerial(const unsigned long baud)
 {
     Serial.begin(baud);
+    while(!Serial);
     Serial.println();
 }
 
@@ -28,12 +29,12 @@ void outStepInfo(const bool skip, const byte perc)
 String getStepInfoMain()
 {
     static const String outsFormat = F("Pattern %02u of %02u (%s mode): %s (%03lus / %03lums / %03lums / %03lums / %03u%%)");
-    static const byte   outsBufLen = outsFormat.length() + getLedPatternListNamesMaxLength();
-    char                outsBufOut[outsBufLen];
+    static const byte   outsLength = outsFormat.length() + getLedPatternListNamesMaxLength();
+    char                outsBuffer[outsLength];
 
     snprintf(
-        outsBufOut,
-        outsBufLen,
+        outsBuffer,
+        outsLength,
         outsFormat.c_str(),
         getLedPatternListStepNumb(),
         getLedPatternListSize(),
@@ -46,7 +47,7 @@ String getStepInfoMain()
         cstrPerc(getLedPatternItemSkipItemFrac())
     );
 
-    return String(outsBufOut);
+    return String(outsBuffer);
 }
 
 String getStepInfoMore()
@@ -90,18 +91,18 @@ String getStepInfoSkip(const bool skip, const byte perc)
     }
 
     static const String skipFormat = F("| Skipped (%03u%% <= %03u%%)");
-    static const byte   skipBufLen = skipFormat.length();
-    char                skipBufOut[skipBufLen];
+    static const byte   skipLength = skipFormat.length();
+    char                skipBuffer[skipLength];
 
     snprintf(
-        skipBufOut,
-        skipBufLen,
+        skipBuffer,
+        skipLength,
         skipFormat.c_str(),
         cstrPerc(perc),
         cstrPerc(getLedPatternItemSkipItemFrac())
     );
 
-    return strPadsCharLft(String(skipBufOut), -1);
+    return strPadsCharLft(String(skipBuffer), -1);
 }
 
 char* getItemsPlacementDesc(bool random)

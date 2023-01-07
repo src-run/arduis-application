@@ -17,8 +17,8 @@
 #include "Config.h"
 #include "Relays.h"
 
-extern CRGB ledStrandUsedColors[LED_STR_NUM];
-extern CRGB ledStrandHeldColors[LED_STR_NUM];
+extern CRGB ledStrandsActiveColors[LED_STR_NUM];
+extern CRGB ledStrandsCustomColors[LED_STR_NUM];
 
 void initializeStrand();
 
