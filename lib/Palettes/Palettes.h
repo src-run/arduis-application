@@ -40,6 +40,7 @@ String                   getLedPaletteItemName();
 CRGBPalette16            getLedPaletteItemComp();
 
 unsigned int             getLedPaletteListRandIndx();
+unsigned int             getLedPaletteListRandIndxSeql();
 unsigned int             getLedPaletteListStepInit();
 unsigned int             getLedPaletteListStepNext(unsigned int idx);
 ledPaletteIndex          getLedPaletteListStepIndx(bool inc = false);

@@ -61,7 +61,27 @@ inline bool          lt(unsigned int x, int y)                                  
 inline bool          lt(unsigned int x, unsigned int y)                                               __attribute__((always_inline));
 inline bool          lt(int x, int y)                                                                 __attribute__((always_inline));
 
+inline bool          le(int x, unsigned int y)                                                        __attribute__((always_inline));
+inline bool          le(unsigned int x, int y)                                                        __attribute__((always_inline));
+inline bool          le(unsigned int x, unsigned int y)                                               __attribute__((always_inline));
+inline bool          le(int x, int y)                                                                 __attribute__((always_inline));
+
+inline bool          gt(int x, unsigned int y)                                                        __attribute__((always_inline));
+inline bool          gt(unsigned int x, int y)                                                        __attribute__((always_inline));
+inline bool          gt(unsigned int x, unsigned int y)                                               __attribute__((always_inline));
+inline bool          gt(int x, int y)                                                                 __attribute__((always_inline));
+
+inline bool          ge(int x, unsigned int y)                                                        __attribute__((always_inline));
+inline bool          ge(unsigned int x, int y)                                                        __attribute__((always_inline));
+inline bool          ge(unsigned int x, unsigned int y)                                               __attribute__((always_inline));
+inline bool          ge(int x, int y)                                                                 __attribute__((always_inline));
+
 inline void          initializeSystem()                                                               __attribute__((always_inline));
+
+inline bool          isMatch(const char *subject, const char *matcher)                                __attribute__((always_inline));
+inline bool          isMatch(const char *subject, const String matcher)                               __attribute__((always_inline));
+inline bool          isMatch(const String subject, const char *matcher)                               __attribute__((always_inline));
+inline bool          isMatch(const String subject, const String matcher)                              __attribute__((always_inline));
 
 bool setPinMode(byte pin, byte act)
 {
@@ -175,9 +195,89 @@ bool lt(int x, int y)
     return x < y;
 }
 
+bool le(int x, unsigned int y)
+{
+    return (x < 0) || (static_cast<unsigned int>(x) <= y);
+}
+
+bool le(unsigned int x, int y)
+{
+    return (y >= 0) && (x <= static_cast<unsigned int>(y));
+}
+
+bool le(unsigned int x, unsigned int y)
+{
+    return x <= y;
+}
+
+bool le(int x, int y)
+{
+    return x <= y;
+}
+
+bool gt(int x, unsigned int y)
+{
+    return (y < 0) || (static_cast<unsigned int>(x) > y);
+}
+
+bool gt(unsigned int x, int y)
+{
+    return (x >= 0) && (x > static_cast<unsigned int>(y));
+}
+
+bool gt(unsigned int x, unsigned int y)
+{
+    return x > y;
+}
+
+bool gt(int x, int y)
+{
+    return x > y;
+}
+
+bool ge(int x, unsigned int y)
+{
+    return (y < 0) || (static_cast<unsigned int>(x) >= y);
+}
+
+bool ge(unsigned int x, int y)
+{
+    return (x >= 0) && (x >= static_cast<unsigned int>(y));
+}
+
+bool ge(unsigned int x, unsigned int y)
+{
+    return x >= y;
+}
+
+bool ge(int x, int y)
+{
+    return x >= y;
+}
+
 void initializeSystem()
 {
     setPinModeOutput(LED_BUILTIN, SYS_ONBLED_ENBL ? HIGH : LOW);
+}
+
+bool isMatch(const char *subject, const char *matcher)
+{
+    return 0 == strcmp(subject, matcher);
+}
+
+bool isMatch(const char *subject, const String matcher)
+{
+    return isMatch(subject, matcher.c_str());
+}
+
+bool isMatch(const String subject, const char *matcher)
+{
+    return isMatch(subject.c_str(), matcher);
+}
+
+bool isMatch(const String subject, const String matcher)
+{
+    return isMatch(subject.c_str(), matcher.c_str());
 }
 
 #endif

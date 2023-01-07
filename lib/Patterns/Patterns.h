@@ -46,6 +46,8 @@ const ledPatternItem *getLedPatternItem(const unsigned int idx);
 const ledPatternItem *getLedPatternItem();
 String                getLedPatternItemName(const unsigned int idx);
 String                getLedPatternItemName();
+const char           *getLedPatternItemNameC(const unsigned int idx);
+const char           *getLedPatternItemNameC();
 void                (*getLedPatternItemInit())();
 void                (*getLedPatternItemCall())();
 unsigned long         getLedPatternItemCallExecMili();
@@ -158,6 +160,7 @@ void runStepRainbowFadingFast();
 void runStepRainbowWholed();
 
 unsigned int getLedPatternListRandIndx();
+unsigned int getLedPatternListRandIndxSeql();
 unsigned int getLedPatternListStepInit();
 unsigned int getLedPatternListStepNext(const unsigned int idx);
 unsigned int getLedPatternListStepIndx(const bool inc = false);

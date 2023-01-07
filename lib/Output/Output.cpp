@@ -28,7 +28,7 @@ void outStepInfo(const bool skip, const byte perc)
 
 String getStepInfoMain()
 {
-    static const String outsFormat = F("Pattern %02u of %02u (%s mode): %s (%03lus / %03lums / %03lums / %03lums / %03u%%)");
+    static const String outsFormat = F("Pattern %02u of %02u (mode %s/%s/%s): %s (%03lus / %03lums / %03lums / %03lums / %03u%%)");
     static const byte   outsLength = outsFormat.length() + getLedPatternListNamesMaxLength();
     char                outsBuffer[outsLength];
 
@@ -38,7 +38,9 @@ String getStepInfoMain()
         outsFormat.c_str(),
         getLedPatternListStepNumb(),
         getLedPatternListSize(),
-        getItemsPlacementDesc(LED_PTN_STEP_RAND),
+        getItemsPlacementDesc(LED_PTN_RAND_INIT),
+        getItemsPlacementDesc(LED_PTN_RAND_NEXT),
+        getItemsPlacementDesc(LED_PTN_RAND_NEXT && LED_PTN_RAND_SEQL == false),
         strPadsCharRgt(strQuote(getLedPatternItemName()), getLedPatternListNamesMaxLength()).c_str(),
         miliToSeconds(getLedPatternItemCallExecMili()),
         getLedPatternItemRandHuesMili(),
@@ -63,7 +65,7 @@ String getStepInfoMore()
 
 String getStepInfoMorePalette()
 {
-    static const String moreFormat = F("| Palette %03u of %03u (%s mode): %s (%03lus)");
+    static const String moreFormat = F("| Palette %03u of %03u (mode %s/%s/%s): %s (%03lus)");
     static const byte   moreLength = moreFormat.length() + getLedPaletteListNamesMaxLength();
     char                moreBuffer[moreLength];
 
@@ -73,7 +75,9 @@ String getStepInfoMorePalette()
         moreFormat.c_str(),
         getLedPaletteListStepNumb(),
         getLedPaletteListSize(),
-        getItemsPlacementDesc(LED_PTN_CPAL_RAND),
+        getItemsPlacementDesc(LED_PAL_RAND_INIT),
+        getItemsPlacementDesc(LED_PAL_RAND_NEXT),
+        getItemsPlacementDesc(LED_PAL_RAND_NEXT && LED_PAL_RAND_SEQL == false),
         strPadsCharRgt(
             strQuote(getLedPaletteItemName()),
             getLedPaletteListNamesMaxLength()
@@ -107,8 +111,8 @@ String getStepInfoSkip(const bool skip, const byte perc)
 
 char* getItemsPlacementDesc(bool random)
 {
-    static char typeRand[] = "random";
-    static char typeOrdr[] = "ordered";
+    static char typeRand[] = "r";
+    static char typeOrdr[] = "s";
 
     return random ? typeRand : typeOrdr;
 }

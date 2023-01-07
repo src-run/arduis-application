@@ -87,7 +87,8 @@ unsigned int getLedPaletteListSize()
 const customPaletteItem* getLedPaletteItem(const unsigned int idx)
 {
     static const customPaletteItem def = {
-        "Mysts_Bk_Wi", Palette_Mysts_Bk_Wi_c
+        "Mysts_Bk_Wi",
+        Palette_Mysts_Bk_Wi_c,
     };
 
     return idx >= getLedPaletteListSize() ? &def : &ledPaletteList[idx];
@@ -117,17 +118,45 @@ CRGBPalette16 getLedPaletteItemComp()
 
 unsigned int getLedPaletteListRandIndx()
 {
-    return getRandomIndx(getLedPaletteListSize());
+    return LED_PAL_RAND_SEQL ? getLedPaletteListRandIndxSeql() : getRandomIndx(getLedPaletteListSize());
+}
+
+unsigned int getLedPaletteListRandIndxSeql()
+{
+    static const unsigned int max = getLedPaletteListSize();
+    static unsigned int map[120];
+    static unsigned int pos = 0;
+
+    if (0 == pos) {
+        for (unsigned int i = 0; i < max; i++) {
+            map[i] = i;
+        }
+
+        for (byte j = 0; j < randByte(2, 8); j++) {
+            for (unsigned int i = 0; i < max; i++) {
+                const unsigned int n = randUInt(max - 1);
+                const unsigned int val = map[n];
+                map[n] = map[i];
+                map[i] = val;
+            }
+        }
+
+        pos = max;
+    }
+
+    --pos;
+
+    return map[pos];
 }
 
 unsigned int getLedPaletteListStepInit()
 {
-    return LED_PTN_CPAL_RAND ? getLedPaletteListRandIndx() : 0;
+    return LED_PAL_RAND_INIT ? getLedPaletteListRandIndx() : 0;
 }
 
 unsigned int getLedPaletteListStepNext(unsigned int idx)
 {
-    return LED_PTN_CPAL_RAND ? getLedPaletteListRandIndx() : ((idx + 1) % getLedPaletteListSize());
+    return LED_PAL_RAND_NEXT ? getLedPaletteListRandIndx() : ((idx + 1) % getLedPaletteListSize());
 }
 
 ledPaletteIndex getLedPaletteListStepIndx(bool inc)
@@ -161,15 +190,21 @@ unsigned int getLedPaletteListStepNumb()
 
 bool isLedPaletteStepStarted()
 {
-    return (ledPatternStepInit || ledPatternStepRuns) && (
-        strcmp(getLedPatternItem()->name, "palette-circle") == 0 ||
-        strcmp(getLedPatternItem()->name, "palette-circle-t") == 0
+    return (
+        ledPatternStepInit ||
+        ledPatternStepRuns
+    ) && (
+        isMatch(getLedPatternItemNameC(), "palette-circle") ||
+        isMatch(getLedPatternItemNameC(), "palette-circle-t")
     );
 }
 
 bool isLedPaletteStepRunning()
 {
-    return isLedPaletteStepStarted() && (getLedPaletteListStepIndx().curr >= 0) && lt(getLedPaletteListStepIndx().curr, getLedPaletteListSize());
+    return isLedPaletteStepStarted() && lt(
+        getLedPaletteListStepIndx().curr,
+        getLedPaletteListSize()
+    );
 }
 
 void incPalettesStep()
