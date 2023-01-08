@@ -255,6 +255,7 @@ void incPalettesStep()
     incLedPaletteListStepIndx();
 
     if (isLedPaletteStepRunning()) {
+        setLedPatternItemGlintsState();
         outStepInfo();
     }
 }
