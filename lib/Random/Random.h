@@ -12,7 +12,7 @@
 
 #include "Common.h"
 
-void                 initializeRandom();
+void                 setupRandom();
 
 inline byte          randByte()                                                                       __attribute__((always_inline));
 inline byte          randByte(byte lim)                                                               __attribute__((always_inline));

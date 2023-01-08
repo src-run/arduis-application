@@ -13,37 +13,44 @@
 #include "Common.h"
 #include "PalettesGradient.h"
 
-struct ledPaletteIndex {
+struct ledPaletteIndx {
     const unsigned int curr;
     const unsigned int next;
 };
 
-struct customPaletteItem {
-    byte                             posn;
-    const char                      *name;
-    TProgmemRGBGradientPalette_byte *comp;
-    unsigned long                    callExecMili;
+struct ledPaletteItem {
+    const char                            *name;
+    const TProgmemRGBGradientPalette_byte *comp;
+    const unsigned int                     callExecSecs;
+    const byte                             glintsChance;
+    const byte                             rejectChance;
 };
 
-extern customPaletteItem ledPaletteList[];
+extern const ledPaletteItem ledPaletteList[];
+extern byte                 ledPaletteSeql[];
+extern const ledPaletteItem ledPaletteDeft;
 
 unsigned int             getLedPaletteListSize(const int adds = 0);
 
-const customPaletteItem *getLedPaletteItem(const unsigned int idx);
-const customPaletteItem *getLedPaletteItem();
+const ledPaletteItem *getLedPaletteDeft();
+const ledPaletteItem *getLedPaletteItem(const unsigned int idx);
+const ledPaletteItem *getLedPaletteItem();
 
-byte                     getLedPaletteItemPosn(const unsigned int idx);
-byte                     getLedPaletteItemPosn();
 String                   getLedPaletteItemName(const unsigned int idx);
 String                   getLedPaletteItemName();
+const char              *getLedPaletteItemNameC(const unsigned int idx);
+const char              *getLedPaletteItemNameC();
+CRGBPalette16            getLedPaletteItemComp(const unsigned int idx);
 CRGBPalette16            getLedPaletteItemComp();
-unsigned long            getLedPaletteItemCallExecMili();
+unsigned int             getLedPaletteItemCallExecSecs();
+unsigned int             getLedPaletteItemGlintsChance();
+unsigned int             getLedPaletteItemRejectChance();
 
 unsigned int             getLedPaletteListRandIndx();
 unsigned int             getLedPaletteListRandIndxSeql();
 unsigned int             getLedPaletteListStepInit();
 unsigned int             getLedPaletteListStepNext(unsigned int idx);
-ledPaletteIndex          getLedPaletteListStepIndx(bool inc = false);
+ledPaletteIndx          getLedPaletteListStepIndx(bool inc = false);
 unsigned int             incLedPaletteListStepIndx();
 unsigned int             getLedPaletteListStepNumb();
 

@@ -10,9 +10,10 @@
 
 #pragma once
 
-#include <Relay.h>
 #include "Common.h"
+#include "Switch.h"
 
-extern Relay ledRelay;
+extern CRGB ledStrandsActiveColors[LED_STR_NUM];
+extern CRGB ledStrandsCustomColors[LED_STR_NUM];
 
-void initializeRelays();
+void setupStrand();

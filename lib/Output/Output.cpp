@@ -10,7 +10,7 @@
 
 #include "Output.h"
 
-void initializeSerial(const unsigned long baud)
+void setupSerial(const unsigned long baud)
 {
     Serial.begin(baud);
     while(!Serial);
@@ -19,34 +19,37 @@ void initializeSerial(const unsigned long baud)
 
 void outStepInfo(const bool skip, const byte perc)
 {
-    Serial.println(
-        getStepInfoMain() +
-        getStepInfoMore() +
-        getStepInfoSkip(skip, perc)
-    );
+    Serial.print(getStepInfoMain());
+    Serial.print(getStepInfoMore());
+    Serial.print(getStepInfoSkip(skip, perc));
+    Serial.println();
 }
 
 String getStepInfoMain()
 {
-    static const String outsFormat = F("Pattern %02u of %02u (mode %s/%s/%s): %s (%03lus / %03lums / %03lums / %03lums / %03u%%)");
-    static const byte   outsLength = outsFormat.length() + getLedPatternListNamesMaxLength();
-    char                outsBuffer[outsLength];
+    const String outsFormat = F("Pattern %02u of %02u (mode %s/%s/%s/%s): %s (%03us / %03lums / %03lums / %03lums / %03u%%)");
+    const byte   outsLength = outsFormat.length() + getLedPatternListNamesMaxLength();
+    char         outsBuffer[outsLength];
 
     snprintf(
         outsBuffer,
         outsLength,
         outsFormat.c_str(),
-        getLedPatternItemPosn(),
+        getLedPatternListStepNumb(),
         getLedPatternListSize(),
-        getItemsPlacementDesc(LED_PTN_RAND_INIT),
-        getItemsPlacementDesc(LED_PTN_RAND_NEXT),
-        getItemsPlacementDesc(LED_PTN_RAND_NEXT && LED_PTN_RAND_SEQL == false),
-        strPadsCharRgt(strQuote(getLedPatternItemName()), getLedPatternListNamesMaxLength()).c_str(),
-        miliToSeconds(getLedPatternItemCallExecMili()),
+        getItemsPlacementDesc(LED_PTN_RAND_INIT).c_str(),
+        getItemsPlacementDesc(LED_PTN_RAND_NEXT).c_str(),
+        getItemsPlacementDesc(LED_PTN_RAND_NEXT && LED_PTN_RAND_SEQL == false).c_str(),
+        hasLedPatternItemGlints() ? "g" : "n",
+        strPadsCharRgt(
+            strQuote(getLedPatternItemName()),
+            getLedPatternListNamesMaxLength()
+        ).c_str(),
+        getLedPatternItemCallExecSecs(),
         getLedPatternItemRandHuesMili(),
         getLedPatternItemWaitLoopMili(),
         getLedPatternItemWaitFadeMili(),
-        cstrPerc(getLedPatternItemSkipItemFrac())
+        cstrPerc(getLedPatternItemRejectChance())
     );
 
     return String(outsBuffer);
@@ -54,35 +57,33 @@ String getStepInfoMain()
 
 String getStepInfoMore()
 {
-    String info = "";
-
     if (isLedPaletteStepRunning()) {
-        info = info + getStepInfoMorePalette();
+        return strPadsCharLft(getStepInfoMorePalette(), -1);
     }
 
-    return info.length() > 0 ? strPadsCharLft(info, -1) : info;
+    return "";
 }
 
 String getStepInfoMorePalette()
 {
-    static const String moreFormat = F("| Palette %03u of %03u (mode %s/%s/%s): %s (%03lus)");
-    static const byte   moreLength = moreFormat.length() + getLedPaletteListNamesMaxLength();
-    char                moreBuffer[moreLength];
+    const String moreFormat = F("| Palette %03u of %03u (mode %s/%s/%s): %s (%03us)");
+    const byte   moreLength = moreFormat.length() + getLedPaletteListNamesMaxLength();
+    char         moreBuffer[moreLength];
 
     snprintf(
         moreBuffer,
         moreLength,
         moreFormat.c_str(),
-        getLedPaletteItemPosn(),
+        getLedPaletteListStepNumb(),
         getLedPaletteListSize(),
-        getItemsPlacementDesc(LED_PAL_RAND_INIT),
-        getItemsPlacementDesc(LED_PAL_RAND_NEXT),
-        getItemsPlacementDesc(LED_PAL_RAND_NEXT && LED_PAL_RAND_SEQL == false),
+        getItemsPlacementDesc(LED_PAL_RAND_INIT).c_str(),
+        getItemsPlacementDesc(LED_PAL_RAND_NEXT).c_str(),
+        getItemsPlacementDesc(LED_PAL_RAND_NEXT && LED_PAL_RAND_SEQL == false).c_str(),
         strPadsCharRgt(
             strQuote(getLedPaletteItemName()),
             getLedPaletteListNamesMaxLength()
         ).c_str(),
-        miliToSeconds(LED_STR_PAL_CYCLE)
+        getLedPaletteItemCallExecSecs()
     );
 
     return String(moreBuffer);
@@ -90,39 +91,35 @@ String getStepInfoMorePalette()
 
 String getStepInfoSkip(const bool skip, const byte perc)
 {
-    if (false == skip) {
-        return String();
-    }
-
-    static const String skipFormat = F("| Skipped (%03u%% <= %03u%%)");
-    static const byte   skipLength = skipFormat.length();
-    char                skipBuffer[skipLength];
+    const String skipFormat = F("| Skipped (%03u%% <= %03u%%)");
+    const byte   skipLength = skipFormat.length();
+    char         skipBuffer[skipLength];
 
     snprintf(
         skipBuffer,
         skipLength,
         skipFormat.c_str(),
         cstrPerc(perc),
-        cstrPerc(getLedPatternItemSkipItemFrac())
+        cstrPerc(getLedPatternItemRejectChance())
     );
 
-    return strPadsCharLft(String(skipBuffer), -1);
+    return skip ? strPadsCharLft(String(skipBuffer), -1) : "";
 }
 
-char* getItemsPlacementDesc(bool random)
+String getItemsPlacementDesc(bool random)
 {
-    static char typeRand[] = "r";
-    static char typeOrdr[] = "s";
+    const String typeRand = "r";
+    const String typeOrdr = "s";
 
     return random ? typeRand : typeOrdr;
 }
 
-byte getListNamesMaxLength(const byte add, unsigned int (*getListSize)(const int), String (*getItemName)(const unsigned int))
+byte getListNamesMaxLength(const byte add, unsigned int (*getListSize)(const int), const char* (*getItemName)(const unsigned int))
 {
     byte len = 0;
 
     for (unsigned int i = 0; i < getListSize(0); i++) {
-        len = max(len, getItemName(i).length());
+        len = max(len, strlen(getItemName(i)));
     }
 
     return len + add;
@@ -130,22 +127,18 @@ byte getListNamesMaxLength(const byte add, unsigned int (*getListSize)(const int
 
 byte getLedPatternListNamesMaxLength(const byte add)
 {
-    static const byte len = getListNamesMaxLength(
+    return getListNamesMaxLength(
         add,
         &getLedPatternListSize,
-        &getLedPatternItemName
+        &getLedPatternItemNameC
     );
-
-    return len;
 }
 
 byte getLedPaletteListNamesMaxLength(const byte add)
 {
-    static const byte len = getListNamesMaxLength(
+    return getListNamesMaxLength(
         add,
         &getLedPaletteListSize,
-        &getLedPaletteItemName
+        &getLedPaletteItemNameC
     );
-
-    return len;
 }

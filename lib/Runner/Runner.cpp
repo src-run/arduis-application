@@ -10,70 +10,13 @@
 
 #include "Runner.h"
 
-MillisTimeRunner cyclePatternMillisTimeRunner = MillisTimeRunner(LED_STR_SEC_CYCLE);
-MillisTimeRunner cyclePaletteMillisTimeRunner = MillisTimeRunner(LED_STR_PAL_CYCLE);
-MillisTimeRunner cycleByteNumMillisTimeRunner = MillisTimeRunner(LED_STR_SEC_COLOR);
+Timer PatternTimer = Timer();
+Timer PaletteTimer = Timer();
+Timer ByteNumTimer = Timer();
 
-MillisTimeRunner::MillisTimeRunner()
+void setupRunner()
 {
-    reset(); setPeriod(1);
-}
-
-MillisTimeRunner::MillisTimeRunner(unsigned long timePeriod)
-{
-    reset(); setPeriod(timePeriod);
-}
-
-void MillisTimeRunner::setPeriod(unsigned long timePeriod)
-{
-    _timePeriod = timePeriod;
-}
-
-unsigned long MillisTimeRunner::getPeriod()
-{
-    return _timePeriod;
-}
-
-unsigned long MillisTimeRunner::getLastTrigger()
-{
-    return _lastTrigger;
-}
-
-unsigned long MillisTimeRunner::getTime()
-{
-    return millis();
-}
-
-unsigned long MillisTimeRunner::getElapsed()
-{
-    return getTime() - getLastTrigger();
-}
-
-unsigned long MillisTimeRunner::getRemaining()
-{
-    return max(0, getPeriod() - getElapsed());
-}
-
-bool MillisTimeRunner::ready()
-{
-    bool isReady = (getElapsed() >= getPeriod());
-    if (isReady) { reset(); }
-    return isReady;
-}
-
-void MillisTimeRunner::reset()
-{
-    _lastTrigger = getTime();
-}
-
-void MillisTimeRunner::trigger()
-{
-    _lastTrigger = getTime() - getPeriod();
-}
-
-void initializeRunner()
-{
-    cyclePatternMillisTimeRunner.setPeriod(getLedPatternItemCallExecMili());
-    cyclePaletteMillisTimeRunner.setPeriod(getLedPaletteItemCallExecMili());
-    cycleByteNumMillisTimeRunner.setPeriod(getLedPatternItemRandHuesMili());
+    PatternTimer.setPeriodFromSecs(getLedPatternItemCallExecSecs() ?: LED_PTN_SEC_CYCLE);
+    PaletteTimer.setPeriodFromSecs(getLedPaletteItemCallExecSecs() ?: LED_PAL_SEC_CYCLE);
+    ByteNumTimer.setPeriodFromMili(getLedPatternItemRandHuesMili() ?: LED_STR_SEC_COLOR);
 }

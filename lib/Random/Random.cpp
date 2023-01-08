@@ -10,7 +10,7 @@
 
 #include "Random.h"
 
-void initializeRandom()
+void setupRandom()
 {
     setRandomEntr(SYS_RANDOM_SMIN, SYS_RANDOM_SMAX, false);
 }

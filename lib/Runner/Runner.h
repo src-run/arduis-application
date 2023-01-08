@@ -11,29 +11,10 @@
 #pragma once
 
 #include "Common.h"
+#include "Timer.h"
 
-class MillisTimeRunner {
-    protected:
-        unsigned long _timePeriod;
-        unsigned long _lastTrigger = 0;
+extern Timer PatternTimer;
+extern Timer PaletteTimer;
+extern Timer ByteNumTimer;
 
-    public:
-        MillisTimeRunner();
-        MillisTimeRunner(unsigned long timePeriod);
-        void setPeriod(unsigned long timePeriod);
-        unsigned long getPeriod();
-        unsigned long getLastTrigger();
-        unsigned long getTime();
-        unsigned long getElapsed();
-        unsigned long getRemaining();
-        bool ready();
-        void reset();
-        void trigger();
-        operator bool() { return ready(); }
-};
-
-void initializeRunner();
-
-extern MillisTimeRunner cyclePatternMillisTimeRunner;
-extern MillisTimeRunner cyclePaletteMillisTimeRunner;
-extern MillisTimeRunner cycleByteNumMillisTimeRunner;
+void setupRunner();

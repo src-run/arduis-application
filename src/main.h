@@ -13,11 +13,12 @@
 #include "Common.h"
 #include "Palettes.h"
 #include "Patterns.h"
-#include "Relays.h"
+#include "Switch.h"
 #include "Runner.h"
 
-void setup();
-void loop();
-void cyclePalette(bool fadeEnds = LED_PTN_FADE_ENBL, bool fadeInit = LED_PTN_FADE_ENBL);
-void cyclePattern(bool fadeEnds = LED_PTN_FADE_ENBL, bool fadeInit = LED_PTN_FADE_ENBL);
-void cycleRandHue();
+void          setup();
+void          loop();
+unsigned int  timerCyclePattern(bool fadeToBlack = LED_PTN_FADE_ENBL, bool fadeToColor = LED_PTN_FADE_ENBL, bool doCycle = true);
+unsigned int  timerCyclePalette(bool fadeToBlack = LED_PTN_FADE_ENBL, bool fadeToColor = LED_PTN_FADE_ENBL, bool doCycle = true);
+unsigned long timerCycleByteNum();
+void          setupCycles();

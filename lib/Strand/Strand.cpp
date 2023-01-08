@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  */
 
-#include "Strands.h"
+#include "Strand.h"
 
 CRGB ledStrandsActiveColors[LED_STR_NUM];
 CRGB ledStrandsCustomColors[LED_STR_NUM];
 
-void initializeStrand()
+void setupStrand()
 {
     FastLED.addLeds<LED_STR_CTL, LED_STR_PIN, LED_STR_ORD>(ledStrandsActiveColors, LED_STR_NUM);
     FastLED.clear(true);

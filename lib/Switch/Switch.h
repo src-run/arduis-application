@@ -8,12 +8,11 @@
  * file that was distributed with this source code.
  */
 
-#include "Relays.h"
+#pragma once
 
-Relay ledRelay(LED_RELAY_PIN, false);
+#include <Relay.h>
+#include "Common.h"
 
-void initializeRelays()
-{
-    ledRelay.begin();
-    ledRelay.turnOn();
-}
+extern Relay ledSwitch;
+
+void setupSwitch();

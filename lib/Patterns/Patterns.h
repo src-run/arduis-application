@@ -11,52 +11,59 @@
 #pragma once
 
 #include "Common.h"
-#include "Strands.h"
+#include "Strand.h"
 #include "Palettes.h"
 
 struct ledPatternItem {
-    byte                posn;
-    const char         *name;
-    void              (*call)();
-    void              (*init)();
-    const unsigned long callExecMili;
-    const unsigned long randHuesMili;
-    const unsigned long waitLoopMili;
-    const unsigned long waitFadeMili;
-    const unsigned int  skipItemFrac;
+    const char        *name;
+    void             (*call)();
+    void             (*init)();
+    const unsigned int callExecSecs;
+    const byte         randHuesMili;
+    const byte         waitLoopMili;
+    const byte         waitFadeMili;
+    const byte         glintsChance;
+    const byte         rejectChance;
 };
+//glintsChance
+//rejectChance
+extern const ledPatternItem ledPatternList[];
+extern byte                 ledPatternSeql[];
+extern const ledPatternItem ledPatternDeft;
 
-extern ledPatternItem ledPatternList[];
-extern byte ledPatternRand[];
-
+extern bool ledPatternGlintEnabled;
 extern int  ledPatternFadeLeveling;
-extern byte ledPatternIncrByteNumb;
 
 extern bool ledPatternStepInit;
 extern bool ledPatternStepRuns;
 
 unsigned int          getLedPatternListSize(const int adds = 0);
-const ledPatternItem *getLedPatternItemDefault();
+const ledPatternItem *getLedPatternDeft();
 const ledPatternItem *getLedPatternItem(const unsigned int idx);
 const ledPatternItem *getLedPatternItem();
-byte                  getLedPatternItemPosn(const unsigned int idx);
-byte                  getLedPatternItemPosn();
 String                getLedPatternItemName(const unsigned int idx);
 String                getLedPatternItemName();
 const char           *getLedPatternItemNameC(const unsigned int idx);
 const char           *getLedPatternItemNameC();
 void                (*getLedPatternItemInit())();
 void                (*getLedPatternItemCall())();
-unsigned long         getLedPatternItemCallExecMili();
+unsigned int          getLedPatternItemCallExecSecs();
 unsigned long         getLedPatternItemRandHuesMili();
 unsigned long         getLedPatternItemWaitLoopMili();
 unsigned long         getLedPatternItemWaitFadeMili();
-unsigned int          getLedPatternItemSkipItemFrac();
+unsigned int          getLedPatternItemGlintsChance();
+unsigned int          getLedPatternItemRejectChance();
 
-void incSelectedStep();
-void runSelectedStep(const bool wait = true);
-bool runSelectedStepFadeInit(const int increment = LED_PTN_FADE_STEP);
-bool runSelectedStepFadeEnds(const int decrement = LED_PTN_FADE_STEP);
+bool hasLedPatternItemGlints();
+void addLedPatternItemGlints();
+void setLedPatternItemGlintsState();
+
+void incPatternsStep();
+void runPatternsStep(const bool wait = true);
+bool runPatternsFadeToColor(const bool fade = true, const int increment = LED_PTN_FADE_STEP);
+bool runPatternsFadeToBlack(const bool fade = true, const int decrement = LED_PTN_FADE_STEP);
+bool runPatternsFadeToColorInner(const int increment);
+bool runPatternsFadeToBlackInner(const int decrement);
 
 void setCustomLedColorsActive();
 
@@ -163,3 +170,6 @@ unsigned int getLedPatternListStepNext(const unsigned int idx);
 unsigned int getLedPatternListStepIndx(const bool inc = false);
 unsigned int incLedPatternListStepIndx();
 unsigned int getLedPatternListStepNumb();
+
+byte getByteNumStep(byte inc = 0);
+byte incByteNumStep(byte add = 1);

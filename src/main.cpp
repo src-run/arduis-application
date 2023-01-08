@@ -12,69 +12,64 @@
 
 void setup()
 {
-    initializeSystem();
-    initializeSerial();
-    initializeRandom();
-    initializeStrand();
-    initializeRelays();
-    initializeRunner();
+    setupSystem();
+    setupSerial();
+    setupRandom();
+    setupStrand();
+    setupSwitch();
+    setupCycles();
+    setupRunner();
 }
 
 void loop()
 {
-    runSelectedStep();
+    runPatternsStep();
 
-    if (cyclePaletteMillisTimeRunner.ready()) {
-        cyclePaletteMillisTimeRunner.setPeriod(getLedPaletteItemCallExecMili());
-        Serial.println("cyclePalette(" + String(cyclePaletteMillisTimeRunner.getPeriod()) + "," + String(cyclePaletteMillisTimeRunner.getElapsed()) + "," + String(cyclePaletteMillisTimeRunner.getRemaining()) + ")");
-        cyclePalette();
+    if (PatternTimer.ready()) {
+        PatternTimer.setPeriodFromSecs(timerCyclePattern());
     }
 
-    if (cyclePatternMillisTimeRunner.ready()) {
-        cyclePatternMillisTimeRunner.setPeriod(getLedPatternItemCallExecMili());
-        Serial.println("cyclePattern(" + String(cyclePatternMillisTimeRunner.getPeriod()) + "," + String(cyclePatternMillisTimeRunner.getElapsed()) + "," + String(cyclePatternMillisTimeRunner.getRemaining()) + ")");
-        cyclePattern();
+    if (PaletteTimer.ready()) {
+        PaletteTimer.setPeriodFromSecs(timerCyclePalette());
     }
 
-    if (cycleByteNumMillisTimeRunner.ready()) {
-        cycleByteNumMillisTimeRunner.setPeriod(getLedPatternItemRandHuesMili());
-        cycleRandHue();
+    if (ByteNumTimer.ready()) {
+        ByteNumTimer.setPeriodFromMili(timerCycleByteNum());
     }
 }
 
-void cyclePalette(bool fadeEnds, bool fadeInit)
+unsigned int timerCyclePattern(bool fadeToBlack, bool fadeToColor, bool doCycle)
 {
-    if (!isLedPaletteStepStarted()) {
-        return;
+    if (doCycle) {
+        runPatternsFadeToBlack(fadeToBlack);
+        incPatternsStep();
+        runPatternsStep();
+        runPatternsFadeToColor(fadeToColor);
     }
 
-    while(fadeEnds && runSelectedStepFadeEnds()) {
-        runSelectedStep(false);
-    }
-
-    incPalettesStep();
-    runSelectedStep();
-
-    while(fadeInit && runSelectedStepFadeInit()) {
-        runSelectedStep(false);
-    }
+    return getLedPatternItemCallExecSecs();
 }
 
-void cyclePattern(bool fadeEnds, bool fadeInit)
+unsigned int timerCyclePalette(bool fadeToBlack, bool fadeToColor, bool doCycle)
 {
-    while(fadeEnds && runSelectedStepFadeEnds()) {
-        runSelectedStep(false);
+    if (doCycle && isLedPaletteStepStarted()) {
+        runPatternsFadeToBlack(fadeToBlack);
+        incPalettesStep();
+        runPatternsStep();
+        runPatternsFadeToColor(fadeToColor);
     }
 
-    incSelectedStep();
-    runSelectedStep();
-
-    while(fadeInit && runSelectedStepFadeInit()) {
-        runSelectedStep(false);
-    }
+    return getLedPaletteItemCallExecSecs();
 }
 
-void cycleRandHue()
+unsigned long timerCycleByteNum()
 {
-    ledPatternIncrByteNumb++;
+    incByteNumStep();
+
+    return getLedPatternItemRandHuesMili();
+}
+
+void setupCycles()
+{
+    timerCyclePattern(false);
 }

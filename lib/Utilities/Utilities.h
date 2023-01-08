@@ -13,7 +13,6 @@
 #include "Common.h"
 
 #define ARRAY_SIZE(A) (*(&A + 1) - A)
-//#define ARRAY_SIZE(A) ((int)(sizeof(A) / sizeof((A)[0])))
 
 #define PIN_MODE_UNKNOWN      0xff
 #define PIN_MODE_INPUT        INPUT
@@ -72,7 +71,7 @@ inline bool          ge(unsigned int x, int y)                                  
 inline bool          ge(unsigned int x, unsigned int y)                                               __attribute__((always_inline));
 inline bool          ge(int x, int y)                                                                 __attribute__((always_inline));
 
-inline void          initializeSystem()                                                               __attribute__((always_inline));
+inline void          setupSystem()                                                               __attribute__((always_inline));
 
 inline bool          isMatch(const char *subject, const char *matcher)                                __attribute__((always_inline));
 inline bool          isMatch(const char *subject, const String matcher)                               __attribute__((always_inline));
@@ -251,7 +250,7 @@ bool ge(int x, int y)
     return x >= y;
 }
 
-void initializeSystem()
+void setupSystem()
 {
     setPinModeOutput(LED_BUILTIN, SYS_ONBLED_ENBL ? HIGH : LOW);
 }

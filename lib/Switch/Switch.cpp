@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  */
 
-#pragma once
+#include "Switch.h"
 
-#include "Common.h"
-#include "Relays.h"
+Relay ledSwitch(LED_RELAY_PIN, false);
 
-extern CRGB ledStrandsActiveColors[LED_STR_NUM];
-extern CRGB ledStrandsCustomColors[LED_STR_NUM];
-
-void initializeStrand();
+void setupSwitch()
+{
+    ledSwitch.begin();
+    ledSwitch.turnOn();
+}

@@ -29,8 +29,8 @@
 #define LED_STR_CTL       WS2811
 #define LED_STR_ORD       RGB
 #define LED_STR_FPS       60
-#define LED_STR_SEC_CYCLE 20000UL
-#define LED_STR_PAL_CYCLE LED_STR_SEC_CYCLE / 4
+#define LED_PTN_SEC_CYCLE 120
+#define LED_PAL_SEC_CYCLE LED_PTN_SEC_CYCLE / 3
 #define LED_STR_SEC_COLOR 20
 
 #define LED_PWR_MAX_VOLTS 5
@@ -40,6 +40,8 @@
 #define LED_PTN_WAIT_NEXT 0
 
 #define LED_PTN_SKIP_ENBL ((bool)true)
+
+#define LED_PTN_GLNT_ENBL ((bool)true)
 
 #define LED_PTN_FADE_ENBL ((bool)true)
 #define LED_PTN_FADE_MILI LED_PTN_WAIT_LOOP
