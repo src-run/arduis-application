@@ -17,23 +17,28 @@ void setup()
     initializeRandom();
     initializeStrand();
     initializeRelays();
-    cyclePattern(false);
+    initializeRunner();
 }
 
 void loop()
 {
     runSelectedStep();
 
-    EVERY_N_MILLISECONDS(LED_STR_PAL_CYCLE) {
+    if (cyclePaletteMillisTimeRunner.ready()) {
+        cyclePaletteMillisTimeRunner.setPeriod(getLedPaletteItemCallExecMili());
+        Serial.println("cyclePalette(" + String(cyclePaletteMillisTimeRunner.getPeriod()) + "," + String(cyclePaletteMillisTimeRunner.getElapsed()) + "," + String(cyclePaletteMillisTimeRunner.getRemaining()) + ")");
         cyclePalette();
     }
 
-    EVERY_N_MILLISECONDS(getLedPatternItemRandHuesMili()) {
-        cycleRandHue();
+    if (cyclePatternMillisTimeRunner.ready()) {
+        cyclePatternMillisTimeRunner.setPeriod(getLedPatternItemCallExecMili());
+        Serial.println("cyclePattern(" + String(cyclePatternMillisTimeRunner.getPeriod()) + "," + String(cyclePatternMillisTimeRunner.getElapsed()) + "," + String(cyclePatternMillisTimeRunner.getRemaining()) + ")");
+        cyclePattern();
     }
 
-    EVERY_N_MILLISECONDS(getLedPatternItemCallExecMili()) {
-        cyclePattern();
+    if (cycleByteNumMillisTimeRunner.ready()) {
+        cycleByteNumMillisTimeRunner.setPeriod(getLedPatternItemRandHuesMili());
+        cycleRandHue();
     }
 }
 

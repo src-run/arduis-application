@@ -8,20 +8,14 @@
  * file that was distributed with this source code.
  */
 
-#ifndef _ARDUIS_HR_PATTERNS
-#define _ARDUIS_HR_PATTERNS
+#pragma once
 
-#include <Arduino.h>
-#include <FastLED.h>
-
+#include "Common.h"
 #include "Strands.h"
 #include "Palettes.h"
-#include "Output.h"
-#include "Random.h"
-#include "Config.h"
-#include "Utilities.h"
 
 struct ledPatternItem {
+    byte                posn;
     const char         *name;
     void              (*call)();
     void              (*init)();
@@ -32,7 +26,8 @@ struct ledPatternItem {
     const unsigned int  skipItemFrac;
 };
 
-extern const ledPatternItem ledPatternList[];
+extern ledPatternItem ledPatternList[];
+extern byte ledPatternRand[];
 
 extern int  ledPatternFadeLeveling;
 extern byte ledPatternIncrByteNumb;
@@ -40,10 +35,12 @@ extern byte ledPatternIncrByteNumb;
 extern bool ledPatternStepInit;
 extern bool ledPatternStepRuns;
 
-unsigned int          getLedPatternListSize();
+unsigned int          getLedPatternListSize(const int adds = 0);
 const ledPatternItem *getLedPatternItemDefault();
 const ledPatternItem *getLedPatternItem(const unsigned int idx);
 const ledPatternItem *getLedPatternItem();
+byte                  getLedPatternItemPosn(const unsigned int idx);
+byte                  getLedPatternItemPosn();
 String                getLedPatternItemName(const unsigned int idx);
 String                getLedPatternItemName();
 const char           *getLedPatternItemNameC(const unsigned int idx);
@@ -166,5 +163,3 @@ unsigned int getLedPatternListStepNext(const unsigned int idx);
 unsigned int getLedPatternListStepIndx(const bool inc = false);
 unsigned int incLedPatternListStepIndx();
 unsigned int getLedPatternListStepNumb();
-
-#endif

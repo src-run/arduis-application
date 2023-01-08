@@ -8,12 +8,6 @@
  * file that was distributed with this source code.
  */
 
-#include "Relays.h"
+#pragma once
 
-Relay ledRelay(LED_RELAY_PIN, false);
-
-void initializeRelays()
-{
-    ledRelay.begin();
-    ledRelay.turnOn();
-}
+#include <Arduino.h>

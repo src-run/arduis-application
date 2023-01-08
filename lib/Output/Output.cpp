@@ -36,7 +36,7 @@ String getStepInfoMain()
         outsBuffer,
         outsLength,
         outsFormat.c_str(),
-        getLedPatternListStepNumb(),
+        getLedPatternItemPosn(),
         getLedPatternListSize(),
         getItemsPlacementDesc(LED_PTN_RAND_INIT),
         getItemsPlacementDesc(LED_PTN_RAND_NEXT),
@@ -73,7 +73,7 @@ String getStepInfoMorePalette()
         moreBuffer,
         moreLength,
         moreFormat.c_str(),
-        getLedPaletteListStepNumb(),
+        getLedPaletteItemPosn(),
         getLedPaletteListSize(),
         getItemsPlacementDesc(LED_PAL_RAND_INIT),
         getItemsPlacementDesc(LED_PAL_RAND_NEXT),
@@ -117,11 +117,11 @@ char* getItemsPlacementDesc(bool random)
     return random ? typeRand : typeOrdr;
 }
 
-byte getListNamesMaxLength(const byte add, unsigned int (*getListSize)(), String (*getItemName)(const unsigned int))
+byte getListNamesMaxLength(const byte add, unsigned int (*getListSize)(const int), String (*getItemName)(const unsigned int))
 {
     byte len = 0;
 
-    for (unsigned int i = 0; i < getListSize(); i++) {
+    for (unsigned int i = 0; i < getListSize(0); i++) {
         len = max(len, getItemName(i).length());
     }
 

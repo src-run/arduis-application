@@ -8,11 +8,9 @@
  * file that was distributed with this source code.
  */
 
-#ifndef _ARDUIS_HR_CONFIG
-#define _ARDUIS_HR_CONFIG
+#pragma once
 
-#include <Arduino.h>
-#include <FastLED.h>
+#include "CommonFastLED.h"
 
 #define SYS_ONBLED_ENBL   ((bool)true)
 #define SYS_RANDOM_SMIN   20
@@ -31,8 +29,8 @@
 #define LED_STR_CTL       WS2811
 #define LED_STR_ORD       RGB
 #define LED_STR_FPS       60
-#define LED_STR_SEC_CYCLE 90000UL
-#define LED_STR_PAL_CYCLE LED_STR_SEC_CYCLE / 3
+#define LED_STR_SEC_CYCLE 20000UL
+#define LED_STR_PAL_CYCLE LED_STR_SEC_CYCLE / 4
 #define LED_STR_SEC_COLOR 20
 
 #define LED_PWR_MAX_VOLTS 5
@@ -48,8 +46,8 @@
 #define LED_PTN_FADE_STEP LED_STR_BRT / 6
 
 #define LED_PTN_RAND_INIT ((bool)false)
-#define LED_PTN_RAND_NEXT ((bool)false)
-#define LED_PTN_RAND_SEQL ((bool)false)
+#define LED_PTN_RAND_NEXT ((bool)true)
+#define LED_PTN_RAND_SEQL ((bool)true)
 
 #define LED_PAL_RAND_INIT ((bool)true)
 #define LED_PAL_RAND_NEXT ((bool)true)
@@ -58,5 +56,3 @@
 #define LED_PTN_TWIK_RAND 20
 #define LED_PTN_TWIK_MAXL 120
 #define LED_PTN_TWIK_MINL 0
-
-#endif

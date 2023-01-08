@@ -8,13 +8,9 @@
  * file that was distributed with this source code.
  */
 
-#ifndef _ARDUIS_HR_UTILITES
-#define _ARDUIS_HR_UTILITES
+#pragma once
 
-#include <Arduino.h>
-#include <FastLED.h>
-
-#include "Config.h"
+#include "Common.h"
 
 #define ARRAY_SIZE(A) (*(&A + 1) - A)
 //#define ARRAY_SIZE(A) ((int)(sizeof(A) / sizeof((A)[0])))
@@ -279,5 +275,3 @@ bool isMatch(const String subject, const String matcher)
 {
     return isMatch(subject.c_str(), matcher.c_str());
 }
-
-#endif

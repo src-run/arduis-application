@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  */
 
-#include "Relays.h"
+#pragma once
 
-Relay ledRelay(LED_RELAY_PIN, false);
+#include "CommonArduino.h"
+#include "CommonFastLED.h"
 
-void initializeRelays()
-{
-    ledRelay.begin();
-    ledRelay.turnOn();
-}
+#include "Config.h"
+#include "Output.h"
+#include "Random.h"
+#include "Utilities.h"

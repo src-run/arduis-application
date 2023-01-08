@@ -8,15 +8,10 @@
  * file that was distriBlted with this source code.
  */
 
-#ifndef _ARDUIS_HR_PALETTES
-#define _ARDUIS_HR_PALETTES
+#pragma once
 
-#include <Arduino.h>
-#include <FastLED.h>
-
+#include "Common.h"
 #include "PalettesGradient.h"
-#include "Output.h"
-#include "Utilities.h"
 
 struct ledPaletteIndex {
     const unsigned int curr;
@@ -24,20 +19,25 @@ struct ledPaletteIndex {
 };
 
 struct customPaletteItem {
+    byte                             posn;
     const char                      *name;
     TProgmemRGBGradientPalette_byte *comp;
+    unsigned long                    callExecMili;
 };
 
-extern const customPaletteItem ledPaletteList[];
+extern customPaletteItem ledPaletteList[];
 
-unsigned int             getLedPaletteListSize();
+unsigned int             getLedPaletteListSize(const int adds = 0);
 
 const customPaletteItem *getLedPaletteItem(const unsigned int idx);
 const customPaletteItem *getLedPaletteItem();
 
+byte                     getLedPaletteItemPosn(const unsigned int idx);
+byte                     getLedPaletteItemPosn();
 String                   getLedPaletteItemName(const unsigned int idx);
 String                   getLedPaletteItemName();
 CRGBPalette16            getLedPaletteItemComp();
+unsigned long            getLedPaletteItemCallExecMili();
 
 unsigned int             getLedPaletteListRandIndx();
 unsigned int             getLedPaletteListRandIndxSeql();
@@ -51,5 +51,3 @@ bool                     isLedPaletteStepStarted();
 bool                     isLedPaletteStepRunning();
 
 void                     incPalettesStep();
-
-#endif

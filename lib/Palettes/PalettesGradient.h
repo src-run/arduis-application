@@ -8,11 +8,9 @@
  * file that was distriBlted with this source code.
  */
 
-#ifndef _ARDUIS_HR_PALETTES_GRADIENT
-#define _ARDUIS_HR_PALETTES_GRADIENT
+#pragma once
 
-#include <Arduino.h>
-#include <FastLED.h>
+#include "Common.h"
 
 DECLARE_GRADIENT_PALETTE(Palette_Mysts_Bk_Wi_c);
 DECLARE_GRADIENT_PALETTE(Palette_BhwS1_Or_Pk_Pu_c);
@@ -79,5 +77,3 @@ DECLARE_GRADIENT_PALETTE(Palette_CbQua_PsGrBl_PsOr_PsPu_PsPi_PsGr_PsYl_PsBr_PsGy
 DECLARE_GRADIENT_PALETTE(Palette_CbQua_Rd_Bl_Gr_Pu_Or_Yl_Br_Pi_c);
 DECLARE_GRADIENT_PALETTE(Palette_CbQua_LtGrBl_LtOr_LtPu_LtPi_LtGr_LtYl_LtBr_LtGy_c);
 DECLARE_GRADIENT_PALETTE(Palette_CbQua_LtGrBl_LtYl_LtPu_LtRd_LtBl_LtOr_LtGr_LtPi_c);
-
-#endif

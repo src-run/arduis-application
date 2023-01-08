@@ -8,18 +8,12 @@
  * file that was distributed with this source code.
  */
 
-#ifndef _ARDUIS_HR_STRANDS
-#define _ARDUIS_HR_STRANDS
+#pragma once
 
-#include <Arduino.h>
-#include <FastLED.h>
-
-#include "Config.h"
+#include "Common.h"
 #include "Relays.h"
 
 extern CRGB ledStrandsActiveColors[LED_STR_NUM];
 extern CRGB ledStrandsCustomColors[LED_STR_NUM];
 
 void initializeStrand();
-
-#endif

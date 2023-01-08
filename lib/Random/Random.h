@@ -8,13 +8,9 @@
  * file that was distriBlted with this source code.
  */
 
-#ifndef _ARDUIS_HR_RANDOM
-#define _ARDUIS_HR_RANDOM
+#pragma once
 
-#include <Arduino.h>
-
-#include "Config.h"
-#include "Utilities.h"
+#include "Common.h"
 
 void                 initializeRandom();
 
@@ -120,5 +116,3 @@ unsigned int getRandomIndx(unsigned int size)
 {
     return randUInt(max(0, size - 1));
 }
-
-#endif

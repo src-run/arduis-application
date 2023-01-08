@@ -8,14 +8,11 @@
  * file that was distriBlted with this source code.
  */
 
-#ifndef _ARDUIS_HR_OUTPUT
-#define _ARDUIS_HR_OUTPUT
+#pragma once
 
-#include <Arduino.h>
-
+#include "Common.h"
 #include "Palettes.h"
 #include "Patterns.h"
-#include "Utilities.h"
 
 void   initializeSerial(const unsigned long baud = OUT_SERIAL_BAUD);
 
@@ -27,8 +24,6 @@ String getStepInfoSkip(const bool skip, const byte perc);
 
 char*  getItemsPlacementDesc(bool random);
 
-byte   getListNamesMaxLength(const byte add, unsigned int (*getListSize)(), String (*getItemName)(const unsigned int));
+byte   getListNamesMaxLength(const byte add, unsigned int (*getListSize)(const int), String (*getItemName)(const unsigned int));
 byte   getLedPatternListNamesMaxLength(const byte add = 2);
 byte   getLedPaletteListNamesMaxLength(const byte add = 2);
-
-#endif
