@@ -25,16 +25,16 @@ void loop()
 {
     runPatternsStep();
 
-    if (PatternTimer.ready()) {
-        PatternTimer.setTimePeriod(runTimerCyclePattern());
+    if (PatternPeriodTimer.ready()) {
+        PatternPeriodTimer.setPeriodTime(runTimerCyclePattern());
     }
 
-    if (PaletteTimer.ready()) {
-        PaletteTimer.setTimePeriod(runTimerCyclePalette());
+    if (PalettePeriodTimer.ready()) {
+        PalettePeriodTimer.setPeriodTime(runTimerCyclePalette());
     }
 
-    if (ByteNumTimer.ready()) {
-        ByteNumTimer.setTimePeriod(runTimerCycleByteNum());
+    if (ByteNumPeriodTimer.ready()) {
+        ByteNumPeriodTimer.setPeriodTime(runTimerCycleByteNum());
     }
 }
 

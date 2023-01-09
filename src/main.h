@@ -11,10 +11,10 @@
 #pragma once
 
 #include "Common.h"
+#include "Switch.h"
+#include "Timers.h"
 #include "Palettes.h"
 #include "Patterns.h"
-#include "Switch.h"
-#include "Runner.h"
 
 void          setup();
 void          loop();

@@ -10,30 +10,32 @@
 
 #include "Common.h"
 
-enum UnitPeriod : unsigned long {
+enum PeriodUnit : unsigned long {
     MILLIS = 1,
-    SECOND = 1000,
-    MINUTE = 60000,
-    HOUR   = 3600000,
+    SECOND = PeriodUnit::MILLIS * 1000,
+    MINUTE = PeriodUnit::SECOND * 60,
+    HOUR   = PeriodUnit::MINUTE * 60,
+    DAY    = PeriodUnit::HOUR   * 24,
+    WEEK   = PeriodUnit::DAY    * 7,
 };
 
-class Timer {
+class PeriodTimer {
     protected:
-        unsigned long _lastTrigger;
-        bool          _autoResets;
-        unsigned long _timePeriod;
-        UnitPeriod    _unitPeriod;
+        unsigned long _lastTriggerTime;
+        unsigned long _periodOrig;
+        unsigned long _periodTime;
+        PeriodUnit    _periodUnit;
+        bool          _resetsAuto;
 
-        unsigned long getTimePeriodElapsed();
-        unsigned long getTimePeriodRemaining();
+        void          resetAuto();
 
     public:
-        Timer(UnitPeriod unitPeriod, unsigned long timePeriod = 0, bool autoResets = true);
-        Timer(unsigned long timePeriod = 0, bool autoResets = true) : Timer(UnitPeriod::MILLIS, timePeriod, autoResets) {};
+        PeriodTimer(PeriodUnit periodUnit, unsigned long periodTime = 0, bool resetsAuto = true);
+        PeriodTimer(unsigned long periodTime = 0, bool resetsAuto = true) : PeriodTimer(PeriodUnit::MILLIS, periodTime, resetsAuto) {};
 
-        void setAutoResets(bool autoResets);
-        void setUnitPeriod(UnitPeriod unitPeriod);
-        void setTimePeriod(unsigned long timePeriod);
+        void setAutoResets(bool resetsAuto);
+        void setPeriodUnit(PeriodUnit periodUnit);
+        void setPeriodTime(unsigned long periodTime);
 
         bool ready();
         void reset();

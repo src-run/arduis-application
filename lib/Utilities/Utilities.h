@@ -20,9 +20,9 @@
 #define PIN_MODE_OUTPUT       OUTPUT
 
 enum StringPadDirection {
-    lft = -1,
-    eql =  0,
-    rgt =  1,
+    lft,
+    eql,
+    rgt,
 };
 
 byte                 getPinMode(byte pin);

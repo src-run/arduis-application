@@ -11,10 +11,10 @@
 #pragma once
 
 #include "Common.h"
-#include "Timer.h"
+#include "PeriodTimer.h"
 
-extern Timer PatternTimer;
-extern Timer PaletteTimer;
-extern Timer ByteNumTimer;
+extern PeriodTimer PatternPeriodTimer;
+extern PeriodTimer PalettePeriodTimer;
+extern PeriodTimer ByteNumPeriodTimer;
 
 void setupTimers();

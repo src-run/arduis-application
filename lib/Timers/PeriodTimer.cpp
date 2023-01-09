@@ -8,57 +8,55 @@
  * file that was distributed with this source code.
  */
 
-#include "Timer.h"
+#include "PeriodTimer.h"
 
-Timer::Timer(UnitPeriod unitPeriod, unsigned long timePeriod, bool autoResets)
+PeriodTimer::PeriodTimer(PeriodUnit periodUnit, unsigned long periodTime, bool resetsAuto)
 {
-    _unitPeriod = unitPeriod;
-    _timePeriod = timePeriod;
-    _autoResets = autoResets;
+    setAutoResets(resetsAuto);
+    setPeriodTime(periodTime);
+    setPeriodUnit(periodUnit);
     reset();
 }
 
-void Timer::setAutoResets(bool autoResets)
+void PeriodTimer::setAutoResets(bool resetsAuto)
 {
-    _autoResets = autoResets;
+    _resetsAuto = resetsAuto;
 }
 
-void Timer::setUnitPeriod(UnitPeriod unitPeriod)
+void PeriodTimer::setPeriodUnit(PeriodUnit periodUnit)
 {
-    _unitPeriod = unitPeriod;
+    _periodUnit = periodUnit;
+
+    setPeriodTime(_periodOrig);
 }
 
-void Timer::setTimePeriod(unsigned long timePeriod)
+void PeriodTimer::setPeriodTime(unsigned long periodTime)
 {
-    _timePeriod = timePeriod * _unitPeriod;
+    _periodOrig = periodTime;
+    _periodTime = periodTime * _periodUnit;
 
-    if (_autoResets) {
-        reset();
-    }
+    resetAuto();
 }
 
-bool Timer::ready()
+bool PeriodTimer::ready()
 {
-    if(getTimePeriodElapsed() < _timePeriod) {
+    if(max(0, millis() - _lastTriggerTime) < _periodTime) {
         return false;
     }
 
-    reset();
+    resetAuto();
 
     return true;
 }
 
-void Timer::reset()
+void PeriodTimer::reset()
 {
-    _lastTrigger = millis();
+    _lastTriggerTime = millis();
 }
 
-unsigned long Timer::getTimePeriodElapsed()
+void PeriodTimer::resetAuto()
 {
-    return max(0, millis() - _lastTrigger);
-}
-
-unsigned long Timer::getTimePeriodRemaining()
-{
-    return max(0, _timePeriod - getTimePeriodElapsed());
+    if (_resetsAuto) {
+        reset();
+    }
 }

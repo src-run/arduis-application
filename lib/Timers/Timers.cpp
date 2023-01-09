@@ -8,15 +8,15 @@
  * file that was distributed with this source code.
  */
 
-#include "Runner.h"
+#include "Timers.h"
 
-Timer PatternTimer = Timer(UnitPeriod::SECOND);
-Timer PaletteTimer = Timer(UnitPeriod::SECOND);
-Timer ByteNumTimer = Timer(UnitPeriod::MILLIS);
+PeriodTimer PatternPeriodTimer = PeriodTimer(PeriodUnit::SECOND);
+PeriodTimer PalettePeriodTimer = PeriodTimer(PeriodUnit::SECOND);
+PeriodTimer ByteNumPeriodTimer = PeriodTimer(PeriodUnit::MILLIS);
 
 void setupTimers()
 {
-    PatternTimer.setTimePeriod(getLedPatternItemCallExecSecs() ?: LED_PTN_SEC_CYCLE);
-    PaletteTimer.setTimePeriod(getLedPaletteItemCallExecSecs() ?: LED_PAL_SEC_CYCLE);
-    ByteNumTimer.setTimePeriod(getLedPatternItemRandHuesMili() ?: LED_STR_MIL_COLOR);
+    PatternPeriodTimer.setPeriodTime(getLedPatternItemCallExecSecs() ?: LED_PTN_SEC_CYCLE);
+    PalettePeriodTimer.setPeriodTime(getLedPaletteItemCallExecSecs() ?: LED_PAL_SEC_CYCLE);
+    ByteNumPeriodTimer.setPeriodTime(getLedPatternItemRandHuesMili() ?: LED_STR_MIL_COLOR);
 }
