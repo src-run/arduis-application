@@ -17,4 +17,4 @@ extern Timer PatternTimer;
 extern Timer PaletteTimer;
 extern Timer ByteNumTimer;
 
-void setupRunner();
+void setupTimers();

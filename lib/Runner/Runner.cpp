@@ -10,13 +10,13 @@
 
 #include "Runner.h"
 
-Timer PatternTimer = Timer();
-Timer PaletteTimer = Timer();
-Timer ByteNumTimer = Timer();
+Timer PatternTimer = Timer(UnitPeriod::SECOND);
+Timer PaletteTimer = Timer(UnitPeriod::SECOND);
+Timer ByteNumTimer = Timer(UnitPeriod::MILLIS);
 
-void setupRunner()
+void setupTimers()
 {
-    PatternTimer.setPeriodFromSecs(getLedPatternItemCallExecSecs() ?: LED_PTN_SEC_CYCLE);
-    PaletteTimer.setPeriodFromSecs(getLedPaletteItemCallExecSecs() ?: LED_PAL_SEC_CYCLE);
-    ByteNumTimer.setPeriodFromMili(getLedPatternItemRandHuesMili() ?: LED_STR_SEC_COLOR);
+    PatternTimer.setTimePeriod(getLedPatternItemCallExecSecs() ?: LED_PTN_SEC_CYCLE);
+    PaletteTimer.setTimePeriod(getLedPaletteItemCallExecSecs() ?: LED_PAL_SEC_CYCLE);
+    ByteNumTimer.setTimePeriod(getLedPatternItemRandHuesMili() ?: LED_STR_MIL_COLOR);
 }

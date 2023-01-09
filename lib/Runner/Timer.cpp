@@ -10,65 +10,36 @@
 
 #include "Timer.h"
 
-Timer::Timer()
+Timer::Timer(UnitPeriod unitPeriod, unsigned long timePeriod, bool autoResets)
 {
-    reset();
-    setPeriod(1);
-}
-
-Timer::Timer(unsigned long timePeriod)
-{
-    reset();
-    setPeriod(timePeriod);
-}
-
-void Timer::setPeriod(unsigned long timePeriod, bool timeResets)
-{
+    _unitPeriod = unitPeriod;
     _timePeriod = timePeriod;
+    _autoResets = autoResets;
+    reset();
+}
 
-    if (timeResets) {
+void Timer::setAutoResets(bool autoResets)
+{
+    _autoResets = autoResets;
+}
+
+void Timer::setUnitPeriod(UnitPeriod unitPeriod)
+{
+    _unitPeriod = unitPeriod;
+}
+
+void Timer::setTimePeriod(unsigned long timePeriod)
+{
+    _timePeriod = timePeriod * _unitPeriod;
+
+    if (_autoResets) {
         reset();
     }
 }
 
-void Timer::setPeriodFromMili(unsigned long timePeriod, bool timeResets)
-{
-    setPeriod(timePeriod, timeResets);
-}
-
-void Timer::setPeriodFromSecs(unsigned int timePeriod, bool timeResets)
-{
-    setPeriod(static_cast<unsigned long>(timePeriod) * 1000, timeResets);
-}
-
-unsigned long Timer::getPeriod()
-{
-    return _timePeriod;
-}
-
-unsigned long Timer::getLastTrigger()
-{
-    return _lastTrigger;
-}
-
-unsigned long Timer::getTime()
-{
-    return millis();
-}
-
-unsigned long Timer::getElapsed()
-{
-    return max(0, getTime() - getLastTrigger());
-}
-
-unsigned long Timer::getRemaining()
-{
-    return max(0, getPeriod() - getElapsed());
-}
-
 bool Timer::ready()
 {
-    if(getElapsed() < getPeriod()) {
+    if(getTimePeriodElapsed() < _timePeriod) {
         return false;
     }
 
@@ -79,10 +50,15 @@ bool Timer::ready()
 
 void Timer::reset()
 {
-    _lastTrigger = getTime();
+    _lastTrigger = millis();
 }
 
-void Timer::trigger()
+unsigned long Timer::getTimePeriodElapsed()
 {
-    _lastTrigger = getTime() - getPeriod();
+    return max(0, millis() - _lastTrigger);
+}
+
+unsigned long Timer::getTimePeriodRemaining()
+{
+    return max(0, _timePeriod - getTimePeriodElapsed());
 }

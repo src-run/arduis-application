@@ -10,24 +10,33 @@
 
 #include "Common.h"
 
+enum UnitPeriod : unsigned long {
+    MILLIS = 1,
+    SECOND = 1000,
+    MINUTE = 60000,
+    HOUR   = 3600000,
+};
+
 class Timer {
     protected:
+        unsigned long _lastTrigger;
+        bool          _autoResets;
         unsigned long _timePeriod;
-        unsigned long _lastTrigger = 0;
+        UnitPeriod    _unitPeriod;
+
+        unsigned long getTimePeriodElapsed();
+        unsigned long getTimePeriodRemaining();
 
     public:
-        Timer();
-        Timer(unsigned long timePeriod);
-        void setPeriod(unsigned long timePeriod, bool timeResets = false);
-        void setPeriodFromMili(unsigned long timePeriod, bool timeResets = true);
-        void setPeriodFromSecs(unsigned int timePeriod, bool timeResets = true);
-        unsigned long getPeriod();
-        unsigned long getLastTrigger();
-        unsigned long getTime();
-        unsigned long getElapsed();
-        unsigned long getRemaining();
+        Timer(UnitPeriod unitPeriod, unsigned long timePeriod = 0, bool autoResets = true);
+        Timer(unsigned long timePeriod = 0, bool autoResets = true) : Timer(UnitPeriod::MILLIS, timePeriod, autoResets) {};
+
+        void setAutoResets(bool autoResets);
+        void setUnitPeriod(UnitPeriod unitPeriod);
+        void setTimePeriod(unsigned long timePeriod);
+
         bool ready();
         void reset();
-        void trigger();
-        operator bool() { return ready(); }
+
+        operator bool() { return ready(); };
 };

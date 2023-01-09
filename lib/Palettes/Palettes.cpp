@@ -177,7 +177,7 @@ unsigned int getLedPaletteListRandIndxSeql()
     if (pos == 0) {
         pos = len;
 
-        for (byte j = 0; j < randByte(6); j++) {
+        for (byte j = 0; j < randByte(LED_PAL_RAND_ENTR); j++) {
             for (unsigned int i = 0; i < len; i++) {
                 const unsigned int n = randUInt(len - 1);
                 const byte         v = ledPaletteSeql[n];
