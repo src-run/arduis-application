@@ -12,15 +12,20 @@
 
 PeriodTimer::PeriodTimer(PeriodUnit periodUnit, unsigned long periodTime, bool resetsAuto)
 {
-    setAutoResets(resetsAuto);
+    setResetsAuto(resetsAuto);
     setPeriodTime(periodTime);
     setPeriodUnit(periodUnit);
     reset();
 }
 
-void PeriodTimer::setAutoResets(bool resetsAuto)
+void PeriodTimer::setPeriodTime(unsigned long periodTime)
 {
-    _resetsAuto = resetsAuto;
+    _periodOrig = periodTime;
+    _periodTime = periodTime * _periodUnit;
+
+    if (_resetsAuto) {
+        reset();
+    }
 }
 
 void PeriodTimer::setPeriodUnit(PeriodUnit periodUnit)
@@ -30,33 +35,23 @@ void PeriodTimer::setPeriodUnit(PeriodUnit periodUnit)
     setPeriodTime(_periodOrig);
 }
 
-void PeriodTimer::setPeriodTime(unsigned long periodTime)
+void PeriodTimer::setResetsAuto(bool resetsAuto)
 {
-    _periodOrig = periodTime;
-    _periodTime = periodTime * _periodUnit;
-
-    resetAuto();
+    _resetsAuto = resetsAuto;
 }
 
 bool PeriodTimer::ready()
 {
-    if(max(0, millis() - _lastTriggerTime) < _periodTime) {
+    if(max(0, millis() - _millisLast) < _periodTime) {
         return false;
     }
 
-    resetAuto();
+    reset();
 
     return true;
 }
 
 void PeriodTimer::reset()
 {
-    _lastTriggerTime = millis();
-}
-
-void PeriodTimer::resetAuto()
-{
-    if (_resetsAuto) {
-        reset();
-    }
+    _millisLast = millis();
 }

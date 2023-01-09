@@ -21,21 +21,19 @@ enum PeriodUnit : unsigned long {
 
 class PeriodTimer {
     protected:
-        unsigned long _lastTriggerTime;
-        unsigned long _periodOrig;
-        unsigned long _periodTime;
-        PeriodUnit    _periodUnit;
-        bool          _resetsAuto;
-
-        void          resetAuto();
+        unsigned long _millisLast { 0 };
+        unsigned long _periodOrig { 0 };
+        unsigned long _periodTime { 0 };
+        PeriodUnit    _periodUnit { PeriodUnit::MILLIS };
+        bool          _resetsAuto { true };
 
     public:
-        PeriodTimer(PeriodUnit periodUnit, unsigned long periodTime = 0, bool resetsAuto = true);
+        PeriodTimer(PeriodUnit periodUnit = PeriodUnit::MILLIS, unsigned long periodTime = 0, bool resetsAuto = true);
         PeriodTimer(unsigned long periodTime = 0, bool resetsAuto = true) : PeriodTimer(PeriodUnit::MILLIS, periodTime, resetsAuto) {};
 
-        void setAutoResets(bool resetsAuto);
-        void setPeriodUnit(PeriodUnit periodUnit);
         void setPeriodTime(unsigned long periodTime);
+        void setPeriodUnit(PeriodUnit periodUnit);
+        void setResetsAuto(bool resetsAuto);
 
         bool ready();
         void reset();
