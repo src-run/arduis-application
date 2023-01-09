@@ -32,9 +32,9 @@ extern const ledPaletteItem ledPaletteDeft;
 
 unsigned int             getLedPaletteListSize(const int adds = 0);
 
-const ledPaletteItem *getLedPaletteDeft();
-const ledPaletteItem *getLedPaletteItem(const unsigned int idx);
-const ledPaletteItem *getLedPaletteItem();
+const ledPaletteItem    *getLedPaletteDeft();
+const ledPaletteItem    *getLedPaletteItem(const unsigned int idx);
+const ledPaletteItem    *getLedPaletteItem();
 
 String                   getLedPaletteItemName(const unsigned int idx);
 String                   getLedPaletteItemName();
@@ -50,7 +50,7 @@ unsigned int             getLedPaletteListRandIndx();
 unsigned int             getLedPaletteListRandIndxSeql();
 unsigned int             getLedPaletteListStepInit();
 unsigned int             getLedPaletteListStepNext(unsigned int idx);
-ledPaletteIndx          getLedPaletteListStepIndx(bool inc = false);
+ledPaletteIndx           getLedPaletteListStepIndx(bool inc = false);
 unsigned int             incLedPaletteListStepIndx();
 unsigned int             getLedPaletteListStepNumb();
 
