@@ -252,7 +252,7 @@ bool ge(int x, int y)
 
 void setupSystem()
 {
-    setPinModeOutput(LED_BUILTIN, SYS_ONBLED_ENBL ? HIGH : LOW);
+    setPinModeOutput(LED_BUILTIN, SYS_OB_LED_ENBL ? HIGH : LOW);
 }
 
 bool isMatch(const char *subject, const char *matcher)

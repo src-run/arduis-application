@@ -12,10 +12,10 @@
 
 #include "CommonFastLED.h"
 
-#define SYS_ONBLED_ENBL   ((bool)true)
-#define SYS_RANDOM_SMIN   20
-#define SYS_RANDOM_SMAX   60
-#define SYS_RANDOM_CALL   99
+#define SYS_OB_LED_ENBL   ((bool)true)
+#define SYS_RANDOM_SMIN   10
+#define SYS_RANDOM_SMAX   40
+#define SYS_RANDOM_CALL   120
 #define OUT_SERIAL_BAUD   115200UL
 
 #define LED_RELAY_PIN     33
@@ -29,8 +29,8 @@
 #define LED_STR_CTL       WS2811
 #define LED_STR_ORD       RGB
 #define LED_STR_FPS       60
-#define LED_PTN_SEC_CYCLE 90
-#define LED_PAL_SEC_CYCLE LED_PTN_SEC_CYCLE / 2
+#define LED_PTN_SEC_CYCLE 120
+#define LED_PAL_SEC_CYCLE 60
 #define LED_STR_MIL_COLOR 20
 
 #define LED_PWR_MAX_VOLTS 5
@@ -58,5 +58,5 @@
 #define LED_PAL_RAND_SEQL ((bool)true)
 
 #define LED_PTN_TWIK_RAND 20
-#define LED_PTN_TWIK_MAXL 120
+#define LED_PTN_TWIK_MAXL 111
 #define LED_PTN_TWIK_MINL 0
