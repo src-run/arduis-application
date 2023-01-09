@@ -36,7 +36,7 @@
 #define LED_PWR_MAX_VOLTS 5
 #define LED_PWR_MAX_MAMPS 60000
 
-#define LED_PTN_WAIT_LOOP 1000 / LED_STR_FPS
+#define LED_PTN_LOOP_MILI 1000 / LED_STR_FPS
 #define LED_PTN_WAIT_NEXT 0
 
 #define LED_PTN_SKIP_ENBL ((bool)true)
@@ -44,11 +44,11 @@
 #define LED_PTN_GLNT_ENBL ((bool)true)
 
 #define LED_PTN_FADE_ENBL ((bool)true)
-#define LED_PTN_FADE_MILI LED_PTN_WAIT_LOOP
+#define LED_PTN_FADE_MILI LED_PTN_LOOP_MILI
 #define LED_PTN_FADE_STEP LED_STR_BRT / 6
 
 #define LED_PTN_RAND_ENTR 20
-#define LED_PTN_RAND_INIT ((bool)false)
+#define LED_PTN_RAND_INIT ((bool)true)
 #define LED_PTN_RAND_NEXT ((bool)true)
 #define LED_PTN_RAND_SEQL ((bool)true)
 

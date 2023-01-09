@@ -16,11 +16,11 @@
 
 void   setupSerial(const unsigned long baud = OUT_SERIAL_BAUD);
 
-void   outStepInfo(const bool skip = false, const byte perc = 0);
+void   outStepInfo(const bool skipped = false, const byte chances = 0);
 String getStepInfoMain();
 String getStepInfoMore();
 String getStepInfoMorePalette();
-String getStepInfoSkip(const bool skip, const byte perc);
+String getStepInfoSkip(const bool skipped, const byte chances);
 
 String getItemsPlacementDesc(bool random);
 

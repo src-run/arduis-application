@@ -17,17 +17,17 @@ void setupSerial(const unsigned long baud)
     Serial.println();
 }
 
-void outStepInfo(const bool skip, const byte perc)
+void outStepInfo(const bool skipped, const byte chances)
 {
     Serial.print(getStepInfoMain());
     Serial.print(getStepInfoMore());
-    Serial.print(getStepInfoSkip(skip, perc));
+    Serial.print(getStepInfoSkip(skipped, chances));
     Serial.println();
 }
 
 String getStepInfoMain()
 {
-    const String outsFormat = F("Pattern %02u of %02u (mode %s/%s/%s/%s): %s (%03us / %03lums / %03lums / %03lums / %03u%%)");
+    const String outsFormat = F("Pattern %02u of %02u (mode %s/%s/%s/%s): %s (%04us / %03ums)");
     const byte   outsLength = outsFormat.length() + getLedPatternListNamesMaxLength();
     char         outsBuffer[outsLength];
 
@@ -46,10 +46,7 @@ String getStepInfoMain()
             getLedPatternListNamesMaxLength()
         ).c_str(),
         getLedPatternItemCallExecSecs(),
-        getLedPatternItemRandHuesMili(),
-        getLedPatternItemWaitLoopMili(),
-        getLedPatternItemWaitFadeMili(),
-        cstrPerc(getLedPatternItemRejectChance())
+        getLedPatternItemRandHuesMili()
     );
 
     return String(outsBuffer);
@@ -57,11 +54,13 @@ String getStepInfoMain()
 
 String getStepInfoMore()
 {
+    String more = "";
+
     if (isLedPaletteStepRunning()) {
-        return strPadsCharLft(getStepInfoMorePalette(), -1);
+        more = more + strPadsCharLft(getStepInfoMorePalette(), -1);
     }
 
-    return "";
+    return more;
 }
 
 String getStepInfoMorePalette()
@@ -89,9 +88,9 @@ String getStepInfoMorePalette()
     return String(moreBuffer);
 }
 
-String getStepInfoSkip(const bool skip, const byte perc)
+String getStepInfoSkip(const bool skipped, const byte chances)
 {
-    const String skipFormat = F("| Skipped (%03u%% <= %03u%%)");
+    const String skipFormat = F("| Skipped (%03u%% >= %03u%%)");
     const byte   skipLength = skipFormat.length();
     char         skipBuffer[skipLength];
 
@@ -99,11 +98,11 @@ String getStepInfoSkip(const bool skip, const byte perc)
         skipBuffer,
         skipLength,
         skipFormat.c_str(),
-        cstrPerc(perc),
-        cstrPerc(getLedPatternItemRejectChance())
+        cstrPerc(getLedPatternItemActionDetail()->skipChance),
+        cstrPerc(chances)
     );
 
-    return skip ? strPadsCharLft(String(skipBuffer), -1) : "";
+    return skipped ? strPadsCharLft(String(skipBuffer), -1) : "";
 }
 
 String getItemsPlacementDesc(bool random)

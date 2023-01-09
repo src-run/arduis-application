@@ -10,60 +10,6 @@
 
 #include "Patterns.h"
 
-const ledPatternItem ledPatternList[] = {
-    { "palette-circle",          runStepPaletteCircle,              nullptr,               LED_PTN_SEC_CYCLE * 6, LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  20 },
-    { "rainbow-static",          runStepRainbowStatic,              nullptr,               LED_PTN_SEC_CYCLE,     LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  20 },
-    { "rainbow-normal",          runStepRainbowNormal,              nullptr,               LED_PTN_SEC_CYCLE,     LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,   0 },
-    { "rainbow-slider-normal",   runStepRainbowSliderNormal,        nullptr,               LED_PTN_SEC_CYCLE,     LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  40 },
-    { "rainbow-slider-stripe",   runStepRainbowSliderStripe,        nullptr,               LED_PTN_SEC_CYCLE,     LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  40 },
-    { "builder-faster",          runStepBuilderFaster,              nullptr,               LED_PTN_SEC_CYCLE,     LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  20 },
-    { "builder-normal",          runStepBuilderNormal,              nullptr,               LED_PTN_SEC_CYCLE,     LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,   0 },
-    { "sliding-beater-clouds",   runStepSlidingBeaterClouds,        nullptr,               LED_PTN_SEC_CYCLE / 2, LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  40 },
-    { "palette-rounds-clouds",   runStepPaletteRoundsClouds,        nullptr,               LED_PTN_SEC_CYCLE,     LED_STR_MIL_COLOR / 6, LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  20 },
-    { "sliding-beater-magmas",   runStepSlidingBeaterMagmas,        nullptr,               LED_PTN_SEC_CYCLE / 2, LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  40 },
-    { "palette-rounds-magmas",   runStepPaletteRoundsMagmas,        nullptr,               LED_PTN_SEC_CYCLE,     LED_STR_MIL_COLOR / 6, LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  20 },
-    { "sliding-beater-forest",   runStepSlidingBeaterForest,        nullptr,               LED_PTN_SEC_CYCLE / 2, LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  40 },
-    { "palette-rounds-forest",   runStepPaletteRoundsForest,        nullptr,               LED_PTN_SEC_CYCLE,     LED_STR_MIL_COLOR / 6, LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  20 },
-    { "sliding-beater-oceans",   runStepSlidingBeaterOceans,        nullptr,               LED_PTN_SEC_CYCLE / 2, LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  40 },
-    { "palette-rounds-oceans",   runStepPaletteRoundsOceans,        nullptr,               LED_PTN_SEC_CYCLE,     LED_STR_MIL_COLOR / 6, LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  20 },
-    { "sliding-beater-random",   runStepSlidingBeaterRandom,        nullptr,               LED_PTN_SEC_CYCLE / 2, LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  40 },
-    { "palette-rounds-random",   runStepPaletteRoundsRandom,        nullptr,               LED_PTN_SEC_CYCLE,     LED_STR_MIL_COLOR / 6, LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  20 },
-    { "sliding-beater-heater",   runStepSlidingBeaterHeater,        nullptr,               LED_PTN_SEC_CYCLE / 2, LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  40 },
-    { "palette-rounds-heater",   runStepPaletteRoundsHeater,        nullptr,               LED_PTN_SEC_CYCLE,     LED_STR_MIL_COLOR / 6, LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  20 },
-    { "juggler-faster",          runStepJugglerFaster,              nullptr,               LED_PTN_SEC_CYCLE,     LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  20 },
-    { "juggler-longer",          runStepJugglerLonger,              nullptr,               LED_PTN_SEC_CYCLE,     LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,   0 },
-    { "sinelon-normal",          runStepSinelonNormal,              nullptr,               LED_PTN_SEC_CYCLE,     LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  20 },
-    { "colored-static-w",        runStepColoredStaticW,             nullptr,               LED_PTN_SEC_CYCLE / 2, LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  20 },
-    { "colored-varied-w",        runStepColoredVariedW,             runInitColoredVariedW, LED_PTN_SEC_CYCLE,     LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  20 },
-    { "colored-builds-w",        runStepColoredBuildsW,             nullptr,               LED_PTN_SEC_CYCLE,     LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  10 },
-    { "colored-static-r",        runStepColoredStaticR,             nullptr,               LED_PTN_SEC_CYCLE / 2, LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  20 },
-    { "colored-varied-r",        runStepColoredVariedR,             runInitColoredVariedR, LED_PTN_SEC_CYCLE / 2, LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  20 },
-    { "colored-builds-r",        runStepColoredBuildsR,             nullptr,               LED_PTN_SEC_CYCLE / 2, LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  10 },
-    { "colored-static-g",        runStepColoredStaticG,             nullptr,               LED_PTN_SEC_CYCLE / 2, LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  20 },
-    { "colored-varied-g",        runStepColoredVariedG,             runInitColoredVariedG, LED_PTN_SEC_CYCLE,     LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  20 },
-    { "colored-builds-g",        runStepColoredBuildsG,             nullptr,               LED_PTN_SEC_CYCLE,     LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  10 },
-    { "colored-static-b",        runStepColoredStaticB,             nullptr,               LED_PTN_SEC_CYCLE / 2, LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  20 },
-    { "colored-varied-b",        runStepColoredVariedB,             runInitColoredVariedB, LED_PTN_SEC_CYCLE,     LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  20 },
-    { "colored-builds-b",        runStepColoredBuildsB,             nullptr,               LED_PTN_SEC_CYCLE,     LED_STR_MIL_COLOR,     LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50,  10 },
-//  { "rainbow-wholed-slow",     runStepRainbowWholed,              nullptr,               LED_PTN_SEC_CYCLE / 2, LED_STR_MIL_COLOR * 8, LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50, 100 },
-//  { "rainbow-wholed-fast",     runStepRainbowWholed,              nullptr,               LED_PTN_SEC_CYCLE / 2, LED_STR_MIL_COLOR / 6, LED_PTN_WAIT_LOOP / 2, LED_PTN_FADE_MILI, 50, 100 },
-//  { "rainbow-fading-slow",     runStepRainbowFadingSlow,          nullptr,               LED_PTN_SEC_CYCLE,     LED_STR_MIL_COLOR * 2, LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50, 100 },
-//  { "rainbow-fading-fast",     runStepRainbowFadingFast,          nullptr,               LED_PTN_SEC_CYCLE,     LED_STR_MIL_COLOR * 2, LED_PTN_WAIT_LOOP,     LED_PTN_FADE_MILI, 50, 100 },
-};
-
-byte                 ledPatternSeql[ARRAY_SIZE(ledPatternList)];
-const ledPatternItem ledPatternDeft = {
-    "generic",
-    runStepGeneric,
-    runInitGeneric,
-    LED_PTN_SEC_CYCLE,
-    LED_STR_MIL_COLOR,
-    LED_PTN_WAIT_LOOP,
-    LED_PTN_FADE_MILI,
-    50,
-    0,
-};
-
 bool ledPatternGlintEnabled = false;
 int  ledPatternFadeLeveling = 0;
 bool ledPatternStepInit     = false;
@@ -71,88 +17,113 @@ bool ledPatternStepRuns     = false;
 
 unsigned int getLedPatternListSize(const int adds)
 {
-    static const unsigned int size = ARRAY_SIZE(ledPatternList);
-
-    return size + adds;
+    return patternSizeItems + adds;
 }
 
-const ledPatternItem *getLedPatternDeft()
+const PatternsAction* getLedPatternDeft()
 {
-    return &ledPatternDeft;
+    static const PatternsAction patternDefault {
+        { "generic-action-empty", 0 },
+        { runStepGeneric, runInitGeneric },
+        { LED_PTN_SEC_CYCLE * 6, LED_STR_MIL_COLOR },
+        { 50, LED_PTN_TWIK_MINL, LED_PTN_TWIK_MAXL },
+    };
+
+    return &patternDefault;
 }
 
-const ledPatternItem *getLedPatternItem(const unsigned int idx)
+const PatternsAction* getLedPatternItem(const unsigned int idx)
 {
-    return idx >= getLedPatternListSize() ? getLedPatternDeft() : &(ledPatternList[idx]);
+    return idx >= getLedPatternListSize() ? getLedPatternDeft() : &(patternListItems[idx]);
 }
 
-const ledPatternItem *getLedPatternItem()
+const PatternsAction* getLedPatternItem()
 {
     return getLedPatternItem(getLedPatternListStepIndx());
 }
 
+const ActionDetail* getLedPatternItemActionDetail(const unsigned int idx)
+{
+    return &(getLedPatternItem(idx)->detail);
+}
+
+const ActionDetail* getLedPatternItemActionDetail()
+{
+    return getLedPatternItemActionDetail(getLedPatternListStepIndx());
+}
+
+const ActionRunnerPattern* getLedPatternItemActionRunner(const unsigned int idx)
+{
+    return &(getLedPatternItem(idx)->runner);
+}
+
+const ActionRunnerPattern* getLedPatternItemActionRunner()
+{
+    return getLedPatternItemActionRunner(getLedPatternListStepIndx());
+}
+
+const ActionTimers* getLedPatternItemActionTimers(const unsigned int idx)
+{
+    return &(getLedPatternItem(idx)->timers);
+}
+
+const ActionTimers* getLedPatternItemActionTimers()
+{
+    return getLedPatternItemActionTimers(getLedPatternListStepIndx());
+}
+
+const ActionGlints* getLedPatternItemActionGlints(const unsigned int idx)
+{
+    return &(getLedPatternItem(idx)->glints);
+}
+
+const ActionGlints* getLedPatternItemActionGlints()
+{
+    return getLedPatternItemActionGlints(getLedPatternListStepIndx());
+}
+
 String getLedPatternItemName(const unsigned int idx)
 {
-    return getLedPatternItemNameC(idx);
+    return String(getLedPatternItemNameC(idx));
 }
 
 String getLedPatternItemName()
 {
-    return getLedPatternItemNameC();
+    return String(getLedPatternItemNameC());
 }
 
 const char *getLedPatternItemNameC(const unsigned int idx)
 {
-    return getLedPatternItem(idx)->name;
+    return getLedPatternItemActionDetail(idx)->name;
 }
 
 const char *getLedPatternItemNameC()
 {
-    return getLedPatternItem()->name;
+    return getLedPatternItemNameC(getLedPatternListStepIndx());
 }
 
 void (*getLedPatternItemInit())()
 {
-    return nullptr != getLedPatternItem()->init
-        ? getLedPatternItem()->init
-        : getLedPatternDeft()->init;
+    const ActionRunnerPattern* actionRunner = &(getLedPatternItem()->runner);
+
+    return actionRunner->init != nullptr ? actionRunner->init : getLedPatternDeft()->runner.init;
 }
 
 void (*getLedPatternItemCall())()
 {
-    return nullptr != getLedPatternItem()->call
-        ? getLedPatternItem()->call
-        : getLedPatternDeft()->call;
+    const ActionRunnerPattern* actionRunner = &(getLedPatternItem()->runner);
+
+    return actionRunner->main != nullptr ? actionRunner->main : getLedPatternDeft()->runner.main;
 }
 
 unsigned int getLedPatternItemCallExecSecs()
 {
-    return getLedPatternItem()->callExecSecs;
+    return getLedPatternItemActionTimers()->runningTotalSecs;
 }
 
-unsigned long getLedPatternItemRandHuesMili()
+byte getLedPatternItemRandHuesMili()
 {
-    return static_cast<unsigned long>(getLedPatternItem()->randHuesMili);
-}
-
-unsigned long getLedPatternItemWaitLoopMili()
-{
-    return static_cast<unsigned long>(getLedPatternItem()->waitLoopMili);
-}
-
-unsigned long getLedPatternItemWaitFadeMili()
-{
-    return static_cast<unsigned long>(getLedPatternItem()->waitFadeMili);
-}
-
-unsigned int getLedPatternItemGlintsChance()
-{
-    return static_cast<unsigned int>(getLedPatternItem()->glintsChance);
-}
-
-unsigned int getLedPatternItemRejectChance()
-{
-    return static_cast<unsigned int>(getLedPatternItem()->rejectChance);
+    return getLedPatternItemActionTimers()->iterateMilliSecs;
 }
 
 unsigned int getLedPatternListRandIndx()
@@ -170,7 +141,7 @@ unsigned int getLedPatternListRandIndxSeql()
         beg = true;
 
         for (unsigned int i = 0; i < len; i++) {
-            ledPatternSeql[i] = i;
+            patternListOrder[i] = i;
         }
     }
 
@@ -180,16 +151,16 @@ unsigned int getLedPatternListRandIndxSeql()
         for (byte j = 0; j < randByte(LED_PTN_RAND_ENTR); j++) {
             for (unsigned int i = 0; i < len; i++) {
                 const unsigned int n = randUInt(len - 1);
-                const byte         v = ledPatternSeql[n];
-                ledPatternSeql[n]    = ledPatternSeql[i];
-                ledPatternSeql[i]    = v;
+                const byte         v = patternListOrder[n];
+                patternListOrder[n]    = patternListOrder[i];
+                patternListOrder[i]    = v;
             }
         }
     }
 
     --pos;
 
-    return ledPatternSeql[constrain(pos, 0, len - 1)];
+    return patternListOrder[constrain(pos, 0, len - 1)];
 }
 
 unsigned int getLedPatternListStepInit()
@@ -238,9 +209,16 @@ void addLedPatternItemGlints()
     }
 }
 
-void setLedPatternItemGlintsState()
+void setLedPatternItemGlintsState(const byte chances)
 {
-    ledPatternGlintEnabled = LED_PTN_GLNT_ENBL && (randUInt(100) >= getLedPatternItemGlintsChance());
+    ledPatternGlintEnabled = LED_PTN_GLNT_ENBL && 0 != chances && (
+        (100 == chances) || (randByte(100) <= chances)
+    );
+}
+
+bool getLedPatternItemGlintsState()
+{
+    return ledPatternGlintEnabled;
 }
 
 void incPatternsStep()
@@ -250,21 +228,21 @@ void incPatternsStep()
 
         const unsigned int skip = randByte(100);
 
-        if (!LED_PTN_SKIP_ENBL || skip >= getLedPatternItemRejectChance()) {
+        if (!LED_PTN_SKIP_ENBL || skip >= getLedPatternItemActionDetail()->skipChance) {
             break;
         }
 
         outStepInfo(true, skip);
     }
 
-    setLedPatternItemGlintsState();
+    setLedPatternItemGlintsState(getLedPatternItemActionGlints()->chances);
     getLedPatternItemInit()();
 
     ledPatternStepInit = true;
     ledPatternStepRuns = false;
 
     FastLED.show();
-    FastLED.delay(getLedPatternItemWaitLoopMili());
+    FastLED.delay(LED_PTN_LOOP_MILI);
 
     outStepInfo();
 }
@@ -278,7 +256,7 @@ void runPatternsStep(const bool wait)
     ledPatternStepRuns = true;
 
     FastLED.show();
-    FastLED.delay(wait ? getLedPatternItemWaitLoopMili() : 0);
+    FastLED.delay(wait ? LED_PTN_LOOP_MILI : 0);
 }
 
 bool runPatternsFadeToColor(const bool fade, const int increment)
@@ -295,7 +273,7 @@ bool runPatternsFadeToColorInner(const int increment)
     }
 
     FastLED.setBrightness(ledPatternFadeLeveling <= LED_STR_BRT ? ledPatternFadeLeveling : LED_STR_BRT);
-    FastLED.delay(getLedPatternItemWaitFadeMili());
+    FastLED.delay(LED_PTN_FADE_MILI);
 
     return ledPatternFadeLeveling <= LED_STR_BRT;
 }
@@ -314,7 +292,7 @@ bool runPatternsFadeToBlackInner(const int decrement)
     }
 
     FastLED.setBrightness(ledPatternFadeLeveling >= 0 ? ledPatternFadeLeveling : 0);
-    FastLED.delay(getLedPatternItemWaitFadeMili());
+    FastLED.delay(LED_PTN_FADE_MILI);
 
     if (ledPatternFadeLeveling == 0) {
         FastLED.delay(LED_PTN_WAIT_NEXT);
@@ -330,15 +308,17 @@ void setCustomLedColorsActive()
     }
 }
 
-void runStepTwinkle(const byte min, const byte lim, const byte itr)
+void runStepTwinkle()
 {
-    const byte iterations = randByte(0, itr);
+    const byte iterations = randByte(0, LED_PTN_TWIK_RAND);
+    const byte maximumLvl = getLedPatternItemActionGlints()->maximum;
+    const byte minimumLvl = getLedPatternItemActionGlints()->minimum;
 
     for (byte i = 0; i < iterations; i++) {
         ledStrandsActiveColors[randUInt(LED_STR_NUM)] += CRGB(
-            randByte(min, lim),
-            randByte(min, lim),
-            randByte(min, lim)
+            randByte(minimumLvl, maximumLvl),
+            randByte(minimumLvl, maximumLvl),
+            randByte(minimumLvl, maximumLvl)
         );
     }
 }
