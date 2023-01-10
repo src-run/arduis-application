@@ -10,6 +10,9 @@
 
 #include "Output.h"
 
+unsigned long loopIterationCount { 0 };
+unsigned long loopIterationTimes { 0 };
+
 void setupSerial(const unsigned long baud)
 {
     Serial.begin(baud);
@@ -54,10 +57,10 @@ String getStepInfoMain()
 
 String getStepInfoMore()
 {
-    String more = "";
+    String more = strPadsCharLft(getStepInfoMoreLooping(), -1);
 
     if (isLedPaletteStepRunning()) {
-        more = more + strPadsCharLft(getStepInfoMorePalette(), -1);
+        more += strPadsCharLft(getStepInfoMorePalette(), -1);
     }
 
     return more;
@@ -84,6 +87,26 @@ String getStepInfoMorePalette()
         ).c_str(),
         getLedPaletteItemCallExecSecs()
     );
+
+    return String(moreBuffer);
+}
+
+String getStepInfoMoreLooping()
+{
+    const String moreFormat = F("| Counter: %06lu (%lux)");
+    const byte   moreLength = moreFormat.length() + 10;
+    char         moreBuffer[moreLength];
+
+    snprintf(
+        moreBuffer,
+        moreLength,
+        moreFormat.c_str(),
+        loopIterationCount,
+        loopIterationTimes
+    );
+
+    loopIterationCount = 0;
+    loopIterationTimes = 0;
 
     return String(moreBuffer);
 }
@@ -140,4 +163,14 @@ byte getLedPaletteListNamesMaxLength(const byte add)
         &getLedPaletteListSize,
         &getLedPaletteItemNameC
     );
+}
+
+void incLoopIterationCount()
+{
+    if (loopIterationCount >= 4294967295) {
+        loopIterationCount = 0;
+        loopIterationTimes++;
+    }
+
+    loopIterationCount++;
 }
