@@ -23,7 +23,6 @@ void setup()
 
 void loop()
 {
-    incLoopIterationCount();
     runPatternsStep();
 
     if (PatternPeriodTimer.ready()) {
