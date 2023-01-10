@@ -57,7 +57,11 @@ String getStepInfoMain()
 
 String getStepInfoMore()
 {
-    String more = strPadsCharLft(getStepInfoMoreLooping(), -1);
+    String more = "";
+
+    if (OUT_COUNTS_STAT) {
+        more += strPadsCharLft(getStepInfoMoreLooping(), -1);
+    }
 
     if (isLedPaletteStepRunning()) {
         more += strPadsCharLft(getStepInfoMorePalette(), -1);
@@ -93,7 +97,7 @@ String getStepInfoMorePalette()
 
 String getStepInfoMoreLooping()
 {
-    const String moreFormat = F("| Counter: %06lu (%lux)");
+    const String moreFormat = F("| Counter: %05lu (+%lux)");
     const byte   moreLength = moreFormat.length() + 10;
     char         moreBuffer[moreLength];
 
