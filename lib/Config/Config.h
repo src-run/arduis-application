@@ -17,6 +17,7 @@
 #define SYS_RANDOM_SMAX   40
 #define SYS_RANDOM_CALL   120
 #define OUT_SERIAL_BAUD   115200UL
+#define OUT_COUNTS_STAT   ((bool)true)
 
 #define LED_RELAY_PIN     33
 

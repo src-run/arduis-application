@@ -57,7 +57,11 @@ String getStepInfoMain()
 
 String getStepInfoMore()
 {
-    String more = strPadsCharLft(getStepInfoMoreLooping(), -1);
+    String more = "";
+
+    if (OUT_COUNTS_STAT) {
+        more += strPadsCharLft(getStepInfoMoreLooping(), -1);
+    }
 
     if (isLedPaletteStepRunning()) {
         more += strPadsCharLft(getStepInfoMorePalette(), -1);
