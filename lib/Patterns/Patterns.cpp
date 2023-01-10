@@ -271,6 +271,7 @@ void incPatternsStep()
 
 void runPatternsStep(const bool wait)
 {
+    incLoopIterationCount();
     getLedPatternItemCall()();
     addLedPatternItemGlints();
 

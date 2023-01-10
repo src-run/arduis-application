@@ -14,16 +14,22 @@
 #include "Palettes.h"
 #include "Patterns.h"
 
+extern unsigned long loopIterationCount;
+extern unsigned long loopIterationTimes;
+
 void   setupSerial(const unsigned long baud = OUT_SERIAL_BAUD);
 
-void   outStepInfo(const bool skip = false, const byte perc = 0);
+void   outStepInfo(const bool skipped = false, const byte chances = 0);
 String getStepInfoMain();
 String getStepInfoMore();
 String getStepInfoMorePalette();
-String getStepInfoSkip(const bool skip, const byte perc);
+String getStepInfoMoreLooping();
+String getStepInfoSkip(const bool skipped, const byte chances);
 
 String getItemsPlacementDesc(bool random);
 
 byte   getListNamesMaxLength(const byte add, unsigned int (*getListSize)(const int), const char* (*getItemName)(const unsigned int));
 byte   getLedPatternListNamesMaxLength(const byte add = 2);
 byte   getLedPaletteListNamesMaxLength(const byte add = 2);
+
+void   incLoopIterationCount();

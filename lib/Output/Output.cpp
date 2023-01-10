@@ -10,6 +10,9 @@
 
 #include "Output.h"
 
+unsigned long loopIterationCount { 0 };
+unsigned long loopIterationTimes { 0 };
+
 void setupSerial(const unsigned long baud)
 {
     Serial.begin(baud);
@@ -17,17 +20,17 @@ void setupSerial(const unsigned long baud)
     Serial.println();
 }
 
-void outStepInfo(const bool skip, const byte perc)
+void outStepInfo(const bool skipped, const byte chances)
 {
     Serial.print(getStepInfoMain());
     Serial.print(getStepInfoMore());
-    Serial.print(getStepInfoSkip(skip, perc));
+    Serial.print(getStepInfoSkip(skipped, chances));
     Serial.println();
 }
 
 String getStepInfoMain()
 {
-    const String outsFormat = F("Pattern %02u of %02u (mode %s/%s/%s/%s): %s (%03us / %03lums / %03lums / %03lums / %03u%%)");
+    const String outsFormat = F("Pattern %02u of %02u (mode %s/%s/%s/%s): %s (%04us / %03lums)");
     const byte   outsLength = outsFormat.length() + getLedPatternListNamesMaxLength();
     char         outsBuffer[outsLength];
 
@@ -46,10 +49,7 @@ String getStepInfoMain()
             getLedPatternListNamesMaxLength()
         ).c_str(),
         getLedPatternItemCallExecSecs(),
-        getLedPatternItemRandHuesMili(),
-        getLedPatternItemWaitLoopMili(),
-        getLedPatternItemWaitFadeMili(),
-        cstrPerc(getLedPatternItemRejectChance())
+        getLedPatternItemRandHuesMili()
     );
 
     return String(outsBuffer);
@@ -57,11 +57,13 @@ String getStepInfoMain()
 
 String getStepInfoMore()
 {
+    String more = strPadsCharLft(getStepInfoMoreLooping(), -1);
+
     if (isLedPaletteStepRunning()) {
-        return strPadsCharLft(getStepInfoMorePalette(), -1);
+        more += strPadsCharLft(getStepInfoMorePalette(), -1);
     }
 
-    return "";
+    return more;
 }
 
 String getStepInfoMorePalette()
@@ -89,9 +91,29 @@ String getStepInfoMorePalette()
     return String(moreBuffer);
 }
 
-String getStepInfoSkip(const bool skip, const byte perc)
+String getStepInfoMoreLooping()
 {
-    const String skipFormat = F("| Skipped (%03u%% <= %03u%%)");
+    const String moreFormat = F("| Counter: %05lu (+%lux)");
+    const byte   moreLength = moreFormat.length() + 10;
+    char         moreBuffer[moreLength];
+
+    snprintf(
+        moreBuffer,
+        moreLength,
+        moreFormat.c_str(),
+        loopIterationCount,
+        loopIterationTimes
+    );
+
+    loopIterationCount = 0;
+    loopIterationTimes = 0;
+
+    return String(moreBuffer);
+}
+
+String getStepInfoSkip(const bool skipped, const byte chances)
+{
+    const String skipFormat = F("| Skipped (%03u%% >= %03u%%)");
     const byte   skipLength = skipFormat.length();
     char         skipBuffer[skipLength];
 
@@ -99,11 +121,11 @@ String getStepInfoSkip(const bool skip, const byte perc)
         skipBuffer,
         skipLength,
         skipFormat.c_str(),
-        cstrPerc(perc),
-        cstrPerc(getLedPatternItemRejectChance())
+        cstrPerc(getLedPatternItemRejectChance()),
+        cstrPerc(chances)
     );
 
-    return skip ? strPadsCharLft(String(skipBuffer), -1) : "";
+    return skipped ? strPadsCharLft(String(skipBuffer), -1) : "";
 }
 
 String getItemsPlacementDesc(bool random)
@@ -141,4 +163,14 @@ byte getLedPaletteListNamesMaxLength(const byte add)
         &getLedPaletteListSize,
         &getLedPaletteItemNameC
     );
+}
+
+void incLoopIterationCount()
+{
+    if (loopIterationCount >= 4294967295) {
+        loopIterationCount = 0;
+        loopIterationTimes++;
+    }
+
+    loopIterationCount++;
 }
