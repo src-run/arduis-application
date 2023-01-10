@@ -40,7 +40,7 @@
 #define LED_PTN_LOOP_MILI 1024 / LED_STR_FPS
 #define LED_PTN_WAIT_NEXT 0
 
-#define LED_PTN_SKIP_ENBL ((bool)true)
+#define LED_PTN_SKIP_ENBL ((bool)false)
 
 #define LED_PTN_GLNT_ENBL ((bool)true)
 
