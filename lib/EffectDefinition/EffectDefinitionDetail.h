@@ -12,7 +12,7 @@
 
 #include "Common.h"
 
-struct ActionDetail {
+struct EffectDefinitionDetail {
     const char* name;
     const byte  skipChance;
 };

@@ -10,7 +10,7 @@
 
 #include "Switch.h"
 
-Relay ledSwitch(LED_RELAY_PIN, false);
+Relay ledSwitch { LED_RELAY_PIN, false };
 
 void setupSwitch()
 {

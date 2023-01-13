@@ -33,7 +33,7 @@ void setRandomEntr(byte min, byte max, bool inc)
 
 void addRandomEntrEveryNCalls(byte n)
 {
-    static unsigned int i = 0;
+    static unsigned int i { 0 };
 
     if (0 == (i++ % n)) {
         setRandomEntr(0, 4, false);

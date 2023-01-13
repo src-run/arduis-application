@@ -11,14 +11,14 @@
 #pragma once
 
 #include "Common.h"
-#include "ActionDetail.h"
-#include "ActionTimers.h"
-#include "ActionGlints.h"
+#include "EffectDefinitionDetail.h"
+#include "EffectDefinitionTimers.h"
+#include "EffectDefinitionGlints.h"
 #include "PalettesActionRunner.h"
 
 struct PalettesAction {
-    const ActionDetail        detail;
-    const ActionRunnerPalette runner;
-    const ActionTimers        timers;
-    const ActionGlints        glints;
+    const EffectDefinitionDetail detail;
+    const ActionRunnerPalette    runner;
+    const EffectDefinitionTimers timers;
+    const EffectDefinitionGlints glints;
 };

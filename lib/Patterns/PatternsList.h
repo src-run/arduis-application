@@ -14,5 +14,6 @@
 #include "PatternsAction.h"
 
 extern const PatternsAction patternListItems[];
-extern byte                 patternListOrder[];
-extern const byte           patternSizeItems;
+extern unsigned int         patternListOrder[];
+extern const unsigned int   patternSizeItems;
+extern const PatternsAction patternListDeflt;

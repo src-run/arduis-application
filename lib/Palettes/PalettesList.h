@@ -14,5 +14,6 @@
 #include "PalettesAction.h"
 
 extern const PalettesAction paletteListItems[];
-extern byte                paletteListOrder[];
-extern const byte          paletteSizeItems;
+extern unsigned int         paletteListOrder[];
+extern const unsigned int   paletteSizeItems;
+extern const PalettesAction paletteListDeflt;

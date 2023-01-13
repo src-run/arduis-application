@@ -12,8 +12,8 @@
 
 byte getPinMode(byte pin)
 {
-    const byte bit = digitalPinToBitMask(pin);
-    const byte prt = digitalPinToPort(pin);
+    const byte bit { digitalPinToBitMask(pin) };
+    const byte prt { digitalPinToPort(pin) };
 
     if ((NOT_A_PORT == prt) || (NOT_A_PIN == pin) || (0 == bit) || (bit & (bit - 1))) {
         return PIN_MODE_UNKNOWN;
@@ -36,9 +36,9 @@ byte getPinMode(byte pin)
 
 String strPadsChar(const String value, const int padding, const String useChar, const StringPadDirection useSide)
 {
-    const unsigned int valSize = value.length();
-    const unsigned int padSize = padding < 0 ? abs(padding) : max(0, padding - valSize);
-    String             valRetn;
+    const unsigned int valSize { value.length() };
+    const unsigned int padSize { padding < 0 ? abs(padding) : max(0, padding - valSize) };
+    String             valRetn { };
 
     for (unsigned int i = 0; lt(i, padSize); i = i + useChar.length()) {
         valRetn = valRetn + useChar;

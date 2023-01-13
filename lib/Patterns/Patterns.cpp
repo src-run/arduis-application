@@ -10,10 +10,10 @@
 
 #include "Patterns.h"
 
-bool ledPatternGlintEnabled = false;
-int  ledPatternFadeLeveling = 0;
-bool ledPatternStepInit     = false;
-bool ledPatternStepRuns     = false;
+bool ledPatternGlintEnabled { false };
+int  ledPatternFadeLeveling { 0 };
+bool ledPatternStepInit     { false };
+bool ledPatternStepRuns     { false };
 
 unsigned int getLedPatternListSize(const int adds)
 {
@@ -22,14 +22,7 @@ unsigned int getLedPatternListSize(const int adds)
 
 const PatternsAction* getLedPatternDeft()
 {
-    static const PatternsAction patternDefault {
-        { "generic-action-empty", 0 },
-        { runStepGeneric, runInitGeneric },
-        { LED_PTN_SEC_CYCLE * 6, LED_STR_MIL_COLOR },
-        { 50, LED_PTN_TWIK_MINL, LED_PTN_TWIK_MAXL },
-    };
-
-    return &patternDefault;
+    return &patternListDeflt;
 }
 
 const PatternsAction* getLedPatternItem(const unsigned int idx)
@@ -42,12 +35,12 @@ const PatternsAction* getLedPatternItem()
     return getLedPatternItem(getLedPatternListStepIndx());
 }
 
-const ActionDetail* getLedPatternItemActionDetail(const unsigned int idx)
+const EffectDefinitionDetail* getLedPatternItemActionDetail(const unsigned int idx)
 {
     return &(getLedPatternItem(idx)->detail);
 }
 
-const ActionDetail* getLedPatternItemActionDetail()
+const EffectDefinitionDetail* getLedPatternItemActionDetail()
 {
     return getLedPatternItemActionDetail(getLedPatternListStepIndx());
 }
@@ -62,22 +55,22 @@ const ActionRunnerPattern* getLedPatternItemActionRunner()
     return getLedPatternItemActionRunner(getLedPatternListStepIndx());
 }
 
-const ActionTimers* getLedPatternItemActionTimers(const unsigned int idx)
+const EffectDefinitionTimers* getLedPatternItemActionTimers(const unsigned int idx)
 {
     return &(getLedPatternItem(idx)->timers);
 }
 
-const ActionTimers* getLedPatternItemActionTimers()
+const EffectDefinitionTimers* getLedPatternItemActionTimers()
 {
     return getLedPatternItemActionTimers(getLedPatternListStepIndx());
 }
 
-const ActionGlints* getLedPatternItemActionGlints(const unsigned int idx)
+const EffectDefinitionGlints* getLedPatternItemActionGlints(const unsigned int idx)
 {
     return &(getLedPatternItem(idx)->glints);
 }
 
-const ActionGlints* getLedPatternItemActionGlints()
+const EffectDefinitionGlints* getLedPatternItemActionGlints()
 {
     return getLedPatternItemActionGlints(getLedPatternListStepIndx());
 }
@@ -104,14 +97,14 @@ const char *getLedPatternItemNameC()
 
 void (*getLedPatternItemInit())()
 {
-    const ActionRunnerPattern* actionRunner = &(getLedPatternItem()->runner);
+    const ActionRunnerPattern* actionRunner { &(getLedPatternItem()->runner) };
 
     return actionRunner->init != nullptr ? actionRunner->init : getLedPatternDeft()->runner.init;
 }
 
 void (*getLedPatternItemCall())()
 {
-    const ActionRunnerPattern* actionRunner = &(getLedPatternItem()->runner);
+    const ActionRunnerPattern* actionRunner { &(getLedPatternItem()->runner) };
 
     return actionRunner->main != nullptr ? actionRunner->main : getLedPatternDeft()->runner.main;
 }
@@ -133,9 +126,9 @@ unsigned int getLedPatternListRandIndx()
 
 unsigned int getLedPatternListRandIndxSeql()
 {
-    static bool         beg = false;
-    static unsigned int len = getLedPatternListSize();
-    static unsigned int pos = 0;
+    static bool         beg { false };
+    static unsigned int len { getLedPatternListSize() };
+    static unsigned int pos { 0 };
 
     if (beg == false) {
         beg = true;
@@ -148,12 +141,12 @@ unsigned int getLedPatternListRandIndxSeql()
     if (pos == 0) {
         pos = len;
 
-        for (byte j = 0; j < randByte(LED_PTN_RAND_ENTR); j++) {
+        for (unsigned int j = 0; j < randUInt(LED_PTN_RAND_ENTR); j++) {
             for (unsigned int i = 0; i < len; i++) {
                 const unsigned int n = randUInt(len - 1);
-                const byte         v = patternListOrder[n];
-                patternListOrder[n]    = patternListOrder[i];
-                patternListOrder[i]    = v;
+                const unsigned int v = patternListOrder[n];
+                patternListOrder[n]  = patternListOrder[i];
+                patternListOrder[i]  = v;
             }
         }
     }
@@ -175,8 +168,8 @@ unsigned int getLedPatternListStepNext(const unsigned int idx)
 
 unsigned int getLedPatternListStepIndx(const bool inc)
 {
-    static unsigned int idx = getLedPatternListStepInit();
-    static bool         beg = false;
+    static unsigned int idx { getLedPatternListStepInit() };
+    static bool         beg { false };
 
     if (beg && inc == true) {
         idx = getLedPatternListStepNext(idx);
@@ -197,28 +190,23 @@ unsigned int getLedPatternListStepNumb()
     return getLedPatternListStepIndx() + 1;
 }
 
-bool hasLedPatternItemGlints()
+void runEffectAddonGlints()
 {
-    return ledPatternGlintEnabled;
-}
-
-void addLedPatternItemGlints()
-{
-    if (hasLedPatternItemGlints()) {
+    if (getEffectAddonGlintsState()) {
         runStepTwinkle();
     }
 }
 
-void setLedPatternItemGlintsState(const byte chances)
+void setEffectAddonGlintsState(const byte chances)
 {
-    ledPatternGlintEnabled = LED_PTN_GLNT_ENBL && 0 != chances && (
+    ledPatternGlintEnabled = 0 != chances && (
         (100 == chances) || (randByte(100) <= chances)
     );
 }
 
-bool getLedPatternItemGlintsState()
+bool getEffectAddonGlintsState()
 {
-    return ledPatternGlintEnabled;
+    return LED_PTN_GLNT_ENBL && ledPatternGlintEnabled;
 }
 
 void incPatternsStep()
@@ -235,7 +223,13 @@ void incPatternsStep()
         outStepInfo(true, skip);
     }
 
-    setLedPatternItemGlintsState(getLedPatternItemActionGlints()->chances);
+    setEffectAddonGlintsState(
+        (isLedPaletteStepNamed()
+            ? getLedPaletteItemActionGlints()
+            : getLedPatternItemActionGlints()
+        )->chances
+    );
+
     getLedPatternItemInit()();
 
     ledPatternStepInit = true;
@@ -251,7 +245,7 @@ void runPatternsStep(const bool wait)
 {
     incLoopIterationCount();
     getLedPatternItemCall()();
-    addLedPatternItemGlints();
+    runEffectAddonGlints();
 
     ledPatternStepInit = false;
     ledPatternStepRuns = true;
@@ -311,27 +305,33 @@ void setCustomLedColorsActive()
 
 void runStepTwinkle()
 {
-    const byte iterations = randByte(0, LED_PTN_TWIK_RAND);
-    const byte maximumLvl = getLedPatternItemActionGlints()->maximum;
-    const byte minimumLvl = getLedPatternItemActionGlints()->minimum;
+    const EffectDefinitionGlints* glints {
+        isLedPaletteStepStarted()
+            ? getLedPaletteItemActionGlints()
+            : getLedPatternItemActionGlints()
+    };
 
-    for (byte i = 0; i < iterations; i++) {
+    const byte loopMax { randByte(glints->amounts) };
+    const byte maximum { glints->maximum };
+    const byte minimum { glints->minimum };
+
+    for (byte i = 0; i < loopMax; i++) {
         ledStrandsActiveColors[randUInt(LED_STR_NUM)] += CRGB(
-            randByte(minimumLvl, maximumLvl),
-            randByte(minimumLvl, maximumLvl),
-            randByte(minimumLvl, maximumLvl)
+            randByte(minimum, maximum),
+            randByte(minimum, maximum),
+            randByte(minimum, maximum)
         );
     }
 }
 
 void runInitGeneric()
 {
-    fill_solid(ledStrandsActiveColors, LED_STR_NUM, CRGB(CRGB::Black));
+    fill_solid(ledStrandsActiveColors, LED_STR_NUM, CRGB::Black);
 }
 
 void runStepGeneric()
 {
-    fill_solid(ledStrandsActiveColors, LED_STR_NUM, CRGB(CRGB::Black));
+    fill_solid(ledStrandsActiveColors, LED_STR_NUM, CRGB::Black);
 }
 
 void runStepColoredStatic(const byte r, const byte g, const byte b)
@@ -341,29 +341,29 @@ void runStepColoredStatic(const byte r, const byte g, const byte b)
 
 void runStepColoredStaticW()
 {
-    runStepColoredStatic(140, 140, 140);
+    runStepColoredStatic(120, 120, 120);
 }
 
 void runStepColoredStaticR()
 {
-    runStepColoredStatic(240, 0, 0);
+    runStepColoredStatic(220, 0, 0);
 }
 
 void runStepColoredStaticG()
 {
-    runStepColoredStatic(0, 240, 0);
+    runStepColoredStatic(0, 220, 0);
 }
 
 void runStepColoredStaticB()
 {
-    runStepColoredStatic(0, 0, 240);
+    runStepColoredStatic(0, 0, 220);
 }
 
 void runStepColoredBuilds(const byte r, const byte g, const byte b, const byte d)
 {
     fadeToBlackBy(ledStrandsActiveColors, LED_STR_NUM, 3);
 
-    for (byte i = 0; i < LED_STR_NUM/25; i++) {
+    for (unsigned int i = 0; i < LED_STR_NUM/25; i++) {
         ledStrandsActiveColors[randUInt(LED_STR_NUM)] = CRGB(
             r == 0 ? randByte(0, cstrByte(d * 4)) : randByte(cstrByte(r - d), cstrByte(r + d)),
             g == 0 ? randByte(0, cstrByte(d * 4)) : randByte(cstrByte(g - d), cstrByte(g + d)),
@@ -374,7 +374,7 @@ void runStepColoredBuilds(const byte r, const byte g, const byte b, const byte d
 
 void runStepColoredBuildsW()
 {
-    runStepColoredBuilds(140, 140, 140);
+    runStepColoredBuilds(120, 120, 120);
 }
 
 void runStepColoredBuildsR()
@@ -396,7 +396,7 @@ void runInitColoredVaried(const byte r, const byte g, const byte b, const byte d
 {
     runInitGeneric();
 
-    for (int i = 0; i < LED_STR_NUM; ++i) {
+    for (unsigned int i = 0; i < LED_STR_NUM; ++i) {
         ledStrandsCustomColors[i] = CRGB(
             randByte(cstrByte(r - d), cstrByte(r + d)),
             randByte(cstrByte(g - d), cstrByte(g + d)),
@@ -409,7 +409,7 @@ void runInitColoredVaried(const byte r, const byte g, const byte b, const byte d
 
 void runInitColoredVariedW()
 {
-    runInitColoredVaried(140, 140, 140, 60);
+    runInitColoredVaried(120, 120, 120, 60);
 }
 
 void runInitColoredVariedR()
@@ -476,7 +476,7 @@ void runStepBuilder(const byte iterations)
 {
     fadeToBlackBy(ledStrandsActiveColors, LED_STR_NUM, 1);
 
-    for (byte i = 0; i < iterations; i++) {
+    for (unsigned int i = 0; i < iterations; i++) {
         ledStrandsActiveColors[randUInt(LED_STR_NUM)] += CHSV(getByteNumStep() + randByte(64), 200, 255);
     }
 }
@@ -488,28 +488,28 @@ void runStepBuilderNormal()
 
 void runStepBuilderFaster()
 {
-    runStepBuilder(6);
+    runStepBuilder(5);
 }
 
 void runStepSinelon(const byte iterations)
 {
     fadeToBlackBy(ledStrandsActiveColors, LED_STR_NUM, 1);
 
-    for (byte i = 0; i < iterations; i++) {
+    for (unsigned int i = 0; i < iterations; i++) {
         ledStrandsActiveColors[beatsin16(13, 10, LED_STR_NUM - 1)] += CHSV(getByteNumStep(), 255, 192);
     }
 }
 
 void runStepSinelonNormal()
 {
-    runStepSinelon(12);
+    runStepSinelon(20);
 }
 
-void runStepSlidingBeater(const CRGBPalette16 palette, const byte time)
+void runStepSlidingBeater(const CRGBPalette16& palette, const byte time)
 {
-    byte beat = beatsin8(time, 64, 180);
+    byte beat { beatsin8(time, 64, 180) };
 
-    for (int i = 0; i < LED_STR_NUM; i++) {
+    for (unsigned int i = 0; i < LED_STR_NUM; i++) {
         ledStrandsActiveColors[i] = ColorFromPalette(palette, getByteNumStep() + (i * 2), beat - getByteNumStep() + (i * 10));
     }
 }
@@ -544,12 +544,12 @@ void runStepSlidingBeaterHeater()
     runStepSlidingBeater(HeatColors_p);
 }
 
-void runStepPaletteRounds(const CRGBPalette16 palette, const int multiplier, const bool blend)
+void runStepPaletteRounds(const CRGBPalette16& palette, const int multiplier, const bool blend)
 {
-    for (int i = 0; i < LED_STR_NUM; i++) {
+    for (unsigned int i = 0; i < LED_STR_NUM; i++) {
         ledStrandsActiveColors[i] = ColorFromPalette(
             palette,
-            getByteNumStep() + (i * multiplier),
+            ((unsigned int)getByteNumStep()) + ((unsigned int)(i * multiplier)),
             255,
             blend ? LINEARBLEND : NOBLEND
         );
@@ -593,11 +593,11 @@ void runStepPaletteCircle()
 
 void runStepJuggler(const byte fade)
 {
-    byte dothue = 0;
+    byte dothue { 0 };
 
     fadeToBlackBy(ledStrandsActiveColors, LED_STR_NUM, fade);
 
-    for (int i = 0; i < 12; i++) {
+    for (unsigned int i = 0; i < 12; i++) {
         ledStrandsActiveColors[beatsin16(i + randByte(5, 10), 0, LED_STR_NUM - 1)] |= CHSV(dothue, 200, 255);
         dothue += 32;
     }
@@ -615,7 +615,7 @@ void runStepJugglerLonger()
 
 void runStepColoredGradedeeeeeeee()
 {
-    byte hue = sin8(getByteNumStep());
+    byte hue { sin8(getByteNumStep()) };
 
     fill_gradient(ledStrandsActiveColors, LED_STR_NUM, CHSV(hue, 255, 255), CHSV(hue, 255, 255), FORWARD_HUES);
 }
@@ -631,8 +631,8 @@ void runStepGradingStable(byte hueBeg, byte hueEnd)
 
 void runStepRainbowFading(const byte bmp1, const byte bpm2)
 {
-    byte hueBeg = beatsin8(bmp1, 0, 255);
-    byte hueEnd = beatsin8(bpm2, 0, 255);
+    byte hueBeg { beatsin8(bmp1, 0, 255) };
+    byte hueEnd { beatsin8(bpm2, 0, 255) };
 
     if (hueBeg < hueEnd) {
         fill_gradient(ledStrandsActiveColors, LED_STR_NUM, CHSV(hueBeg, 255, 255), CHSV(hueEnd, 255, 255), FORWARD_HUES);
@@ -653,8 +653,8 @@ void runStepRainbowFadingFast()
 
 void runStepRainbowWholed()
 {
-    byte hueBeg = getByteNumStep();
-    byte hueEnd = hueBeg + 64;
+    byte hueBeg { getByteNumStep() };
+    byte hueEnd { (byte)(hueBeg + 64) };
 
     if (hueBeg < hueEnd) {
         fill_gradient(ledStrandsActiveColors, LED_STR_NUM, CHSV(hueBeg, 255, 255), CHSV(hueEnd, 255, 255), FORWARD_HUES);
@@ -665,7 +665,7 @@ void runStepRainbowWholed()
 
 byte getByteNumStep(byte inc)
 {
-    static byte hue = randByte();
+    static byte hue { randByte() };
 
     hue += inc;
 

@@ -12,7 +12,7 @@
 
 #include "Common.h"
 
-struct ActionTimers {
+struct EffectDefinitionTimers {
     const unsigned int runningTotalSecs;
     const byte         iterateMilliSecs;
 };

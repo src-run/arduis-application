@@ -18,7 +18,7 @@
 
 void          setup();
 void          loop();
-unsigned long runTimerCyclePattern(bool fadeToBlack = LED_PTN_FADE_ENBL, bool fadeToColor = LED_PTN_FADE_ENBL, bool doCycle = true);
-unsigned long runTimerCyclePalette(bool fadeToBlack = LED_PTN_FADE_ENBL, bool fadeToColor = LED_PTN_FADE_ENBL, bool doCycle = true);
-unsigned long runTimerCycleByteNum();
+unsigned long runTimerPattern(bool fadeToBlack = LED_PTN_FADE_ENBL, bool fadeToColor = LED_PTN_FADE_ENBL, bool doCycle = true);
+unsigned long runTimerPalette(bool fadeToBlack = LED_PTN_FADE_ENBL, bool fadeToColor = LED_PTN_FADE_ENBL, bool doCycle = true);
+unsigned long runTimerByteNum();
 void          setupCycles();

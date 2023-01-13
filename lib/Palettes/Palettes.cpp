@@ -17,14 +17,7 @@ unsigned int getLedPaletteListSize(const int adds)
 
 const PalettesAction* getLedPaletteDeft()
 {
-    static const PalettesAction itemDefault {
-        { "Mysts_Bk_Wi", 0 },
-        { Palette_Mysts_Bk_Wi_c },
-        { LED_PAL_SEC_CYCLE, LED_STR_MIL_COLOR },
-        { 50, LED_PTN_TWIK_MINL, LED_PTN_TWIK_MAXL },
-    };
-
-    return &itemDefault;
+    return &paletteListDeflt;
 }
 
 const PalettesAction* getLedPaletteItem(const unsigned int idx)
@@ -37,12 +30,12 @@ const PalettesAction* getLedPaletteItem()
     return getLedPaletteItem(getLedPaletteListStepIndx().curr);
 }
 
-const ActionDetail* getLedPaletteItemActionDetail(const unsigned int idx)
+const EffectDefinitionDetail* getLedPaletteItemActionDetail(const unsigned int idx)
 {
     return &(getLedPaletteItem(idx)->detail);
 }
 
-const ActionDetail* getLedPaletteItemActionDetail()
+const EffectDefinitionDetail* getLedPaletteItemActionDetail()
 {
     return getLedPaletteItemActionDetail(getLedPaletteListStepIndx().curr);
 }
@@ -57,22 +50,22 @@ const ActionRunnerPalette* getLedPaletteItemActionRunner()
     return getLedPaletteItemActionRunner(getLedPaletteListStepIndx().curr);
 }
 
-const ActionTimers* getLedPaletteItemActionTimers(const unsigned int idx)
+const EffectDefinitionTimers* getLedPaletteItemActionTimers(const unsigned int idx)
 {
     return &(getLedPaletteItem(idx)->timers);
 }
 
-const ActionTimers* getLedPaletteItemActionTimers()
+const EffectDefinitionTimers* getLedPaletteItemActionTimers()
 {
     return getLedPaletteItemActionTimers(getLedPaletteListStepIndx().curr);
 }
 
-const ActionGlints* getLedPaletteItemActionGlints(const unsigned int idx)
+const EffectDefinitionGlints* getLedPaletteItemActionGlints(const unsigned int idx)
 {
     return &(getLedPaletteItem(idx)->glints);
 }
 
-const ActionGlints* getLedPaletteItemActionGlints()
+const EffectDefinitionGlints* getLedPaletteItemActionGlints()
 {
     return getLedPaletteItemActionGlints(getLedPaletteListStepIndx().curr);
 }
@@ -97,14 +90,12 @@ const char *getLedPaletteItemNameC()
     return getLedPaletteItemActionDetail()->name;
 }
 
-CRGBPalette16 getLedPaletteItemComp(const unsigned int idx)
+const CRGBPalette16 getLedPaletteItemComp(const unsigned int idx)
 {
-    CRGBPalette16 palette = getLedPaletteItemActionRunner(idx)->gradient;
-
-    return palette;
+    return getLedPaletteItemActionRunner(idx)->gradient;
 }
 
-CRGBPalette16 getLedPaletteItemComp()
+const CRGBPalette16 getLedPaletteItemComp()
 {
     return getLedPaletteItemComp(getLedPaletteListStepIndx().curr);
 }
@@ -114,16 +105,11 @@ unsigned int getLedPaletteItemCallExecSecs()
     return getLedPaletteItemActionTimers()->runningTotalSecs;
 }
 
-unsigned int getLedPaletteListRandIndx()
-{
-    return LED_PAL_RAND_SEQL ? getLedPaletteListRandIndxSeql() : getRandomIndx(getLedPaletteListSize());
-}
-
 unsigned int getLedPaletteListRandIndxSeql()
 {
-    static bool         beg = false;
-    static unsigned int len = getLedPaletteListSize();
-    static unsigned int pos = 0;
+    static bool         beg { false };
+    static unsigned int len { getLedPaletteListSize() };
+    static unsigned int pos { 0 };
 
     if (beg == false) {
         beg = true;
@@ -136,12 +122,12 @@ unsigned int getLedPaletteListRandIndxSeql()
     if (pos == 0) {
         pos = len;
 
-        for (byte j = 0; j < randByte(LED_PAL_RAND_ENTR); j++) {
+        for (unsigned int j = 0; j < randUInt(LED_PAL_RAND_ENTR); j++) {
             for (unsigned int i = 0; i < len; i++) {
                 const unsigned int n = randUInt(len - 1);
-                const byte         v = paletteListOrder[n];
-                paletteListOrder[n]    = paletteListOrder[i];
-                paletteListOrder[i]    = v;
+                const unsigned int v = paletteListOrder[n];
+                paletteListOrder[n]  = paletteListOrder[i];
+                paletteListOrder[i]  = v;
             }
         }
     }
@@ -149,6 +135,11 @@ unsigned int getLedPaletteListRandIndxSeql()
     --pos;
 
     return paletteListOrder[constrain(pos, 0, len - 1)];
+}
+
+unsigned int getLedPaletteListRandIndx()
+{
+    return LED_PAL_RAND_SEQL ? getLedPaletteListRandIndxSeql() : getRandomIndx(getLedPaletteListSize());
 }
 
 unsigned int getLedPaletteListStepInit()
@@ -163,16 +154,16 @@ unsigned int getLedPaletteListStepNext(unsigned int idx)
 
 PalettesIndexPosition getLedPaletteListStepIndx(bool inc)
 {
-    static unsigned int idxCurr = getLedPaletteListStepInit();
-    static unsigned int idxNext = getLedPaletteListStepNext(idxCurr);
-    static bool         beg = false;
+    static unsigned int idxCurr { getLedPaletteListStepInit() };
+    static unsigned int idxNext { getLedPaletteListStepNext(idxCurr) };
+    static bool         running { false };
 
-    if (beg && inc) {
+    if (running && inc) {
         idxCurr = idxNext;
         idxNext = getLedPaletteListStepNext(idxCurr);
     }
 
-    beg = true;
+    running = true;
 
     return {
         idxCurr,
@@ -190,15 +181,15 @@ unsigned int getLedPaletteListStepNumb()
     return getLedPaletteListStepIndx().curr + 1;
 }
 
+bool isLedPaletteStepNamed()
+{
+    return isMatch(getLedPatternItemNameC(), "palette-circle")
+        || isMatch(getLedPatternItemNameC(), "palette-circle-t");
+}
+
 bool isLedPaletteStepStarted()
 {
-    return (
-        ledPatternStepInit ||
-        ledPatternStepRuns
-    ) && (
-        isMatch(getLedPatternItemNameC(), "palette-circle") ||
-        isMatch(getLedPatternItemNameC(), "palette-circle-t")
-    );
+    return (ledPatternStepInit || ledPatternStepRuns) && isLedPaletteStepNamed();
 }
 
 bool isLedPaletteStepRunning()
@@ -213,8 +204,11 @@ void incPalettesStep()
 {
     incLedPaletteListStepIndx();
 
+    if (isLedPaletteStepStarted()) {
+        setEffectAddonGlintsState(getLedPaletteItemActionGlints()->chances);
+    }
+
     if (isLedPaletteStepRunning()) {
-        setLedPatternItemGlintsState(getLedPaletteItemActionGlints()->chances);
         outStepInfo();
     }
 }

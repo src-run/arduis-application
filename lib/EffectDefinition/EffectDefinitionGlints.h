@@ -12,8 +12,9 @@
 
 #include "Common.h"
 
-struct ActionGlints {
-    const byte chances;
+struct EffectDefinitionGlints {
     const byte minimum;
     const byte maximum;
+    const byte chances;
+    const byte amounts;
 };

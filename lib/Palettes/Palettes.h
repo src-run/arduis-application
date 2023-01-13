@@ -16,9 +16,9 @@
 #include "PalettesList.h"
 #include "PalettesAction.h"
 #include "PalettesActionRunner.h"
-#include "ActionDetail.h"
-#include "ActionGlints.h"
-#include "ActionTimers.h"
+#include "EffectDefinitionDetail.h"
+#include "EffectDefinitionGlints.h"
+#include "EffectDefinitionTimers.h"
 
 struct PalettesIndexPosition {
     const unsigned int curr;
@@ -31,21 +31,21 @@ const PalettesAction*      getLedPaletteDeft();
 const PalettesAction*      getLedPaletteItem(const unsigned int idx);
 const PalettesAction*      getLedPaletteItem();
 
-const ActionDetail*        getLedPaletteItemActionDetail(const unsigned int idx);
-const ActionDetail*        getLedPaletteItemActionDetail();
-const ActionRunnerPalette* getLedPaletteItemActionRunner(const unsigned int idx);
-const ActionRunnerPalette* getLedPaletteItemActionRunner();
-const ActionTimers*        getLedPaletteItemActionTimers(const unsigned int idx);
-const ActionTimers*        getLedPaletteItemActionTimers();
-const ActionGlints*        getLedPaletteItemActionGlints(const unsigned int idx);
-const ActionGlints*        getLedPaletteItemActionGlints();
+const EffectDefinitionDetail* getLedPaletteItemActionDetail(const unsigned int idx);
+const EffectDefinitionDetail* getLedPaletteItemActionDetail();
+const ActionRunnerPalette*    getLedPaletteItemActionRunner(const unsigned int idx);
+const ActionRunnerPalette*    getLedPaletteItemActionRunner();
+const EffectDefinitionTimers* getLedPaletteItemActionTimers(const unsigned int idx);
+const EffectDefinitionTimers* getLedPaletteItemActionTimers();
+const EffectDefinitionGlints* getLedPaletteItemActionGlints(const unsigned int idx);
+const EffectDefinitionGlints* getLedPaletteItemActionGlints();
 
 String        getLedPaletteItemName(const unsigned int idx);
 String        getLedPaletteItemName();
 const char*   getLedPaletteItemNameC(const unsigned int idx);
 const char*   getLedPaletteItemNameC();
-CRGBPalette16 getLedPaletteItemComp(const unsigned int idx);
-CRGBPalette16 getLedPaletteItemComp();
+const CRGBPalette16 getLedPaletteItemComp(const unsigned int idx);
+const CRGBPalette16 getLedPaletteItemComp();
 unsigned int  getLedPaletteItemCallExecSecs();
 
 unsigned int          getLedPaletteListRandIndx();
@@ -56,6 +56,7 @@ PalettesIndexPosition getLedPaletteListStepIndx(bool inc = false);
 unsigned int          incLedPaletteListStepIndx();
 unsigned int          getLedPaletteListStepNumb();
 
+bool isLedPaletteStepNamed();
 bool isLedPaletteStepStarted();
 bool isLedPaletteStepRunning();
 

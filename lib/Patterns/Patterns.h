@@ -16,9 +16,9 @@
 #include "PatternsList.h"
 #include "PatternsAction.h"
 #include "PatternsActionRunner.h"
-#include "ActionDetail.h"
-#include "ActionTimers.h"
-#include "ActionGlints.h"
+#include "EffectDefinitionDetail.h"
+#include "EffectDefinitionTimers.h"
+#include "EffectDefinitionGlints.h"
 
 extern bool ledPatternStepInit;
 extern bool ledPatternStepRuns;
@@ -27,14 +27,14 @@ unsigned int               getLedPatternListSize(const int adds = 0);
 const PatternsAction*      getLedPatternDeft();
 const PatternsAction*      getLedPatternItem(const unsigned int idx);
 const PatternsAction*      getLedPatternItem();
-const ActionDetail*        getLedPatternItemActionDetail(const unsigned int idx);
-const ActionDetail*        getLedPatternItemActionDetail();
+const EffectDefinitionDetail*        getLedPatternItemActionDetail(const unsigned int idx);
+const EffectDefinitionDetail*        getLedPatternItemActionDetail();
 const ActionRunnerPattern* getLedPatternItemActionRunner(const unsigned int idx);
 const ActionRunnerPattern* getLedPatternItemActionRunner();
-const ActionTimers*        getLedPatternItemActionTimers(const unsigned int idx);
-const ActionTimers*        getLedPatternItemActionTimers();
-const ActionGlints*        getLedPatternItemActionGlints(const unsigned int idx);
-const ActionGlints*        getLedPatternItemActionGlints();
+const EffectDefinitionTimers*        getLedPatternItemActionTimers(const unsigned int idx);
+const EffectDefinitionTimers*        getLedPatternItemActionTimers();
+const EffectDefinitionGlints*        getLedPatternItemActionGlints(const unsigned int idx);
+const EffectDefinitionGlints*        getLedPatternItemActionGlints();
 
 String       getLedPatternItemName(const unsigned int idx);
 String       getLedPatternItemName();
@@ -45,10 +45,9 @@ void       (*getLedPatternItemCall())();
 unsigned int getLedPatternItemCallExecSecs();
 byte         getLedPatternItemRandHuesMili();
 
-bool hasLedPatternItemGlints();
-void addLedPatternItemGlints();
-void setLedPatternItemGlintsState(const byte chance);
-bool getLedPatternItemGlintsState();
+void runEffectAddonGlints();
+void setEffectAddonGlintsState(const byte chance);
+bool getEffectAddonGlintsState();
 
 void incPatternsStep();
 void runPatternsStep(const bool wait = true);
@@ -99,7 +98,7 @@ void runStepBuilderFaster();
 void runStepSinelon(const byte iterations = 6);
 void runStepSinelonNormal();
 
-void runStepSlidingBeater(const CRGBPalette16 palette, const byte time = 8);
+void runStepSlidingBeater(const CRGBPalette16& palette, const byte time = 8);
 void runStepSlidingBeaterClouds();
 void runStepSlidingBeaterMagmas();
 void runStepSlidingBeaterOceans();
@@ -107,7 +106,7 @@ void runStepSlidingBeaterForest();
 void runStepSlidingBeaterRandom();
 void runStepSlidingBeaterHeater();
 
-void runStepPaletteRounds(const CRGBPalette16 palette, const int multiplier = 2, const bool blend = true);
+void runStepPaletteRounds(const CRGBPalette16& palette, const int multiplier = 2, const bool blend = true);
 void runStepPaletteRoundsClouds();
 void runStepPaletteRoundsMagmas();
 void runStepPaletteRoundsOceans();

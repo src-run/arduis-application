@@ -26,19 +26,19 @@ void loop()
     runPatternsStep();
 
     if (PatternPeriodTimer.ready()) {
-        PatternPeriodTimer.setPeriodTime(runTimerCyclePattern());
+        PatternPeriodTimer.setPeriodTime(runTimerPattern());
     }
 
     if (PalettePeriodTimer.ready()) {
-        PalettePeriodTimer.setPeriodTime(runTimerCyclePalette());
+        PalettePeriodTimer.setPeriodTime(runTimerPalette());
     }
 
     if (ByteNumPeriodTimer.ready()) {
-        ByteNumPeriodTimer.setPeriodTime(runTimerCycleByteNum());
+        ByteNumPeriodTimer.setPeriodTime(runTimerByteNum());
     }
 }
 
-unsigned long runTimerCyclePattern(bool fadeToBlack, bool fadeToColor, bool doCycle)
+unsigned long runTimerPattern(bool fadeToBlack, bool fadeToColor, bool doCycle)
 {
     if (doCycle) {
         runPatternsFadeToBlack(fadeToBlack);
@@ -50,7 +50,7 @@ unsigned long runTimerCyclePattern(bool fadeToBlack, bool fadeToColor, bool doCy
     return getLedPatternItemCallExecSecs();
 }
 
-unsigned long runTimerCyclePalette(bool fadeToBlack, bool fadeToColor, bool doCycle)
+unsigned long runTimerPalette(bool fadeToBlack, bool fadeToColor, bool doCycle)
 {
     if (doCycle && isLedPaletteStepStarted()) {
         runPatternsFadeToBlack(fadeToBlack);
@@ -62,7 +62,7 @@ unsigned long runTimerCyclePalette(bool fadeToBlack, bool fadeToColor, bool doCy
     return getLedPaletteItemCallExecSecs();
 }
 
-unsigned long runTimerCycleByteNum()
+unsigned long runTimerByteNum()
 {
     incByteNumStep();
 
@@ -71,5 +71,5 @@ unsigned long runTimerCycleByteNum()
 
 void setupCycles()
 {
-    runTimerCyclePattern(false);
+    runTimerPattern(false);
 }

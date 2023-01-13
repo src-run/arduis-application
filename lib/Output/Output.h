@@ -26,7 +26,7 @@ String getStepInfoMorePalette();
 String getStepInfoMoreLooping();
 String getStepInfoSkip(const bool skipped, const byte chances);
 
-String getItemsPlacementDesc(bool random);
+const char* getItemsPlacementDesc(bool random);
 
 byte   getListNamesMaxLength(const byte add, unsigned int (*getListSize)(const int), const char* (*getItemName)(const unsigned int));
 byte   getLedPatternListNamesMaxLength(const byte add = 2);

@@ -12,6 +12,12 @@
 
 #include "CommonArduino.h"
 #include "CommonFastLED.h"
+#include "CommonOTrustM.h"
+#include "CommonSHT4x.h"
+#include "CommonVEML7700.h"
+#include <Wire.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_TSL2591.h>
 
 #include "Config.h"
 #include "Output.h"

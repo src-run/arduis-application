@@ -30,9 +30,9 @@ void outStepInfo(const bool skipped, const byte chances)
 
 String getStepInfoMain()
 {
-    const String outsFormat = F("Pattern %02u of %02u (mode %s/%s/%s/%s): %s (%04us / %03ums)");
-    const byte   outsLength = outsFormat.length() + getLedPatternListNamesMaxLength();
-    char         outsBuffer[outsLength];
+    const String       outsFormat { F("Pattern %02u of %02u (mode %s/%s/%s/%s): %s (%04us / %03ums)") };
+    const unsigned int outsLength { outsFormat.length() + getLedPatternListNamesMaxLength() };
+    char               outsBuffer[outsLength];
 
     snprintf(
         outsBuffer,
@@ -40,10 +40,10 @@ String getStepInfoMain()
         outsFormat.c_str(),
         getLedPatternListStepNumb(),
         getLedPatternListSize(),
-        getItemsPlacementDesc(LED_PTN_RAND_INIT).c_str(),
-        getItemsPlacementDesc(LED_PTN_RAND_NEXT).c_str(),
-        getItemsPlacementDesc(LED_PTN_RAND_NEXT && LED_PTN_RAND_SEQL == false).c_str(),
-        hasLedPatternItemGlints() ? "g" : "n",
+        getItemsPlacementDesc(LED_PTN_RAND_INIT),
+        getItemsPlacementDesc(LED_PTN_RAND_NEXT),
+        getItemsPlacementDesc(LED_PTN_RAND_NEXT && LED_PTN_RAND_SEQL == false),
+        getEffectAddonGlintsState() ? "g" : "n",
         strPadsCharRgt(
             strQuote(getLedPatternItemName()),
             getLedPatternListNamesMaxLength()
@@ -72,9 +72,9 @@ String getStepInfoMore()
 
 String getStepInfoMorePalette()
 {
-    const String moreFormat = F("| Palette %03u of %03u (mode %s/%s/%s): %s (%03us)");
-    const byte   moreLength = moreFormat.length() + getLedPaletteListNamesMaxLength();
-    char         moreBuffer[moreLength];
+    const String       moreFormat { F("| Palette %03u of %03u (mode %s/%s/%s): %s (%03us)") };
+    const unsigned int moreLength { moreFormat.length() + getLedPaletteListNamesMaxLength() };
+    char               moreBuffer[moreLength];
 
     snprintf(
         moreBuffer,
@@ -82,9 +82,9 @@ String getStepInfoMorePalette()
         moreFormat.c_str(),
         getLedPaletteListStepNumb(),
         getLedPaletteListSize(),
-        getItemsPlacementDesc(LED_PAL_RAND_INIT).c_str(),
-        getItemsPlacementDesc(LED_PAL_RAND_NEXT).c_str(),
-        getItemsPlacementDesc(LED_PAL_RAND_NEXT && LED_PAL_RAND_SEQL == false).c_str(),
+        getItemsPlacementDesc(LED_PAL_RAND_INIT),
+        getItemsPlacementDesc(LED_PAL_RAND_NEXT),
+        getItemsPlacementDesc(LED_PAL_RAND_NEXT && LED_PAL_RAND_SEQL == false),
         strPadsCharRgt(
             strQuote(getLedPaletteItemName()),
             getLedPaletteListNamesMaxLength()
@@ -97,16 +97,15 @@ String getStepInfoMorePalette()
 
 String getStepInfoMoreLooping()
 {
-    const String moreFormat = F("| Counter: %05lu (+%lux)");
-    const byte   moreLength = moreFormat.length() + 10;
-    char         moreBuffer[moreLength];
+    const String       moreFormat { F("| Prior counter: %05lu") };
+    const unsigned int moreLength { moreFormat.length() + 1 };
+    char               moreBuffer[moreLength];
 
     snprintf(
         moreBuffer,
         moreLength,
         moreFormat.c_str(),
-        loopIterationCount,
-        loopIterationTimes
+        loopIterationCount
     );
 
     loopIterationCount = 0;
@@ -117,9 +116,9 @@ String getStepInfoMoreLooping()
 
 String getStepInfoSkip(const bool skipped, const byte chances)
 {
-    const String skipFormat = F("| Skipped (%03u%% >= %03u%%)");
-    const byte   skipLength = skipFormat.length();
-    char         skipBuffer[skipLength];
+    const String       skipFormat { F("| Skipped (%03u%% >= %03u%%)") };
+    const unsigned int skipLength { skipFormat.length() + 1 };
+    char               skipBuffer[skipLength];
 
     snprintf(
         skipBuffer,
@@ -132,17 +131,19 @@ String getStepInfoSkip(const bool skipped, const byte chances)
     return skipped ? strPadsCharLft(String(skipBuffer), -1) : "";
 }
 
-String getItemsPlacementDesc(bool random)
+const char* getItemsPlacementDesc(bool random)
 {
-    const String typeRand = "r";
-    const String typeOrdr = "s";
+    const char* typeRandC { "r" };
+    const char* typeOrdrC { "s" };
+    const String typeRand { "r" };
+    const String typeOrdr { "s" };
 
-    return random ? typeRand : typeOrdr;
+    return random ? typeRandC : typeOrdrC;
 }
 
 byte getListNamesMaxLength(const byte add, unsigned int (*getListSize)(const int), const char* (*getItemName)(const unsigned int))
 {
-    byte len = 0;
+    byte len { 0 };
 
     for (unsigned int i = 0; i < getListSize(0); i++) {
         len = max(len, strlen(getItemName(i)));

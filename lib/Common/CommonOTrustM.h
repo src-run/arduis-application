@@ -9,9 +9,6 @@
  */
 
 #pragma once
+#pragma GCC system_header
 
-#include "Common.h"
-
-struct ActionRunnerPalette {
-    const TProgmemRGBGradientPalette_byte* gradient;
-};
+#include <OPTIGATrustM.h>
