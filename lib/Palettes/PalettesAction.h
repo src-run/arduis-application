@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "Common.h"
+#include "CommonArduino.h"
 #include "EffectDefinitionDetail.h"
 #include "EffectDefinitionTimers.h"
 #include "EffectDefinitionGlints.h"

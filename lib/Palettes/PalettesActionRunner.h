@@ -10,7 +10,8 @@
 
 #pragma once
 
-#include "Common.h"
+#include "CommonArduino.h"
+#include "CommonFastLED.h"
 
 struct ActionRunnerPalette {
     const TProgmemRGBGradientPalette_byte* gradient;

@@ -245,7 +245,7 @@ const PatternsAction patternListItems[] {
 
 unsigned int         patternListOrder[ARRAY_SIZE(patternListItems)];
 const unsigned int   patternSizeItems { ARRAY_SIZE(patternListItems) };
-const PatternsAction patternListDeflt {
+const PatternsAction patternItemDeflt {
     { "generic-action-empty", 0 },
     { runStepGeneric, runInitGeneric },
     { LED_PTN_SEC_CYCLE, LED_STR_MIL_COLOR },

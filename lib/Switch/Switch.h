@@ -10,8 +10,10 @@
 
 #pragma once
 
-#include <Relay.h>
-#include "Common.h"
+
+#include "CommonArduino.h"
+#include "Relay.h"
+#include "Config.h"
 
 extern Relay ledSwitch;
 

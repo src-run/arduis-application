@@ -8,15 +8,15 @@
  * file that was distributed with this source code.
  */
 
-#include "Common.h"
+#include "CommonArduino.h"
 
-enum PeriodUnit : unsigned long {
+enum PeriodUnits : unsigned long {
     MILLIS = 1,
-    SECOND = PeriodUnit::MILLIS * 1000,
-    MINUTE = PeriodUnit::SECOND * 60,
-    HOUR   = PeriodUnit::MINUTE * 60,
-    DAY    = PeriodUnit::HOUR   * 24,
-    WEEK   = PeriodUnit::DAY    * 7,
+    SECOND = PeriodUnits::MILLIS * 1000,
+    MINUTE = PeriodUnits::SECOND * 60,
+    HOUR   = PeriodUnits::MINUTE * 60,
+    DAY    = PeriodUnits::HOUR   * 24,
+    WEEK   = PeriodUnits::DAY    * 7,
 };
 
 class PeriodTimer {
@@ -24,15 +24,15 @@ class PeriodTimer {
         unsigned long _millisLast { 0 };
         unsigned long _periodOrig { 0 };
         unsigned long _periodTime { 0 };
-        PeriodUnit    _periodUnit { PeriodUnit::MILLIS };
+        PeriodUnits   _periodUnit { PeriodUnits::MILLIS };
         bool          _resetsAuto { true };
 
     public:
-        PeriodTimer(PeriodUnit periodUnit = PeriodUnit::MILLIS, unsigned long periodTime = 0, bool resetsAuto = true);
-        PeriodTimer(unsigned long periodTime = 0, bool resetsAuto = true) : PeriodTimer(PeriodUnit::MILLIS, periodTime, resetsAuto) {};
+        PeriodTimer(PeriodUnits periodUnit = PeriodUnits::MILLIS, unsigned long periodTime = 0, bool resetsAuto = true);
+        PeriodTimer(unsigned long periodTime = 0, bool resetsAuto = true) : PeriodTimer(PeriodUnits::MILLIS, periodTime, resetsAuto) {};
 
         void setPeriodTime(unsigned long periodTime);
-        void setPeriodUnit(PeriodUnit periodUnit);
+        void setPeriodUnit(PeriodUnits periodUnit);
         void setResetsAuto(bool resetsAuto);
 
         bool ready();

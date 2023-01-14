@@ -10,18 +10,15 @@
 
 #include "Output.h"
 
-unsigned long loopIterationCount { 0 };
-unsigned long loopIterationTimes { 0 };
-
 void setupSerial(const unsigned long baud)
 {
     Serial.begin(baud);
     while(!Serial);
-    Serial.println();
 }
 
 void outStepInfo(const bool skipped, const byte chances)
 {
+    Serial.print(F("-> "));
     Serial.print(getStepInfoMain());
     Serial.print(getStepInfoMore());
     Serial.print(getStepInfoSkip(skipped, chances));
@@ -57,17 +54,17 @@ String getStepInfoMain()
 
 String getStepInfoMore()
 {
-    String more = "";
+    String moreString { };
 
     if (OUT_COUNTS_STAT) {
-        more += strPadsCharLft(getStepInfoMoreLooping(), -1);
+        moreString += strPadsCharLft(getStepInfoMoreCounter(), -1);
     }
 
     if (isLedPaletteStepRunning()) {
-        more += strPadsCharLft(getStepInfoMorePalette(), -1);
+        moreString += strPadsCharLft(getStepInfoMorePalette(), -1);
     }
 
-    return more;
+    return moreString;
 }
 
 String getStepInfoMorePalette()
@@ -95,7 +92,7 @@ String getStepInfoMorePalette()
     return String(moreBuffer);
 }
 
-String getStepInfoMoreLooping()
+String getStepInfoMoreCounter()
 {
     const String       moreFormat { F("| Prior counter: %05lu") };
     const unsigned int moreLength { moreFormat.length() + 1 };
@@ -105,11 +102,10 @@ String getStepInfoMoreLooping()
         moreBuffer,
         moreLength,
         moreFormat.c_str(),
-        loopIterationCount
+        CycleCount.getCount()
     );
 
-    loopIterationCount = 0;
-    loopIterationTimes = 0;
+    CycleCount.reset();
 
     return String(moreBuffer);
 }
@@ -133,10 +129,8 @@ String getStepInfoSkip(const bool skipped, const byte chances)
 
 const char* getItemsPlacementDesc(bool random)
 {
-    const char* typeRandC { "r" };
-    const char* typeOrdrC { "s" };
-    const String typeRand { "r" };
-    const String typeOrdr { "s" };
+    static const char* typeRandC { "r" };
+    static const char* typeOrdrC { "s" };
 
     return random ? typeRandC : typeOrdrC;
 }
@@ -170,12 +164,31 @@ byte getLedPaletteListNamesMaxLength(const byte add)
     );
 }
 
-void incLoopIterationCount()
+void outPwrLimitInfo(const PowerCalculatedBrightness& maximumBrightness)
 {
-    if (loopIterationCount >= 4294967295) {
-        loopIterationCount = 0;
-        loopIterationTimes++;
-    }
+    const String       ampsFormat { F("%.02f") };
+    const unsigned int ampsLength { String(LED_PWR_MAX_MAMPS / 1000U).length() + 3 };
+    const String       outsFormat { F("## FastLED driving %03u pixels available brightness percentage of target with %01uV @ %sA: %3u%% / %3u%% (%03u / %03u / 255)") };
+    char               ampsBuffer[ampsLength + 1];
+    char               outsBuffer[outsFormat.length() + ampsLength];
 
-    loopIterationCount++;
+    sprintf(
+        ampsBuffer,
+        ampsFormat.c_str(),
+        maximumBrightness.inputA
+    );
+
+    sprintf(
+        outsBuffer,
+        outsFormat.c_str(),
+        maximumBrightness.pixels,
+        maximumBrightness.inputV,
+        strPadsCharLft(ampsBuffer, ampsLength, "0").c_str(),
+        maximumBrightness.levelMaximum * 100 / maximumBrightness.levelRequest,
+        byteToPerc(maximumBrightness.levelMaximum),
+        maximumBrightness.levelMaximum,
+        maximumBrightness.levelRequest
+    );
+
+    Serial.println(outsBuffer);
 }

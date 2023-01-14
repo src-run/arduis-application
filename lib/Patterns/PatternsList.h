@@ -10,10 +10,12 @@
 
 #pragma once
 
-#include "Common.h"
+#include "CommonArduino.h"
+#include "Config.h"
+#include "Palettes.h"
 #include "PatternsAction.h"
 
 extern const PatternsAction patternListItems[];
 extern unsigned int         patternListOrder[];
 extern const unsigned int   patternSizeItems;
-extern const PatternsAction patternListDeflt;
+extern const PatternsAction patternItemDeflt;

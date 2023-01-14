@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "Common.h"
+#include "CommonArduino.h"
 
 struct ActionRunnerPattern {
     void (*main)();

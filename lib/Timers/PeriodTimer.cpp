@@ -10,7 +10,7 @@
 
 #include "PeriodTimer.h"
 
-PeriodTimer::PeriodTimer(PeriodUnit periodUnit, unsigned long periodTime, bool resetsAuto)
+PeriodTimer::PeriodTimer(PeriodUnits periodUnit, unsigned long periodTime, bool resetsAuto)
 {
     setResetsAuto(resetsAuto);
     setPeriodTime(periodTime);
@@ -28,7 +28,7 @@ void PeriodTimer::setPeriodTime(unsigned long periodTime)
     }
 }
 
-void PeriodTimer::setPeriodUnit(PeriodUnit periodUnit)
+void PeriodTimer::setPeriodUnit(PeriodUnits periodUnit)
 {
     _periodUnit = periodUnit;
 

@@ -8,11 +8,19 @@
  * file that was distributed with this source code.
  */
 
-#pragma once
+#include "SimpleCounter.h"
 
-#include "CommonArduino.h"
+unsigned long SimpleCounter::getCount()
+{
+    return _count;
+}
 
-struct EffectDefinitionDetail {
-    const char* name;
-    const byte  skipChance;
-};
+void SimpleCounter::increment(unsigned long amount)
+{
+    _count += amount;
+}
+
+void SimpleCounter::reset()
+{
+    _count = 0;
+}

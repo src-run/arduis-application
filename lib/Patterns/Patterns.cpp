@@ -15,19 +15,16 @@ int  ledPatternFadeLeveling { 0 };
 bool ledPatternStepInit     { false };
 bool ledPatternStepRuns     { false };
 
-unsigned int getLedPatternListSize(const int adds)
-{
-    return patternSizeItems + adds;
-}
-
 const PatternsAction* getLedPatternDeft()
 {
-    return &patternListDeflt;
+    return &patternItemDeflt;
 }
 
 const PatternsAction* getLedPatternItem(const unsigned int idx)
 {
-    return idx >= getLedPatternListSize() ? getLedPatternDeft() : &(patternListItems[idx]);
+    return idx >= getLedPatternListSize()
+        ? getLedPatternDeft()
+        : &(patternListItems[idx]);
 }
 
 const PatternsAction* getLedPatternItem()
@@ -97,16 +94,16 @@ const char *getLedPatternItemNameC()
 
 void (*getLedPatternItemInit())()
 {
-    const ActionRunnerPattern* actionRunner { &(getLedPatternItem()->runner) };
-
-    return actionRunner->init != nullptr ? actionRunner->init : getLedPatternDeft()->runner.init;
+    return getLedPatternItem()->runner.init != nullptr
+        ? getLedPatternItem()->runner.init
+        : getLedPatternDeft()->runner.init;
 }
 
 void (*getLedPatternItemCall())()
 {
-    const ActionRunnerPattern* actionRunner { &(getLedPatternItem()->runner) };
-
-    return actionRunner->main != nullptr ? actionRunner->main : getLedPatternDeft()->runner.main;
+    return getLedPatternItem()->runner.main != nullptr
+        ? getLedPatternItem()->runner.main
+        : getLedPatternDeft()->runner.main;
 }
 
 unsigned int getLedPatternItemCallExecSecs()
@@ -121,63 +118,63 @@ byte getLedPatternItemRandHuesMili()
 
 unsigned int getLedPatternListRandIndx()
 {
-    return LED_PTN_RAND_SEQL ? getLedPatternListRandIndxSeql() : getRandomIndx(getLedPatternListSize());
+    return LED_PTN_RAND_SEQL
+        ? getLedPatternListRandIndxSeql()
+        : getRandomIndx(getLedPatternListSize());
 }
 
 unsigned int getLedPatternListRandIndxSeql()
 {
-    static bool         beg { false };
-    static unsigned int len { getLedPatternListSize() };
-    static unsigned int pos { 0 };
+    static byte patternListOrderIndex { 0 };
 
-    if (beg == false) {
-        beg = true;
+    if (patternListOrderIndex == 0) {
+        patternListOrderIndex = getLedPatternListSize();
 
-        for (unsigned int i = 0; i < len; i++) {
+        for (byte i = 0; i < patternListOrderIndex; i++) {
             patternListOrder[i] = i;
         }
-    }
 
-    if (pos == 0) {
-        pos = len;
-
-        for (unsigned int j = 0; j < randUInt(LED_PTN_RAND_ENTR); j++) {
-            for (unsigned int i = 0; i < len; i++) {
-                const unsigned int n = randUInt(len - 1);
-                const unsigned int v = patternListOrder[n];
-                patternListOrder[n]  = patternListOrder[i];
-                patternListOrder[i]  = v;
+        for (byte j = 0; j < randUInt(LED_PTN_RAND_ENTR); j++) {
+            for (byte i = 0; i < patternListOrderIndex; i++) {
+                const byte n = randUInt(patternListOrderIndex - 1);
+                const byte v = patternListOrder[n];
+                patternListOrder[n] = patternListOrder[i];
+                patternListOrder[i] = v;
             }
         }
     }
 
-    --pos;
+    --patternListOrderIndex;
 
-    return patternListOrder[constrain(pos, 0, len - 1)];
+    return patternListOrder[patternListOrderIndex];
 }
 
 unsigned int getLedPatternListStepInit()
 {
-    return LED_PTN_RAND_INIT ? getLedPatternListRandIndx() : 0;
+    return LED_PTN_RAND_INIT
+        ? getLedPatternListRandIndx()
+        : 0;
 }
 
 unsigned int getLedPatternListStepNext(const unsigned int idx)
 {
-    return LED_PTN_RAND_NEXT ? getLedPatternListRandIndx() : ((idx + 1) % getLedPatternListSize());
+    return LED_PTN_RAND_NEXT
+        ? getLedPatternListRandIndx()
+        : ((idx + 1) % getLedPatternListSize());
 }
 
-unsigned int getLedPatternListStepIndx(const bool inc)
+unsigned int getLedPatternListStepIndx(const bool indexIncr)
 {
-    static unsigned int idx { getLedPatternListStepInit() };
-    static bool         beg { false };
+    static unsigned int indexCurr { getLedPatternListStepInit() };
+    static bool         isRunning { false };
 
-    if (beg && inc == true) {
-        idx = getLedPatternListStepNext(idx);
+    if (isRunning && indexIncr) {
+        indexCurr = getLedPatternListStepNext(indexCurr);
     }
 
-    beg = true;
+    isRunning = true;
 
-    return idx;
+    return indexCurr;
 }
 
 unsigned int incLedPatternListStepIndx()
@@ -243,7 +240,8 @@ void incPatternsStep()
 
 void runPatternsStep(const bool wait)
 {
-    incLoopIterationCount();
+    CycleCount.increment();
+
     getLedPatternItemCall()();
     runEffectAddonGlints();
 

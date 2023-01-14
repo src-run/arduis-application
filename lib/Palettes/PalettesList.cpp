@@ -191,6 +191,7 @@ const PalettesAction paletteListItems[] {
         { LED_PAL_SEC_CYCLE, LED_STR_MIL_COLOR },
         { LED_PTN_TWIK_MINL, LED_PTN_TWIK_MAXL, 50, 20 }
     },
+    /*
     {
         { "CbSeq_LtBl_DkBl", 0 },
         { Palette_CbSeq_LtBl_DkBl_c },
@@ -299,7 +300,6 @@ const PalettesAction paletteListItems[] {
         { LED_PAL_SEC_CYCLE, LED_STR_MIL_COLOR },
         { LED_PTN_TWIK_MINL, LED_PTN_TWIK_MAXL, 50, 20 }
     },
-    /*
     {
         { "CbDiv_Br_Wt_BlGr", 0 },
         { Palette_CbDiv_Br_Wt_BlGr_c },
@@ -401,7 +401,7 @@ const PalettesAction paletteListItems[] {
 
 unsigned int         paletteListOrder[ARRAY_SIZE(paletteListItems)];
 const unsigned int   paletteSizeItems { ARRAY_SIZE(paletteListItems) };
-const PalettesAction paletteListDeflt {
+const PalettesAction paletteItemDeflt {
     { "Mysts_Bk_Wi", 0 },
     { Palette_Mysts_Bk_Wi_c },
     { LED_PAL_SEC_CYCLE, LED_STR_MIL_COLOR },

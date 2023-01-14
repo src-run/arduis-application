@@ -10,7 +10,10 @@
 
 #pragma once
 
-#include "Common.h"
+#include "CommonArduino.h"
+#include "Config.h"
+#include "Patterns.h"
+#include "Palettes.h"
 #include "PeriodTimer.h"
 
 extern PeriodTimer PatternPeriodTimer;

@@ -21,33 +21,3 @@ void setupStrand()
     FastLED.setCorrection(TypicalPixelString);
     FastLED.setBrightness(LED_PTN_FADE_ENBL ? 0 : LED_STR_BRT);
 }
-
-void runAmpCheck(byte targetBrightness, unsigned int mAInc, unsigned int mABeg)
-{
-    fill_solid(ledStrandsActiveColors, LED_STR_NUM, CRGB { CRGB::White });
-
-    for (unsigned int mA = mABeg; mA <= LED_PWR_MAX_MAMPS; mA = mA + mAInc) {
-        const byte   maxBLevels { calculate_max_brightness_for_power_vmA(ledStrandsActiveColors, LED_STR_NUM, targetBrightness, LED_PWR_MAX_VOLTS, mA) };
-        const String outsFormat { F("FastLED %03u pixels target brightness with %01uV @ %.02fA: %03u%% (%03u/%03u)") };
-        char         outsBuffer[outsFormat.length()];
-
-        sprintf(
-            outsBuffer,
-            outsFormat.c_str(),
-            LED_STR_NUM,
-            LED_PWR_MAX_VOLTS,
-            (double)mA / (double)1000,
-            maxBLevels * 100 / 255,
-            maxBLevels,
-            targetBrightness
-        );
-
-        Serial.println(outsBuffer);
-
-        if (maxBLevels > targetBrightness || maxBLevels >= 255) {
-            break;
-        }
-    }
-
-    FastLED.clear(true);
-}

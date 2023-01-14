@@ -10,11 +10,12 @@
 
 #pragma once
 
-#include "Common.h"
-#include "Switch.h"
+#include "CommonArduino.h"
+#include "CommonFastLED.h"
+#include "Config.h"
+#include "Output.h"
 
 extern CRGB ledStrandsActiveColors[LED_STR_NUM];
 extern CRGB ledStrandsCustomColors[LED_STR_NUM];
 
 void setupStrand();
-void runAmpCheck(byte targetBrightness = 255, unsigned int mAInc = 50, unsigned int mABeg = 0);

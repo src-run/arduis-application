@@ -17,6 +17,7 @@ void setup()
     setupRandom();
     setupStrand();
     setupSwitch();
+    checkMinPwr();
     setupCycles();
     setupTimers();
 }

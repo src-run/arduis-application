@@ -10,11 +10,21 @@
 
 #pragma once
 
-#include "Common.h"
+#include "CommonArduino.h"
+#include "CommonFastLED.h"
+#include "CommonOTrustM.h"
+#include "CommonAdafruitRTClib.h"
+#include "CommonAdafruitSHT4x.h"
+#include "CommonAdafruitVEML7700.h"
+#include "CommonAdafruitTSL2591.h"
+#include "Power.h"
 #include "Switch.h"
 #include "Timers.h"
+#include "Counter.h"
 #include "Palettes.h"
 #include "Patterns.h"
+
+extern SimpleCounter CycleCount;
 
 void          setup();
 void          loop();

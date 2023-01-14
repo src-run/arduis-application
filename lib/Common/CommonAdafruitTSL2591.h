@@ -9,10 +9,7 @@
  */
 
 #pragma once
+#pragma GCC system_header
 
-#include "CommonArduino.h"
-
-struct EffectDefinitionDetail {
-    const char* name;
-    const byte  skipChance;
-};
+#include <Adafruit_Sensor.h>
+#include <Adafruit_TSL2591.h>

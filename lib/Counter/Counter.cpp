@@ -8,11 +8,6 @@
  * file that was distributed with this source code.
  */
 
-#pragma once
+#include "Counter.h"
 
-#include "CommonArduino.h"
-
-struct EffectDefinitionDetail {
-    const char* name;
-    const byte  skipChance;
-};
+SimpleCounter CycleCount { };

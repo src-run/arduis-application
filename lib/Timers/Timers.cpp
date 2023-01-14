@@ -10,9 +10,9 @@
 
 #include "Timers.h"
 
-PeriodTimer PatternPeriodTimer { PeriodUnit::SECOND };
-PeriodTimer PalettePeriodTimer { PeriodUnit::SECOND };
-PeriodTimer ByteNumPeriodTimer { PeriodUnit::MILLIS };
+PeriodTimer PatternPeriodTimer { PeriodUnits::SECOND };
+PeriodTimer PalettePeriodTimer { PeriodUnits::SECOND };
+PeriodTimer ByteNumPeriodTimer { PeriodUnits::MILLIS };
 
 void setupTimers()
 {

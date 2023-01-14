@@ -10,7 +10,12 @@
 
 #pragma once
 
-#include "Common.h"
+#include "CommonArduino.h"
+#include "CommonFastLED.h"
+#include "Config.h"
+#include "Random.h"
+#include "Utilities.h"
+#include "Counter.h"
 #include "Strand.h"
 #include "Palettes.h"
 #include "PatternsList.h"
@@ -20,21 +25,22 @@
 #include "EffectDefinitionTimers.h"
 #include "EffectDefinitionGlints.h"
 
-extern bool ledPatternStepInit;
-extern bool ledPatternStepRuns;
+extern bool               ledPatternStepInit;
+extern bool               ledPatternStepRuns;
+extern const unsigned int patternSizeItems;
 
-unsigned int               getLedPatternListSize(const int adds = 0);
-const PatternsAction*      getLedPatternDeft();
-const PatternsAction*      getLedPatternItem(const unsigned int idx);
-const PatternsAction*      getLedPatternItem();
-const EffectDefinitionDetail*        getLedPatternItemActionDetail(const unsigned int idx);
-const EffectDefinitionDetail*        getLedPatternItemActionDetail();
-const ActionRunnerPattern* getLedPatternItemActionRunner(const unsigned int idx);
-const ActionRunnerPattern* getLedPatternItemActionRunner();
-const EffectDefinitionTimers*        getLedPatternItemActionTimers(const unsigned int idx);
-const EffectDefinitionTimers*        getLedPatternItemActionTimers();
-const EffectDefinitionGlints*        getLedPatternItemActionGlints(const unsigned int idx);
-const EffectDefinitionGlints*        getLedPatternItemActionGlints();
+inline unsigned int           getLedPatternListSize(const int adds = 0) __attribute__((always_inline));
+const PatternsAction*         getLedPatternDeft();
+const PatternsAction*         getLedPatternItem(const unsigned int idx);
+const PatternsAction*         getLedPatternItem();
+const EffectDefinitionDetail* getLedPatternItemActionDetail(const unsigned int idx);
+const EffectDefinitionDetail* getLedPatternItemActionDetail();
+const ActionRunnerPattern*    getLedPatternItemActionRunner(const unsigned int idx);
+const ActionRunnerPattern*    getLedPatternItemActionRunner();
+const EffectDefinitionTimers* getLedPatternItemActionTimers(const unsigned int idx);
+const EffectDefinitionTimers* getLedPatternItemActionTimers();
+const EffectDefinitionGlints* getLedPatternItemActionGlints(const unsigned int idx);
+const EffectDefinitionGlints* getLedPatternItemActionGlints();
 
 String       getLedPatternItemName(const unsigned int idx);
 String       getLedPatternItemName();
@@ -129,9 +135,14 @@ unsigned int getLedPatternListRandIndx();
 unsigned int getLedPatternListRandIndxSeql();
 unsigned int getLedPatternListStepInit();
 unsigned int getLedPatternListStepNext(const unsigned int idx);
-unsigned int getLedPatternListStepIndx(const bool inc = false);
+unsigned int getLedPatternListStepIndx(const bool indexIncr = false);
 unsigned int incLedPatternListStepIndx();
 unsigned int getLedPatternListStepNumb();
 
 byte getByteNumStep(byte inc = 0);
 byte incByteNumStep(byte add = 1);
+
+unsigned int getLedPatternListSize(const int adds)
+{
+    return patternSizeItems + adds;
+}

@@ -8,11 +8,4 @@
  * file that was distributed with this source code.
  */
 
-#pragma once
-
-#include "CommonArduino.h"
-
-struct EffectDefinitionDetail {
-    const char* name;
-    const byte  skipChance;
-};
+#include "Config.h"

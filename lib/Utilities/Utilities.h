@@ -10,7 +10,8 @@
 
 #pragma once
 
-#include "Common.h"
+#include "CommonArduino.h"
+#include "Config.h"
 
 #define ARRAY_SIZE(A) (*(&A + 1) - A)
 
@@ -19,11 +20,7 @@
 #define PIN_MODE_INPUT_PULLUP INPUT_PULLUP
 #define PIN_MODE_OUTPUT       OUTPUT
 
-enum StringPadDirection {
-    lft,
-    eql,
-    rgt,
-};
+enum StringPadDirection { lft, eql, rgt };
 
 byte                 getPinMode(byte pin);
 
@@ -50,6 +47,8 @@ inline unsigned long miliToSeconds(const unsigned long val)                     
 inline unsigned int  cstrPerc(const long p)                                                           __attribute__((always_inline));
 inline byte          cstrByte(const long i)                                                           __attribute__((always_inline));
 inline unsigned int  cstrUInt(const long i)                                                           __attribute__((always_inline));
+
+inline unsigned int  byteToPerc(const unsigned long i)                                                __attribute__((always_inline));
 
 inline bool          lt(int x, unsigned int y)                                                        __attribute__((always_inline));
 inline bool          lt(unsigned int x, int y)                                                        __attribute__((always_inline));
@@ -168,6 +167,11 @@ inline byte cstrByte(const long i)
 inline unsigned int cstrUInt(const long i)
 {
     return constrain(i, 0, 65535);
+}
+
+unsigned int byteToPerc(const unsigned long i)
+{
+    return cstrByte(i * 100 / 255);
 }
 
 bool lt(int x, unsigned int y)

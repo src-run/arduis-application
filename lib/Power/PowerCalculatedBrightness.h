@@ -11,12 +11,11 @@
 #pragma once
 
 #include "CommonArduino.h"
-#include "Config.h"
-#include "Utilities.h"
-#include "PalettesAction.h"
-#include "PalettesGradient.h"
 
-extern const PalettesAction paletteListItems[];
-extern unsigned int         paletteListOrder[];
-extern const unsigned int   paletteSizeItems;
-extern const PalettesAction paletteItemDeflt;
+struct PowerCalculatedBrightness {
+    const unsigned int pixels;
+    const double       inputA;
+    const byte         inputV;
+    const byte         levelMaximum;
+    const byte         levelRequest;
+};

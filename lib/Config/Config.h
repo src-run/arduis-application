@@ -10,32 +10,39 @@
 
 #pragma once
 
+#include "CommonArduino.h"
 #include "CommonFastLED.h"
 
 #define SYS_OB_LED_ENBL   ((bool)true)
-#define SYS_RANDOM_SMIN   10
-#define SYS_RANDOM_SMAX   40
-#define SYS_RANDOM_CALL   120
+#define SYS_RANDOM_SMIN   10U
+#define SYS_RANDOM_SMAX   40U
+#define SYS_RANDOM_CALL   120U
 #define OUT_SERIAL_BAUD   115200UL
 #define OUT_COUNTS_STAT   ((bool)true)
+#define OUT_MINPWR_STAT   ((bool)true)
 
-#define LED_RELAY_PIN     33
+#define LED_RELAY1_PIN    33U
 
-#define LED_GRP_LEN       50
-#define LED_GRP_NUM       6
+#define LED_GRP_LEN       50U
+#define LED_GRP_NUM       6U
 
 #define LED_STR_NUM       LED_GRP_LEN * LED_GRP_NUM
-#define LED_STR_PIN       6
-#define LED_STR_BRT       50
+#define LED_STR_PIN       6U
+#define LED_STR_BRT       30U
 #define LED_STR_CTL       WS2811
 #define LED_STR_ORD       RGB
-#define LED_STR_FPS       120
+#define LED_STR_FPS       90
 
 #define LED_PTN_SEC_CYCLE 120
 #define LED_PAL_SEC_CYCLE 60
-#define LED_STR_MIL_COLOR 15
+#define LED_STR_MIL_COLOR 10
 
-#define LED_PWR_MAX_VOLTS 5
+#define LED_PWR_MTR_PIN   36
+#define LED_PWR_MTR_VOLTS 5
+#define LED_PWR_MTR_MADC  1024
+#define LED_PWR_MTR_MVPA  40
+
+#define LED_PWR_MAX_VOLTS LED_PWR_MTR_VOLTS
 #define LED_PWR_MAX_MAMPS 60000
 
 #define LED_PTN_LOOP_MILI 1024 / LED_STR_FPS
@@ -47,7 +54,7 @@
 
 #define LED_PTN_FADE_ENBL ((bool)true)
 #define LED_PTN_FADE_MILI LED_PTN_LOOP_MILI
-#define LED_PTN_FADE_STEP LED_STR_BRT / 4
+#define LED_PTN_FADE_STEP LED_STR_BRT / 3
 
 #define LED_PTN_RAND_ENTR 10
 #define LED_PTN_RAND_INIT ((bool)false)

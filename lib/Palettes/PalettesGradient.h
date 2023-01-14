@@ -10,7 +10,8 @@
 
 #pragma once
 
-#include "Common.h"
+#include "CommonArduino.h"
+#include "CommonFastLED.h"
 
 DECLARE_GRADIENT_PALETTE(Palette_Mysts_Bk_Wi_c);
 DECLARE_GRADIENT_PALETTE(Palette_BhwS1_Or_Pk_Pu_c);

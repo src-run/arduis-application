@@ -11,12 +11,12 @@
 #pragma once
 
 #include "CommonArduino.h"
+#include "CommonACS712.h"
 #include "Config.h"
-#include "Utilities.h"
-#include "PalettesAction.h"
-#include "PalettesGradient.h"
+#include "Output.h"
+#include "Strand.h"
+#include "PowerCalculatedBrightness.h"
 
-extern const PalettesAction paletteListItems[];
-extern unsigned int         paletteListOrder[];
-extern const unsigned int   paletteSizeItems;
-extern const PalettesAction paletteItemDeflt;
+extern const ACS712 ledPowerMeter;
+
+void checkMinPwr(byte levelRequest = LED_STR_BRT);

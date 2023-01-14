@@ -10,7 +10,9 @@
 
 #pragma once
 
-#include "Common.h"
+#include "CommonArduino.h"
+#include "CommonFastLED.h"
+#include "Config.h"
 
 void                 setupRandom();
 

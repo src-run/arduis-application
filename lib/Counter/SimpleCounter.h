@@ -11,12 +11,15 @@
 #pragma once
 
 #include "CommonArduino.h"
-#include "Config.h"
-#include "Utilities.h"
-#include "PalettesAction.h"
-#include "PalettesGradient.h"
 
-extern const PalettesAction paletteListItems[];
-extern unsigned int         paletteListOrder[];
-extern const unsigned int   paletteSizeItems;
-extern const PalettesAction paletteItemDeflt;
+class SimpleCounter {
+    private:
+        unsigned long _count { 0 };
+
+    public:
+        SimpleCounter() = default;
+
+        unsigned long getCount();
+        void increment(unsigned long amount = 1);
+        void reset();
+};

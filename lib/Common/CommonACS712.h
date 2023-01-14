@@ -9,10 +9,6 @@
  */
 
 #pragma once
+#pragma GCC system_header
 
-#include "CommonArduino.h"
-
-struct EffectDefinitionDetail {
-    const char* name;
-    const byte  skipChance;
-};
+#include <ACS712.h>
