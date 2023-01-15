@@ -102,9 +102,16 @@ unsigned int getLedPaletteItemCallExecSecs()
     return getLedPaletteItemActionTimers()->runningTotalSecs;
 }
 
-unsigned int getLedPaletteListRandIndxSeql()
+unsigned int getLedPaletteListRandIndxSeql(bool internalIndex)
 {
+    static bool paletteListOrderFirst { true };
     static byte paletteListOrderIndex { 0 };
+
+    if (internalIndex) {
+        return 0 == paletteListOrderIndex && paletteListOrderFirst
+            ? 1
+            : getLedPaletteListSize() - paletteListOrderIndex;
+    }
 
     if (paletteListOrderIndex == 0) {
         paletteListOrderIndex = getLedPaletteListSize();
@@ -113,19 +120,35 @@ unsigned int getLedPaletteListRandIndxSeql()
             paletteListOrder[i] = i;
         }
 
-        for (byte j = 0; j < randByte(LED_PAL_RAND_ENTR); j++) {
+        for (byte j = 0; j < randByte(1, max(2, LED_PAL_RAND_ENTR)); j++) {
             for (byte i = 0; i < paletteListOrderIndex; i++) {
-                const byte n = randByte(paletteListOrderIndex - 1);
-                const byte v = paletteListOrder[n];
+                const byte n { randByte(paletteListOrderIndex - 1) };
+                const byte v { paletteListOrder[n] };
+
                 paletteListOrder[n] = paletteListOrder[i];
                 paletteListOrder[i] = v;
             }
         }
+
+        if (paletteListOrderFirst && !LED_PAL_RAND_INIT) {
+            for (byte i = 0; i < paletteListOrderIndex; i++) {
+                if (0 == paletteListOrder[i]) {
+                    paletteListOrder[i] = paletteListOrder[paletteListOrderIndex - 1];
+                    paletteListOrder[paletteListOrderIndex - 1] = 0;
+
+                    break;
+                }
+            }
+
+            --paletteListOrderIndex;
+        }
+
+        paletteListOrderFirst = false;
     }
 
     --paletteListOrderIndex;
 
-    return paletteListOrder[paletteListOrderIndex];
+    return paletteListOrder[constrain(paletteListOrderIndex, 0, getLedPaletteListSize() - 1)];
 }
 
 unsigned int getLedPaletteListRandIndx()
@@ -171,6 +194,13 @@ unsigned int incLedPaletteListStepIndx()
 unsigned int getLedPaletteListStepNumb()
 {
     return getLedPaletteListStepIndx() + 1;
+}
+
+unsigned int getLedPaletteListStepNumbReal()
+{
+    return LED_PAL_RAND_INIT || LED_PAL_RAND_SEQL
+        ? getLedPaletteListRandIndxSeql(true)
+        : getLedPaletteListStepNumb();
 }
 
 bool isLedPaletteStepNamed()

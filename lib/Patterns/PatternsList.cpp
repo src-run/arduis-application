@@ -243,8 +243,8 @@ const PatternsAction patternListItems[] {
     */
 };
 
-unsigned int         patternListOrder[ARRAY_SIZE(patternListItems)];
-const unsigned int   patternSizeItems { ARRAY_SIZE(patternListItems) };
+byte                 patternListOrder[ARRAY_SIZE(patternListItems)];
+const byte           patternSizeItems { ARRAY_SIZE(patternListItems) };
 const PatternsAction patternItemDeflt {
     { "generic-action-empty", 0 },
     { runStepGeneric, runInitGeneric },

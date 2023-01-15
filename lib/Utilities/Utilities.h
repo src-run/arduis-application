@@ -37,10 +37,15 @@ inline bool          isPinModeInputPullup(byte pin)                             
 
 String               strPadsChar(const String value, const int padding = -1, const String useChar = " ", const StringPadDirection useSide = StringPadDirection::lft);
 
-inline String        strPadsCharLft(const String value, int padding = -1, const String useChar = " ") __attribute__((always_inline));
-inline String        strPadsCharRgt(const String value, int padding = -1, const String useChar = " ") __attribute__((always_inline));
-inline String        strPadsCharEql(const String value, int padding = -1, const String useChar = " ") __attribute__((always_inline));
-inline String        strQuote(const String value, const String quote = "\"")                          __attribute__((always_inline));
+inline String        strPadsCharLft(const String value, int padding = -1, const String useChar = " ")        __attribute__((always_inline));
+inline String        strPadsCharRgt(const String value, int padding = -1, const String useChar = " ")        __attribute__((always_inline));
+inline String        strPadsCharEql(const String value, int padding = -1, const String useChar = " ")        __attribute__((always_inline));
+inline String        strPadsNumbLft(const unsigned long value, int padding = -1, const String useChar = "0") __attribute__((always_inline));
+inline String        strPadsNumbRgt(const unsigned long value, int padding = -1, const String useChar = "0") __attribute__((always_inline));
+inline String        strPadsNumbEql(const unsigned long value, int padding = -1, const String useChar = "0") __attribute__((always_inline));
+inline String        strQuote(const String value, const String quote = "\"")                                 __attribute__((always_inline));
+inline String        strConditionalNothing(bool conditional, const String value)                             __attribute__((always_inline));
+inline String        strConditionalTernary(bool conditional, const String valueT, const String valueF)       __attribute__((always_inline));
 
 inline unsigned long miliToSeconds(const unsigned long val)                                           __attribute__((always_inline));
 
@@ -144,9 +149,34 @@ String strPadsCharEql(const String value, int padding, const String useChar)
     return strPadsChar(value, padding, useChar, StringPadDirection::eql);
 }
 
+String strPadsNumbLft(const unsigned long value, int padding, const String useChar)
+{
+    return strPadsChar(String { value }, padding, useChar, StringPadDirection::lft);
+}
+
+String strPadsNumbRgt(const unsigned long value, int padding, const String useChar)
+{
+    return strPadsChar(String { value }, padding, useChar, StringPadDirection::rgt);
+}
+
+String strPadsNumbEql(const unsigned long value, int padding, const String useChar)
+{
+    return strPadsChar(String { value }, padding, useChar, StringPadDirection::eql);
+}
+
 String strQuote(const String value, const String quote)
 {
     return String(quote) + value + String(quote);
+}
+
+String strConditionalNothing(bool conditional, const String value)
+{
+    return conditional ? value : "";
+}
+
+String strConditionalTernary(bool conditional, const String valueT, const String valueF)
+{
+    return conditional ? valueT : valueF;
 }
 
 unsigned long miliToSeconds(const unsigned long val)

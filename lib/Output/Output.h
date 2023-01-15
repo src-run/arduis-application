@@ -18,18 +18,19 @@
 #include "Utilities.h"
 #include "PowerCalculatedBrightness.h"
 
-void        setupSerial(const unsigned long baud = OUT_SERIAL_BAUD);
+void   setupSerial(const unsigned long baud = OUT_SERIAL_BAUD);
 
-void        outStepInfo(const bool skipped = false, const byte chances = 0);
-String      getStepInfoMain();
-String      getStepInfoMore();
-String      getStepInfoMorePalette();
-String      getStepInfoMoreCounter();
-String      getStepInfoSkip(const bool skipped, const byte chances);
-void        outPwrLimitInfo(const PowerCalculatedBrightness& maximumBrightness);
+void   outStepInfo(const bool skipped = false, const byte chances = 0);
+String getStepInfoMain();
+String getStepInfoMore();
+String getStepInfoMorePalette();
+String getStepInfoMoreCounter();
+String getStepInfoSkip(const bool skipped, const byte chances);
+void   outPwrLimitInfo(const PowerCalculatedBrightness& maximumBrightness);
 
-const char* getItemsPlacementDesc(bool random);
+String getItemsPlacementDesc(bool random);
+String getItemsGlintModeDesc(bool glints);
 
-byte        getListNamesMaxLength(const byte add, unsigned int (*getListSize)(const int), const char* (*getItemName)(const unsigned int));
-byte        getLedPatternListNamesMaxLength(const byte add = 2);
-byte        getLedPaletteListNamesMaxLength(const byte add = 2);
+byte   getListNamesMaxLength(const byte add, unsigned int (*getListSize)(const int), const char* (*getItemName)(const unsigned int));
+byte   getLedPatternListNamesMaxLength(const byte add = 2);
+byte   getLedPaletteListNamesMaxLength(const byte add = 2);

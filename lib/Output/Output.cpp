@@ -18,7 +18,7 @@ void setupSerial(const unsigned long baud)
 
 void outStepInfo(const bool skipped, const byte chances)
 {
-    Serial.print(F("-> "));
+    Serial.print(F("--> "));
     Serial.print(getStepInfoMain());
     Serial.print(getStepInfoMore());
     Serial.print(getStepInfoSkip(skipped, chances));
@@ -27,20 +27,31 @@ void outStepInfo(const bool skipped, const byte chances)
 
 String getStepInfoMain()
 {
-    const String       outsFormat { F("Pattern %02u of %02u (mode %s/%s/%s/%s): %s (%04us / %03ums)") };
-    const unsigned int outsLength { outsFormat.length() + getLedPatternListNamesMaxLength() };
-    char               outsBuffer[outsLength];
+    const String       outsFormat { F("Pattern %02u of %02u (mode %s/%s/%s/%s): [%02u] => %s (%04us / %03ums)") };
+    char               outsBuffer [ outsFormat.length() + getLedPatternListNamesMaxLength()
+        - 4 + 2 // %02u
+        - 4 + 2 // %02u
+        - 2 + 1 // %s
+        - 2 + 1 // %s
+        - 2 + 1 // %s
+        - 2 + 1 // %s
+        - 4 + 2 // %02u
+        - 2     // %s
+        - 4 + 4 // %04u
+        - 4 + 3 // %03u
+        + 1     // terminator
+    ];
 
-    snprintf(
+    sprintf(
         outsBuffer,
-        outsLength,
         outsFormat.c_str(),
-        getLedPatternListStepNumb(),
+        getLedPatternListStepNumbReal(),
         getLedPatternListSize(),
-        getItemsPlacementDesc(LED_PTN_RAND_INIT),
-        getItemsPlacementDesc(LED_PTN_RAND_NEXT),
-        getItemsPlacementDesc(LED_PTN_RAND_NEXT && LED_PTN_RAND_SEQL == false),
-        getEffectAddonGlintsState() ? "g" : "n",
+        getItemsPlacementDesc(LED_PTN_RAND_INIT).c_str(),
+        getItemsPlacementDesc(LED_PTN_RAND_NEXT).c_str(),
+        getItemsPlacementDesc(LED_PTN_RAND_NEXT && LED_PTN_RAND_SEQL == false).c_str(),
+        getItemsGlintModeDesc(getEffectAddonGlintsState()).c_str(),
+        getLedPatternListStepNumb(),
         strPadsCharRgt(
             strQuote(getLedPatternItemName()),
             getLedPatternListNamesMaxLength()
@@ -69,19 +80,28 @@ String getStepInfoMore()
 
 String getStepInfoMorePalette()
 {
-    const String       moreFormat { F("| Palette %03u of %03u (mode %s/%s/%s): %s (%03us)") };
-    const unsigned int moreLength { moreFormat.length() + getLedPaletteListNamesMaxLength() };
-    char               moreBuffer[moreLength];
+    const String moreFormat { F("| Palette %02u of %02u (mode %s/%s/%s): [%02u] => %s (%03us)") };
+    char         moreBuffer [ moreFormat.length() + getLedPaletteListNamesMaxLength()
+        - 4 + 2 // %02u
+        - 4 + 2 // %02u
+        - 2 + 1 // %s
+        - 2 + 1 // %s
+        - 2 + 1 // %s
+        - 4 + 2 // %02u
+        - 2 + 2 // %s + "quotes"
+        - 4 + 3 // %03u
+        + 1     // terminator
+    ];
 
-    snprintf(
+    sprintf(
         moreBuffer,
-        moreLength,
         moreFormat.c_str(),
-        getLedPaletteListStepNumb(),
+        getLedPaletteListStepNumbReal(),
         getLedPaletteListSize(),
-        getItemsPlacementDesc(LED_PAL_RAND_INIT),
-        getItemsPlacementDesc(LED_PAL_RAND_NEXT),
-        getItemsPlacementDesc(LED_PAL_RAND_NEXT && LED_PAL_RAND_SEQL == false),
+        getItemsPlacementDesc(LED_PAL_RAND_INIT).c_str(),
+        getItemsPlacementDesc(LED_PAL_RAND_NEXT).c_str(),
+        getItemsPlacementDesc(LED_PAL_RAND_NEXT && LED_PAL_RAND_SEQL == false).c_str(),
+        getLedPaletteListStepNumb(),
         strPadsCharRgt(
             strQuote(getLedPaletteItemName()),
             getLedPaletteListNamesMaxLength()
@@ -94,13 +114,11 @@ String getStepInfoMorePalette()
 
 String getStepInfoMoreCounter()
 {
-    const String       moreFormat { F("| Prior counter: %05lu") };
-    const unsigned int moreLength { moreFormat.length() + 1 };
-    char               moreBuffer[moreLength];
+    const String moreFormat { F("| Prior counter: %05lu") };
+    char         moreBuffer [ moreFormat.length() - 5 + 5 + 1 ];
 
-    snprintf(
+    sprintf(
         moreBuffer,
-        moreLength,
         moreFormat.c_str(),
         CycleCount.getCount()
     );
@@ -112,13 +130,11 @@ String getStepInfoMoreCounter()
 
 String getStepInfoSkip(const bool skipped, const byte chances)
 {
-    const String       skipFormat { F("| Skipped (%03u%% >= %03u%%)") };
-    const unsigned int skipLength { skipFormat.length() + 1 };
-    char               skipBuffer[skipLength];
+    const String skipFormat { F("| Skipped (%03u%% >= %03u%%)") };
+    char         skipBuffer [ skipFormat.length() - 4 + 3 - 2 + 1 - 4 + 3 - 2 + 1 + 1 ];
 
-    snprintf(
+    sprintf(
         skipBuffer,
-        skipLength,
         skipFormat.c_str(),
         cstrPerc(getLedPatternItemActionDetail()->skipChance),
         cstrPerc(chances)
@@ -127,12 +143,14 @@ String getStepInfoSkip(const bool skipped, const byte chances)
     return skipped ? strPadsCharLft(String(skipBuffer), -1) : "";
 }
 
-const char* getItemsPlacementDesc(bool random)
+String getItemsPlacementDesc(bool random)
 {
-    static const char* typeRandC { "r" };
-    static const char* typeOrdrC { "s" };
+    return random ? F("r") : F("s");
+}
 
-    return random ? typeRandC : typeOrdrC;
+String getItemsGlintModeDesc(bool glints)
+{
+    return glints ? F("g") : F("n");
 }
 
 byte getListNamesMaxLength(const byte add, unsigned int (*getListSize)(const int), const char* (*getItemName)(const unsigned int))
@@ -168,9 +186,7 @@ void outPwrLimitInfo(const PowerCalculatedBrightness& maximumBrightness)
 {
     const String       ampsFormat { F("%.02f") };
     const unsigned int ampsLength { String(LED_PWR_MAX_MAMPS / 1000U).length() + 3 };
-    const String       outsFormat { F("## FastLED driving %03u pixels available brightness percentage of target with %01uV @ %sA: %3u%% / %3u%% (%03u / %03u / 255)") };
-    char               ampsBuffer[ampsLength + 1];
-    char               outsBuffer[outsFormat.length() + ampsLength];
+    char               ampsBuffer [ ampsLength + 1 ];
 
     sprintf(
         ampsBuffer,
@@ -178,12 +194,15 @@ void outPwrLimitInfo(const PowerCalculatedBrightness& maximumBrightness)
         maximumBrightness.inputA
     );
 
+    const String outsFormat { F("### FastLED driving %03u pixels available brightness percentage of target with %01uV @ %sA: %3u%% / %3u%% (%03u / %03u / 255)") };
+    char         outsBuffer[outsFormat.length() + ampsLength];
+
     sprintf(
         outsBuffer,
         outsFormat.c_str(),
         maximumBrightness.pixels,
         maximumBrightness.inputV,
-        strPadsCharLft(ampsBuffer, ampsLength, "0").c_str(),
+        strPadsCharLft(ampsBuffer, ampsLength, F("0")).c_str(),
         maximumBrightness.levelMaximum * 100 / maximumBrightness.levelRequest,
         byteToPerc(maximumBrightness.levelMaximum),
         maximumBrightness.levelMaximum,

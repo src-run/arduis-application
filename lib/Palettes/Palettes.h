@@ -24,7 +24,7 @@
 #include "EffectDefinitionGlints.h"
 #include "EffectDefinitionTimers.h"
 
-extern const unsigned int paletteSizeItems;
+extern const byte paletteSizeItems;
 
 inline unsigned int   getLedPaletteListSize(const int adds = 0) __attribute__((always_inline));
 const PalettesAction* getLedPaletteDeft();
@@ -49,12 +49,13 @@ const CRGBPalette16 getLedPaletteItemComp();
 unsigned int        getLedPaletteItemCallExecSecs();
 
 unsigned int getLedPaletteListRandIndx();
-unsigned int getLedPaletteListRandIndxSeql();
+unsigned int getLedPaletteListRandIndxSeql(bool internalIndex = false);
 unsigned int getLedPaletteListStepInit();
 unsigned int getLedPaletteListStepNext(unsigned int idx);
 unsigned int getLedPaletteListStepIndx(bool indexIncr = false);
 unsigned int incLedPaletteListStepIndx();
 unsigned int getLedPaletteListStepNumb();
+unsigned int getLedPaletteListStepNumbReal();
 
 bool isLedPaletteStepNamed();
 bool isLedPaletteStepStarted();

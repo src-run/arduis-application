@@ -191,7 +191,6 @@ const PalettesAction paletteListItems[] {
         { LED_PAL_SEC_CYCLE, LED_STR_MIL_COLOR },
         { LED_PTN_TWIK_MINL, LED_PTN_TWIK_MAXL, 50, 20 }
     },
-    /*
     {
         { "CbSeq_LtBl_DkBl", 0 },
         { Palette_CbSeq_LtBl_DkBl_c },
@@ -396,11 +395,10 @@ const PalettesAction paletteListItems[] {
         { LED_PAL_SEC_CYCLE, LED_STR_MIL_COLOR },
         { LED_PTN_TWIK_MINL, LED_PTN_TWIK_MAXL, 50, 20 }
     },
-    */
 };
 
-unsigned int         paletteListOrder[ARRAY_SIZE(paletteListItems)];
-const unsigned int   paletteSizeItems { ARRAY_SIZE(paletteListItems) };
+byte                 paletteListOrder[ARRAY_SIZE(paletteListItems)];
+const byte           paletteSizeItems { ARRAY_SIZE(paletteListItems) };
 const PalettesAction paletteItemDeflt {
     { "Mysts_Bk_Wi", 0 },
     { Palette_Mysts_Bk_Wi_c },

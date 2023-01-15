@@ -17,6 +17,6 @@
 #include "PalettesGradient.h"
 
 extern const PalettesAction paletteListItems[];
-extern unsigned int         paletteListOrder[];
-extern const unsigned int   paletteSizeItems;
+extern byte                 paletteListOrder[];
+extern const byte           paletteSizeItems;
 extern const PalettesAction paletteItemDeflt;

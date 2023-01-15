@@ -25,9 +25,9 @@
 #include "EffectDefinitionTimers.h"
 #include "EffectDefinitionGlints.h"
 
-extern bool               ledPatternStepInit;
-extern bool               ledPatternStepRuns;
-extern const unsigned int patternSizeItems;
+extern bool       ledPatternStepInit;
+extern bool       ledPatternStepRuns;
+extern const byte patternSizeItems;
 
 inline unsigned int           getLedPatternListSize(const int adds = 0) __attribute__((always_inline));
 const PatternsAction*         getLedPatternDeft();
@@ -132,12 +132,13 @@ void runStepRainbowFadingFast();
 void runStepRainbowWholed();
 
 unsigned int getLedPatternListRandIndx();
-unsigned int getLedPatternListRandIndxSeql();
+unsigned int getLedPatternListRandIndxSeql(bool internalIndex = false);
 unsigned int getLedPatternListStepInit();
 unsigned int getLedPatternListStepNext(const unsigned int idx);
 unsigned int getLedPatternListStepIndx(const bool indexIncr = false);
 unsigned int incLedPatternListStepIndx();
 unsigned int getLedPatternListStepNumb();
+unsigned int getLedPatternListStepNumbReal();
 
 byte getByteNumStep(byte inc = 0);
 byte incByteNumStep(byte add = 1);

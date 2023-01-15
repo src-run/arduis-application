@@ -12,10 +12,11 @@
 
 #include "CommonArduino.h"
 #include "Config.h"
+#include "Utilities.h"
 #include "Palettes.h"
 #include "PatternsAction.h"
 
 extern const PatternsAction patternListItems[];
-extern unsigned int         patternListOrder[];
-extern const unsigned int   patternSizeItems;
+extern byte                 patternListOrder[];
+extern const byte           patternSizeItems;
 extern const PatternsAction patternItemDeflt;

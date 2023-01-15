@@ -116,39 +116,6 @@ byte getLedPatternItemRandHuesMili()
     return getLedPatternItemActionTimers()->iterateMilliSecs;
 }
 
-unsigned int getLedPatternListRandIndx()
-{
-    return LED_PTN_RAND_SEQL
-        ? getLedPatternListRandIndxSeql()
-        : getRandomIndx(getLedPatternListSize());
-}
-
-unsigned int getLedPatternListRandIndxSeql()
-{
-    static byte patternListOrderIndex { 0 };
-
-    if (patternListOrderIndex == 0) {
-        patternListOrderIndex = getLedPatternListSize();
-
-        for (byte i = 0; i < patternListOrderIndex; i++) {
-            patternListOrder[i] = i;
-        }
-
-        for (byte j = 0; j < randUInt(LED_PTN_RAND_ENTR); j++) {
-            for (byte i = 0; i < patternListOrderIndex; i++) {
-                const byte n = randUInt(patternListOrderIndex - 1);
-                const byte v = patternListOrder[n];
-                patternListOrder[n] = patternListOrder[i];
-                patternListOrder[i] = v;
-            }
-        }
-    }
-
-    --patternListOrderIndex;
-
-    return patternListOrder[patternListOrderIndex];
-}
-
 unsigned int getLedPatternListStepInit()
 {
     return LED_PTN_RAND_INIT
@@ -161,6 +128,62 @@ unsigned int getLedPatternListStepNext(const unsigned int idx)
     return LED_PTN_RAND_NEXT
         ? getLedPatternListRandIndx()
         : ((idx + 1) % getLedPatternListSize());
+}
+
+unsigned int getLedPatternListRandIndx()
+{
+    return LED_PTN_RAND_SEQL
+        ? getLedPatternListRandIndxSeql()
+        : getRandomIndx(getLedPatternListSize());
+}
+
+unsigned int getLedPatternListRandIndxSeql(bool internalIndex)
+{
+    static bool patternListOrderFirst { true };
+    static byte patternListOrderIndex { 0 };
+
+    if (internalIndex) {
+        return 0 == patternListOrderIndex && patternListOrderFirst
+            ? 1
+            : getLedPatternListSize() - patternListOrderIndex;
+    }
+
+    if (patternListOrderIndex == 0) {
+        patternListOrderIndex = getLedPatternListSize();
+
+        for (byte i = 0; i < patternListOrderIndex; i++) {
+            patternListOrder[i] = i;
+        }
+
+        for (byte j = 0; j < randByte(1, max(2, LED_PTN_RAND_ENTR)); j++) {
+            for (byte i = 0; i < patternListOrderIndex; i++) {
+                const byte n { randByte(patternListOrderIndex - 1) };
+                const byte v { patternListOrder[n] };
+
+                patternListOrder[n] = patternListOrder[i];
+                patternListOrder[i] = v;
+            }
+        }
+
+        if (patternListOrderFirst && !LED_PTN_RAND_INIT) {
+            for (byte i = 0; i < patternListOrderIndex; i++) {
+                if (0 == patternListOrder[i]) {
+                    patternListOrder[i] = patternListOrder[patternListOrderIndex - 1];
+                    patternListOrder[patternListOrderIndex - 1] = 0;
+
+                    break;
+                }
+            }
+
+            --patternListOrderIndex;
+        }
+
+        patternListOrderFirst = false;
+    }
+
+    --patternListOrderIndex;
+
+    return patternListOrder[constrain(patternListOrderIndex, 0, getLedPatternListSize() - 1)];
 }
 
 unsigned int getLedPatternListStepIndx(const bool indexIncr)
@@ -185,6 +208,13 @@ unsigned int incLedPatternListStepIndx()
 unsigned int getLedPatternListStepNumb()
 {
     return getLedPatternListStepIndx() + 1;
+}
+
+unsigned int getLedPatternListStepNumbReal()
+{
+    return LED_PTN_RAND_INIT || LED_PTN_RAND_SEQL
+        ? getLedPatternListRandIndxSeql(true)
+        : getLedPatternListStepNumb();
 }
 
 void runEffectAddonGlints()
