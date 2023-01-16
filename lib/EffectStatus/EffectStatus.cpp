@@ -8,14 +8,6 @@
  * file that was distributed with this source code.
  */
 
-#pragma once
+#include "EffectStatus.h"
 
-#include "CommonArduino.h"
-
-class EffectDefinitionDetail {
-    public:
-        const char* name;
-        const byte  skipChance;
-
-        EffectDefinitionDetail(const char* n, const byte s) : name { n }, skipChance { s } {}
-};
+EffectStatusManager EffectStatus { };

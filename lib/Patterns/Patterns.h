@@ -24,12 +24,14 @@
 #include "EffectDefinitionDetail.h"
 #include "EffectDefinitionTimers.h"
 #include "EffectDefinitionGlints.h"
+#include "EffectFactor.h"
+#include "EffectStatus.h"
 
-extern bool       ledPatternStepInit;
-extern bool       ledPatternStepRuns;
 extern const byte patternSizeItems;
 
 inline unsigned int           getLedPatternListSize(const int adds = 0) __attribute__((always_inline));
+unsigned int                  getLedPatternListSize(const int adds) { return patternSizeItems + adds; }
+
 const PatternsAction*         getLedPatternDeft();
 const PatternsAction*         getLedPatternItem(const unsigned int idx);
 const PatternsAction*         getLedPatternItem();
@@ -52,8 +54,6 @@ unsigned int getLedPatternItemCallExecSecs();
 byte         getLedPatternItemRandHuesMili();
 
 void runEffectAddonGlints();
-void setEffectAddonGlintsState(const byte chance);
-bool getEffectAddonGlintsState();
 
 void incPatternsStep();
 void runPatternsStep(const bool wait = true);
@@ -142,8 +142,3 @@ unsigned int getLedPatternListStepNumbReal();
 
 byte getByteNumStep(byte inc = 0);
 byte incByteNumStep(byte add = 1);
-
-unsigned int getLedPatternListSize(const int adds)
-{
-    return patternSizeItems + adds;
-}

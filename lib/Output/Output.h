@@ -17,6 +17,9 @@
 #include "Patterns.h"
 #include "Utilities.h"
 #include "PowerCalculatedBrightness.h"
+#include "EffectFactor.h"
+#include "EffectGlints.h"
+#include "EffectStatus.h"
 
 void   setupSerial(const unsigned long baud = OUT_SERIAL_BAUD);
 
@@ -28,9 +31,33 @@ String getStepInfoMoreCounter();
 String getStepInfoSkip(const bool skipped, const byte chances);
 void   outPwrLimitInfo(const PowerCalculatedBrightness& maximumBrightness);
 
-String getItemsPlacementDesc(bool random);
-String getItemsGlintModeDesc(bool glints);
-
 byte   getListNamesMaxLength(const byte add, unsigned int (*getListSize)(const int), const char* (*getItemName)(const unsigned int));
 byte   getLedPatternListNamesMaxLength(const byte add = 2);
 byte   getLedPaletteListNamesMaxLength(const byte add = 2);
+
+inline String getItemsAvailModeDesc(bool status, String valueT, String valueF, bool shortDesc = true) __attribute__((always_inline));
+inline String getItemsStateBoolDesc(bool status, bool shortDesc = true) __attribute__((always_inline));
+inline String getItemsPlacementDesc(bool random, bool shortDesc = true) __attribute__((always_inline));
+inline String getItemsGlintModeDesc(bool glints, bool shortDesc = true) __attribute__((always_inline));
+
+String getItemsAvailModeDesc(bool status, String valueT, String valueF, bool shortDesc)
+{
+    return status
+        ? (shortDesc ? valueT.substring(0, 1) : valueT)
+        : (shortDesc ? valueF.substring(0, 1) : valueF);
+}
+
+String getItemsStateBoolDesc(bool status, bool shortDesc)
+{
+    return getItemsAvailModeDesc(status, F("true"), F("false"), shortDesc);
+}
+
+String getItemsPlacementDesc(bool random, bool shortDesc)
+{
+    return getItemsAvailModeDesc(random, F("rand"), F("seql"), shortDesc);
+}
+
+String getItemsGlintModeDesc(bool glints, bool shortDesc)
+{
+    return getItemsAvailModeDesc(glints, F("glints"), F("normal"), shortDesc);
+}

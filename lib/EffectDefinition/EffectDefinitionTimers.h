@@ -12,7 +12,10 @@
 
 #include "CommonArduino.h"
 
-struct EffectDefinitionTimers {
-    const unsigned int runningTotalSecs;
-    const byte         iterateMilliSecs;
+class EffectDefinitionTimers {
+    public:
+        const unsigned int runningTotalSecs;
+        const byte         iterateMilliSecs;
+
+        EffectDefinitionTimers(const unsigned int r, const byte i) : runningTotalSecs { r }, iterateMilliSecs { i } {}
 };

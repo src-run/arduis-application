@@ -14,9 +14,9 @@
 #include "CommonFastLED.h"
 
 #define SYS_OB_LED_ENBL   ((bool)true)
-#define SYS_RANDOM_SMIN   10U
-#define SYS_RANDOM_SMAX   40U
-#define SYS_RANDOM_CALL   120U
+#define SYS_RANDOM_SMIN   2U
+#define SYS_RANDOM_SMAX   100U
+#define SYS_RANDOM_CALL   200U
 #define OUT_SERIAL_BAUD   115200UL
 #define OUT_COUNTS_STAT   ((bool)true)
 #define OUT_MINPWR_STAT   ((bool)true)
@@ -28,7 +28,7 @@
 
 #define LED_STR_NUM       LED_GRP_LEN * LED_GRP_NUM
 #define LED_STR_PIN       6U
-#define LED_STR_BRT       30U
+#define LED_STR_BRT       60U
 #define LED_STR_CTL       WS2811
 #define LED_STR_ORD       RGB
 #define LED_STR_FPS       90
@@ -48,7 +48,7 @@
 #define LED_PTN_LOOP_MILI 1024 / LED_STR_FPS
 #define LED_PTN_WAIT_NEXT LED_PTN_LOOP_MILI
 
-#define LED_PTN_SKIP_ENBL ((bool)true)
+#define LED_PTN_SKIP_ENBL ((bool)false)
 
 #define LED_PTN_GLNT_ENBL ((bool)true)
 
@@ -62,9 +62,12 @@
 #define LED_PTN_RAND_SEQL ((bool)true)
 
 #define LED_PAL_RAND_ENTR 10
-#define LED_PAL_RAND_INIT ((bool)true)
+#define LED_PAL_RAND_INIT ((bool)false)
 #define LED_PAL_RAND_NEXT ((bool)true)
 #define LED_PAL_RAND_SEQL ((bool)true)
+
+#define LED_PAL_FACT_BASE 12
+#define LED_PAL_FACT_MINS 1
 
 #define LED_PTN_TWIK_RAND 20
 #define LED_PTN_TWIK_MAXL 111

@@ -211,8 +211,7 @@ bool isLedPaletteStepNamed()
 
 bool isLedPaletteStepStarted()
 {
-    return (ledPatternStepInit || ledPatternStepRuns)
-        && isLedPaletteStepNamed();
+    return EffectStatus.isRunning() && isLedPaletteStepNamed();
 }
 
 bool isLedPaletteStepRunning()
@@ -226,7 +225,8 @@ void incPalettesStep()
     incLedPaletteListStepIndx();
 
     if (isLedPaletteStepStarted()) {
-        setEffectAddonGlintsState(getLedPaletteItemActionGlints()->chances);
+        EffectFactor.refresh();
+        EffectGlints.setChance(getLedPaletteItemActionGlints()->chances);
     }
 
     if (isLedPaletteStepRunning()) {

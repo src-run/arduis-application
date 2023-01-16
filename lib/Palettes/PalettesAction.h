@@ -16,9 +16,12 @@
 #include "EffectDefinitionGlints.h"
 #include "PalettesActionRunner.h"
 
-struct PalettesAction {
-    const EffectDefinitionDetail detail;
-    const ActionRunnerPalette    runner;
-    const EffectDefinitionTimers timers;
-    const EffectDefinitionGlints glints;
+class PalettesAction {
+    public:
+        const EffectDefinitionDetail detail;
+        const ActionRunnerPalette    runner;
+        const EffectDefinitionTimers timers;
+        const EffectDefinitionGlints glints;
+
+        PalettesAction(EffectDefinitionDetail d, ActionRunnerPalette r, EffectDefinitionTimers t, EffectDefinitionGlints g) : detail { d }, runner { r }, timers { t }, glints { g } {}
 };

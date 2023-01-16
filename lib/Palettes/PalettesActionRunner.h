@@ -13,6 +13,9 @@
 #include "CommonArduino.h"
 #include "CommonFastLED.h"
 
-struct ActionRunnerPalette {
-    const TProgmemRGBGradientPalette_byte* gradient;
+class ActionRunnerPalette {
+    public:
+        const TProgmemRGBGradientPalette_byte* gradient;
+
+        ActionRunnerPalette(const TProgmemRGBGradientPalette_byte* g) : gradient { g } {}
 };

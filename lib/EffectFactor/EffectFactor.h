@@ -11,11 +11,6 @@
 #pragma once
 
 #include "CommonArduino.h"
+#include "EffectFactorGenerator.h"
 
-struct StrandLevelLimitAtPower {
-    const unsigned int pixels;
-    const double       inputA;
-    const byte         inputV;
-    const byte         levelMaximum;
-    const byte         levelRequest;
-};
+extern EffectFactorGenerator EffectFactor;

@@ -16,9 +16,12 @@
 #include "EffectDefinitionGlints.h"
 #include "PatternsActionRunner.h"
 
-struct PatternsAction {
-    const EffectDefinitionDetail detail;
-    const ActionRunnerPattern    runner;
-    const EffectDefinitionTimers timers;
-    const EffectDefinitionGlints glints;
+class PatternsAction {
+    public:
+        const EffectDefinitionDetail detail;
+        const ActionRunnerPattern    runner;
+        const EffectDefinitionTimers timers;
+        const EffectDefinitionGlints glints;
+
+        PatternsAction(EffectDefinitionDetail d, ActionRunnerPattern r, EffectDefinitionTimers t, EffectDefinitionGlints g) : detail { d }, runner { r }, timers { t }, glints { g } {}
 };

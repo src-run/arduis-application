@@ -12,7 +12,10 @@
 
 #include "CommonArduino.h"
 
-struct ActionRunnerPattern {
-    void (*main)();
-    void (*init)();
+class ActionRunnerPattern {
+    public:
+        void (*main)();
+        void (*init)();
+
+        ActionRunnerPattern(void (*m)(), void (*i)()) : main { m }, init { i } {}
 };

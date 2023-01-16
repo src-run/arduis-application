@@ -12,9 +12,12 @@
 
 #include "CommonArduino.h"
 
-struct EffectDefinitionGlints {
-    const byte minimum;
-    const byte maximum;
-    const byte chances;
-    const byte amounts;
+class EffectDefinitionGlints {
+    public:
+        const byte minimum;
+        const byte maximum;
+        const byte chances;
+        const byte amounts;
+
+        EffectDefinitionGlints(const byte m, const byte l, const byte c, const byte a) : minimum { m }, maximum { l }, chances { c }, amounts { a } {}
 };

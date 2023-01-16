@@ -50,7 +50,7 @@ String getStepInfoMain()
         getItemsPlacementDesc(LED_PTN_RAND_INIT).c_str(),
         getItemsPlacementDesc(LED_PTN_RAND_NEXT).c_str(),
         getItemsPlacementDesc(LED_PTN_RAND_NEXT && LED_PTN_RAND_SEQL == false).c_str(),
-        getItemsGlintModeDesc(getEffectAddonGlintsState()).c_str(),
+        getItemsGlintModeDesc(EffectGlints.isEnabled()).c_str(),
         getLedPatternListStepNumb(),
         strPadsCharRgt(
             strQuote(getLedPatternItemName()),
@@ -80,7 +80,7 @@ String getStepInfoMore()
 
 String getStepInfoMorePalette()
 {
-    const String moreFormat { F("| Palette %02u of %02u (mode %s/%s/%s): [%02u] => %s (%03us)") };
+    const String moreFormat { F("| Palette %02u of %02u (mode %s/%s/%s): [%02u] => %s (%03us / %01ux)") };
     char         moreBuffer [ moreFormat.length() + getLedPaletteListNamesMaxLength()
         - 4 + 2 // %02u
         - 4 + 2 // %02u
@@ -90,6 +90,7 @@ String getStepInfoMorePalette()
         - 4 + 2 // %02u
         - 2 + 2 // %s + "quotes"
         - 4 + 3 // %03u
+        - 4 + 1 // %01u
         + 1     // terminator
     ];
 
@@ -106,7 +107,8 @@ String getStepInfoMorePalette()
             strQuote(getLedPaletteItemName()),
             getLedPaletteListNamesMaxLength()
         ).c_str(),
-        getLedPaletteItemCallExecSecs()
+        getLedPaletteItemCallExecSecs(),
+        EffectFactor.resolve()
     );
 
     return String(moreBuffer);
@@ -141,16 +143,6 @@ String getStepInfoSkip(const bool skipped, const byte chances)
     );
 
     return skipped ? strPadsCharLft(String(skipBuffer), -1) : "";
-}
-
-String getItemsPlacementDesc(bool random)
-{
-    return random ? F("r") : F("s");
-}
-
-String getItemsGlintModeDesc(bool glints)
-{
-    return glints ? F("g") : F("n");
 }
 
 byte getListNamesMaxLength(const byte add, unsigned int (*getListSize)(const int), const char* (*getItemName)(const unsigned int))

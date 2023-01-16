@@ -10,10 +10,7 @@
 
 #include "Patterns.h"
 
-bool ledPatternGlintEnabled { false };
 int  ledPatternFadeLeveling { 0 };
-bool ledPatternStepInit     { false };
-bool ledPatternStepRuns     { false };
 
 const PatternsAction* getLedPatternDeft()
 {
@@ -219,21 +216,9 @@ unsigned int getLedPatternListStepNumbReal()
 
 void runEffectAddonGlints()
 {
-    if (getEffectAddonGlintsState()) {
+    if (EffectGlints.isEnabled()) {
         runStepTwinkle();
     }
-}
-
-void setEffectAddonGlintsState(const byte chances)
-{
-    ledPatternGlintEnabled = 0 != chances && (
-        (100 == chances) || (randByte(100) <= chances)
-    );
-}
-
-bool getEffectAddonGlintsState()
-{
-    return LED_PTN_GLNT_ENBL && ledPatternGlintEnabled;
 }
 
 void incPatternsStep()
@@ -250,17 +235,16 @@ void incPatternsStep()
         outStepInfo(true, skip);
     }
 
-    setEffectAddonGlintsState(
+    getLedPatternItemInit()();
+
+    EffectFactor.refresh();
+    EffectStatus.setInitIsRunning();
+    EffectGlints.setChance(
         (isLedPaletteStepNamed()
             ? getLedPaletteItemActionGlints()
             : getLedPatternItemActionGlints()
         )->chances
     );
-
-    getLedPatternItemInit()();
-
-    ledPatternStepInit = true;
-    ledPatternStepRuns = false;
 
     FastLED.show();
     FastLED.delay(LED_PTN_LOOP_MILI);
@@ -275,8 +259,7 @@ void runPatternsStep(const bool wait)
     getLedPatternItemCall()();
     runEffectAddonGlints();
 
-    ledPatternStepInit = false;
-    ledPatternStepRuns = true;
+    EffectStatus.setMainIsRunning();
 
     FastLED.show();
     FastLED.delay(wait ? LED_PTN_LOOP_MILI : 0);
@@ -577,7 +560,7 @@ void runStepPaletteRounds(const CRGBPalette16& palette, const int multiplier, co
     for (unsigned int i = 0; i < LED_STR_NUM; i++) {
         ledStrandsActiveColors[i] = ColorFromPalette(
             palette,
-            ((unsigned int)getByteNumStep()) + ((unsigned int)(i * multiplier)),
+            (unsigned int)getByteNumStep() + (i * multiplier),
             255,
             blend ? LINEARBLEND : NOBLEND
         );
@@ -616,7 +599,7 @@ void runStepPaletteRoundsHeater()
 
 void runStepPaletteCircle()
 {
-    runStepPaletteRounds(getLedPaletteItemComp());
+    runStepPaletteRounds(getLedPaletteItemComp(), EffectFactor.resolve());
 }
 
 void runStepJuggler(const byte fade)

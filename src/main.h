@@ -23,6 +23,7 @@
 #include "Counter.h"
 #include "Palettes.h"
 #include "Patterns.h"
+#include "EffectFactorGenerator.h"
 
 extern SimpleCounter CycleCount;
 

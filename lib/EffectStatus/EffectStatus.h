@@ -11,11 +11,6 @@
 #pragma once
 
 #include "CommonArduino.h"
+#include "EffectStatusManager.h"
 
-class EffectDefinitionDetail {
-    public:
-        const char* name;
-        const byte  skipChance;
-
-        EffectDefinitionDetail(const char* n, const byte s) : name { n }, skipChance { s } {}
-};
+extern EffectStatusManager EffectStatus;

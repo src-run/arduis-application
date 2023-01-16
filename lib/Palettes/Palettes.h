@@ -23,6 +23,9 @@
 #include "EffectDefinitionDetail.h"
 #include "EffectDefinitionGlints.h"
 #include "EffectDefinitionTimers.h"
+#include "EffectFactor.h"
+#include "EffectGlints.h"
+#include "EffectStatus.h"
 
 extern const byte paletteSizeItems;
 

@@ -36,6 +36,6 @@ void addRandomEntrEveryNCalls(byte n)
     static unsigned int i { 0 };
 
     if (0 == (i++ % n)) {
-        setRandomEntr(0, 4, false);
+        setRandomEntr(max(1, SYS_RANDOM_SMIN / 10), SYS_RANDOM_SMAX / 10, false);
     }
 }

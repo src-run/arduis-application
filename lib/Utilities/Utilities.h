@@ -201,7 +201,7 @@ inline unsigned int cstrUInt(const long i)
 
 unsigned int byteToPerc(const unsigned long i)
 {
-    return cstrByte(i * 100 / 255);
+    return cstrPerc(i * 100 / 255);
 }
 
 bool lt(int x, unsigned int y)
