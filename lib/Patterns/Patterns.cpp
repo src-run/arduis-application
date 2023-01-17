@@ -10,7 +10,10 @@
 
 #include "Patterns.h"
 
-int  ledPatternFadeLeveling { 0 };
+unsigned int getLedPatternListSize()
+{
+    return patternSizeItems;
+}
 
 const PatternsAction* getLedPatternDeft()
 {
@@ -108,7 +111,7 @@ unsigned int getLedPatternItemCallExecSecs()
     return getLedPatternItemActionTimers()->runningTotalSecs;
 }
 
-byte getLedPatternItemRandHuesMili()
+unsigned int getLedPatternItemRandHuesMili()
 {
     return getLedPatternItemActionTimers()->iterateMilliSecs;
 }
@@ -237,8 +240,8 @@ void incPatternsStep()
 
     getLedPatternItemInit()();
 
-    EffectFactor.refresh();
     EffectStatus.setInitIsRunning();
+    EffectFactor.refresh();
     EffectGlints.setChance(
         (isLedPaletteStepNamed()
             ? getLedPaletteItemActionGlints()
@@ -263,48 +266,6 @@ void runPatternsStep(const bool wait)
 
     FastLED.show();
     FastLED.delay(wait ? LED_PTN_LOOP_MILI : 0);
-}
-
-bool runPatternsFadeToColor(const bool fade, const int increment)
-{
-    while(fade && runPatternsFadeToColorInner(increment)) {
-        runPatternsStep(false);
-    }
-}
-
-bool runPatternsFadeToColorInner(const int increment)
-{
-    if (ledPatternFadeLeveling <= LED_STR_BRT) {
-        ledPatternFadeLeveling = ledPatternFadeLeveling + increment;
-    }
-
-    FastLED.setBrightness(ledPatternFadeLeveling <= LED_STR_BRT ? ledPatternFadeLeveling : LED_STR_BRT);
-    FastLED.delay(LED_PTN_FADE_MILI);
-
-    return ledPatternFadeLeveling <= LED_STR_BRT;
-}
-
-bool runPatternsFadeToBlack(const bool fade, const int decrement)
-{
-    while(fade && runPatternsFadeToBlackInner(decrement)) {
-        runPatternsStep(false);
-    }
-}
-
-bool runPatternsFadeToBlackInner(const int decrement)
-{
-    if (ledPatternFadeLeveling > 0) {
-        ledPatternFadeLeveling = ledPatternFadeLeveling - decrement;
-    }
-
-    FastLED.setBrightness(ledPatternFadeLeveling >= 0 ? ledPatternFadeLeveling : 0);
-    FastLED.delay(LED_PTN_FADE_MILI);
-
-    if (ledPatternFadeLeveling == 0) {
-        FastLED.delay(LED_PTN_WAIT_NEXT);
-    }
-
-    return ledPatternFadeLeveling > 0;
 }
 
 void setCustomLedColorsActive()

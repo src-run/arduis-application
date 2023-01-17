@@ -28,7 +28,7 @@
 
 #define LED_STR_NUM       LED_GRP_LEN * LED_GRP_NUM
 #define LED_STR_PIN       6U
-#define LED_STR_BRT       60U
+#define LED_STR_BRT       40U
 #define LED_STR_CTL       WS2811
 #define LED_STR_ORD       RGB
 #define LED_STR_FPS       90
@@ -52,9 +52,12 @@
 
 #define LED_PTN_GLNT_ENBL ((bool)true)
 
-#define LED_PTN_FADE_ENBL ((bool)true)
-#define LED_PTN_FADE_MILI LED_PTN_LOOP_MILI
-#define LED_PTN_FADE_STEP LED_STR_BRT / 3
+#define LED_FDR_FADE_ENBL ((bool)true)
+#define LED_FDR_LOOP_MILI LED_PTN_LOOP_MILI
+#define LED_FDR_NEXT_MILI LED_PTN_WAIT_NEXT
+#define LED_FDR_LEVEL_CHG LED_STR_BRT / 5
+#define LED_FDR_LEVEL_MIN 0
+#define LED_FDR_LEVEL_MAX LED_STR_BRT
 
 #define LED_PTN_RAND_ENTR 10
 #define LED_PTN_RAND_INIT ((bool)false)
@@ -66,7 +69,7 @@
 #define LED_PAL_RAND_NEXT ((bool)true)
 #define LED_PAL_RAND_SEQL ((bool)true)
 
-#define LED_PAL_FACT_BASE 12
+#define LED_PAL_FACT_BASE 5
 #define LED_PAL_FACT_MINS 1
 
 #define LED_PTN_TWIK_RAND 20

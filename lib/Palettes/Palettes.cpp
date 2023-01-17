@@ -10,6 +10,11 @@
 
 #include "Palettes.h"
 
+unsigned int getLedPaletteListSize()
+{
+    return paletteSizeItems;
+}
+
 const PalettesAction* getLedPaletteDeft()
 {
     return &paletteItemDeflt;
@@ -100,6 +105,11 @@ const CRGBPalette16 getLedPaletteItemComp()
 unsigned int getLedPaletteItemCallExecSecs()
 {
     return getLedPaletteItemActionTimers()->runningTotalSecs;
+}
+
+unsigned int getLedPaletteItemRandHuesMili()
+{
+    return getLedPaletteItemActionTimers()->iterateMilliSecs;
 }
 
 unsigned int getLedPaletteListRandIndxSeql(bool internalIndex)

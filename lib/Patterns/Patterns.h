@@ -29,8 +29,7 @@
 
 extern const byte patternSizeItems;
 
-inline unsigned int           getLedPatternListSize(const int adds = 0) __attribute__((always_inline));
-unsigned int                  getLedPatternListSize(const int adds) { return patternSizeItems + adds; }
+unsigned int getLedPatternListSize();
 
 const PatternsAction*         getLedPatternDeft();
 const PatternsAction*         getLedPatternItem(const unsigned int idx);
@@ -51,16 +50,12 @@ const char*  getLedPatternItemNameC();
 void       (*getLedPatternItemInit())();
 void       (*getLedPatternItemCall())();
 unsigned int getLedPatternItemCallExecSecs();
-byte         getLedPatternItemRandHuesMili();
+unsigned int getLedPatternItemRandHuesMili();
 
 void runEffectAddonGlints();
 
 void incPatternsStep();
 void runPatternsStep(const bool wait = true);
-bool runPatternsFadeToColor(const bool fade = true, const int increment = LED_PTN_FADE_STEP);
-bool runPatternsFadeToBlack(const bool fade = true, const int decrement = LED_PTN_FADE_STEP);
-bool runPatternsFadeToColorInner(const int increment);
-bool runPatternsFadeToBlackInner(const int decrement);
 
 void setCustomLedColorsActive();
 

@@ -14,6 +14,7 @@
 #include "Config.h"
 #include "Utilities.h"
 #include "Palettes.h"
+#include "Patterns.h"
 #include "PatternsAction.h"
 
 extern const PatternsAction patternListItems[];

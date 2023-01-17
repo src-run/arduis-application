@@ -19,5 +19,4 @@ void setupStrand()
     FastLED.clear(true);
     FastLED.setMaxPowerInVoltsAndMilliamps(LED_PWR_MAX_VOLTS, LED_PWR_MAX_MAMPS);
     FastLED.setCorrection(TypicalPixelString);
-    FastLED.setBrightness(LED_PTN_FADE_ENBL ? 0 : LED_STR_BRT);
 }

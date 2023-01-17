@@ -8,16 +8,10 @@
  * file that was distributed with this source code.
  */
 
-#include "CommonArduino.h"
+#pragma once
 
-enum PeriodUnits : unsigned long {
-    MILLIS = 1,
-    SECOND = PeriodUnits::MILLIS * 1000,
-    MINUTE = PeriodUnits::SECOND * 60,
-    HOUR   = PeriodUnits::MINUTE * 60,
-    DAY    = PeriodUnits::HOUR   * 24,
-    WEEK   = PeriodUnits::DAY    * 7,
-};
+#include "CommonArduino.h"
+#include "PeriodUnits.h"
 
 class PeriodTimer {
     protected:
@@ -34,6 +28,9 @@ class PeriodTimer {
         void setPeriodTime(unsigned long periodTime);
         void setPeriodUnit(PeriodUnits periodUnit);
         void setResetsAuto(bool resetsAuto);
+
+        unsigned long getPeriodElapsed();
+        unsigned long getPeriodRemaining();
 
         bool ready();
         void reset();

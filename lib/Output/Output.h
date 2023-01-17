@@ -13,10 +13,10 @@
 #include "CommonArduino.h"
 #include "CommonFastLED.h"
 #include "Config.h"
-#include "Palettes.h"
-#include "Patterns.h"
+#include "Counter.h"
 #include "Utilities.h"
 #include "PowerCalculatedBrightness.h"
+#include "EffectDefinitionDetail.h"
 #include "EffectFactor.h"
 #include "EffectGlints.h"
 #include "EffectStatus.h"
@@ -31,7 +31,7 @@ String getStepInfoMoreCounter();
 String getStepInfoSkip(const bool skipped, const byte chances);
 void   outPwrLimitInfo(const PowerCalculatedBrightness& maximumBrightness);
 
-byte   getListNamesMaxLength(const byte add, unsigned int (*getListSize)(const int), const char* (*getItemName)(const unsigned int));
+byte   getListNamesMaxLength(const byte add, unsigned int (*getListSize)(), const char* (*getItemName)(const unsigned int));
 byte   getLedPatternListNamesMaxLength(const byte add = 2);
 byte   getLedPaletteListNamesMaxLength(const byte add = 2);
 
@@ -61,3 +61,25 @@ String getItemsGlintModeDesc(bool glints, bool shortDesc)
 {
     return getItemsAvailModeDesc(glints, F("glints"), F("normal"), shortDesc);
 }
+
+// EXTERNAL DECLARATIONS/DEFINITIONS
+
+extern const EffectDefinitionDetail* getLedPatternItemActionDetail();
+extern String       getLedPatternItemName();
+extern const char*  getLedPatternItemNameC();
+extern const char*  getLedPatternItemNameC(const unsigned int);
+extern unsigned int getLedPatternItemCallExecSecs();
+extern unsigned int getLedPatternItemRandHuesMili();
+extern unsigned int getLedPatternListStepNumb();
+extern unsigned int getLedPatternListStepNumbReal();
+extern unsigned int getLedPatternListSize();
+
+extern bool         isLedPaletteStepRunning();
+extern unsigned int getLedPaletteListStepNumb();
+extern unsigned int getLedPaletteListStepNumbReal();
+extern String       getLedPaletteItemName();
+extern const char*  getLedPaletteItemNameC();
+extern const char*  getLedPaletteItemNameC(const unsigned int);
+extern unsigned int getLedPaletteItemCallExecSecs();
+extern unsigned int getLedPaletteItemRandHuesMili();
+extern unsigned int getLedPaletteListSize();

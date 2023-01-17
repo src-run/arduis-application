@@ -40,9 +40,19 @@ void PeriodTimer::setResetsAuto(bool resetsAuto)
     _resetsAuto = resetsAuto;
 }
 
+unsigned long PeriodTimer::getPeriodElapsed()
+{
+    return millis() - _millisLast;
+}
+
+unsigned long PeriodTimer::getPeriodRemaining()
+{
+    return max(0, _periodTime - getPeriodElapsed());
+}
+
 bool PeriodTimer::ready()
 {
-    if(max(0, millis() - _millisLast) < _periodTime) {
+    if(getPeriodElapsed() < _periodTime) {
         return false;
     }
 

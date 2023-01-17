@@ -39,25 +39,25 @@ void loop()
     }
 }
 
-unsigned long runTimerPattern(bool fadeToBlack, bool fadeToColor, bool doCycle)
+unsigned long runTimerPattern(bool doCycle)
 {
     if (doCycle) {
-        runPatternsFadeToBlack(fadeToBlack);
+        EffectFading.toBlack();
         incPatternsStep();
         runPatternsStep();
-        runPatternsFadeToColor(fadeToColor);
+        EffectFading.toColor();
     }
 
     return getLedPatternItemCallExecSecs();
 }
 
-unsigned long runTimerPalette(bool fadeToBlack, bool fadeToColor, bool doCycle)
+unsigned long runTimerPalette(bool doCycle)
 {
     if (doCycle && isLedPaletteStepStarted()) {
-        runPatternsFadeToBlack(fadeToBlack);
+        EffectFading.toBlack();
         incPalettesStep();
         runPatternsStep();
-        runPatternsFadeToColor(fadeToColor);
+        EffectFading.toColor();
     }
 
     return getLedPaletteItemCallExecSecs();
@@ -67,10 +67,12 @@ unsigned long runTimerByteNum()
 {
     incByteNumStep();
 
-    return getLedPatternItemRandHuesMili();
+    return isLedPaletteStepStarted()
+        ? getLedPaletteItemRandHuesMili()
+        : getLedPatternItemRandHuesMili();
 }
 
 void setupCycles()
 {
-    runTimerPattern(false);
+    runTimerPattern();
 }

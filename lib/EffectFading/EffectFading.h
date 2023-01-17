@@ -11,14 +11,6 @@
 #pragma once
 
 #include "CommonArduino.h"
-#include "CommonFastLED.h"
-#include "CommonACS712.h"
-#include "Config.h"
-#include "Strand.h"
-#include "PowerCalculatedBrightness.h"
+#include "EffectFadingManager.h"
 
-extern const ACS712 ledPowerMeter;
-
-void checkMinPwr(byte levelRequest = LED_STR_BRT);
-
-extern void outPwrLimitInfo(const PowerCalculatedBrightness&);
+extern EffectFadingManager EffectFading;

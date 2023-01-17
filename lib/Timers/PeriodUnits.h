@@ -11,14 +11,12 @@
 #pragma once
 
 #include "CommonArduino.h"
-#include "CommonFastLED.h"
-#include "CommonACS712.h"
-#include "Config.h"
-#include "Strand.h"
-#include "PowerCalculatedBrightness.h"
 
-extern const ACS712 ledPowerMeter;
-
-void checkMinPwr(byte levelRequest = LED_STR_BRT);
-
-extern void outPwrLimitInfo(const PowerCalculatedBrightness&);
+enum PeriodUnits : unsigned long {
+    MILLIS = 1,
+    SECOND = PeriodUnits::MILLIS * 1000,
+    MINUTE = PeriodUnits::SECOND * 60,
+    HOUR   = PeriodUnits::MINUTE * 60,
+    DAY    = PeriodUnits::HOUR   * 24,
+    WEEK   = PeriodUnits::DAY    * 7,
+};

@@ -145,11 +145,11 @@ String getStepInfoSkip(const bool skipped, const byte chances)
     return skipped ? strPadsCharLft(String(skipBuffer), -1) : "";
 }
 
-byte getListNamesMaxLength(const byte add, unsigned int (*getListSize)(const int), const char* (*getItemName)(const unsigned int))
+byte getListNamesMaxLength(const byte add, unsigned int (*getListSize)(), const char* (*getItemName)(const unsigned int))
 {
     byte len { 0 };
 
-    for (unsigned int i = 0; i < getListSize(0); i++) {
+    for (unsigned int i = 0; i < getListSize(); i++) {
         len = max(len, strlen(getItemName(i)));
     }
 

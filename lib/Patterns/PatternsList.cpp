@@ -14,7 +14,7 @@ const PatternsAction patternListItems[] {
     {
         { "palette-circle", 20 },
         { runStepPaletteCircle, nullptr },
-        { LED_PTN_SEC_CYCLE * 6, LED_STR_MIL_COLOR },
+        { LED_PTN_SEC_CYCLE * 8, LED_STR_MIL_COLOR },
         { LED_PTN_TWIK_MINL, LED_PTN_TWIK_MAXL, 50, 20 }
     },
     {

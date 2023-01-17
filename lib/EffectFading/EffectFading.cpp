@@ -8,12 +8,6 @@
  * file that was distributed with this source code.
  */
 
-#pragma once
+#include "EffectFading.h"
 
-#include "CommonArduino.h"
-#include "Relay.h"
-#include "Config.h"
-
-extern Relay ledSwitch;
-
-void setupSwitch();
+EffectFadingManager EffectFading { };

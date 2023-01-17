@@ -24,12 +24,14 @@
 #include "Palettes.h"
 #include "Patterns.h"
 #include "EffectFactorGenerator.h"
+#include "EffectFading.h"
+#include "Output.h"
 
 extern SimpleCounter CycleCount;
 
 void          setup();
 void          loop();
-unsigned long runTimerPattern(bool fadeToBlack = LED_PTN_FADE_ENBL, bool fadeToColor = LED_PTN_FADE_ENBL, bool doCycle = true);
-unsigned long runTimerPalette(bool fadeToBlack = LED_PTN_FADE_ENBL, bool fadeToColor = LED_PTN_FADE_ENBL, bool doCycle = true);
+unsigned long runTimerPattern(bool doCycle = true);
+unsigned long runTimerPalette(bool doCycle = true);
 unsigned long runTimerByteNum();
 void          setupCycles();

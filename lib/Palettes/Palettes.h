@@ -29,7 +29,8 @@
 
 extern const byte paletteSizeItems;
 
-inline unsigned int   getLedPaletteListSize(const int adds = 0) __attribute__((always_inline));
+unsigned int getLedPaletteListSize();
+
 const PalettesAction* getLedPaletteDeft();
 const PalettesAction* getLedPaletteItem(const unsigned int idx);
 const PalettesAction* getLedPaletteItem();
@@ -50,6 +51,7 @@ const char*         getLedPaletteItemNameC();
 const CRGBPalette16 getLedPaletteItemComp(const unsigned int idx);
 const CRGBPalette16 getLedPaletteItemComp();
 unsigned int        getLedPaletteItemCallExecSecs();
+unsigned int        getLedPaletteItemRandHuesMili();
 
 unsigned int getLedPaletteListRandIndx();
 unsigned int getLedPaletteListRandIndxSeql(bool internalIndex = false);
@@ -65,8 +67,3 @@ bool isLedPaletteStepStarted();
 bool isLedPaletteStepRunning();
 
 void incPalettesStep();
-
-unsigned int getLedPaletteListSize(const int adds)
-{
-    return paletteSizeItems + adds;
-}
