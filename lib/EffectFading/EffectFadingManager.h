@@ -39,16 +39,22 @@ class EffectFadingManager {
             _levelChgStep { levelChgStep },
             _levelChgWait { levelChgWait },
             _levelEndWait { levelEndWait },
-            _levelCurrent { 0 }
+            _levelCurrent { LED_FDR_FADE_INIT }
         {};
 
         bool isEnabled();
-        void toBlack();
-        void toColor();
+        void fadeToLevelMaximum();
+        void fadeToLevelMinimum();
 
     protected:
-        bool runFadeToBlackStep();
-        bool runFadeToColorStep();
+        bool loopToLevelMaximum();
+        bool loopToLevelMinimum();
+
+        bool isLevelMaximum();
+        bool isLevelMinimum();
+
+        void setBrightness(const byte waits);
+        void setBrightness(const byte level, const byte waits);
 };
 
 // EXTERNAL DECLARATIONS/DEFINITIONS

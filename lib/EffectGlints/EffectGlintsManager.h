@@ -17,18 +17,20 @@
 
 class EffectGlintsManager {
     private:
-        const bool _enable { false };
-        bool       _result { false };
-        byte       _chance { 0 };
-        byte       _random { 0 };
+        const bool _enable                { false };
+        bool       _result                { false };
+        byte       _chance                { 0 };
+        byte       _resultHistoryPosn     { 0 };
+        bool       _resultHistoryList[10] { true, false, true, false, true, false, true, false, true, false };
 
     public:
         EffectGlintsManager(bool enable = LED_PTN_GLNT_ENBL) : _enable { enable } {};
 
         void setChance(const byte chance, const byte base = 100);
-        byte getChance();
-        byte getChancePercent();
-        byte getRandom();
-        byte getRandomPercent();
         bool isEnabled();
+
+    protected:
+        int  getWeight();
+        bool getWeightedResult();
+        void addResultsHistory();
 };

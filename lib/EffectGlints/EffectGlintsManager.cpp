@@ -12,34 +12,35 @@
 
 void EffectGlintsManager::setChance(const byte chance, const byte base)
 {
-    _chance = constrain(chance * 255 / max(1, base), 0, 255);
-    _random = randByte();
-    _result = 0 != _chance && (
-        (255 == _chance) || (_random <= _chance)
-    );
-}
+    _chance = cstrByte(chance * 255 / max(1, base));
+    _result = _chance != 0 && (_chance == 100 || getWeightedResult());
 
-byte EffectGlintsManager::getChance()
-{
-    return _chance;
-}
-
-byte EffectGlintsManager::getChancePercent()
-{
-    return byteToPerc(_chance);
-}
-
-byte EffectGlintsManager::getRandom()
-{
-    return _random;
-}
-
-byte EffectGlintsManager::getRandomPercent()
-{
-    return byteToPerc(_random);
+    addResultsHistory();
 }
 
 bool EffectGlintsManager::isEnabled()
 {
     return _enable && _result;
+}
+
+int EffectGlintsManager::getWeight()
+{
+    int weight { 0 };
+
+    for (byte i = 0; i < ARRAY_SIZE(_resultHistoryList); i++) {
+        weight += _resultHistoryList[i] ? 10 : -10;
+    }
+
+    return weight;
+}
+
+bool EffectGlintsManager::getWeightedResult()
+{
+    return randByte() >= cstrByte(_chance + getWeight());
+}
+
+void EffectGlintsManager::addResultsHistory()
+{
+    _resultHistoryList[_resultHistoryPosn] = _result;
+    _resultHistoryPosn = (_resultHistoryPosn + 1) % ARRAY_SIZE(_resultHistoryList);
 }

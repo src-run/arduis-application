@@ -15,7 +15,7 @@ void setupRandom()
     setRandomEntr(SYS_RANDOM_SMIN, SYS_RANDOM_SMAX, false);
 }
 
-void setRandomEntr(byte min, byte max, bool inc)
+void setRandomEntr(unsigned int min, unsigned int max, bool inc)
 {
     max = max(1, max);
     min = max(0, min(max, min));
@@ -28,14 +28,5 @@ void setRandomEntr(byte min, byte max, bool inc)
         srand(seed);
 
         inc = true;
-    }
-}
-
-void addRandomEntrEveryNCalls(byte n)
-{
-    static unsigned int i { 0 };
-
-    if (0 == (i++ % n)) {
-        setRandomEntr(max(1, SYS_RANDOM_SMIN / 10), SYS_RANDOM_SMAX / 10, false);
     }
 }

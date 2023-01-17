@@ -42,10 +42,10 @@ void loop()
 unsigned long runTimerPattern(bool doCycle)
 {
     if (doCycle) {
-        EffectFading.toBlack();
+        EffectFading.fadeToLevelMinimum();
         incPatternsStep();
         runPatternsStep();
-        EffectFading.toColor();
+        EffectFading.fadeToLevelMaximum();
     }
 
     return getLedPatternItemCallExecSecs();
@@ -54,10 +54,10 @@ unsigned long runTimerPattern(bool doCycle)
 unsigned long runTimerPalette(bool doCycle)
 {
     if (doCycle && isLedPaletteStepStarted()) {
-        EffectFading.toBlack();
+        EffectFading.fadeToLevelMinimum();
         incPalettesStep();
         runPatternsStep();
-        EffectFading.toColor();
+        EffectFading.fadeToLevelMaximum();
     }
 
     return getLedPaletteItemCallExecSecs();

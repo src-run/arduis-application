@@ -15,46 +15,67 @@ bool EffectFadingManager::isEnabled()
     return _faderEnabled;
 }
 
-void EffectFadingManager::toColor()
+void EffectFadingManager::fadeToLevelMaximum()
 {
-    while(isEnabled() && runFadeToColorStep()) {
+    while(isEnabled() && !isLevelMaximum() && loopToLevelMaximum()) {
         runPatternsStep(false);
     }
 
-    FastLED.setBrightness(_levelMaximum);
-    FastLED.delay(_levelEndWait);
+    setBrightness(_levelMaximum, _levelEndWait);
 }
 
-bool EffectFadingManager::runFadeToColorStep()
+void EffectFadingManager::fadeToLevelMinimum()
 {
-    if (_levelCurrent < _levelMaximum) {
-        _levelCurrent = _levelCurrent + _levelChgStep;
+    while(isEnabled() && !isLevelMinimum() && loopToLevelMinimum()) {
+        runPatternsStep(false);
     }
 
-    FastLED.setBrightness(_levelCurrent <= _levelMaximum ? _levelCurrent : _levelMaximum);
-    FastLED.delay(_levelChgWait);
+    setBrightness(_levelMinimum, _levelEndWait);
+}
+
+bool EffectFadingManager::loopToLevelMaximum()
+{
+    _levelCurrent = constrain(
+        _levelCurrent + _levelChgStep,
+        _levelMinimum,
+        _levelMaximum
+    );
+
+    setBrightness(_levelChgWait);
 
     return _levelCurrent < _levelMaximum;
 }
 
-void EffectFadingManager::toBlack()
+bool EffectFadingManager::loopToLevelMinimum()
 {
-    while(isEnabled() && runFadeToBlackStep()) {
-        runPatternsStep(false);
-    }
+    _levelCurrent = constrain(
+        _levelCurrent - _levelChgStep,
+        _levelMinimum,
+        _levelMaximum
+    );
 
-    FastLED.setBrightness(_levelMinimum);
-    FastLED.delay(_levelEndWait);
-}
-
-bool EffectFadingManager::runFadeToBlackStep()
-{
-    if (_levelCurrent > _levelMinimum) {
-        _levelCurrent = _levelCurrent - _levelChgStep;
-    }
-
-    FastLED.setBrightness(_levelCurrent >= _levelMinimum ? _levelCurrent : _levelMinimum);
-    FastLED.delay(_levelChgWait);
+    setBrightness(_levelChgWait);
 
     return _levelCurrent > _levelMinimum;
+}
+
+bool EffectFadingManager::isLevelMaximum()
+{
+    return _levelCurrent >= _levelMaximum;
+}
+
+bool EffectFadingManager::isLevelMinimum()
+{
+    return _levelCurrent <= _levelMinimum;
+}
+
+void  EffectFadingManager::setBrightness(const byte waits)
+{
+    setBrightness(_levelCurrent, waits);
+}
+
+void  EffectFadingManager::setBrightness(const byte level, const byte waits)
+{
+    FastLED.setBrightness(level);
+    FastLED.delay(waits);
 }

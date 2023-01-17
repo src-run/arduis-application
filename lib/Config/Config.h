@@ -14,9 +14,8 @@
 #include "CommonFastLED.h"
 
 #define SYS_OB_LED_ENBL   ((bool)true)
-#define SYS_RANDOM_SMIN   2U
-#define SYS_RANDOM_SMAX   100U
-#define SYS_RANDOM_CALL   200U
+#define SYS_RANDOM_SMIN   100U
+#define SYS_RANDOM_SMAX   999U
 #define OUT_SERIAL_BAUD   115200UL
 #define OUT_COUNTS_STAT   ((bool)true)
 #define OUT_MINPWR_STAT   ((bool)true)
@@ -53,9 +52,10 @@
 #define LED_PTN_GLNT_ENBL ((bool)true)
 
 #define LED_FDR_FADE_ENBL ((bool)true)
+#define LED_FDR_FADE_INIT 0
 #define LED_FDR_LOOP_MILI LED_PTN_LOOP_MILI
-#define LED_FDR_NEXT_MILI LED_PTN_WAIT_NEXT
-#define LED_FDR_LEVEL_CHG LED_STR_BRT / 5
+#define LED_FDR_NEXT_MILI LED_PTN_WAIT_NEXT / 10
+#define LED_FDR_LEVEL_CHG LED_STR_BRT / 12
 #define LED_FDR_LEVEL_MIN 0
 #define LED_FDR_LEVEL_MAX LED_STR_BRT
 
@@ -65,7 +65,7 @@
 #define LED_PTN_RAND_SEQL ((bool)true)
 
 #define LED_PAL_RAND_ENTR 10
-#define LED_PAL_RAND_INIT ((bool)false)
+#define LED_PAL_RAND_INIT ((bool)true)
 #define LED_PAL_RAND_NEXT ((bool)true)
 #define LED_PAL_RAND_SEQL ((bool)true)
 
