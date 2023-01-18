@@ -21,7 +21,7 @@
 #include "EffectGlints.h"
 #include "EffectStatus.h"
 
-void   setupSerial(const unsigned long baud = OUT_SERIAL_BAUD);
+void   setupOutput(const unsigned long baud = OUT_SERIAL_BAUD);
 
 void   outStepInfo(const bool skipped = false, const byte chances = 0);
 String getStepInfoMain();

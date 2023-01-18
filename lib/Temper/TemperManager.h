@@ -13,10 +13,12 @@
 #include "CommonArduino.h"
 #include "CommonAdafruitSHT4x.h"
 #include "Config.h"
+#include "Utilities.h"
 
 class TemperManager {
     private:
-        bool              _inited { false };
+        bool              _inited  { false };
+        const byte        _address { 0x44 };
 
         Adafruit_SHT4x    _sensor;
         sht4x_precision_t _sensorPreciseMode;
@@ -26,7 +28,7 @@ class TemperManager {
         sensors_event_t   _humids;
 
     public:
-        TemperManager(const bool runUpdate = false) : TemperManager(SHT4X_HIGH_PRECISION, SHT4X_NO_HEATER, runUpdate) {};
+        TemperManager(const bool runUpdate = false) : TemperManager(SHT4X_MED_PRECISION, SHT4X_NO_HEATER, runUpdate) {};
         TemperManager(sht4x_precision_t preciseMode, sht4x_heater_t heatingMode, const bool runUpdate = false);
 
         void begins();
@@ -41,5 +43,14 @@ class TemperManager {
         float getTemperatureAsF();
         float getHumidity();
 
-        unsigned long getSerial();
+        unsigned int getSerialNumber();
+
+        sensor_t& getTemperatureSensor();
+        sensor_t& getHumiditySensor();
+
+        void writeDebugInfo();
+
+    protected:
+        void writeDebugInfoTemps();
+        void writeDebugInfoHumid();
 };

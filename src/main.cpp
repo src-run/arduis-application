@@ -12,13 +12,18 @@
 
 void setup()
 {
+    setupOutput();
     setupSystem();
-    setupSerial();
-    setupTemper();
+    setupWiring();
     setupRandom();
+
+    setupTemper();
+    setupSelect();
+
     setupStrand();
     setupRelays();
     checkMinPwr();
+
     setupCycles();
     setupTimers();
 }
@@ -40,7 +45,11 @@ void loop()
     }
 
     if (TempHumPeriodTimer.ready()) {
-        setupTemper();
+        cycleTemper();
+    }
+
+    if (SelectsPeriodTimer.ready()) {
+        cycleSelect();
     }
 }
 

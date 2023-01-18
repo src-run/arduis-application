@@ -10,6 +10,44 @@
 
 #include "Utilities.h"
 
+void setupSystem()
+{
+    setPinModeOutput(LED_BUILTIN, SYS_OB_LED_ENBL ? HIGH : LOW);
+}
+
+void setupWiring()
+{
+    Wire.setClock(400000);
+}
+
+void delayForever(bool writeSerialMessage)
+{
+    if (writeSerialMessage) {
+        Serial.println(F("!!! Halting execution (entering infinite loop) ..."));
+    }
+
+    while(true) {
+        delay(1);
+    }
+}
+
+void writeI2cDevFailureAndDelayForever(String device, byte address)
+{
+    const String format { F("!!! %s - Could not connect to i2c device at address \"%04X\" ...") };
+    char         buffer [ format.length() + device.length() - 4 + 4 + 1 ];
+
+    sprintf(
+        buffer,
+        format.c_str(),
+        device.c_str(),
+        address
+    );
+
+    Serial.println(buffer);
+
+    delayForever(true);
+}
+
 byte getPinMode(byte pin)
 {
     const byte bit { digitalPinToBitMask(pin) };

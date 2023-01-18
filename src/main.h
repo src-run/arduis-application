@@ -20,6 +20,7 @@
 #include "Relays.h"
 #include "Temper.h"
 #include "Timers.h"
+#include "Select.h"
 #include "Counter.h"
 #include "Palettes.h"
 #include "Patterns.h"

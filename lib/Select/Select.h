@@ -11,11 +11,16 @@
 #pragma once
 
 #include "CommonArduino.h"
-#include "TemperManager.h"
-#include "Utilities.h"
+#include "SelectManager.h"
+#include "EffectFading.h"
 
-extern TemperManager SystemTemper;
+extern SelectManager EffectSelect;
 
-void setupTemper();
-void cycleTemper();
-void debugTemper();
+void setupSelect();
+void cycleSelect();
+void cycleSelectTwist();
+void cycleSelectPress();
+void debugSelect();
+void debugSelectTwist();
+void debugSelectClick();
+void debugSelectPress();

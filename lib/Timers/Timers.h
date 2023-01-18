@@ -20,5 +20,6 @@ extern PeriodTimer PatternPeriodTimer;
 extern PeriodTimer PalettePeriodTimer;
 extern PeriodTimer ByteNumPeriodTimer;
 extern PeriodTimer TempHumPeriodTimer;
+extern PeriodTimer SelectsPeriodTimer;
 
 void setupTimers();

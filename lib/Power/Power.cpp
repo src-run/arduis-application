@@ -23,7 +23,7 @@ void checkMinPwr(byte levelRequest)
 
     fill_solid(ledStrandsActiveColors, LED_STR_NUM, CRGB { 255, 255, 255 });
 
-    for (unsigned int mAmpsAllowed = 0; mAmpsAllowed <= LED_PWR_MAX_MAMPS; mAmpsAllowed = mAmpsAllowed + 100) {
+    for (unsigned int mAmpsAllowed = 0; mAmpsAllowed <= LED_PWR_MAX_MAMPS; mAmpsAllowed = mAmpsAllowed + 250) {
         const PowerCalculatedBrightness limits {
             LED_STR_NUM,
             (double)mAmpsAllowed / (double)1000,

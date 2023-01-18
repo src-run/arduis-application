@@ -9,13 +9,6 @@
  */
 
 #pragma once
+#pragma GCC system_header
 
-#include "CommonArduino.h"
-#include "TemperManager.h"
-#include "Utilities.h"
-
-extern TemperManager SystemTemper;
-
-void setupTemper();
-void cycleTemper();
-void debugTemper();
+#include <SparkFun_Qwiic_Twist_Arduino_Library.h>

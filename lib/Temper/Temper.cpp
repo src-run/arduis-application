@@ -14,11 +14,21 @@ TemperManager SystemTemper { };
 
 void setupTemper()
 {
+    SystemTemper.begins();
+}
+
+void cycleTemper()
+{
+    debugTemper();
+}
+
+void debugTemper()
+{
     const unsigned long begMillis = millis();
     SystemTemper.update();
     const unsigned int  difMillis = cstrUInt(millis() - begMillis);
 
-    const String tempsFormat { F("=== SHT4x Temperatures   : %.02f°C (%.02f°F)") };
+    const String tempsFormat { F("=== SHT45 - Temperature  : %.02f°C (%.02f°F)") };
     char         tempsBuffer [ tempsFormat.length() - 5 + 5 - 5 + 5 + 1 ];
 
     sprintf(
@@ -30,7 +40,7 @@ void setupTemper()
 
     Serial.println(tempsBuffer);
 
-    const String humidFormat { F("=== SHT4x Humidity       : %.02f%% rH") };
+    const String humidFormat { F("=== SHT45 - Humidity     : %.02f%% rH") };
     char         humidBuffer [ humidFormat.length() - 5 + 5 + 1 ];
 
     sprintf(
@@ -41,15 +51,14 @@ void setupTemper()
 
     Serial.println(humidBuffer);
 
-    const String milliFormat { F("=== SHT4x Timer / Serial : %ums (%.02fs) / %u") };
+    const String milliFormat { F("=== SHT45 - Update Timer : %ums (%.02fs)") };
     char         milliBuffer [ milliFormat.length() + 30 + 1 ];
 
     sprintf(
         milliBuffer,
         milliFormat.c_str(),
         difMillis,
-        (float)difMillis / (float)1000,
-        SystemTemper.getSerial()
+        (float)difMillis / (float)1000
     );
 
     Serial.println(milliBuffer);

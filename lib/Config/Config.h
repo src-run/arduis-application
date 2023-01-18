@@ -61,8 +61,8 @@
 
 #define LED_PTN_RAND_ENTR 10
 #define LED_PTN_RAND_INIT ((bool)false)
-#define LED_PTN_RAND_NEXT ((bool)true)
-#define LED_PTN_RAND_SEQL ((bool)true)
+#define LED_PTN_RAND_NEXT ((bool)false)
+#define LED_PTN_RAND_SEQL ((bool)false)
 
 #define LED_PAL_RAND_ENTR 10
 #define LED_PAL_RAND_INIT ((bool)true)

@@ -17,6 +17,7 @@
 #include "Utilities.h"
 #include "Counter.h"
 #include "Strand.h"
+#include "Timers.h"
 #include "Palettes.h"
 #include "PatternsList.h"
 #include "PatternsAction.h"
@@ -28,6 +29,14 @@
 #include "EffectStatus.h"
 
 extern const byte patternSizeItems;
+
+enum PatternListIndexAction {
+    set,
+    get,
+    inc,
+    res,
+    end,
+};
 
 unsigned int getLedPatternListSize();
 
@@ -54,7 +63,9 @@ unsigned int getLedPatternItemRandHuesMili();
 
 void runEffectAddonGlints();
 
+void setPatternsStep(const unsigned int index);
 void incPatternsStep();
+void rstPatternsStep();
 void runPatternsStep(const bool wait = true);
 
 void setCustomLedColorsActive();
@@ -130,7 +141,9 @@ unsigned int getLedPatternListRandIndx();
 unsigned int getLedPatternListRandIndxSeql(bool internalIndex = false);
 unsigned int getLedPatternListStepInit();
 unsigned int getLedPatternListStepNext(const unsigned int idx);
-unsigned int getLedPatternListStepIndx(const bool indexIncr = false);
+unsigned int resolveLedPatternListStepIndx(const PatternListIndexAction action = PatternListIndexAction::get, const unsigned int assign = 0);
+unsigned int setLedPatternListStepIndx(const unsigned int indexAssign);
+unsigned int getLedPatternListStepIndx();
 unsigned int incLedPatternListStepIndx();
 unsigned int getLedPatternListStepNumb();
 unsigned int getLedPatternListStepNumbReal();

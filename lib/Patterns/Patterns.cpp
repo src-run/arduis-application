@@ -186,13 +186,31 @@ unsigned int getLedPatternListRandIndxSeql(bool internalIndex)
     return patternListOrder[constrain(patternListOrderIndex, 0, getLedPatternListSize() - 1)];
 }
 
-unsigned int getLedPatternListStepIndx(const bool indexIncr)
+unsigned int resolveLedPatternListStepIndx(const PatternListIndexAction action, const unsigned int assign)
 {
     static unsigned int indexCurr { getLedPatternListStepInit() };
     static bool         isRunning { false };
 
-    if (isRunning && indexIncr) {
-        indexCurr = getLedPatternListStepNext(indexCurr);
+    switch (action)
+    {
+        case PatternListIndexAction::get:
+            return indexCurr;
+
+        case PatternListIndexAction::set:
+            indexCurr = cstrArrayIndex(assign, patternSizeItems);
+            break;
+
+        case PatternListIndexAction::inc:
+            indexCurr = isRunning ? getLedPatternListStepNext(indexCurr) : indexCurr;
+            break;
+
+        case PatternListIndexAction::res:
+            indexCurr = getLedPatternListStepInit();
+            break;
+
+        case PatternListIndexAction::end:
+            indexCurr = setLedPatternListStepIndx(0);
+            break;
     }
 
     isRunning = true;
@@ -200,9 +218,21 @@ unsigned int getLedPatternListStepIndx(const bool indexIncr)
     return indexCurr;
 }
 
+unsigned int setLedPatternListStepIndx(const unsigned int index)
+{
+    resolveLedPatternListStepIndx(PatternListIndexAction::set, index);
+
+    return getLedPatternListStepIndx();
+}
+
 unsigned int incLedPatternListStepIndx()
 {
-    return getLedPatternListStepIndx(true);
+    return resolveLedPatternListStepIndx(PatternListIndexAction::inc);
+}
+
+unsigned int getLedPatternListStepIndx()
+{
+    return resolveLedPatternListStepIndx(PatternListIndexAction::get);
 }
 
 unsigned int getLedPatternListStepNumb()
@@ -224,6 +254,33 @@ void runEffectAddonGlints()
     }
 }
 
+void setPatternsStep(const unsigned int index)
+{
+    setLedPatternListStepIndx(index);
+
+    PatternPeriodTimer.reset();
+    PatternPeriodTimer.setPeriodTime(getLedPatternItemCallExecSecs());
+
+    PalettePeriodTimer.reset();
+    PalettePeriodTimer.setPeriodTime(getLedPaletteItemCallExecSecs());
+
+    EffectStatus.setInitIsRunning();
+    EffectFactor.refresh();
+    EffectGlints.setChance(
+        (isLedPaletteStepNamed()
+            ? getLedPaletteItemActionGlints()
+            : getLedPatternItemActionGlints()
+        )->chances
+    );
+
+    getLedPatternItemInit()();
+
+    FastLED.show();
+    FastLED.delay(LED_PTN_LOOP_MILI);
+
+    outStepInfo();
+}
+
 void incPatternsStep()
 {
     while (true) {
@@ -238,21 +295,12 @@ void incPatternsStep()
         outStepInfo(true, skip);
     }
 
-    getLedPatternItemInit()();
+    setPatternsStep(getLedPatternListStepIndx());
+}
 
-    EffectStatus.setInitIsRunning();
-    EffectFactor.refresh();
-    EffectGlints.setChance(
-        (isLedPaletteStepNamed()
-            ? getLedPaletteItemActionGlints()
-            : getLedPatternItemActionGlints()
-        )->chances
-    );
-
-    FastLED.show();
-    FastLED.delay(LED_PTN_LOOP_MILI);
-
-    outStepInfo();
+void rstPatternsStep()
+{
+    setPatternsStep(0);
 }
 
 void runPatternsStep(const bool wait)

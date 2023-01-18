@@ -14,11 +14,13 @@ PeriodTimer PatternPeriodTimer { PeriodUnits::SECOND };
 PeriodTimer PalettePeriodTimer { PeriodUnits::SECOND };
 PeriodTimer ByteNumPeriodTimer { PeriodUnits::MILLIS };
 PeriodTimer TempHumPeriodTimer { PeriodUnits::MINUTE };
+PeriodTimer SelectsPeriodTimer { PeriodUnits::MILLIS };
 
 void setupTimers()
 {
     PatternPeriodTimer.setPeriodTime(getLedPatternItemCallExecSecs() ?: LED_PTN_SEC_CYCLE);
     PalettePeriodTimer.setPeriodTime(getLedPaletteItemCallExecSecs() ?: LED_PAL_SEC_CYCLE);
     ByteNumPeriodTimer.setPeriodTime(getLedPatternItemRandHuesMili() ?: LED_STR_MIL_COLOR);
-    TempHumPeriodTimer.setPeriodTime(10);
+    TempHumPeriodTimer.setPeriodTime(20);
+    SelectsPeriodTimer.setPeriodTime(250);
 }

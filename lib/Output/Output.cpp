@@ -10,7 +10,7 @@
 
 #include "Output.h"
 
-void setupSerial(const unsigned long baud)
+void setupOutput(const unsigned long baud)
 {
     Serial.begin(baud);
     while(!Serial);

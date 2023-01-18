@@ -52,6 +52,7 @@ inline unsigned long miliToSeconds(const unsigned long val)                     
 inline unsigned int  cstrPerc(const long p)                                                           __attribute__((always_inline));
 inline byte          cstrByte(const long i)                                                           __attribute__((always_inline));
 inline unsigned int  cstrUInt(const long i)                                                           __attribute__((always_inline));
+inline unsigned int  cstrArrayIndex(const unsigned int index, const unsigned int size)                __attribute__((always_inline));
 
 inline unsigned int  byteToPerc(const unsigned long i)                                                __attribute__((always_inline));
 
@@ -75,12 +76,15 @@ inline bool          ge(unsigned int x, int y)                                  
 inline bool          ge(unsigned int x, unsigned int y)                                               __attribute__((always_inline));
 inline bool          ge(int x, int y)                                                                 __attribute__((always_inline));
 
-inline void          setupSystem()                                                               __attribute__((always_inline));
-
 inline bool          isMatch(const char *subject, const char *matcher)                                __attribute__((always_inline));
 inline bool          isMatch(const char *subject, const String matcher)                               __attribute__((always_inline));
 inline bool          isMatch(const String subject, const char *matcher)                               __attribute__((always_inline));
 inline bool          isMatch(const String subject, const String matcher)                              __attribute__((always_inline));
+
+void setupSystem();
+void setupWiring();
+void delayForever(bool writeSerialMessage = false);
+void writeI2cDevFailureAndDelayForever(String device, byte address = 0);
 
 bool setPinMode(byte pin, byte act)
 {
@@ -199,6 +203,11 @@ inline unsigned int cstrUInt(const long i)
     return constrain(i, 0, 65535);
 }
 
+inline unsigned int  cstrArrayIndex(const unsigned int index, const unsigned int size)
+{
+    return constrain(index, 0, max(0, size - 1));
+}
+
 unsigned int byteToPerc(const unsigned long i)
 {
     return cstrPerc(i * 100 / 255);
@@ -282,11 +291,6 @@ bool ge(unsigned int x, unsigned int y)
 bool ge(int x, int y)
 {
     return x >= y;
-}
-
-void setupSystem()
-{
-    setPinModeOutput(LED_BUILTIN, SYS_OB_LED_ENBL ? HIGH : LOW);
 }
 
 bool isMatch(const char *subject, const char *matcher)
