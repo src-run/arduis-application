@@ -229,7 +229,7 @@ void incPatternsStep()
     while (true) {
         incLedPatternListStepIndx();
 
-        const unsigned int skip = randByte(100);
+        const byte skip { randByte(100) };
 
         if (!LED_PTN_SKIP_ENBL || skip >= getLedPatternItemActionDetail()->skipChance) {
             break;

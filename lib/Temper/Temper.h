@@ -9,6 +9,11 @@
  */
 
 #pragma once
-#pragma GCC system_header
 
-#include <OPTIGATrustM.h>
+#include "CommonArduino.h"
+#include "TemperManager.h"
+#include "Utilities.h"
+
+extern TemperManager SystemTemper;
+
+void setupTemper();

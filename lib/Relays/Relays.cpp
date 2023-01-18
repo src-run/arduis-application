@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  */
 
-#include "Switch.h"
+#include "Relays.h"
 
-Relay ledSwitch { LED_RELAY1_PIN, false };
+Relay ledRelays { LED_RELAY1_PIN, false };
 
-void setupSwitch()
+void setupRelays()
 {
-    ledSwitch.begin();
-    ledSwitch.turnOn();
+    ledRelays.begin();
+    ledRelays.turnOn();
 }

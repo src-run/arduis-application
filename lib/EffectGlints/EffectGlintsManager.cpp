@@ -28,7 +28,7 @@ int EffectGlintsManager::getWeight()
     int weight { 0 };
 
     for (byte i = 0; i < ARRAY_SIZE(_resultHistoryList); i++) {
-        weight += _resultHistoryList[i] ? 10 : -10;
+        weight += _resultHistoryList[i] ? 15 : -15;
     }
 
     return weight;

@@ -14,9 +14,10 @@ void setup()
 {
     setupSystem();
     setupSerial();
+    setupTemper();
     setupRandom();
     setupStrand();
-    setupSwitch();
+    setupRelays();
     checkMinPwr();
     setupCycles();
     setupTimers();
@@ -36,6 +37,10 @@ void loop()
 
     if (ByteNumPeriodTimer.ready()) {
         ByteNumPeriodTimer.setPeriodTime(runTimerByteNum());
+    }
+
+    if (TempHumPeriodTimer.ready()) {
+        setupTemper();
     }
 }
 

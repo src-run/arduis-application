@@ -27,7 +27,7 @@
 
 #define LED_STR_NUM       LED_GRP_LEN * LED_GRP_NUM
 #define LED_STR_PIN       6U
-#define LED_STR_BRT       40U
+#define LED_STR_BRT       60U
 #define LED_STR_CTL       WS2811
 #define LED_STR_ORD       RGB
 #define LED_STR_FPS       90
@@ -55,7 +55,7 @@
 #define LED_FDR_FADE_INIT 0
 #define LED_FDR_LOOP_MILI LED_PTN_LOOP_MILI
 #define LED_FDR_NEXT_MILI LED_PTN_WAIT_NEXT / 10
-#define LED_FDR_LEVEL_CHG LED_STR_BRT / 12
+#define LED_FDR_LEVEL_CHG LED_STR_BRT / 10
 #define LED_FDR_LEVEL_MIN 0
 #define LED_FDR_LEVEL_MAX LED_STR_BRT
 
