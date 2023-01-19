@@ -10,10 +10,14 @@
 
 #include "Relays.h"
 
-Relay ledRelays { LED_RELAY1_PIN, false };
+Relay pwrRelay { LED_RELAY1_PIN, false };
+Relay ledRelay { LED_RELAY2_PIN, false };
 
 void setupRelays()
 {
-    ledRelays.begin();
-    ledRelays.turnOn();
+    pwrRelay.begin();
+    pwrRelay.turnOn();
+    delay(500);
+    ledRelay.begin();
+    ledRelay.turnOn();
 }

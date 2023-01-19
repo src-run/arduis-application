@@ -20,7 +20,8 @@
 #define OUT_COUNTS_STAT   ((bool)true)
 #define OUT_MINPWR_STAT   ((bool)true)
 
-#define LED_RELAY1_PIN    33U
+#define LED_RELAY1_PIN    32U
+#define LED_RELAY2_PIN    33U
 
 #define LED_GRP_LEN       50U
 #define LED_GRP_NUM       6U

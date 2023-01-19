@@ -14,6 +14,7 @@
 #include "Relay.h"
 #include "Config.h"
 
-extern Relay ledRelays;
+extern Relay pwrRelay;
+extern Relay ledRelay;
 
 void setupRelays();
