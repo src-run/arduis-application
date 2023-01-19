@@ -12,7 +12,8 @@
 
 void setupSystem()
 {
-    setPinModeOutput(LED_BUILTIN, SYS_OB_LED_ENBL ? HIGH : LOW);
+    pinMode(LED_BUILTIN, PIN_MODE_OUTPUT);
+    digitalWrite(LED_BUILTIN, SYS_OB_LED_ENBL ? HIGH : LOW);
 }
 
 void setupWiring()
@@ -46,30 +47,6 @@ void writeI2cDevFailureAndDelayForever(String device, byte address)
     Serial.println(buffer);
 
     delayForever(true);
-}
-
-byte getPinMode(byte pin)
-{
-    const byte bit { digitalPinToBitMask(pin) };
-    const byte prt { digitalPinToPort(pin) };
-
-    if ((NOT_A_PORT == prt) || (NOT_A_PIN == pin) || (0 == bit) || (bit & (bit - 1))) {
-        return PIN_MODE_UNKNOWN;
-    }
-
-    volatile byte *reg = portModeRegister(prt);
-
-    if (*reg & bit) {
-        return PIN_MODE_OUTPUT;
-    }
-
-    volatile byte *out = portOutputRegister(prt);
-
-    if (*out & bit) {
-        return PIN_MODE_INPUT_PULLUP;
-    }
-
-    return PIN_MODE_INPUT;
 }
 
 String strPadsChar(const String value, const int padding, const String useChar, const StringPadDirection useSide)

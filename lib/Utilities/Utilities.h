@@ -22,19 +22,6 @@
 
 enum StringPadDirection { lft, eql, rgt };
 
-byte                 getPinMode(byte pin);
-
-inline bool          setPinMode(byte pin, byte act)                                                   __attribute__((always_inline));
-inline bool          setPinModeOutput(byte pin)                                                       __attribute__((always_inline));
-inline bool          setPinModeOutput(byte pin, byte out)                                             __attribute__((always_inline));
-inline bool          setPinModeInput(byte pin)                                                        __attribute__((always_inline));
-inline bool          setPinModeInputPullup(byte pin)                                                  __attribute__((always_inline));
-
-inline bool          isPinMode(byte pin, byte act)                                                    __attribute__((always_inline));
-inline bool          isPinModeOutput(byte pin)                                                        __attribute__((always_inline));
-inline bool          isPinModeInput(byte pin)                                                         __attribute__((always_inline));
-inline bool          isPinModeInputPullup(byte pin)                                                   __attribute__((always_inline));
-
 String               strPadsChar(const String value, const int padding = -1, const String useChar = " ", const StringPadDirection useSide = StringPadDirection::lft);
 
 inline String        strPadsCharLft(const String value, int padding = -1, const String useChar = " ")        __attribute__((always_inline));
@@ -85,58 +72,6 @@ void setupSystem();
 void setupWiring();
 void delayForever(bool writeSerialMessage = false);
 void writeI2cDevFailureAndDelayForever(String device, byte address = 0);
-
-bool setPinMode(byte pin, byte act)
-{
-    pinMode(pin, act);
-    delay(100);
-
-    return isPinMode(pin, act);
-}
-
-bool setPinModeOutput(byte pin)
-{
-    return setPinMode(pin, PIN_MODE_OUTPUT);
-}
-
-bool setPinModeOutput(byte pin, byte out)
-{
-    setPinMode(pin, PIN_MODE_OUTPUT);
-    digitalWrite(pin, out);
-    delay(100);
-
-    return isPinModeOutput(pin);
-}
-
-bool setPinModeInput(byte pin)
-{
-    return setPinMode(pin, PIN_MODE_INPUT);
-}
-
-bool setPinModeInputPullup(byte pin)
-{
-    return setPinMode(pin, PIN_MODE_INPUT_PULLUP);
-}
-
-bool isPinMode(byte pin, byte act)
-{
-    return getPinMode(pin) == act;
-}
-
-bool isPinModeOutput(byte pin)
-{
-    return isPinMode(pin, PIN_MODE_OUTPUT);
-}
-
-bool isPinModeInput(byte pin)
-{
-    return isPinMode(pin, PIN_MODE_INPUT);
-}
-
-bool isPinModeInputPullup(byte pin)
-{
-    return isPinMode(pin, PIN_MODE_INPUT_PULLUP);
-}
 
 String strPadsCharLft(const String value, int padding, const String useChar)
 {
