@@ -9,7 +9,6 @@
  */
 
 #pragma once
-#pragma GCC system_header
 
 #include <Adafruit_Sensor.h>
 #include <Adafruit_TSL2591.h>

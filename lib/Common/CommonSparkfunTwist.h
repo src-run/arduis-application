@@ -9,6 +9,5 @@
  */
 
 #pragma once
-#pragma GCC system_header
 
 #include <SparkFun_Qwiic_Twist_Arduino_Library.h>

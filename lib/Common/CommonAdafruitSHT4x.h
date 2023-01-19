@@ -9,6 +9,5 @@
  */
 
 #pragma once
-#pragma GCC system_header
 
 #include <Adafruit_SHT4x.h>
