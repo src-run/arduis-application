@@ -13,7 +13,12 @@
 void setupOutput(const unsigned long baud)
 {
     Serial.begin(baud);
-    while(!Serial);
+
+    while(!Serial) {
+        delay(1);
+    }
+
+    delay(500);
 }
 
 void outStepInfo(const bool skipped, const byte chances)
