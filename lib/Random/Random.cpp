@@ -15,12 +15,12 @@ void setupRandom()
     setRandomEntr(SYS_RANDOM_SMIN, SYS_RANDOM_SMAX, false);
 }
 
-void setRandomEntr(unsigned int min, unsigned int max, bool inc)
+void setRandomEntr(unsigned int low, unsigned int lim, bool inc)
 {
-    max = max(1, max);
-    min = max(0, min(max, min));
+    lim = max(1, lim);
+    low = max(0, min(lim, low));
 
-    for (byte i = 0; i < random8(min, max); i++) {
+    for (byte i = 0; i < random8(low, lim); i++) {
         const unsigned long seed = (inc ? getRandomSeed() : 1) + getRandomEntr();
 
         random16_set_seed(seed);

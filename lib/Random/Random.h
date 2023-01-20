@@ -18,19 +18,19 @@ void                 setupRandom();
 
 inline byte          randByte()                                                                       __attribute__((always_inline));
 inline byte          randByte(byte lim)                                                               __attribute__((always_inline));
-inline byte          randByte(byte min, byte lim)                                                     __attribute__((always_inline));
+inline byte          randByte(byte low, byte lim)                                                     __attribute__((always_inline));
 
 inline unsigned int  randUInt()                                                                       __attribute__((always_inline));
 inline unsigned int  randUInt(unsigned int lim)                                                       __attribute__((always_inline));
-inline unsigned int  randUInt(unsigned int min, unsigned int lim)                                     __attribute__((always_inline));
+inline unsigned int  randUInt(unsigned int low, unsigned int lim)                                     __attribute__((always_inline));
 
 inline unsigned long randLong()                                                                       __attribute__((always_inline));
 inline unsigned long randLong(unsigned long lim)                                                      __attribute__((always_inline));
-inline unsigned long randLong(unsigned long min, unsigned long lim)                                   __attribute__((always_inline));
+inline unsigned long randLong(unsigned long low, unsigned long lim)                                   __attribute__((always_inline));
 
-inline void          addRandomEntr(unsigned int min, unsigned int max)                                __attribute__((always_inline));
+inline void          addRandomEntr(unsigned int low, unsigned int lim)                                __attribute__((always_inline));
 inline unsigned int  getRandomEntr()                                                                  __attribute__((always_inline));
-void                 setRandomEntr(unsigned int min, unsigned int max, bool inc);
+void                 setRandomEntr(unsigned int low, unsigned int lim, bool inc);
 
 inline unsigned int  getRandomSeed()                                                                  __attribute__((always_inline));
 inline unsigned int  getRandomIndx(unsigned int size)                                                 __attribute__((always_inline));
@@ -45,9 +45,9 @@ byte randByte(byte lim)
     return random8(lim);
 }
 
-byte randByte(byte min, byte lim)
+byte randByte(byte low, byte lim)
 {
-    return random8(min, lim);
+    return random8(low, lim);
 }
 
 unsigned int randUInt()
@@ -60,9 +60,9 @@ unsigned int randUInt(unsigned int lim)
     return random16(lim);
 }
 
-unsigned int randUInt(unsigned int min, unsigned int lim)
+unsigned int randUInt(unsigned int low, unsigned int lim)
 {
-    return random16(min, lim);
+    return random16(low, lim);
 }
 
 unsigned long randLong()
@@ -75,14 +75,14 @@ unsigned long randLong(unsigned long lim)
     return random(lim);
 }
 
-unsigned long randLong(unsigned long min, unsigned long lim)
+unsigned long randLong(unsigned long low, unsigned long lim)
 {
-    return random(min, lim);
+    return random(low, lim);
 }
 
-void addRandomEntr(unsigned int min, unsigned int max)
+void addRandomEntr(unsigned int low, unsigned int lim)
 {
-    setRandomEntr(min, max, true);
+    setRandomEntr(low, lim, true);
 }
 
 unsigned int getRandomEntr()
