@@ -12,7 +12,7 @@
 
 void SelectManager::begins()
 {
-    if (!_started && !_twister.begin(Wire, _address)) {
+    if (!_started && !_twister.begin(SYS_WIRE_OBJECT, _address)) {
         writeI2cDevFailureAndDelayForever("Twist", _address);
     }
 

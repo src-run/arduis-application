@@ -13,12 +13,20 @@
 #include "CommonArduino.h"
 #include "CommonFastLED.h"
 
+
 #define SYS_OB_LED_ENBL   ((bool)true)
+
 #define SYS_RANDOM_SMIN   100U
 #define SYS_RANDOM_SMAX   999U
+
 #define OUT_SERIAL_BAUD   115200UL
+
 #define OUT_COUNTS_STAT   ((bool)true)
 #define OUT_MINPWR_STAT   ((bool)true)
+#define SYS_WIRE_D_STAT   ((bool)true)
+#define SYS_WIRE_D_VERB   ((bool)true)
+
+#define SYS_WIRE_OBJECT   Wire1
 
 #define LED_RELAY1_PIN    32U
 #define LED_RELAY2_PIN    33U

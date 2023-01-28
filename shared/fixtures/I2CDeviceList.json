@@ -1,0 +1,1191 @@
+[
+    {
+        "deviceIdent": "Rotary Encoder",
+        "deviceAbout": "Adafruit Rotary Encoder w/ NeoPixel",
+        "adafruitKey": 4991,
+        "addressList": [],
+        "addressSets": [
+            ["0x36", "0x3D"]
+        ]
+    },
+    {
+        "deviceIdent": "ADS1115",
+        "deviceAbout": "4-channel 16-Bit ADC",
+        "adafruitKey": 1085,
+        "addressList": [
+            "0x48",
+            "0x49",
+            "0x4A",
+            "0x4B"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "ADS1115",
+        "deviceAbout": "4-Channel 16-Bit ADC",
+        "adafruitKey": 1085,
+        "addressList": [
+            "0x48",
+            "0x49",
+            "0x4A",
+            "0x4B"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "ADT7410",
+        "deviceAbout": "TMP Sensor",
+        "adafruitKey": 4089,
+        "addressList": [
+            "0x48",
+            "0x49",
+            "0x4A",
+            "0x4B"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "ADXL343",
+        "deviceAbout": "3-Axis Accelerometer",
+        "adafruitKey": 4097,
+        "addressList": [
+            "0x1D",
+            "0x53"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "ADXL345",
+        "deviceAbout": "3-Axis Accelerometer",
+        "adafruitKey": 1231,
+        "addressList": [
+            "0x1D",
+            "0x53"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "AHT20",
+        "deviceAbout": "TMP/HUM Sensor",
+        "adafruitKey": 4566,
+        "addressList": [
+            "0x38"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "AM2315",
+        "deviceAbout": "TMP/HUM Sensor",
+        "adafruitKey": 1293,
+        "addressList": [
+            "0x5C"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "AM2320",
+        "deviceAbout": "TMP/HUM Sensor",
+        "adafruitKey": 3721,
+        "addressList": [
+            "0x5C"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "AMG8833",
+        "deviceAbout": "IR Thermal Camera",
+        "adafruitKey": 3538,
+        "addressList": [
+            "0x68",
+            "0x69"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "APDS-9960",
+        "deviceAbout": "IR/Color/Proximity Sensor",
+        "adafruitKey": 3595,
+        "addressList": [
+            "0x39"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "AS7262",
+        "deviceAbout": "Light/Color Sensor",
+        "adafruitKey": 3779,
+        "addressList": [
+            "0x49"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "AS7341",
+        "deviceAbout": "Color Sensor",
+        "adafruitKey": 4698,
+        "addressList": [
+            "0x39"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "ATECC608",
+        "deviceAbout": "Cryptographic Co-Processor",
+        "adafruitKey": 4314,
+        "addressList": [
+            "0x60"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "AW9523",
+        "deviceAbout": "GPIO Expander and LED Driver",
+        "adafruitKey": 4886,
+        "addressList": [],
+        "addressSets": [
+            ["0x58", "0x5B"]
+        ]
+    },
+    {
+        "deviceIdent": "BH1750",
+        "deviceAbout": "Light Sensor",
+        "adafruitKey": 4681,
+        "addressList": [
+            "0x23",
+            "0x5C"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "BME280",
+        "deviceAbout": "TMP/Barometric/HUM ",
+        "adafruitKey": 2652,
+        "addressList": [
+            "0x76",
+            "0x77"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "BME680",
+        "deviceAbout": "TMP/Barometric/HUM/Gas",
+        "adafruitKey": 3660,
+        "addressList": [
+            "0x76",
+            "0x77"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "BMP085",
+        "deviceAbout": "TMP/Barometric",
+        "adafruitKey": 391,
+        "addressList": [
+            "0x77"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "BMP180",
+        "deviceAbout": "TMP/Barometric",
+        "adafruitKey": 1603,
+        "addressList": [
+            "0x77"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "BMP280",
+        "deviceAbout": "TMP/Barometric ",
+        "adafruitKey": 2651,
+        "addressList": [
+            "0x76",
+            "0x77"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "BMP388",
+        "deviceAbout": "TMP/Barometric",
+        "adafruitKey": 3966,
+        "addressList": [
+            "0x76",
+            "0x77"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "BMP390",
+        "deviceAbout": "TMP/Barometric",
+        "adafruitKey": 4816,
+        "addressList": [
+            "0x76",
+            "0x77"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "BNO055",
+        "deviceAbout": "9-DOF IMU",
+        "adafruitKey": 2472,
+        "addressList": [
+            "0x28",
+            "0x29"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "BNO085",
+        "deviceAbout": "9-DOF IMU",
+        "adafruitKey": 4754,
+        "addressList": [
+            "0x4A",
+            "0x4B"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "CAP1188",
+        "deviceAbout": "8-Channel Capacitive Touch",
+        "adafruitKey": 1602,
+        "addressList": [],
+        "addressSets": [
+            ["0x28", "0x2D"]
+        ]
+    },
+    {
+        "deviceIdent": "CAP1188",
+        "deviceAbout": "8-Channel Capacitive Touch",
+        "adafruitKey": 1602,
+        "addressList": [],
+        "addressSets": [
+            ["0x28", "0x2D"]
+        ]
+    },
+    {
+        "deviceIdent": "CCS811",
+        "deviceAbout": "VOC Sensor",
+        "adafruitKey": 3566,
+        "addressList": [
+            "0x5A",
+            "0x5B"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "Chirp!",
+        "deviceAbout": "Water Sensor",
+        "adafruitKey": 1965,
+        "addressList": [
+            "0x20"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "DPS310",
+        "deviceAbout": "Barometric Sensor",
+        "adafruitKey": 4494,
+        "addressList": [
+            "0x76",
+            "0x77"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "DRV2605",
+        "deviceAbout": "Haptic Motor Driver",
+        "adafruitKey": 2305,
+        "addressList": [
+            "0x5A"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "DS1307",
+        "deviceAbout": "RTC",
+        "adafruitKey": 3296,
+        "addressList": [
+            "0x68"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "DS1841",
+        "deviceAbout": "Digital Logarithmic Potentiometer",
+        "adafruitKey": 4570,
+        "addressList": [],
+        "addressSets": [
+            ["0x28", "0x2B"]
+        ]
+    },
+    {
+        "deviceIdent": "DS3231",
+        "deviceAbout": "RTC",
+        "adafruitKey": 3013,
+        "addressList": [
+            "0x68"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "DS3502",
+        "deviceAbout": "Digital 10K Potentiometer",
+        "adafruitKey": 4286,
+        "addressList": [],
+        "addressSets": [
+            ["0x28", "0x2B"]
+        ]
+    },
+    {
+        "deviceIdent": "EMC2101",
+        "deviceAbout": "Fan Controller",
+        "adafruitKey": 4808,
+        "addressList": [
+            "0x4C"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "FT6x06",
+        "deviceAbout": "Capacitive Touch Driver",
+        "adafruitKey": 1947,
+        "addressList": [
+            "0x38"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "FXAS21002",
+        "deviceAbout": "Gyroscope",
+        "adafruitKey": 3463,
+        "addressList": [
+            "0x20",
+            "0x21"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "FXOS8700",
+        "deviceAbout": "Accelerometer & Magnetometer",
+        "adafruitKey": 3463,
+        "addressList": [
+            "0x1C",
+            "0x1D",
+            "0x1E",
+            "0x1F"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "FXOS8700",
+        "deviceAbout": "Accelerometer/Magnetometer",
+        "adafruitKey": 3463,
+        "addressList": [
+            "0x1C",
+            "0x1D",
+            "0x1E",
+            "0x1F"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "HDC1008",
+        "deviceAbout": "TMP/HUM Sensor",
+        "adafruitKey": 2635,
+        "addressList": [
+            "0x40",
+            "0x41",
+            "0x42",
+            "0x43"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "HMC5883",
+        "deviceAbout": "Magnetometer",
+        "adafruitKey": 1746,
+        "addressList": [
+            "0x1E"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "HT16K33",
+        "deviceAbout": "LED Matrix Driver",
+        "adafruitKey": 1427,
+        "addressList": [],
+        "addressSets": [
+            ["0x70", "0x77"]
+        ]
+    },
+    {
+        "deviceIdent": "HTS221",
+        "deviceAbout": "TMP/HUM Sensor",
+        "adafruitKey": 4535,
+        "addressList": [
+            "0x5F"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "HTU21D-F",
+        "deviceAbout": "TMP/HUM Sensor",
+        "adafruitKey": 1899,
+        "addressList": [
+            "0x40"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "HTU31D",
+        "deviceAbout": "TMP/HUM Sensor",
+        "adafruitKey": 4832,
+        "addressList": [
+            "0x40",
+            "0x41"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "ICM-20649",
+        "deviceAbout": "Accelerometer + Gyroscope",
+        "adafruitKey": 4464,
+        "addressList": [
+            "0x68",
+            "0x69"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "ICM330DHC",
+        "deviceAbout": "6-Axis IMU",
+        "adafruitKey": 4502,
+        "addressList": [
+            "0x6A",
+            "0x6B"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "INA219",
+        "deviceAbout": "High-Side DC Current/Voltage Sensor",
+        "adafruitKey": 904,
+        "addressList": [],
+        "addressSets": [
+            ["0x40", "0x4F"]
+        ]
+    },
+    {
+        "deviceIdent": "INA260",
+        "deviceAbout": "Precision DC Current/Power Sensor",
+        "adafruitKey": 4226,
+        "addressList": [],
+        "addressSets": [
+            ["0x40", "0x4F"]
+        ]
+    },
+    {
+        "deviceIdent": "IS31FL3731",
+        "deviceAbout": "144-LED CharliePlex driver",
+        "adafruitKey": 2946,
+        "addressList": [
+            "0x74",
+            "0x75",
+            "0x66",
+            "0x77"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "L3GD20H",
+        "deviceAbout": "Gyroscope",
+        "adafruitKey": 1714,
+        "addressList": [
+            "0x6A",
+            "0x6B"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "LC709203F",
+        "deviceAbout": "Fuel Gauge and Battery Monitor",
+        "adafruitKey": 4712,
+        "addressList": [
+            "0x0B"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "LIS2MDL",
+        "deviceAbout": "Magnetometer",
+        "adafruitKey": 4488,
+        "addressList": [
+            "0x1E"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "LIS331",
+        "deviceAbout": "3-Axis Accelerometer",
+        "adafruitKey": 4626,
+        "addressList": [
+            "0x18",
+            "0x19"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "LIS3DH",
+        "deviceAbout": "3-Axis Accelerometer",
+        "adafruitKey": 2809,
+        "addressList": [
+            "0x18",
+            "0x19"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "LIS3MDL",
+        "deviceAbout": "Magetometer",
+        "adafruitKey": 4479,
+        "addressList": "(0x1C & 0x1E)"
+    },
+    {
+        "deviceIdent": "LIS3MDL",
+        "deviceAbout": "Magnetometer",
+        "adafruitKey": 4479,
+        "addressList": "(0x1C & 0x1E)"
+    },
+    {
+        "deviceIdent": "LPS22",
+        "deviceAbout": "Pressure Sensor",
+        "adafruitKey": 4633,
+        "addressList": [
+            "0x5C",
+            "0x5D"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "LPS25",
+        "deviceAbout": "Pressure Sensor",
+        "adafruitKey": 4530,
+        "addressList": [
+            "0x5C",
+            "0x5D"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "LPS33HW",
+        "deviceAbout": "Ported Pressure Sensor",
+        "adafruitKey": 4414,
+        "addressList": [
+            "0x5C",
+            "0x5D"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "LPS35HW",
+        "deviceAbout": "Pressure Sensor",
+        "adafruitKey": 4258,
+        "addressList": [
+            "0x5C",
+            "0x5D"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "LSM303",
+        "deviceAbout": "Accelerometer",
+        "adafruitKey": 4413,
+        "addressList": [
+            "0x19"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "LSM303",
+        "deviceAbout": "Magnetometer",
+        "adafruitKey": 4413,
+        "addressList": [
+            "0x1E"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "LSM6DS33",
+        "deviceAbout": "6-Axis IMU",
+        "adafruitKey": 4480,
+        "addressList": [
+            "0x6A",
+            "0x6B"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "LSM6DSOX",
+        "deviceAbout": "6-Axis IMU",
+        "adafruitKey": 4438,
+        "addressList": [
+            "0x6A",
+            "0x6B"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "LSM9DS0",
+        "deviceAbout": "9-Axis IMU",
+        "adafruitKey": 2021,
+        "addressList": [
+            "0x1D",
+            "0x1E",
+            "0x6A",
+            "0x6B"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "LTR390",
+        "deviceAbout": "UV Sensor",
+        "adafruitKey": 4831,
+        "addressList": [
+            "0x53"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "MB85RC",
+        "deviceAbout": "FRAM",
+        "adafruitKey": 1895,
+        "addressList": [],
+        "addressSets": [
+            ["0x50", "0x57"]
+        ]
+    },
+    {
+        "deviceIdent": "MCP23008",
+        "deviceAbout": "GPIO Expander",
+        "adafruitKey": 292,
+        "addressList": [],
+        "addressSets": [
+            ["0x20", "0x27"]
+        ]
+    },
+    {
+        "deviceIdent": "MCP23017",
+        "deviceAbout": "GPIO Expander",
+        "adafruitKey": 732,
+        "addressList": [],
+        "addressSets": [
+            ["0x20", "0x27"]
+        ]
+    },
+    {
+        "deviceIdent": "MCP4725A1",
+        "deviceAbout": "12-Bit DAC",
+        "adafruitKey": 935,
+        "addressList": [
+            "0x62",
+            "0x63"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "MCP4728",
+        "deviceAbout": "Quad DAC",
+        "adafruitKey": 4470,
+        "addressList": [
+            "0x60"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "MCP9600",
+        "deviceAbout": "TMP Sensor",
+        "adafruitKey": 4101,
+        "addressList": [],
+        "addressSets": [
+            ["0x60", "0x67"]
+        ]
+    },
+    {
+        "deviceIdent": "MCP9808",
+        "deviceAbout": "TMP Sensor",
+        "adafruitKey": 1782,
+        "addressList": [],
+        "addressSets": [
+            ["0x18", "0x1F"]
+        ]
+    },
+    {
+        "deviceIdent": "MLX90393",
+        "deviceAbout": "3-Axis Magnetometer",
+        "adafruitKey": 4022,
+        "addressList": [],
+        "addressSets": [
+            ["0x0C", "0x0F"]
+        ]
+    },
+    {
+        "deviceIdent": "MLX9061x",
+        "deviceAbout": "IR TMP Sensor",
+        "adafruitKey": 1747,
+        "addressList": [
+            "0x5A"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "MLX90640",
+        "deviceAbout": "IR Thermal Camera",
+        "adafruitKey": 4407,
+        "addressList": [
+            "0x33"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "MMA845x",
+        "deviceAbout": "3-Axis Accelerometer",
+        "adafruitKey": 2019,
+        "addressList": [
+            "0x1C",
+            "0x1D"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "MPL115A2",
+        "deviceAbout": "Barometric Pressure",
+        "adafruitKey": 992,
+        "addressList": [
+            "0x60"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "MPL3115A2",
+        "deviceAbout": "Barometric Pressure",
+        "adafruitKey": 1893,
+        "addressList": [
+            "0x60"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "MPR121",
+        "deviceAbout": "12-Point Capacitive Touch Sensor",
+        "adafruitKey": 1982,
+        "addressList": [
+            "0x5A",
+            "0x5B",
+            "0x5C",
+            "0x5D"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "MPRLS",
+        "deviceAbout": "Pressure Sensor",
+        "adafruitKey": 3965,
+        "addressList": [
+            "0x18"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "MS8607",
+        "deviceAbout": "TMP/HUM/PRS Sensor",
+        "adafruitKey": 4716,
+        "addressList": [
+            "0x40",
+            "0x76"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "MSA301",
+        "deviceAbout": "3-Axis Accelerometer",
+        "adafruitKey": 4344,
+        "addressList": [
+            "0x26"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "Nintendo",
+        "deviceAbout": "Nunchuck Controller",
+        "adafruitKey": 342,
+        "addressList": [
+            "0x52"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "PCA9685",
+        "deviceAbout": "16-Channel PWM Driver (default address)",
+        "adafruitKey": 815,
+        "addressList": [],
+        "addressSets": [
+            ["0x40", "0x7F"]
+        ]
+    },
+    {
+        "deviceIdent": "PCF8523",
+        "deviceAbout": "RTC",
+        "adafruitKey": 3295,
+        "addressList": [
+            "0x68"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "PCF8591",
+        "deviceAbout": "Quad 8-Bit ADC + 8-Bit DAC",
+        "adafruitKey": 4648,
+        "addressList": [],
+        "addressSets": [
+            ["0x48", "0x4F"]
+        ]
+    },
+    {
+        "deviceIdent": "PCT2075",
+        "deviceAbout": "TMP Sensor",
+        "adafruitKey": 4369,
+        "addressList": [],
+        "addressSets": [
+            ["0x28", "0x2E"],
+            ["0x30", "0x37"],
+            ["0x48", "0x4F"]
+        ]
+    },
+    {
+        "deviceIdent": "PMSA0031",
+        "deviceAbout": "Gas Sensor",
+        "adafruitKey": 4632,
+        "addressList": [
+            "0x12"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "PN532",
+        "deviceAbout": "NFC/RFID reader",
+        "adafruitKey": 364,
+        "addressList": [
+            "0x48"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "SCD30",
+        "deviceAbout": "TMP/HUM/CO2 Sensor",
+        "adafruitKey": 4867,
+        "addressList": [
+            "0x61"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "SGP30",
+        "deviceAbout": "Gas Sensor",
+        "adafruitKey": 3709,
+        "addressList": [
+            "0x58"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "SGP40",
+        "deviceAbout": "Gas Sensor",
+        "adafruitKey": 4829,
+        "addressList": [
+            "0x59"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "SH1106",
+        "deviceAbout": "Monochrome OLED",
+        "adafruitKey": 5228,
+        "addressList": [
+            "0x3C",
+            "0x3D"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "SHT31",
+        "deviceAbout": "TMP/HUM Sensor",
+        "adafruitKey": 2857,
+        "addressList": "(0x44, 0x45 selectable)"
+    },
+    {
+        "deviceIdent": "SHT40",
+        "deviceAbout": "TMP/HUM Sensor",
+        "adafruitKey": 4885,
+        "addressList": [
+            "0x44"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "SHT45",
+        "deviceAbout": "Precision TMP/HUM Sensor",
+        "adafruitKey": 4885,
+        "addressList": [
+            "0x44"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "SHTC3",
+        "deviceAbout": "TMP/HUM Sensor",
+        "adafruitKey": 4636,
+        "addressList": [
+            "0x70"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "Si1145",
+        "deviceAbout": "Light/IR Sensor",
+        "adafruitKey": 1777,
+        "addressList": [
+            "0x60"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "Si4713",
+        "deviceAbout": "FM Transmitter with RDS",
+        "adafruitKey": 1958,
+        "addressList": [
+            "0x11",
+            "0x63"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "Si5351A",
+        "deviceAbout": "Clock Generator",
+        "adafruitKey": 2045,
+        "addressList": [
+            "0x60",
+            "0x61"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "Si7021",
+        "deviceAbout": "TMP/HUM Sensor",
+        "adafruitKey": 3251,
+        "addressList": [
+            "0x40"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "SSD1305",
+        "deviceAbout": "Monochrome OLED",
+        "adafruitKey": 2720,
+        "addressList": [
+            "0x3C",
+            "0x3D"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "SSD1306",
+        "deviceAbout": "Monochrome OLED",
+        "adafruitKey": 938,
+        "addressList": [
+            "0x3C",
+            "0x3D"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "STMPE610",
+        "deviceAbout": "Resistive Touch Controller",
+        "adafruitKey": 1571,
+        "addressList": [
+            "0x41",
+            "0x44"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "STMPE811",
+        "deviceAbout": "Resistive Touch Controller",
+        "adafruitKey": 1571,
+        "addressList": [
+            "0x41",
+            "0x44"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "TCA9548",
+        "deviceAbout": "1-to-8 I2C Multiplexer",
+        "adafruitKey": 2717,
+        "addressList": [],
+        "addressSets": [
+            ["0x70", "0x77"]
+        ]
+    },
+    {
+        "deviceIdent": "TCS34725",
+        "deviceAbout": "Color Sensor",
+        "adafruitKey": 1334,
+        "addressList": [
+            "0x29"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "TLV493D",
+        "deviceAbout": "3-Axis Magnetometer",
+        "adafruitKey": 4366,
+        "addressList": [
+            "0x5E"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "TMP006",
+        "deviceAbout": "IR TMP Sensor",
+        "adafruitKey": 1296,
+        "addressList": [],
+        "addressSets": [
+            ["0x40", "0x47"]
+        ]
+    },
+    {
+        "deviceIdent": "TMP007",
+        "deviceAbout": "IR TMP Sensor",
+        "adafruitKey": 2023,
+        "addressList": [],
+        "addressSets": [
+            ["0x40", "0x47"]
+        ]
+    },
+    {
+        "deviceIdent": "TMP117",
+        "deviceAbout": "TMP Sensor",
+        "adafruitKey": 4821,
+        "addressList": [
+            "0x48",
+            "0x49",
+            "0x4A",
+            "0x4B"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "TPA2016",
+        "deviceAbout": "Class-D Audio Amplifier",
+        "adafruitKey": 1712,
+        "addressList": [
+            "0x58"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "TSL2561",
+        "deviceAbout": "Light Sensor",
+        "adafruitKey": 439,
+        "addressList": [
+            "0x29",
+            "0x39",
+            "0x49"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "TSL2591",
+        "deviceAbout": "Light Sensor",
+        "adafruitKey": 1980,
+        "addressList": [
+            "0x29",
+            "0x28"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "VCNL4040",
+        "deviceAbout": "Proximity and Ambient Light Sensor",
+        "adafruitKey": 4161,
+        "addressList": [
+            "0x60"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "VCNL40x0",
+        "deviceAbout": "Proximity Sensor",
+        "adafruitKey": 466,
+        "addressList": [
+            "0x13"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "VEML6070",
+        "deviceAbout": "UV Index",
+        "adafruitKey": 2899,
+        "addressList": [
+            "0x38",
+            "0x39"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "VEML6070",
+        "deviceAbout": "UV Light Sensor",
+        "adafruitKey": 2899,
+        "addressList": [
+            "0x38",
+            "0x39"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "VEML7700",
+        "deviceAbout": "Ambient Light Sensor",
+        "adafruitKey": 4162,
+        "addressList": [
+            "0x10"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "VL53L0X",
+        "deviceAbout": "ToF Sensor",
+        "adafruitKey": 3317,
+        "addressList": [
+            "0x29"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "VL6180X",
+        "deviceAbout": "ToF Sensor",
+        "adafruitKey": 3316,
+        "addressList": [
+            "0x29"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "Qwiic Twist",
+        "deviceAbout": "RGB Rotary Encoder",
+        "adafruitKey": null,
+        "addressList": [
+            "0x3F"
+        ],
+        "addressSets": []
+    }
+]

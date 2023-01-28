@@ -14,7 +14,8 @@
 #include "CommonFastLED.h"
 #include "Config.h"
 #include "Counter.h"
-#include "Utilities.h"
+#include "I2CUtilities.h"
+#include "I2CDeviceInfo.h"
 #include "PowerCalculatedBrightness.h"
 #include "EffectDefinitionDetail.h"
 #include "EffectFactor.h"
@@ -30,6 +31,7 @@ String getStepInfoMorePalette();
 String getStepInfoMoreCounter();
 String getStepInfoSkip(const bool skipped, const byte chances);
 void   outPwrLimitInfo(const PowerCalculatedBrightness& maximumBrightness);
+void   outI2CFoundInfo(const I2CDeviceInfo& deviceInfo);
 
 byte   getListNamesMaxLength(const byte add, unsigned int (*getListSize)(), const char* (*getItemName)(const unsigned int));
 byte   getLedPatternListNamesMaxLength(const byte add = 2);

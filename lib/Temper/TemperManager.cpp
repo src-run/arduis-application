@@ -34,7 +34,7 @@ void TemperManager::update()
 
 void TemperManager::begins()
 {
-    if (!_inited && !_sensor.begin(&Wire)) {
+    if (!_inited && !_sensor.begin(&SYS_WIRE_OBJECT)) {
         writeI2cDevFailureAndDelayForever("SHT45", _address);
     }
 

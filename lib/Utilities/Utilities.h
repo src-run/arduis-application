@@ -12,6 +12,7 @@
 
 #include "CommonArduino.h"
 #include "Config.h"
+#include "I2CDeviceInfo.h"
 
 #define ARRAY_SIZE(A) (*(&A + 1) - A)
 
@@ -19,6 +20,8 @@
 #define PIN_MODE_INPUT        INPUT
 #define PIN_MODE_INPUT_PULLUP INPUT_PULLUP
 #define PIN_MODE_OUTPUT       OUTPUT
+
+extern void outI2CFoundInfo(const I2CDeviceInfo&);
 
 enum StringPadDirection { lft, eql, rgt };
 
@@ -70,6 +73,7 @@ inline bool          isMatch(const String subject, const String matcher)        
 
 void setupSystem();
 void setupWiring();
+void writeScannedI2C();
 void delayForever(bool writeSerialMessage = false);
 void writeI2cDevFailureAndDelayForever(String device, byte address = 0);
 

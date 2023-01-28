@@ -16,6 +16,7 @@
 #include "CommonAdafruitSHT4x.h"
 #include "CommonAdafruitVEML7700.h"
 #include "CommonAdafruitTSL2591.h"
+#include "Config.h"
 #include "Power.h"
 #include "Relays.h"
 #include "Temper.h"

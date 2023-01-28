@@ -22,5 +22,5 @@ void setupTimers()
     PalettePeriodTimer.setPeriodTime(getLedPaletteItemCallExecSecs() ?: LED_PAL_SEC_CYCLE);
     ByteNumPeriodTimer.setPeriodTime(getLedPatternItemRandHuesMili() ?: LED_STR_MIL_COLOR);
     TempHumPeriodTimer.setPeriodTime(20);
-    SelectsPeriodTimer.setPeriodTime(250);
+    SelectsPeriodTimer.setPeriodTime(750);
 }

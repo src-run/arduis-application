@@ -88,5 +88,6 @@ unsigned long runTimerByteNum()
 
 void setupCycles()
 {
+    cycleTemper();
     runTimerPattern();
 }

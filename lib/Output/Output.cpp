@@ -208,3 +208,21 @@ void outPwrLimitInfo(const PowerCalculatedBrightness& maximumBrightness)
 
     Serial.println(outsBuffer);
 }
+
+void outI2CFoundInfo(const I2CDeviceInfo& deviceInfo)
+{
+    const String outsDevStr { getI2CFoundDesc(deviceInfo) };
+    const String outsFormat { F("### I2C:%d - Device found : 0x%02X %s%s") };
+    char         outsBuffer[outsFormat.length() + outsDevStr.length() + 9 + 1];
+
+    sprintf(
+        outsBuffer,
+        outsFormat.c_str(),
+        deviceInfo.i,
+        deviceInfo.address,
+        outsDevStr.c_str(),
+        getItemsAvailModeDesc(deviceInfo.endCode == 0, F(""), F(" (FAILURE)"), false).c_str()
+    );
+
+    Serial.println(outsBuffer);
+}

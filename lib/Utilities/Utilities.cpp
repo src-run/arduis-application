@@ -18,7 +18,33 @@ void setupSystem()
 
 void setupWiring()
 {
-    Wire.setClock(400000);
+    SYS_WIRE_OBJECT.begin();
+    delay(250);
+
+    if (SYS_WIRE_D_STAT) {
+        writeScannedI2C();
+    }
+}
+
+void writeScannedI2C()
+{
+    byte counter { 1 };
+
+    for(byte address = 1; address < 127; address++) {
+        const I2CDeviceInfo device {
+            counter,
+            address,
+            ([](byte address) -> byte {
+                SYS_WIRE_OBJECT.beginTransmission(address);
+                return SYS_WIRE_OBJECT.endTransmission();
+            })(address),
+        };
+
+        if (device.endCode == 0 || device.endCode == 4) {
+            outI2CFoundInfo(device);
+            ++counter;
+        }
+    }
 }
 
 void delayForever(bool writeSerialMessage)
