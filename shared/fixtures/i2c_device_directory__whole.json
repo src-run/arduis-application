@@ -4,9 +4,10 @@
         "deviceAbout": "Adafruit Rotary Encoder w/ NeoPixel",
         "adafruitKey": 4991,
         "addressList": [],
-        "addressSets": [
-            ["0x36", "0x3D"]
-        ]
+        "addressSets": [{
+            "beg": "0x36",
+            "end": "0x3D"
+        }]
     },
     {
         "deviceIdent": "ADS1115",
@@ -142,9 +143,10 @@
         "deviceAbout": "GPIO Expander and LED Driver",
         "adafruitKey": 4886,
         "addressList": [],
-        "addressSets": [
-            ["0x58", "0x5B"]
-        ]
+        "addressSets": [{
+            "beg": "0x58",
+            "end": "0x5B"
+        }]
     },
     {
         "deviceIdent": "BH1750",
@@ -249,18 +251,20 @@
         "deviceAbout": "8-Channel Capacitive Touch",
         "adafruitKey": 1602,
         "addressList": [],
-        "addressSets": [
-            ["0x28", "0x2D"]
-        ]
+        "addressSets": [{
+            "beg": "0x28",
+            "end": "0x2D"
+        }]
     },
     {
         "deviceIdent": "CAP1188",
         "deviceAbout": "8-Channel Capacitive Touch",
         "adafruitKey": 1602,
         "addressList": [],
-        "addressSets": [
-            ["0x28", "0x2D"]
-        ]
+        "addressSets": [{
+            "beg": "0x28",
+            "end": "0x2D"
+        }]
     },
     {
         "deviceIdent": "CCS811",
@@ -314,9 +318,10 @@
         "deviceAbout": "Digital Logarithmic Potentiometer",
         "adafruitKey": 4570,
         "addressList": [],
-        "addressSets": [
-            ["0x28", "0x2B"]
-        ]
+        "addressSets": [{
+            "beg": "0x28",
+            "end": "0x2B"
+        }]
     },
     {
         "deviceIdent": "DS3231",
@@ -332,9 +337,10 @@
         "deviceAbout": "Digital 10K Potentiometer",
         "adafruitKey": 4286,
         "addressList": [],
-        "addressSets": [
-            ["0x28", "0x2B"]
-        ]
+        "addressSets": [{
+            "beg": "0x28",
+            "end": "0x2B"
+        }]
     },
     {
         "deviceIdent": "EMC2101",
@@ -414,9 +420,10 @@
         "deviceAbout": "LED Matrix Driver",
         "adafruitKey": 1427,
         "addressList": [],
-        "addressSets": [
-            ["0x70", "0x77"]
-        ]
+        "addressSets": [{
+            "beg": "0x70",
+            "end": "0x77"
+        }]
     },
     {
         "deviceIdent": "HTS221",
@@ -471,18 +478,20 @@
         "deviceAbout": "High-Side DC Current/Voltage Sensor",
         "adafruitKey": 904,
         "addressList": [],
-        "addressSets": [
-            ["0x40", "0x4F"]
-        ]
+        "addressSets": [{
+            "beg": "0x40",
+            "end": "0x4F"
+        }]
     },
     {
         "deviceIdent": "INA260",
         "deviceAbout": "Precision DC Current/Power Sensor",
         "adafruitKey": 4226,
         "addressList": [],
-        "addressSets": [
-            ["0x40", "0x4F"]
-        ]
+        "addressSets": [{
+            "beg": "0x40",
+            "end": "0x4F"
+        }]
     },
     {
         "deviceIdent": "IS31FL3731",
@@ -660,27 +669,30 @@
         "deviceAbout": "FRAM",
         "adafruitKey": 1895,
         "addressList": [],
-        "addressSets": [
-            ["0x50", "0x57"]
-        ]
+        "addressSets": [{
+            "beg": "0x50",
+            "end": "0x57"
+        }]
     },
     {
         "deviceIdent": "MCP23008",
         "deviceAbout": "GPIO Expander",
         "adafruitKey": 292,
         "addressList": [],
-        "addressSets": [
-            ["0x20", "0x27"]
-        ]
+        "addressSets": [{
+            "beg": "0x20",
+            "end": "0x27"
+        }]
     },
     {
         "deviceIdent": "MCP23017",
         "deviceAbout": "GPIO Expander",
         "adafruitKey": 732,
         "addressList": [],
-        "addressSets": [
-            ["0x20", "0x27"]
-        ]
+        "addressSets": [{
+            "beg": "0x20",
+            "end": "0x27"
+        }]
     },
     {
         "deviceIdent": "MCP4725A1",
@@ -706,27 +718,30 @@
         "deviceAbout": "TMP Sensor",
         "adafruitKey": 4101,
         "addressList": [],
-        "addressSets": [
-            ["0x60", "0x67"]
-        ]
+        "addressSets": [{
+            "beg": "0x60",
+            "end": "0x67"
+        }]
     },
     {
         "deviceIdent": "MCP9808",
         "deviceAbout": "TMP Sensor",
         "adafruitKey": 1782,
         "addressList": [],
-        "addressSets": [
-            ["0x18", "0x1F"]
-        ]
+        "addressSets": [{
+            "beg": "0x18",
+            "end": "0x1F"
+        }]
     },
     {
         "deviceIdent": "MLX90393",
         "deviceAbout": "3-Axis Magnetometer",
         "adafruitKey": 4022,
         "addressList": [],
-        "addressSets": [
-            ["0x0C", "0x0F"]
-        ]
+        "addressSets": [{
+            "beg": "0x0C",
+            "end": "0x0F"
+        }]
     },
     {
         "deviceIdent": "MLX9061x",
@@ -828,9 +843,10 @@
         "deviceAbout": "16-Channel PWM Driver (default address)",
         "adafruitKey": 815,
         "addressList": [],
-        "addressSets": [
-            ["0x40", "0x7F"]
-        ]
+        "addressSets": [{
+            "beg": "0x40",
+            "end": "0x7F"
+        }]
     },
     {
         "deviceIdent": "PCF8523",
@@ -846,20 +862,26 @@
         "deviceAbout": "Quad 8-Bit ADC + 8-Bit DAC",
         "adafruitKey": 4648,
         "addressList": [],
-        "addressSets": [
-            ["0x48", "0x4F"]
-        ]
+        "addressSets": [{
+            "beg": "0x48",
+            "end": "0x4F"
+        }]
     },
     {
         "deviceIdent": "PCT2075",
         "deviceAbout": "TMP Sensor",
         "adafruitKey": 4369,
         "addressList": [],
-        "addressSets": [
-            ["0x28", "0x2E"],
-            ["0x30", "0x37"],
-            ["0x48", "0x4F"]
-        ]
+        "addressSets": [{
+            "beg": "0x28",
+            "end": "0x2E"
+        }, {
+            "beg": "0x30",
+            "end": "0x37"
+        }, {
+            "beg": "0x48",
+            "end": "0x4F"
+        }]
     },
     {
         "deviceIdent": "PMSA0031",
@@ -1032,9 +1054,10 @@
         "deviceAbout": "1-to-8 I2C Multiplexer",
         "adafruitKey": 2717,
         "addressList": [],
-        "addressSets": [
-            ["0x70", "0x77"]
-        ]
+        "addressSets": [{
+            "beg": "0x70",
+            "end": "0x77"
+        }]
     },
     {
         "deviceIdent": "TCS34725",
@@ -1059,18 +1082,20 @@
         "deviceAbout": "IR TMP Sensor",
         "adafruitKey": 1296,
         "addressList": [],
-        "addressSets": [
-            ["0x40", "0x47"]
-        ]
+        "addressSets": [{
+            "beg": "0x40",
+            "end": "0x47"
+        }]
     },
     {
         "deviceIdent": "TMP007",
         "deviceAbout": "IR TMP Sensor",
         "adafruitKey": 2023,
         "addressList": [],
-        "addressSets": [
-            ["0x40", "0x47"]
-        ]
+        "addressSets": [{
+            "beg": "0x40",
+            "end": "0x47"
+        }]
     },
     {
         "deviceIdent": "TMP117",

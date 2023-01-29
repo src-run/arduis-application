@@ -19,6 +19,10 @@
 #define STR(A) ST(A)
 
 DynamicJsonDocument getI2CDeviceListJson();
+
 String getI2CDeviceListJsonText();
 String getI2CFoundDesc(const I2CDeviceInfo& deviceInfo);
-void  addI2CDeviceStr(String& deviceStr, const JsonVariant& device);
+
+void addI2CDevicesMatchingAddressList(String& deviceStr, const JsonVariant& device, const I2CDeviceInfo& deviceInfo);
+void addI2CDevicesMatchingAddressSets(String& deviceStr, const JsonVariant& device, const I2CDeviceInfo& deviceInfo);
+void addI2CDeviceStr(String& deviceStr, const JsonVariant& device);

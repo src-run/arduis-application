@@ -1,0 +1,57 @@
+[
+    {
+        "deviceIdent": "VEML7700",
+        "deviceAbout": "Ambient Light Sensor",
+        "adafruitKey": 4162,
+        "addressList": [
+            "0x10"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "TSL2591",
+        "deviceAbout": "High Dynamic Range Digital Light Sensor",
+        "adafruitKey": 1980,
+        "addressList": [
+            "0x29",
+            "0x28"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "Qwiic Twist",
+        "deviceAbout": "RGB Rotary Encoder",
+        "adafruitKey": null,
+        "addressList": [
+            "0x3F"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "SHT45",
+        "deviceAbout": "Precision Temperature/Humidity Sensor",
+        "adafruitKey": 4885,
+        "addressList": [
+            "0x44"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "ATECC608",
+        "deviceAbout": "Cryptographic Co-Processor",
+        "adafruitKey": 4314,
+        "addressList": [
+            "0x60"
+        ],
+        "addressSets": []
+    },
+    {
+        "deviceIdent": "DS3231",
+        "deviceAbout": "Precision Real Time Clock w/ TCXO",
+        "adafruitKey": 3013,
+        "addressList": [
+            "0x68"
+        ],
+        "addressSets": []
+    }
+]
