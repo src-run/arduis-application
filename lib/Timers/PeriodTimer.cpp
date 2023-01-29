@@ -21,7 +21,7 @@ PeriodTimer::PeriodTimer(PeriodUnits periodUnit, unsigned long periodTime, bool 
 void PeriodTimer::setPeriodTime(unsigned long periodTime)
 {
     _periodOrig = periodTime;
-    _periodTime = periodTime * _periodUnit;
+    _periodTime = periodTime * static_cast<unsigned long>(_periodUnit);
 
     if (_resetsAuto) {
         reset();

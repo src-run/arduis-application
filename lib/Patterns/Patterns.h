@@ -30,7 +30,7 @@
 
 extern const byte patternSizeItems;
 
-enum PatternListIndexAction {
+enum class PatternListIndexAction : byte {
     set,
     get,
     inc,

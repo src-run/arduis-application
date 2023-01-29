@@ -20,6 +20,7 @@
 #include "Power.h"
 #include "Relays.h"
 #include "Temper.h"
+#include "Clocks.h"
 #include "Timers.h"
 #include "Select.h"
 #include "Counter.h"

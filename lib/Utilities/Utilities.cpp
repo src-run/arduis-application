@@ -19,7 +19,7 @@ void setupSystem()
 void setupWiring()
 {
     SYS_WIRE_OBJECT.begin();
-    delay(250);
+    delay(500);
 
     if (SYS_WIRE_D_STAT) {
         writeScannedI2C();
@@ -73,6 +73,21 @@ void writeI2cDevFailureAndDelayForever(String device, byte address)
     Serial.println(buffer);
 
     delayForever(true);
+}
+
+String getCompilationDate()
+{
+    return F(__DATE__);
+}
+
+String getCompilationTime()
+{
+    return F(__TIME__);
+}
+
+DateTimeReading getCompilationDateTime()
+{
+    return DateTimeReading(DateTime(getCompilationDate().c_str(), getCompilationTime().c_str()));
 }
 
 String strPadsChar(const String value, const int padding, const String useChar, const StringPadDirection useSide)

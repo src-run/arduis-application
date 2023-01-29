@@ -1116,7 +1116,7 @@
     },
     {
         "deviceIdent": "VCNL4040",
-        "deviceAbout": "Proximity and Ambient Light Sensor",
+        "deviceAbout": "Proximity/Ambient Light Sensor",
         "adafruitKey": 4161,
         "addressList": [
             "0x60"

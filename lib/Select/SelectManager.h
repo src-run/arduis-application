@@ -16,6 +16,7 @@
 #include "Config.h"
 #include "PatternsList.h"
 #include "SelectVersion.h"
+#include "Utilities.h"
 
 class SelectManager {
     private:

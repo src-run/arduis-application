@@ -28,6 +28,7 @@ void outStepInfo(const bool skipped, const byte chances)
     Serial.print(getStepInfoMore());
     Serial.print(getStepInfoSkip(skipped, chances));
     Serial.println();
+    Serial.flush();
 }
 
 String getStepInfoMain()

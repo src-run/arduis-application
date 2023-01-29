@@ -8,15 +8,11 @@
  * file that was distributed with this source code.
  */
 
-#pragma once
+#include "Clocks.h"
 
-#include "CommonArduino.h"
+ClocksManager SystemClocks { };
 
-enum class PeriodUnits : unsigned long {
-    MILLIS = 1,
-    SECOND = MILLIS * 1000,
-    MINUTE = SECOND * 60,
-    HOUR   = MINUTE * 60,
-    DAY    = HOUR   * 24,
-    WEEK   = DAY    * 7,
-};
+void setupClocks()
+{
+    SystemClocks.begins();
+}
