@@ -26,7 +26,11 @@
 #define SYS_WIRE_D_STAT   ((bool)true)
 #define SYS_WIRE_D_VERB   ((bool)true)
 
+#ifdef _VARIANT_ARDUINO_DUE_X_
 #define SYS_WIRE_OBJECT   Wire1
+#else
+#define SYS_WIRE_OBJECT   Wire
+#endif
 
 #define LED_RELAY1_PIN    32U
 #define LED_RELAY2_PIN    33U
@@ -35,8 +39,8 @@
 #define LED_GRP_NUM       6U
 
 #define LED_STR_NUM       LED_GRP_LEN * LED_GRP_NUM
-#define LED_STR_PIN       6U
-#define LED_STR_BRT       60U
+#define LED_STR_PIN       2U
+#define LED_STR_BRT       20U
 #define LED_STR_CTL       WS2811
 #define LED_STR_ORD       RGB
 #define LED_STR_FPS       90

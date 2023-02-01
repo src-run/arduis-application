@@ -13,12 +13,20 @@
 DynamicJsonDocument getI2CDeviceListJson()
 {
     static const String               jsonRaw { getI2CDeviceListJsonText() };
-    static DynamicJsonDocument        jsonDoc { (jsonRaw.length() + (jsonRaw.length() / 2)) };
+    static const size_t               jsonLen { (jsonRaw.length() + (jsonRaw.length() / 4)) };
+    static DynamicJsonDocument        jsonDoc { jsonLen };
     static const DeserializationError jsonErr { deserializeJson(jsonDoc, jsonRaw) };
 
     if (jsonErr) {
-        Serial.print(F("!!! Failure - deserializeJson() error: "));
-        Serial.println(jsonErr.f_str());
+        Serial.print(F("!!! ERROR - JSON deserialization failure ("));
+        Serial.print(jsonErr.f_str());
+        Serial.println(F(")"));
+
+        Serial.print(F("!!! ERROR - JSON minimized raw txt block ("));
+        Serial.print(jsonRaw);
+        Serial.print(F(")["));
+        Serial.print(jsonLen, DEC);
+        Serial.println(F("]"));
     }
 
     return jsonDoc;
@@ -26,15 +34,15 @@ DynamicJsonDocument getI2CDeviceListJson()
 
 String getI2CDeviceListJsonText()
 {
-    if (!SYS_WIRE_D_VERB) {
-        return F("[]");
+    const String txt { ([]() -> String {
+        return SYS_WIRE_D_VERB ? F(STR(ARDUIS_I2C_DEVICE_LIST_JSON)) : F("[]");
+    })() };
+
+    if (txt.startsWith("\"") && txt.endsWith("\"")) {
+        return txt.substring(1, txt.length() - 1);
     }
 
-    String txt { F(STR(ARDUIS_I2C_DEVICE_LIST_JSON)) };
-
-    return txt.substring(0, 1) == "\"" && txt.substring(txt.length() - 1, txt.length()) == "\""
-        ? txt.substring(1, txt.length() - 1)
-        : txt;
+    return txt;
 }
 
 String getI2CFoundDesc(const I2CDeviceInfo& deviceInfo)
@@ -44,7 +52,7 @@ String getI2CFoundDesc(const I2CDeviceInfo& deviceInfo)
     String                     returnList {};
 
     if (deviceList.isNull() || deviceList.size() == 0) {
-        return F("(Unknown Device)");
+        return F(" [Unknown Device]");
     }
 
     for(JsonVariant device : deviceList) {
@@ -53,7 +61,7 @@ String getI2CFoundDesc(const I2CDeviceInfo& deviceInfo)
     }
 
     if (returnList.length() > 0) {
-        returnList = String(F("[")) + returnList + String(F("]"));
+        returnList = String(F(" [")) + returnList + String(F("]"));
     }
 
     return returnList;

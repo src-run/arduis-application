@@ -212,7 +212,9 @@ void outPwrLimitInfo(const PowerCalculatedBrightness& maximumBrightness)
 
 void outI2CFoundInfo(const I2CDeviceInfo& deviceInfo)
 {
-    const String outsDevStr { getI2CFoundDesc(deviceInfo) };
+    const String outsDevStr { ([deviceInfo]() -> String {
+        return SYS_WIRE_D_VERB ? getI2CFoundDesc(deviceInfo) : F("");
+    })() };
     const String outsFormat { F("### I2C:%d - Device found : 0x%02X %s%s") };
     char         outsBuffer[outsFormat.length() + outsDevStr.length() + 9 + 1];
 
