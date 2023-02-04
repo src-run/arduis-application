@@ -8,17 +8,14 @@
  * file that was distributed with this source code.
  */
 
-#include "Strand.h"
+#include"LEDManager.h"
 
-CRGB ledStrandsActiveColors[LED_STR_NUM];
-CRGB ledStrandsCustomColors[LED_STR_NUM];
-
-void setupStrand()
+void LEDManager::setupFastLED()
 {
-    FastLED.addLeds<LED_STR_CTL, LED_STR_PIN, LED_STR_ORD>(ledStrandsActiveColors, LED_STR_NUM);
+    FastLED.addLeds<LED_STR_CTL, LED_STR_PIN, LED_STR_ORD>(_ledColours, _ledStrSize);
     FastLED.clear(true);
     FastLED.setBrightness(LED_FDR_FADE_INIT);
-    FastLED.setCorrection(LED_STR_CRCT);
-    FastLED.setMaxPowerInVoltsAndMilliamps(LED_PWR_MAX_VOLTS, LED_PWR_MAX_MAMPS);
+    FastLED.setCorrection(_correction);
+    FastLED.setMaxPowerInVoltsAndMilliamps(_ledsMaxPwr.maxVolts, _ledsMaxPwr.maxMAmps);
     FastLED.delay(500);
 }

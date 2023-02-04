@@ -15,6 +15,7 @@ PeriodTimer PalettePeriodTimer { PeriodUnits::SECOND };
 PeriodTimer ByteNumPeriodTimer { PeriodUnits::MILLIS };
 PeriodTimer TempHumPeriodTimer { PeriodUnits::MINUTE };
 PeriodTimer SelectsPeriodTimer { PeriodUnits::MILLIS };
+PeriodTimer FrameTimeWaitTimer { PeriodUnits::MILLIS };
 
 void setupTimers()
 {
@@ -23,4 +24,5 @@ void setupTimers()
     ByteNumPeriodTimer.setPeriodTime(getLedPatternItemRandHuesMili() ?: LED_STR_MIL_COLOR);
     TempHumPeriodTimer.setPeriodTime(20);
     SelectsPeriodTimer.setPeriodTime(750);
+    FrameTimeWaitTimer.setPeriodTime(1000 / LED_STR_FPS);
 }

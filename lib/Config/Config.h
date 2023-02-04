@@ -22,7 +22,7 @@
 #define OUT_SERIAL_BAUD   115200UL
 
 #define OUT_COUNTS_STAT   ((bool)true)
-#define OUT_MINPWR_STAT   ((bool)true)
+#define OUT_MINPWR_STAT   ((bool)false)
 #define SYS_WIRE_D_STAT   ((bool)true)
 #define SYS_WIRE_D_VERB   ((bool)true)
 
@@ -40,9 +40,10 @@
 
 #define LED_STR_NUM       LED_GRP_LEN * LED_GRP_NUM
 #define LED_STR_PIN       2U
-#define LED_STR_BRT       20U
+#define LED_STR_BRT       10U
 #define LED_STR_CTL       WS2811
 #define LED_STR_ORD       RGB
+#define LED_STR_CRCT      TypicalLEDStrip
 #define LED_STR_FPS       90
 
 #define LED_PTN_SEC_CYCLE 120
@@ -57,8 +58,7 @@
 #define LED_PWR_MAX_VOLTS LED_PWR_MTR_VOLTS
 #define LED_PWR_MAX_MAMPS 60000
 
-#define LED_PTN_LOOP_MILI 1024 / LED_STR_FPS
-#define LED_PTN_WAIT_NEXT LED_PTN_LOOP_MILI
+#define LED_PTN_LOOP_MILI
 
 #define LED_PTN_SKIP_ENBL ((bool)false)
 
@@ -66,8 +66,8 @@
 
 #define LED_FDR_FADE_ENBL ((bool)true)
 #define LED_FDR_FADE_INIT 0
-#define LED_FDR_LOOP_MILI LED_PTN_LOOP_MILI
-#define LED_FDR_NEXT_MILI LED_PTN_WAIT_NEXT / 10
+#define LED_FDR_LOOP_MILI 1000 / LED_STR_FPS
+#define LED_FDR_NEXT_MILI LED_FDR_LOOP_MILI / 10
 #define LED_FDR_LEVEL_CHG LED_STR_BRT / 10
 #define LED_FDR_LEVEL_MIN 0
 #define LED_FDR_LEVEL_MAX LED_STR_BRT

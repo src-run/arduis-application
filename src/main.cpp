@@ -21,12 +21,12 @@ void setup()
     setupTemper();
     setupSelect();
 
+    checkMinPwr();
     setupStrand();
     setupRelays();
-    checkMinPwr();
 
-    setupCycles();
     setupTimers();
+    setupCycles();
 }
 
 void loop()
@@ -89,6 +89,5 @@ unsigned long runTimerByteNum()
 
 void setupCycles()
 {
-    cycleTemper();
     runTimerPattern();
 }

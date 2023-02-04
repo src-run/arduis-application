@@ -11,6 +11,7 @@
 #pragma once
 
 #include "CommonArduino.h"
+#include "CommonFastLED.h"
 #include "Relay.h"
 #include "Config.h"
 

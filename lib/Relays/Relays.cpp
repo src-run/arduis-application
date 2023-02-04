@@ -16,8 +16,9 @@ Relay ledRelay { LED_RELAY2_PIN, false };
 void setupRelays()
 {
     pwrRelay.begin();
-    pwrRelay.turnOn();
-    delay(500);
     ledRelay.begin();
+
+    pwrRelay.turnOn();
+    FastLED.delay(500);
     ledRelay.turnOn();
 }

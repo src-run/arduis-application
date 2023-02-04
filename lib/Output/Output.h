@@ -21,6 +21,7 @@
 #include "EffectFactor.h"
 #include "EffectGlints.h"
 #include "EffectStatus.h"
+#include "UtilitiesInline.h"
 
 void   setupOutput(const unsigned long baud = OUT_SERIAL_BAUD);
 

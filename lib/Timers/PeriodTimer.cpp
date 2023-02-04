@@ -28,6 +28,13 @@ void PeriodTimer::setPeriodTime(unsigned long periodTime)
     }
 }
 
+void PeriodTimer::setPeriodTimeGtZero(unsigned long periodTime)
+{
+    if (periodTime > 0) {
+        setPeriodTime(periodTime);
+    }
+}
+
 void PeriodTimer::setPeriodUnit(PeriodUnits periodUnit)
 {
     _periodUnit = periodUnit;
@@ -64,4 +71,11 @@ bool PeriodTimer::ready()
 void PeriodTimer::reset()
 {
     _millisLast = millis();
+}
+
+void PeriodTimer::resetConditionally(const bool condition)
+{
+    if (condition) {
+        reset();
+    }
 }

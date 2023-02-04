@@ -37,12 +37,12 @@ void ClocksManager::setupClockInfo()
 
 void ClocksManager::writeDebugInfo()
 {
-    Serial.print(F("=== RTC   - Clock Adjusted             : "));
-    Serial.println(_updated ? F("YES") : F("NO"));
-    Serial.print(F("=== RTC   - Compilation DT             : "));
+    Serial.print(F("=== RTC   - Clock Reset  : "));
+    Serial.println(_updated ? F("true") : F("false"));
+    Serial.print(F("=== RTC   - Compile DT   : "));
     Serial.println(getCompilationDateTime().format(DateTimeFormat::FORMAT_ISO8601_FULL));
-    Serial.print(F("=== RTC   - Current DT (ISO-8601 Full) : "));
+    Serial.print(F("=== RTC   - Current DT   : "));
     Serial.println(getDateTime().format(DateTimeFormat::FORMAT_ISO8601_FULL));
-    Serial.print(F("=== RTC   - Current UnixTime           : "));
+    Serial.print(F("=== RTC   - Current Unix : "));
     Serial.println(getDateTime().format(DateTimeFormat::FORMAT_UNIXTIME));
 }

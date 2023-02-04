@@ -59,4 +59,4 @@ class EffectFadingManager {
 
 // EXTERNAL DECLARATIONS/DEFINITIONS
 
-extern void runPatternsStep(const bool);
+extern void runPatternsStep(const bool, const bool);

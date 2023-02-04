@@ -15,12 +15,12 @@ unsigned long SimpleCounter::getCount()
     return _count;
 }
 
-void SimpleCounter::increment(unsigned long amount)
+unsigned long SimpleCounter::increment(unsigned long amount)
 {
-    _count += amount;
+    return _count += amount;
 }
 
-void SimpleCounter::reset()
+unsigned long SimpleCounter::reset()
 {
-    _count = 0;
+    return _count = 0;
 }

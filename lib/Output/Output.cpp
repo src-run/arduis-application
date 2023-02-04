@@ -122,7 +122,7 @@ String getStepInfoMorePalette()
 
 String getStepInfoMoreCounter()
 {
-    const String moreFormat { F("| Prior counter: %05lu") };
+    const String moreFormat { F("| PT: %04lu") };
     char         moreBuffer [ moreFormat.length() - 5 + 5 + 1 ];
 
     sprintf(
@@ -212,10 +212,8 @@ void outPwrLimitInfo(const PowerCalculatedBrightness& maximumBrightness)
 
 void outI2CFoundInfo(const I2CDeviceInfo& deviceInfo)
 {
-    const String outsDevStr { ([deviceInfo]() -> String {
-        return SYS_WIRE_D_VERB ? getI2CFoundDesc(deviceInfo) : F("");
-    })() };
-    const String outsFormat { F("### I2C:%d - Device found : 0x%02X %s%s") };
+    const String outsDevStr { SYS_WIRE_D_VERB ? getI2CFoundDesc(deviceInfo) : F("") };
+    const String outsFormat { F("### I2C:%d - Device found : 0x%02X%s%s") };
     char         outsBuffer[outsFormat.length() + outsDevStr.length() + 9 + 1];
 
     sprintf(

@@ -14,6 +14,7 @@
 #include "Config.h"
 #include "I2CDeviceInfo.h"
 #include "ArduinoJson.h"
+#include "UtilitiesInline.h"
 
 #define ST(A) #A
 #define STR(A) ST(A)

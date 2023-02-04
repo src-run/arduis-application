@@ -114,6 +114,6 @@ unsigned int SelectManager::getVersionRaw()
 
 void SelectManager::writeDebugInfo()
 {
-    Serial.print(F("=== Twist - Firmware Version : "));
+    Serial.print(F("=== Twist - Firmware Ver : "));
     Serial.println(getVersion().getFormattedVersion());
 }

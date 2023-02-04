@@ -66,7 +66,7 @@ void runEffectAddonGlints();
 void setPatternsStep(const unsigned int index);
 void incPatternsStep();
 void rstPatternsStep();
-void runPatternsStep(const bool wait = true);
+void runPatternsStep(const bool wait = true, const bool timerReset = false);
 
 void setCustomLedColorsActive();
 

@@ -12,21 +12,14 @@
 
 DynamicJsonDocument getI2CDeviceListJson()
 {
-    static const String               jsonRaw { getI2CDeviceListJsonText() };
-    static const size_t               jsonLen { (jsonRaw.length() + (jsonRaw.length() / 4)) };
-    static DynamicJsonDocument        jsonDoc { jsonLen };
-    static const DeserializationError jsonErr { deserializeJson(jsonDoc, jsonRaw) };
+    const String               jsonTxt { getI2CDeviceListJsonText() };
+    DynamicJsonDocument        jsonDoc { (jsonTxt.length() + (jsonTxt.length() / 2)) };
+    const DeserializationError jsonErr { deserializeJson(jsonDoc, jsonTxt) };
 
     if (jsonErr) {
         Serial.print(F("!!! ERROR - JSON deserialization failure ("));
         Serial.print(jsonErr.f_str());
         Serial.println(F(")"));
-
-        Serial.print(F("!!! ERROR - JSON minimized raw txt block ("));
-        Serial.print(jsonRaw);
-        Serial.print(F(")["));
-        Serial.print(jsonLen, DEC);
-        Serial.println(F("]"));
     }
 
     return jsonDoc;
@@ -34,25 +27,24 @@ DynamicJsonDocument getI2CDeviceListJson()
 
 String getI2CDeviceListJsonText()
 {
-    const String txt { ([]() -> String {
-        return SYS_WIRE_D_VERB ? F(STR(ARDUIS_I2C_DEVICE_LIST_JSON)) : F("[]");
-    })() };
+    const String jsonTxt = SYS_WIRE_D_VERB
+        ? F(STR(ARDUIS_I2C_DEVICE_LIST_JSON))
+        : F("[]");
 
-    if (txt.startsWith("\"") && txt.endsWith("\"")) {
-        return txt.substring(1, txt.length() - 1);
-    }
-
-    return txt;
+    return jsonTxt.startsWith("\"") && jsonTxt.endsWith("\"")
+        ? jsonTxt.substring(1, jsonTxt.length() - 1)
+        : jsonTxt;
 }
 
 String getI2CFoundDesc(const I2CDeviceInfo& deviceInfo)
 {
-    static DynamicJsonDocument deviceMain { getI2CDeviceListJson() };
-    static JsonArray           deviceList { deviceMain.as<JsonArray>() };
-    String                     returnList {};
+    String                 returnList { };
+    static const JsonArray deviceList { ([]() -> JsonArray {
+        return getI2CDeviceListJson().as<JsonArray>();
+    })() };
 
     if (deviceList.isNull() || deviceList.size() == 0) {
-        return F(" [Unknown Device]");
+        return F("");
     }
 
     for(JsonVariant device : deviceList) {
@@ -60,11 +52,9 @@ String getI2CFoundDesc(const I2CDeviceInfo& deviceInfo)
         addI2CDevicesMatchingAddressSets(returnList, device, deviceInfo);
     }
 
-    if (returnList.length() > 0) {
-        returnList = String(F(" [")) + returnList + String(F("]"));
-    }
-
-    return returnList;
+    return returnList.length() > 0
+        ? String(F(" [")) + returnList + String(F("]"))
+        : returnList;
 }
 
 void addI2CDevicesMatchingAddressList(String& deviceStr, const JsonVariant& device, const I2CDeviceInfo& deviceInfo)

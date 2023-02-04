@@ -275,8 +275,7 @@ void setPatternsStep(const unsigned int index)
 
     getLedPatternItemInit()();
 
-    FastLED.show();
-    FastLED.delay(LED_PTN_LOOP_MILI);
+    FastLED.delay(0);
 
     outStepInfo();
 }
@@ -303,8 +302,9 @@ void rstPatternsStep()
     setPatternsStep(0);
 }
 
-void runPatternsStep(const bool wait)
+void runPatternsStep(const bool wait, const bool timerReset)
 {
+    FrameTimeWaitTimer.resetConditionally(timerReset);
     CycleCount.increment();
 
     getLedPatternItemCall()();
@@ -313,7 +313,10 @@ void runPatternsStep(const bool wait)
     EffectStatus.setMainIsRunning();
 
     FastLED.show();
-    FastLED.delay(wait ? LED_PTN_LOOP_MILI : 0);
+
+    do {
+        FastLED.delay(1);
+    } while (!FrameTimeWaitTimer.ready());
 }
 
 void setCustomLedColorsActive()

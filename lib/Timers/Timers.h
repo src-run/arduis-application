@@ -21,5 +21,6 @@ extern PeriodTimer PalettePeriodTimer;
 extern PeriodTimer ByteNumPeriodTimer;
 extern PeriodTimer TempHumPeriodTimer;
 extern PeriodTimer SelectsPeriodTimer;
+extern PeriodTimer FrameTimeWaitTimer;
 
 void setupTimers();

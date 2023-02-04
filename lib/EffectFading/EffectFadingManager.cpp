@@ -18,7 +18,7 @@ bool EffectFadingManager::isEnabled()
 void EffectFadingManager::fadeToLevelMaximum()
 {
     while(isEnabled() && !isLevelMaximum() && loopToLevelMaximum()) {
-        runPatternsStep(false);
+        runPatternsStep(false, true);
     }
 
     setBrightness(_levelMaximum, _levelEndWait);
@@ -27,7 +27,7 @@ void EffectFadingManager::fadeToLevelMaximum()
 void EffectFadingManager::fadeToLevelMinimum()
 {
     while(isEnabled() && !isLevelMinimum() && loopToLevelMinimum()) {
-        runPatternsStep(false);
+        runPatternsStep(false, true);
     }
 
     setBrightness(_levelMinimum, _levelEndWait);

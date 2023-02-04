@@ -49,8 +49,7 @@ class TemperManager {
         sensor_t& getHumiditySensor();
 
         void writeDebugInfo();
-
-    protected:
-        void writeDebugInfoTemps();
-        void writeDebugInfoHumid();
+        void writeDebugDeviceInfoTemps();
+        void writeDebugDeviceInfoHumid();
+        void writeDebugSensorInfoCombs();
 };

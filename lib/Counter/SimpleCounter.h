@@ -20,6 +20,6 @@ class SimpleCounter {
         SimpleCounter() = default;
 
         unsigned long getCount();
-        void increment(unsigned long amount = 1);
-        void reset();
+        unsigned long increment(unsigned long amount = 1);
+        unsigned long reset();
 };
