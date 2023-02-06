@@ -256,7 +256,7 @@ void outLoopTimeInfo(const LoopTimeResult& result)
         + 1                                  // terminator
     ];
     */
-    const String format { F("--- Looping average: %.02fms (with a %2ums minimum and %2ums maximum) [std deviation: %.04f, std error: %.04f, samples: %03d/%03d/%02d]") };
+    const String format { F("--- Average %.02f ms (%2ums minimum / %2ums maximum) [std deviation: %.04f, std error: %.04f, samples: %03d/%03d, freq: %02d]") };
     char         buffer [ format.length()
         - 5 + intLen(result.average, 2)      // %.02f
         - 3 + intLen(result.minimum)         // %2u
