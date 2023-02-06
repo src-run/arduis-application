@@ -12,8 +12,8 @@
 
 DynamicJsonDocument getI2CDeviceListJson()
 {
-    const String               jsonTxt { getI2CDeviceListJsonText() };
-    DynamicJsonDocument        jsonDoc { (jsonTxt.length() + (jsonTxt.length() / 2)) };
+    String                     jsonTxt { getI2CDeviceListJsonText() };
+    DynamicJsonDocument        jsonDoc { jsonTxt.length() };
     const DeserializationError jsonErr { deserializeJson(jsonDoc, jsonTxt) };
 
     if (jsonErr) {
@@ -27,9 +27,9 @@ DynamicJsonDocument getI2CDeviceListJson()
 
 String getI2CDeviceListJsonText()
 {
-    const String jsonTxt = SYS_WIRE_D_VERB
-        ? F(STR(ARDUIS_I2C_DEVICE_LIST_JSON))
-        : F("[]");
+    const String jsonTxt = SYS_WIRE_D_VERB ? F(STR(ARDUIS_I2C_DEVICE_LIST__JSON_TEXT)) : F("[]");
+
+    Serial.println(jsonTxt);
 
     return jsonTxt.startsWith("\"") && jsonTxt.endsWith("\"")
         ? jsonTxt.substring(1, jsonTxt.length() - 1)
@@ -39,9 +39,7 @@ String getI2CDeviceListJsonText()
 String getI2CFoundDesc(const I2CDeviceInfo& deviceInfo)
 {
     String                 returnList { };
-    static const JsonArray deviceList { ([]() -> JsonArray {
-        return getI2CDeviceListJson().as<JsonArray>();
-    })() };
+    static const JsonArray deviceList { getI2CDeviceListJson().as<JsonArray>() };
 
     if (deviceList.isNull() || deviceList.size() == 0) {
         return F("");
@@ -49,7 +47,6 @@ String getI2CFoundDesc(const I2CDeviceInfo& deviceInfo)
 
     for(JsonVariant device : deviceList) {
         addI2CDevicesMatchingAddressList(returnList, device, deviceInfo);
-        addI2CDevicesMatchingAddressSets(returnList, device, deviceInfo);
     }
 
     return returnList.length() > 0
@@ -67,27 +64,6 @@ void addI2CDevicesMatchingAddressList(String& deviceStr, const JsonVariant& devi
 
     for(JsonVariant addressValue : addressList) {
         if (deviceInfo.address == strtoul((addressValue.as<String>()).c_str(), NULL, 16)) {
-            addI2CDeviceStr(deviceStr, device);
-        }
-    }
-}
-
-void addI2CDevicesMatchingAddressSets(String& deviceStr, const JsonVariant& device, const I2CDeviceInfo& deviceInfo)
-{
-    if (!device.containsKey(F("addressSets"))) {
-        return;
-    }
-
-    JsonArray addressList { device[F("addressSets")].as<JsonArray>() };
-
-    for(JsonVariant addressRange : addressList) {
-        if (!addressRange.containsKey(F("beg")) || addressRange[F("beg")].isNull() ||
-            !addressRange.containsKey(F("end")) || addressRange[F("end")].isNull()) {
-            continue;
-        }
-
-        if (deviceInfo.address >= strtoul((addressRange[F("beg")].as<String>()).c_str(), NULL, 16) &&
-            deviceInfo.address <= strtoul((addressRange[F("end")].as<String>()).c_str(), NULL, 16)) {
             addI2CDeviceStr(deviceStr, device);
         }
     }

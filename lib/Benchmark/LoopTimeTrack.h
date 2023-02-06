@@ -22,7 +22,7 @@ class LoopTimeTrack {
         byte           _timerInitCount { 0 };
         bool           _timerActivated { false };
         unsigned long  _timerBegMillis { 0 };
-        const byte     _pollsFrequency { 24 };
+        const byte     _pollsFrequency { 25 };
 #endif
 
     public:

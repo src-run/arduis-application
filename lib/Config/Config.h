@@ -14,7 +14,6 @@
 #include "CommonFastLED.h"
 #include "Math.h"
 
-
 #define SYS_OB_LED_ENBL   ((bool)true)
 
 #define SYS_RANDOM_SMIN   100U
@@ -24,9 +23,9 @@
 
 #define OUT_COUNTS_STAT   true
 #define OUT_TIMERS_STAT   true
-#define OUT_MINPWR_STAT   true
-#define SYS_WIRE_D_STAT   true
-#define SYS_WIRE_D_VERB   true
+#define OUT_MINPWR_STAT   false
+#define SYS_WIRE_D_STAT   false
+#define SYS_WIRE_D_VERB   false
 
 #ifdef _VARIANT_ARDUINO_DUE_X_
 #define SYS_WIRE_OBJECT   Wire1
@@ -50,7 +49,7 @@
 #define LED_STR_FPS       60
 
 #define LED_PTN_SEC_CYCLE 180
-#define LED_PAL_SEC_CYCLE 60
+#define LED_PAL_SEC_CYCLE 80
 #define LED_STR_MIL_COLOR 10
 
 #define LED_PWR_MTR_PIN   36
@@ -74,12 +73,12 @@
 #define LED_FDR_STEPS_CHG LED_STR_BRT / 10
 #define LED_FDR_WAITS_CHG 0
 
-#define LED_PTN_RAND_ENTR 10
+#define LED_PTN_RAND_ENTR 40
 #define LED_PTN_RAND_INIT ((bool)false)
 #define LED_PTN_RAND_NEXT ((bool)false)
 #define LED_PTN_RAND_SEQL ((bool)false)
 
-#define LED_PAL_RAND_ENTR 10
+#define LED_PAL_RAND_ENTR 40
 #define LED_PAL_RAND_INIT ((bool)true)
 #define LED_PAL_RAND_NEXT ((bool)true)
 #define LED_PAL_RAND_SEQL ((bool)true)
@@ -90,3 +89,19 @@
 #define LED_PTN_TWIK_RAND 20
 #define LED_PTN_TWIK_MAXL 111
 #define LED_PTN_TWIK_MINL 0
+
+#ifndef ARDUIS_I2C_DEVICE_LIST__SIZE_STRS
+#define ARDUIS_I2C_DEVICE_LIST__SIZE_STRS 0
+#endif
+
+#ifndef ARDUIS_I2C_DEVICE_LIST__SIZE_ARRS
+#define ARDUIS_I2C_DEVICE_LIST__SIZE_ARRS 0
+#endif
+
+#ifndef ARDUIS_I2C_DEVICE_LIST__SIZE_OBJS
+#define ARDUIS_I2C_DEVICE_LIST__SIZE_OBJS 0
+#endif
+
+#ifndef ARDUIS_I2C_DEVICE_LIST__JSON_TEXT
+#define ARDUIS_I2C_DEVICE_LIST__JSON_TEXT "[]"
+#endif

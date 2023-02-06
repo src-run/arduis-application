@@ -1,4 +1,4 @@
-##!/usr/bin/env python
+#!/usr/bin/env python3
 
 from json         import dumps  as json_dumps
 from json         import loads  as json_loads
@@ -7,14 +7,16 @@ from os           import R_OK   as PATH_READABLE
 from os           import path
 from os           import stat
 from configparser import ConfigParser
+from functools    import reduce
+from pprint       import pprint
 
 #
 # script runtime config dictionary
 #
 scriptConfigDict = {
     'project_config__pini_file_path': 'platformio.ini',
-    'project_config__json_file_path__i2c_device_directory__sect_key': 'config_common__globals',
-    'project_config__json_file_path__i2c_device_directory__optn_key': 'i2c_device_directory_json_file_path',
+    'project_config__json_file_path__i2c_device_list__sect_key': 'config_common__globals',
+    'project_config__json_file_path__i2c_device_list__optn_key': 'i2c_device_directory_json_file_path',
 }
 
 #
@@ -139,9 +141,9 @@ def main():
             raise SanitizeAndExpandFilePathException('File path could not be expanded', file_path) from e
 
     #
-    # minify json read from file path
+    # read json from file path
     #
-    def read_and_minify_json_from_file_path(file_path):
+    def read_json_from_file_path(file_path):
         file_path = sanitize_and_expand_file_path(file_path)
 
         try:
@@ -150,17 +152,26 @@ def main():
             raise ReadFileException('File could not be opened for reading', file_path) from e
 
         try:
-            return json_dumps(json_loads(json_data), skipkeys=True, check_circular=False, indent=None, separators=(',', ':'), sort_keys=True)
+            return json_loads(json_data)
         except Exception as e:
-            raise ParseJsonFileException('File json could not be loaded/parsed', file_path, json_data) from e
+            raise ParseJsonFileException('File json could not be loaded', file_path, json_data) from e
+
+    #
+    # minify json data
+    #
+    def minify_json_data(json_data):
+        try:
+            return json_dumps(json_data, skipkeys=True, check_circular=False, indent=None, separators=(',', ':'), sort_keys=True)
+        except Exception as e:
+            raise ParseJsonFileException('File json could not be dumped') from e
 
     #
     # get i2c devices json file path from platformio ini config
     #
-    def get_i2c_device_directory_json_file_path_from_project_config():
+    def get_i2c_device_list_json_file_path_from_project_config():
         proj_file_path = sanitize_and_expand_file_path(scriptConfigDict['project_config__pini_file_path'])
-        proj_conf_sect = scriptConfigDict['project_config__json_file_path__i2c_device_directory__sect_key']
-        proj_conf_optn = scriptConfigDict['project_config__json_file_path__i2c_device_directory__optn_key']
+        proj_conf_sect = scriptConfigDict['project_config__json_file_path__i2c_device_list__sect_key']
+        proj_conf_optn = scriptConfigDict['project_config__json_file_path__i2c_device_list__optn_key']
 
         proj_conf_data = ConfigParser()
         proj_conf_code = proj_conf_data.read(proj_file_path)
@@ -176,9 +187,57 @@ def main():
 
         return proj_conf_data[proj_conf_sect][proj_conf_optn]
 
-    print("'-DARDUIS_I2C_DEVICE_LIST_JSON=\"%s\"'" % read_and_minify_json_from_file_path(
-        get_i2c_device_directory_json_file_path_from_project_config()
-    ))
+    #
+    # resolve total json size strs
+    #
+    def resolve_total_json_size_strs(json_text):
+        total_json_strs = 0
+        for root_list_object in json_data:
+            for object_property in root_list_object:
+                if type(root_list_object[object_property]) is str:
+                    total_json_strs += len(root_list_object[object_property])
+                if type(root_list_object[object_property]) is list:
+                    for inner_string in root_list_object[object_property]:
+                        total_json_strs += len(inner_string)
+
+        return total_json_strs
+
+    #
+    # resolve total json size arrs
+    #
+    def resolve_total_json_size_arrs(json_data):
+        inner_json_arrs = 0
+        for root_list_object in json_data:
+            for object_property in root_list_object:
+                if type(root_list_object[object_property]) is list:
+                    inner_json_arrs += len(root_list_object[object_property])
+
+        return len(json_data) + inner_json_arrs
+
+    #
+    # resolve total json size objs
+    #
+    def resolve_total_json_size_objs(json_data):
+        total_json_objs = 0
+        for root_list_object in json_data:
+            for object_property in root_list_object:
+                total_json_objs += 1
+
+        return total_json_objs
+
+    # read json data from file
+    json_data = read_json_from_file_path(
+        get_i2c_device_list_json_file_path_from_project_config()
+    );
+
+    # minify json data
+    json_text = minify_json_data(json_data)
+
+    # print json related variable definitions
+    print("'-DARDUIS_I2C_DEVICE_LIST__JSON_TEXT=\"%s\"'" % json_text)
+    print("'-DARDUIS_I2C_DEVICE_LIST__SIZE_STRS=%s'" % resolve_total_json_size_strs(json_text))
+    print("'-DARDUIS_I2C_DEVICE_LIST__SIZE_ARRS=%s'" % resolve_total_json_size_arrs(json_data))
+    print("'-DARDUIS_I2C_DEVICE_LIST__SIZE_OBJS=%s'" % resolve_total_json_size_objs(json_data))
 
 #
 # execute the main function if called as script and not if imported as module

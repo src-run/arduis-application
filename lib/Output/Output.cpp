@@ -242,7 +242,21 @@ void outI2CFoundInfo(const I2CDeviceInfo& deviceInfo)
 
 void outLoopTimeInfo(const LoopTimeResult& result)
 {
+    /*
     const String format { F("--- Primary loop stats: { \"avg-time\": %.02f, \"min-time\": %2u, \"max-time\": %2u, \"std-deviation\": %.04f, \"std-error\": %.04f, \"samples\": \"%03d/%03d\", \"sample-freq\": \"%02d\" }") };
+    char         buffer [ format.length()
+        - 5 + intLen(result.average, 2)      // %.02f
+        - 3 + intLen(result.minimum)         // %2u
+        - 3 + intLen(result.maximum)         // %2u
+        - 5 + intLen(result.stdDeviation, 4) // %.04f
+        - 5 + intLen(result.stdError, 4)     // %.04f
+        - 4 + intLen(result.sampleCount)     // %03d
+        - 4 + intLen(result.sampleAvail)     // %03d
+        - 4 + intLen(result.sampleFrequency) // %02d
+        + 1                                  // terminator
+    ];
+    */
+    const String format { F("--- Looping average: %.02fms (with a %2ums minimum and %2ums maximum) [std deviation: %.04f, std error: %.04f, samples: %03d/%03d/%02d]") };
     char         buffer [ format.length()
         - 5 + intLen(result.average, 2)      // %.02f
         - 3 + intLen(result.minimum)         // %2u
