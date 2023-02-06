@@ -11,16 +11,16 @@
 #pragma once
 
 #include "CommonArduino.h"
-#include "CommonFastLED.h"
-#include "CommonACS712.h"
+#include "RunningAverage.h"
 #include "Config.h"
-#include "Strand.h"
-#include "PowerCalculatedBrightness.h"
 
-extern const ACS712 ledPowerMeter;
-
-void checkMinPwr(byte levelRequest = LED_STR_BRT);
-
-// EXTERNAL DECLARATIONS/DEFINITIONS
-
-extern void outPwrLimitInfo(const PowerCalculatedBrightness&);
+struct LoopTimeResult {
+    const float average;
+    const unsigned int minimum;
+    const unsigned int maximum;
+    const float stdDeviation;
+    const float stdError;
+    const unsigned short sampleCount;
+    const unsigned short sampleAvail;
+    const byte sampleFrequency;
+};

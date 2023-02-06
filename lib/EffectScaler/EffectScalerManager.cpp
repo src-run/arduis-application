@@ -8,9 +8,4 @@
  * file that was distributed with this source code.
  */
 
-#pragma once
-
-#include "CommonArduino.h"
-#include "SimpleCounter.h"
-
-extern SimpleCounter CycleCount;
+#include "EffectScalerManager.h"

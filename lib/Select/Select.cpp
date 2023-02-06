@@ -26,10 +26,10 @@ void cycleSelect()
 void cycleSelectTwist()
 {
     if (EffectSelect.hasClick() && EffectSelect.hasTwistCount()) {
-        EffectFading.fadeToLevelMinimum();
+        EffectFading.levelToMinimum();
         setPatternsStep(EffectSelect.getTwistCount());
         runPatternsStep();
-        EffectFading.fadeToLevelMaximum();
+        EffectFading.levelToMaximum();
     }
 }
 
@@ -38,10 +38,10 @@ void cycleSelectPress()
     static byte pressCycles { 0 };
 
     if (EffectSelect.hasPress() && ++pressCycles >= 4) {
-        EffectFading.fadeToLevelMinimum();
+        EffectFading.levelToMinimum();
         rstPatternsStep();
         runPatternsStep();
-        EffectFading.fadeToLevelMaximum();
+        EffectFading.levelToMaximum();
         pressCycles = 0;
     }
 }

@@ -19,7 +19,7 @@ void setupSystem()
 void setupWiring()
 {
     SYS_WIRE_OBJECT.begin();
-    delay(500);
+    delay(1000);
 
     if (SYS_WIRE_D_STAT) {
         writeScannedI2C();

@@ -15,7 +15,7 @@
 #include "Config.h"
 #include "Random.h"
 #include "Utilities.h"
-#include "Counter.h"
+#include "Benchmark.h"
 #include "Strand.h"
 #include "Timers.h"
 #include "Palettes.h"
@@ -27,6 +27,8 @@
 #include "EffectDefinitionGlints.h"
 #include "EffectFactor.h"
 #include "EffectStatus.h"
+#include "EffectScaler.h"
+#include "Benchmark.h"
 
 extern const byte patternSizeItems;
 
@@ -66,7 +68,7 @@ void runEffectAddonGlints();
 void setPatternsStep(const unsigned int index);
 void incPatternsStep();
 void rstPatternsStep();
-void runPatternsStep(const bool wait = true, const bool timerReset = false);
+void runPatternsStep();
 
 void setCustomLedColorsActive();
 
@@ -147,6 +149,3 @@ unsigned int getLedPatternListStepIndx();
 unsigned int incLedPatternListStepIndx();
 unsigned int getLedPatternListStepNumb();
 unsigned int getLedPatternListStepNumbReal();
-
-byte getByteNumStep(byte inc = 0);
-byte incByteNumStep(byte add = 1);

@@ -282,6 +282,8 @@ void setPatternsStep(const unsigned int index)
 
 void incPatternsStep()
 {
+    LoopRunBench.timerStop(false, true);
+
     while (true) {
         incLedPatternListStepIndx();
 
@@ -302,17 +304,15 @@ void rstPatternsStep()
     setPatternsStep(0);
 }
 
-void runPatternsStep(const bool wait, const bool timerReset)
+void runPatternsStep()
 {
-    FrameTimeWaitTimer.resetConditionally(timerReset);
+    FrameTimeWaitTimer.reset();
     CycleCount.increment();
 
     getLedPatternItemCall()();
     runEffectAddonGlints();
 
     EffectStatus.setMainIsRunning();
-
-    FastLED.show();
 
     do {
         FastLED.delay(1);
@@ -482,7 +482,7 @@ void runStepRainbowStatic()
 
 void runStepRainbowNormal()
 {
-    fill_rainbow(ledStrandsActiveColors, LED_STR_NUM, getByteNumStep(), 7);
+    fill_rainbow(ledStrandsActiveColors, LED_STR_NUM, EffectScaler.get(), 7);
 }
 
 void runStepRainbowSliderNormal()
@@ -500,7 +500,7 @@ void runStepBuilder(const byte iterations)
     fadeToBlackBy(ledStrandsActiveColors, LED_STR_NUM, 1);
 
     for (unsigned int i = 0; i < iterations; i++) {
-        ledStrandsActiveColors[randUInt(LED_STR_NUM)] += CHSV(getByteNumStep() + randByte(64), 200, 255);
+        ledStrandsActiveColors[randUInt(LED_STR_NUM)] += CHSV(EffectScaler.get() + randByte(64), 200, 255);
     }
 }
 
@@ -519,7 +519,7 @@ void runStepSinelon(const byte iterations)
     fadeToBlackBy(ledStrandsActiveColors, LED_STR_NUM, 1);
 
     for (unsigned int i = 0; i < iterations; i++) {
-        ledStrandsActiveColors[beatsin16(13, 10, LED_STR_NUM - 1)] += CHSV(getByteNumStep(), 255, 192);
+        ledStrandsActiveColors[beatsin16(13, 10, LED_STR_NUM - 1)] += CHSV(EffectScaler.get(), 255, 192);
     }
 }
 
@@ -533,7 +533,7 @@ void runStepSlidingBeater(const CRGBPalette16& palette, const byte time)
     byte beat { beatsin8(time, 64, 180) };
 
     for (unsigned int i = 0; i < LED_STR_NUM; i++) {
-        ledStrandsActiveColors[i] = ColorFromPalette(palette, getByteNumStep() + (i * 2), beat - getByteNumStep() + (i * 10));
+        ledStrandsActiveColors[i] = ColorFromPalette(palette, EffectScaler.get() + (i * 2), beat - EffectScaler.get() + (i * 10));
     }
 }
 
@@ -572,7 +572,7 @@ void runStepPaletteRounds(const CRGBPalette16& palette, const int multiplier, co
     for (unsigned int i = 0; i < LED_STR_NUM; i++) {
         ledStrandsActiveColors[i] = ColorFromPalette(
             palette,
-            (unsigned int)getByteNumStep() + (i * multiplier),
+            EffectScaler.getAsInt() + (i * multiplier),
             255,
             blend ? LINEARBLEND : NOBLEND
         );
@@ -638,7 +638,7 @@ void runStepJugglerLonger()
 
 void runStepColoredGradedeeeeeeee()
 {
-    byte hue { sin8(getByteNumStep()) };
+    byte hue { sin8(EffectScaler.get()) };
 
     fill_gradient(ledStrandsActiveColors, LED_STR_NUM, CHSV(hue, 255, 255), CHSV(hue, 255, 255), FORWARD_HUES);
 }
@@ -676,7 +676,7 @@ void runStepRainbowFadingFast()
 
 void runStepRainbowWholed()
 {
-    byte hueBeg { getByteNumStep() };
+    byte hueBeg { EffectScaler.get() };
     byte hueEnd { (byte)(hueBeg + 64) };
 
     if (hueBeg < hueEnd) {
@@ -684,18 +684,4 @@ void runStepRainbowWholed()
     } else {
         fill_gradient(ledStrandsActiveColors, LED_STR_NUM, CHSV(hueEnd, 255, 255), CHSV(hueBeg, 255, 255), BACKWARD_HUES);
     }
-}
-
-byte getByteNumStep(byte inc)
-{
-    static byte hue { randByte() };
-
-    hue += inc;
-
-    return hue;
-}
-
-byte incByteNumStep(byte add)
-{
-    return getByteNumStep(add);
 }

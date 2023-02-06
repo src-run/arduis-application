@@ -12,6 +12,7 @@
 
 #include "CommonArduino.h"
 #include "CommonFastLED.h"
+#include "Math.h"
 
 
 #define SYS_OB_LED_ENBL   ((bool)true)
@@ -21,10 +22,11 @@
 
 #define OUT_SERIAL_BAUD   115200UL
 
-#define OUT_COUNTS_STAT   ((bool)true)
-#define OUT_MINPWR_STAT   ((bool)false)
-#define SYS_WIRE_D_STAT   ((bool)true)
-#define SYS_WIRE_D_VERB   ((bool)true)
+#define OUT_COUNTS_STAT   true
+#define OUT_TIMERS_STAT   true
+#define OUT_MINPWR_STAT   true
+#define SYS_WIRE_D_STAT   true
+#define SYS_WIRE_D_VERB   true
 
 #ifdef _VARIANT_ARDUINO_DUE_X_
 #define SYS_WIRE_OBJECT   Wire1
@@ -35,18 +37,19 @@
 #define LED_RELAY1_PIN    32U
 #define LED_RELAY2_PIN    33U
 
-#define LED_GRP_LEN       50U
-#define LED_GRP_NUM       6U
-
-#define LED_STR_NUM       LED_GRP_LEN * LED_GRP_NUM
+#define LED_STR_NUM       50U * 6U
+#ifdef _VARIANT_ARDUINO_DUE_X_
+#define LED_STR_PIN       3U
+#else
 #define LED_STR_PIN       2U
-#define LED_STR_BRT       10U
+#endif
+#define LED_STR_BRT       25U
 #define LED_STR_CTL       WS2811
 #define LED_STR_ORD       RGB
 #define LED_STR_CRCT      TypicalLEDStrip
-#define LED_STR_FPS       90
+#define LED_STR_FPS       60
 
-#define LED_PTN_SEC_CYCLE 120
+#define LED_PTN_SEC_CYCLE 180
 #define LED_PAL_SEC_CYCLE 60
 #define LED_STR_MIL_COLOR 10
 
@@ -64,13 +67,12 @@
 
 #define LED_PTN_GLNT_ENBL ((bool)true)
 
-#define LED_FDR_FADE_ENBL ((bool)true)
-#define LED_FDR_FADE_INIT 0
-#define LED_FDR_LOOP_MILI 1000 / LED_STR_FPS
-#define LED_FDR_NEXT_MILI LED_FDR_LOOP_MILI / 10
-#define LED_FDR_LEVEL_CHG LED_STR_BRT / 10
+#define LED_FDR_IS_ACTIVE ((bool)true)
+#define LED_FDR_LEVEL_BEG 0
 #define LED_FDR_LEVEL_MIN 0
 #define LED_FDR_LEVEL_MAX LED_STR_BRT
+#define LED_FDR_STEPS_CHG LED_STR_BRT / 10
+#define LED_FDR_WAITS_CHG 0
 
 #define LED_PTN_RAND_ENTR 10
 #define LED_PTN_RAND_INIT ((bool)false)

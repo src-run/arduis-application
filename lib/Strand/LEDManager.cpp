@@ -14,7 +14,7 @@ void LEDManager::setupFastLED()
 {
     FastLED.addLeds<LED_STR_CTL, LED_STR_PIN, LED_STR_ORD>(_ledColours, _ledStrSize);
     FastLED.clear(true);
-    FastLED.setBrightness(LED_FDR_FADE_INIT);
+    FastLED.setBrightness(LED_FDR_LEVEL_BEG);
     FastLED.setCorrection(_correction);
     FastLED.setMaxPowerInVoltsAndMilliamps(_ledsMaxPwr.maxVolts, _ledsMaxPwr.maxMAmps);
     FastLED.delay(500);

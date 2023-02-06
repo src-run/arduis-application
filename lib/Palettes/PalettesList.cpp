@@ -35,6 +35,7 @@ const PalettesAction paletteListItems[] {
         { LED_PAL_SEC_CYCLE, LED_STR_MIL_COLOR },
         { LED_PTN_TWIK_MINL, LED_PTN_TWIK_MAXL, 50, 20 }
     },
+    /*
     {
         { "BhwS1_Bk_DkPu_DkBl_DkPu_Bk", 0 },
         { Palette_BhwS1_Bk_DkPu_DkBl_DkPu_Bk_c },
@@ -83,7 +84,6 @@ const PalettesAction paletteListItems[] {
         { LED_PAL_SEC_CYCLE, LED_STR_MIL_COLOR },
         { LED_PTN_TWIK_MINL, LED_PTN_TWIK_MAXL, 50, 20 }
     },
-    /*
     {
         { "BhwS2_DkGr_LtGr_DkGr_YlGr_DkGr", 0 },
         { Palette_BhwS2_DkGr_LtGr_DkGr_YlGr_DkGr_c },

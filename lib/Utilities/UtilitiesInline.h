@@ -72,6 +72,16 @@ inline bool          isMatch(const char *subject, const String matcher)         
 inline bool          isMatch(const String subject, const char *matcher)                               __attribute__((always_inline));
 inline bool          isMatch(const String subject, const String matcher)                              __attribute__((always_inline));
 
+inline unsigned int  intLen(const byte value)                                                         __attribute__((always_inline));
+inline unsigned int  intLen(const signed short value)                                                 __attribute__((always_inline));
+inline unsigned int  intLen(const unsigned short value)                                               __attribute__((always_inline));
+inline unsigned int  intLen(const signed int value)                                                   __attribute__((always_inline));
+inline unsigned int  intLen(const unsigned int value)                                                 __attribute__((always_inline));
+inline unsigned int  intLen(const signed long value)                                                  __attribute__((always_inline));
+inline unsigned int  intLen(const unsigned long value)                                                __attribute__((always_inline));
+inline unsigned int  intLen(const float value, unsigned short precision = 2)                          __attribute__((always_inline));
+inline unsigned int  intLen(const double value, unsigned short precision = 2)                         __attribute__((always_inline));
+
 String strPadsCharLft(const String value, int padding, const String useChar)
 {
     return strPadsChar(value, padding, useChar, StringPadDirection::lft);
@@ -137,7 +147,7 @@ inline unsigned int cstrUInt(const long i)
     return constrain(i, 0, 65535);
 }
 
-inline unsigned int  cstrArrayIndex(const unsigned int index, const unsigned int size)
+inline unsigned int cstrArrayIndex(const unsigned int index, const unsigned int size)
 {
     return constrain(index, 0, max(0, size - 1));
 }
@@ -245,4 +255,49 @@ bool isMatch(const String subject, const char *matcher)
 bool isMatch(const String subject, const String matcher)
 {
     return isMatch(subject.c_str(), matcher.c_str());
+}
+
+unsigned int intLen(const byte value)
+{
+    return String(value).length();
+}
+
+unsigned int intLen(const signed short value)
+{
+    return String(value).length();
+}
+
+unsigned int intLen(const unsigned short value)
+{
+    return String(value).length();
+}
+
+unsigned int intLen(const signed int value)
+{
+    return String(value).length();
+}
+
+unsigned int intLen(const unsigned int value)
+{
+    return String(value).length();
+}
+
+unsigned int intLen(const signed long value)
+{
+    return String(value).length();
+}
+
+unsigned int intLen(const unsigned long value)
+{
+    return String(value).length();
+}
+
+unsigned int intLen(const float value, unsigned short precision)
+{
+    return String(value, precision).length();
+}
+
+unsigned int intLen(const double value, unsigned short precision)
+{
+    return String(value, precision).length();
 }

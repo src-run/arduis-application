@@ -26,6 +26,7 @@
 #include "EffectFactor.h"
 #include "EffectGlints.h"
 #include "EffectStatus.h"
+#include "Benchmark.h"
 
 extern const byte paletteSizeItems;
 

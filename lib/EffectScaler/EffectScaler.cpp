@@ -8,6 +8,6 @@
  * file that was distributed with this source code.
  */
 
-#include "Counter.h"
+#include "EffectScaler.h"
 
-SimpleCounter CycleCount { };
+EffectScalerManager EffectScaler { };

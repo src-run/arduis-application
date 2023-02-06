@@ -235,6 +235,7 @@ void incPalettesStep()
     incLedPaletteListStepIndx();
 
     if (isLedPaletteStepStarted()) {
+        LoopRunBench.timerStop(false, true);
         EffectFactor.refresh();
         EffectGlints.setChance(getLedPaletteItemActionGlints()->chances);
     }

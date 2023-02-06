@@ -8,19 +8,9 @@
  * file that was distributed with this source code.
  */
 
-#include "SimpleCounter.h"
+#pragma once
 
-unsigned long SimpleCounter::getCount()
-{
-    return _count;
-}
+#include "CommonArduino.h"
+#include "EffectScalerManager.h"
 
-unsigned long SimpleCounter::increment(unsigned long amount)
-{
-    return _count += amount;
-}
-
-unsigned long SimpleCounter::reset()
-{
-    return _count = 0;
-}
+extern EffectScalerManager EffectScaler;

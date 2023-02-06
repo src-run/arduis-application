@@ -109,6 +109,8 @@ void TemperManager::writeDebugInfo()
 
 void TemperManager::writeDebugDeviceInfoTemps()
 {
+    return;
+
     const String sensorTempsDevName { getTemperatureSensor().name };
     const long   sensorTempsDevVers { getTemperatureSensor().version };
     const long   sensorTempsDevIden { getTemperatureSensor().sensor_id };
@@ -149,6 +151,8 @@ void TemperManager::writeDebugDeviceInfoTemps()
 
 void TemperManager::writeDebugDeviceInfoHumid()
 {
+    return;
+
     const String sensorHumidDevName { getHumiditySensor().name };
     const long   sensorHumidDevVers { getHumiditySensor().version };
     const long   sensorHumidDevIden { getHumiditySensor().sensor_id };

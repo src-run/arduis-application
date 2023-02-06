@@ -23,18 +23,19 @@
 #include "Clocks.h"
 #include "Timers.h"
 #include "Select.h"
-#include "Counter.h"
+#include "Benchmark.h"
 #include "Palettes.h"
 #include "Patterns.h"
 #include "EffectFactorGenerator.h"
 #include "EffectFading.h"
+#include "EffectScaler.h"
 #include "Output.h"
 
 extern SimpleCounter CycleCount;
 
 void          setup();
 void          loop();
-unsigned long runTimerPattern(bool doCycle = true);
-unsigned long runTimerPalette(bool doCycle = true);
-unsigned long runTimerByteNum();
+unsigned long runTimerPattern();
+unsigned long runTimerPalette();
+unsigned long runTimerScaling();
 void          setupCycles();

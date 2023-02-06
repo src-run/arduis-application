@@ -176,7 +176,7 @@ def main():
 
         return proj_conf_data[proj_conf_sect][proj_conf_optn]
 
-    print("'-DARDUIS_I2C_DEVICE_LIST_JSON=\"%s\"'\n" % read_and_minify_json_from_file_path(
+    print("'-DARDUIS_I2C_DEVICE_LIST_JSON=\"%s\"'" % read_and_minify_json_from_file_path(
         get_i2c_device_directory_json_file_path_from_project_config()
     ))
 

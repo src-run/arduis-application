@@ -26,9 +26,12 @@ class PeriodTimer {
         PeriodTimer(unsigned long periodTime = 0, bool resetsAuto = true) : PeriodTimer(PeriodUnits::MILLIS, periodTime, resetsAuto) {};
 
         void setPeriodTime(unsigned long periodTime);
-        void setPeriodTimeGtZero(unsigned long periodTime);
+        unsigned int getPeriodOrig();
+        unsigned int getPeriodTime();
+
         void setPeriodUnit(PeriodUnits periodUnit);
-        void setResetsAuto(bool resetsAuto);
+        PeriodUnits getPeriodUnit();
+        unsigned long getPeriodUnitMultiplier();
 
         unsigned long getPeriodElapsed();
         unsigned long getPeriodRemaining();
@@ -38,4 +41,7 @@ class PeriodTimer {
         void resetConditionally(const bool condition);
 
         operator bool() { return ready(); };
+
+    protected:
+        void setResetsAuto(bool resetsAuto);
 };

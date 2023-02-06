@@ -31,18 +31,20 @@ void setup()
 
 void loop()
 {
+    LoopRunBench.timerInit();
+
     runPatternsStep();
 
     if (PatternPeriodTimer.ready()) {
         PatternPeriodTimer.setPeriodTime(runTimerPattern());
     }
 
-    if (PalettePeriodTimer.ready()) {
+    if (PalettePeriodTimer.ready() && isLedPaletteStepStarted()) {
         PalettePeriodTimer.setPeriodTime(runTimerPalette());
     }
 
     if (ByteNumPeriodTimer.ready()) {
-        ByteNumPeriodTimer.setPeriodTime(runTimerByteNum());
+        ByteNumPeriodTimer.setPeriodTime(runTimerScaling());
     }
 
     if (TempHumPeriodTimer.ready()) {
@@ -52,35 +54,32 @@ void loop()
     if (SelectsPeriodTimer.ready()) {
         cycleSelect();
     }
+
+    LoopRunBench.timerStop();
+    LoopRunBench.writeInfo();
 }
 
-unsigned long runTimerPattern(bool doCycle)
+unsigned long runTimerPattern()
 {
-    if (doCycle) {
-        EffectFading.fadeToLevelMinimum();
-        incPatternsStep();
-        runPatternsStep();
-        EffectFading.fadeToLevelMaximum();
-    }
+    EffectFading.levelToMinimum();
+    incPatternsStep();
+    EffectFading.levelToMaximum();
 
     return getLedPatternItemCallExecSecs();
 }
 
-unsigned long runTimerPalette(bool doCycle)
+unsigned long runTimerPalette()
 {
-    if (doCycle && isLedPaletteStepStarted()) {
-        EffectFading.fadeToLevelMinimum();
-        incPalettesStep();
-        runPatternsStep();
-        EffectFading.fadeToLevelMaximum();
-    }
+    EffectFading.levelToMinimum();
+    incPalettesStep();
+    EffectFading.levelToMaximum();
 
     return getLedPaletteItemCallExecSecs();
 }
 
-unsigned long runTimerByteNum()
+unsigned long runTimerScaling()
 {
-    incByteNumStep();
+    EffectScaler.inc();
 
     return isLedPaletteStepStarted()
         ? getLedPaletteItemRandHuesMili()

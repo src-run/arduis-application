@@ -20,19 +20,22 @@ PeriodTimer::PeriodTimer(PeriodUnits periodUnit, unsigned long periodTime, bool 
 
 void PeriodTimer::setPeriodTime(unsigned long periodTime)
 {
-    _periodOrig = periodTime;
-    _periodTime = periodTime * static_cast<unsigned long>(_periodUnit);
+    _periodOrig = max(0, periodTime);
+    _periodTime = _periodOrig * getPeriodUnitMultiplier();
 
     if (_resetsAuto) {
         reset();
     }
 }
 
-void PeriodTimer::setPeriodTimeGtZero(unsigned long periodTime)
+unsigned int PeriodTimer::getPeriodOrig()
 {
-    if (periodTime > 0) {
-        setPeriodTime(periodTime);
-    }
+    return _periodOrig;
+}
+
+unsigned int PeriodTimer::getPeriodTime()
+{
+    return _periodTime;
 }
 
 void PeriodTimer::setPeriodUnit(PeriodUnits periodUnit)
@@ -42,9 +45,14 @@ void PeriodTimer::setPeriodUnit(PeriodUnits periodUnit)
     setPeriodTime(_periodOrig);
 }
 
-void PeriodTimer::setResetsAuto(bool resetsAuto)
+PeriodUnits PeriodTimer::getPeriodUnit()
 {
-    _resetsAuto = resetsAuto;
+    return _periodUnit;
+}
+
+unsigned long PeriodTimer::getPeriodUnitMultiplier()
+{
+    return static_cast<unsigned long>(getPeriodUnit());
 }
 
 unsigned long PeriodTimer::getPeriodElapsed()
@@ -54,7 +62,9 @@ unsigned long PeriodTimer::getPeriodElapsed()
 
 unsigned long PeriodTimer::getPeriodRemaining()
 {
-    return max(0, _periodTime - getPeriodElapsed());
+    unsigned long remaining = max(0, _periodTime - getPeriodElapsed());
+
+    return remaining > getPeriodTime() ? 0 : remaining;
 }
 
 bool PeriodTimer::ready()
@@ -78,4 +88,9 @@ void PeriodTimer::resetConditionally(const bool condition)
     if (condition) {
         reset();
     }
+}
+
+void PeriodTimer::setResetsAuto(bool resetsAuto)
+{
+    _resetsAuto = resetsAuto;
 }

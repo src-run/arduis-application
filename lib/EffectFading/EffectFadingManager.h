@@ -12,51 +12,52 @@
 
 #include "CommonArduino.h"
 #include "CommonFastLED.h"
+#include "Timers.h"
 #include "Config.h"
+#include "UtilitiesInline.h"
 
 class EffectFadingManager {
     private:
-        bool       _faderEnabled;
-        const byte _levelMinimum;
-        const byte _levelMaximum;
-        const byte _levelChgStep;
-        const byte _levelChgWait;
-        const byte _levelEndWait;
-        byte       _levelCurrent;
+        bool                 _faderEnabled;
+        const unsigned short _levelMinimum;
+        const unsigned short _levelMaximum;
+        const unsigned short _levelChgStep;
+        const unsigned short _levelChgWait;
+        unsigned short       _levelCurrent;
+
+        bool isLevelMaximum() { return _levelCurrent >= _levelMaximum; }
+        bool isLevelMinimum() { return _levelCurrent <= _levelMinimum; }
+
+        void runLevelToMaximumPostOperations();
+        void runLevelToMinimumPostOperations();
+
+        void setLevel(const signed int level);
+        void setLevelAndRunEffect(const signed int level);
+
+        unsigned short constrainLevelType(const signed int level) { return cstrByte(level); }
+        unsigned short constrainLevelConf(const signed int level) { return constrain(constrainLevelType(level), _levelMinimum, _levelMaximum); }
 
     public:
         EffectFadingManager(
-            bool       faderEnabled = LED_FDR_FADE_ENBL,
-            const byte levelMinimum = LED_FDR_LEVEL_MIN,
-            const byte levelMaximum = LED_FDR_LEVEL_MAX,
-            const byte levelChgStep = LED_FDR_LEVEL_CHG,
-            const byte levelChgWait = LED_FDR_LOOP_MILI,
-            const byte levelEndWait = LED_FDR_NEXT_MILI
+            bool                 faderEnabled = LED_FDR_IS_ACTIVE,
+            const unsigned short levelMinimum = LED_FDR_LEVEL_MIN,
+            const unsigned short levelMaximum = LED_FDR_LEVEL_MAX,
+            const unsigned short levelChgStep = LED_FDR_STEPS_CHG,
+            const unsigned short levelChgWait = LED_FDR_WAITS_CHG,
+            const unsigned short levelCurrent = LED_FDR_LEVEL_BEG
         ) :
             _faderEnabled { faderEnabled },
-            _levelMinimum { levelMinimum },
-            _levelMaximum { levelMaximum },
-            _levelChgStep { levelChgStep },
-            _levelChgWait { levelChgWait },
-            _levelEndWait { levelEndWait },
-            _levelCurrent { LED_FDR_FADE_INIT }
+            _levelMinimum { constrainLevelType(levelMinimum) },
+            _levelMaximum { constrainLevelType(levelMaximum) },
+            _levelChgStep { max(levelChgStep, (unsigned short)1) },
+            _levelChgWait { max(levelChgWait, (unsigned short)0) },
+            _levelCurrent { constrainLevelConf(levelCurrent) }
         {};
 
-        bool isEnabled();
-        void fadeToLevelMaximum();
-        void fadeToLevelMinimum();
-
-    protected:
-        bool loopToLevelMaximum();
-        bool loopToLevelMinimum();
-
-        bool isLevelMaximum();
-        bool isLevelMinimum();
-
-        void setBrightness(const byte waits);
-        void setBrightness(const byte level, const byte waits);
+        void levelToMaximum();
+        void levelToMinimum();
 };
 
 // EXTERNAL DECLARATIONS/DEFINITIONS
 
-extern void runPatternsStep(const bool, const bool);
+extern void runPatternsStep();

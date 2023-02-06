@@ -10,72 +10,47 @@
 
 #include "EffectFadingManager.h"
 
-bool EffectFadingManager::isEnabled()
+void EffectFadingManager::levelToMaximum()
 {
-    return _faderEnabled;
-}
-
-void EffectFadingManager::fadeToLevelMaximum()
-{
-    while(isEnabled() && !isLevelMaximum() && loopToLevelMaximum()) {
-        runPatternsStep(false, true);
+    while(_faderEnabled && !isLevelMaximum()) {
+        setLevelAndRunEffect(_levelCurrent + _levelChgStep);
     }
 
-    setBrightness(_levelMaximum, _levelEndWait);
+    runLevelToMaximumPostOperations();
 }
 
-void EffectFadingManager::fadeToLevelMinimum()
+void EffectFadingManager::levelToMinimum()
 {
-    while(isEnabled() && !isLevelMinimum() && loopToLevelMinimum()) {
-        runPatternsStep(false, true);
+    while(_faderEnabled && !isLevelMinimum()) {
+        setLevelAndRunEffect(_levelCurrent - _levelChgStep);
     }
 
-    setBrightness(_levelMinimum, _levelEndWait);
+    runLevelToMinimumPostOperations();
 }
 
-bool EffectFadingManager::loopToLevelMaximum()
+void EffectFadingManager::runLevelToMaximumPostOperations()
 {
-    _levelCurrent = constrain(
-        _levelCurrent + _levelChgStep,
-        _levelMinimum,
-        _levelMaximum
-    );
-
-    setBrightness(_levelChgWait);
-
-    return _levelCurrent < _levelMaximum;
+    setLevelAndRunEffect(_levelMaximum);
 }
 
-bool EffectFadingManager::loopToLevelMinimum()
+void EffectFadingManager::runLevelToMinimumPostOperations()
 {
-    _levelCurrent = constrain(
-        _levelCurrent - _levelChgStep,
-        _levelMinimum,
-        _levelMaximum
-    );
+    setLevelAndRunEffect(_levelMinimum);
 
-    setBrightness(_levelChgWait);
-
-    return _levelCurrent > _levelMinimum;
+    if (_faderEnabled) {
+        FastLED.delay(_levelChgWait);
+    }
 }
 
-bool EffectFadingManager::isLevelMaximum()
+void EffectFadingManager::setLevel(const signed int level)
 {
-    return _levelCurrent >= _levelMaximum;
+    _levelCurrent = constrainLevelConf(level);
+
+    FastLED.setBrightness(_levelCurrent);
 }
 
-bool EffectFadingManager::isLevelMinimum()
+void EffectFadingManager::setLevelAndRunEffect(const signed int level)
 {
-    return _levelCurrent <= _levelMinimum;
-}
-
-void  EffectFadingManager::setBrightness(const byte waits)
-{
-    setBrightness(_levelCurrent, waits);
-}
-
-void  EffectFadingManager::setBrightness(const byte level, const byte waits)
-{
-    FastLED.setBrightness(level);
-    FastLED.delay(waits);
+    runPatternsStep();
+    setLevel(level);
 }

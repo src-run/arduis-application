@@ -11,15 +11,8 @@
 #pragma once
 
 #include "CommonArduino.h"
+#include "SimpleCounter.h"
+#include "LoopTimeTrack.h"
 
-class SimpleCounter {
-    private:
-        unsigned long _count { 0 };
-
-    public:
-        SimpleCounter() = default;
-
-        unsigned long getCount();
-        unsigned long increment(unsigned long amount = 1);
-        unsigned long reset();
-};
+extern SimpleCounter CycleCount;
+extern LoopTimeTrack LoopRunBench;

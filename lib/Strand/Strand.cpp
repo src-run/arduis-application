@@ -17,7 +17,7 @@ void setupStrand()
 {
     FastLED.addLeds<LED_STR_CTL, LED_STR_PIN, LED_STR_ORD>(ledStrandsActiveColors, LED_STR_NUM);
     FastLED.clear(true);
-    FastLED.setBrightness(LED_FDR_FADE_INIT);
+    FastLED.setBrightness(LED_FDR_LEVEL_BEG);
     FastLED.setCorrection(LED_STR_CRCT);
     FastLED.setMaxPowerInVoltsAndMilliamps(LED_PWR_MAX_VOLTS, LED_PWR_MAX_MAMPS);
     FastLED.delay(500);
