@@ -13,6 +13,7 @@
 #include "CommonArduino.h"
 #include "CommonFastLED.h"
 #include "Config.h"
+#include "UtilitiesMath.h"
 
 void                 setupRandom();
 
@@ -97,5 +98,5 @@ unsigned int getRandomSeed()
 
 unsigned int getRandomIndx(unsigned int size)
 {
-    return randUInt(max(0, size - 1));
+    return randUInt(maxInt(0, size - 1));
 }

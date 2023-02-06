@@ -155,7 +155,7 @@ unsigned int getLedPatternListRandIndxSeql(bool internalIndex)
             patternListOrder[i] = i;
         }
 
-        for (byte j = 0; j < randByte(1, max(2, LED_PTN_RAND_ENTR)); j++) {
+        for (byte j = 0; j < randByte(1, maxInt(2, LED_PTN_RAND_ENTR)); j++) {
             for (byte i = 0; i < patternListOrderIndex; i++) {
                 const byte n { randByte(patternListOrderIndex - 1) };
                 const byte v { patternListOrder[n] };
@@ -183,7 +183,7 @@ unsigned int getLedPatternListRandIndxSeql(bool internalIndex)
 
     --patternListOrderIndex;
 
-    return patternListOrder[constrain(patternListOrderIndex, 0, getLedPatternListSize() - 1)];
+    return patternListOrder[conInt(patternListOrderIndex, 0, getLedPatternListSize() - 1)];
 }
 
 unsigned int resolveLedPatternListStepIndx(const PatternListIndexAction action, const unsigned int assign)
@@ -321,7 +321,7 @@ void runPatternsStep()
 
 void setCustomLedColorsActive()
 {
-    for (int i = 0; i < LED_STR_NUM; ++i) {
+    for (int i = 0; lt(i, LED_STR_NUM); ++i) {
         ledStrandsActiveColors[i] = ledStrandsCustomColors[i];
     }
 }

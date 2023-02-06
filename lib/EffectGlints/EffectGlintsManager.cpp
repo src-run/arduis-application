@@ -12,7 +12,7 @@
 
 void EffectGlintsManager::setChance(const byte chance, const byte base)
 {
-    _chance = cstrByte(chance * 255 / max(1, base));
+    _chance = cstrByte(chance * 255 / maxInt(1, base));
     _result = _chance != 0 && (_chance == 100 || getWeightedResult());
 
     addResultsHistory();

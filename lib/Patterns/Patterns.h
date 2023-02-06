@@ -15,6 +15,7 @@
 #include "Config.h"
 #include "Random.h"
 #include "Utilities.h"
+#include "UtilitiesMath.h"
 #include "Benchmark.h"
 #include "Strand.h"
 #include "Timers.h"

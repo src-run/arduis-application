@@ -93,7 +93,7 @@ DateTimeReading getCompilationDateTime()
 String strPadsChar(const String value, const int padding, const String useChar, const StringPadDirection useSide)
 {
     const unsigned int valSize { value.length() };
-    const unsigned int padSize { padding < 0 ? abs(padding) : max(0, padding - valSize) };
+    const unsigned int padSize { padding < 0 ? abs(padding) : maxInt(0, padding - valSize) };
     String             valRetn { };
 
     for (unsigned int i = 0; lt(i, padSize); i = i + useChar.length()) {

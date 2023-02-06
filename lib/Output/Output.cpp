@@ -164,7 +164,7 @@ byte getListNamesMaxLength(const byte add, unsigned int (*getListSize)(), const 
     byte len { 0 };
 
     for (unsigned int i = 0; i < getListSize(); i++) {
-        len = max(len, strlen(getItemName(i)));
+        len = maxInt(len, strlen(getItemName(i)));
     }
 
     return len + add;

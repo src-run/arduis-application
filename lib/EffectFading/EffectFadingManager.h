@@ -35,7 +35,7 @@ class EffectFadingManager {
         void setLevelAndRunEffect(const signed int level);
 
         unsigned short constrainLevelType(const signed int level) { return cstrByte(level); }
-        unsigned short constrainLevelConf(const signed int level) { return constrain(constrainLevelType(level), _levelMinimum, _levelMaximum); }
+        unsigned short constrainLevelConf(const signed int level) { return conInt(constrainLevelType(level), _levelMinimum, _levelMaximum); }
 
     public:
         EffectFadingManager(
@@ -49,8 +49,8 @@ class EffectFadingManager {
             _faderEnabled { faderEnabled },
             _levelMinimum { constrainLevelType(levelMinimum) },
             _levelMaximum { constrainLevelType(levelMaximum) },
-            _levelChgStep { max(levelChgStep, (unsigned short)1) },
-            _levelChgWait { max(levelChgWait, (unsigned short)0) },
+            _levelChgStep { maxInt(levelChgStep, (unsigned short)1) },
+            _levelChgWait { maxInt(levelChgWait, (unsigned short)0) },
             _levelCurrent { constrainLevelConf(levelCurrent) }
         {};
 

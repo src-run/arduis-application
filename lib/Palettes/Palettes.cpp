@@ -130,7 +130,7 @@ unsigned int getLedPaletteListRandIndxSeql(bool internalIndex)
             paletteListOrder[i] = i;
         }
 
-        for (byte j = 0; j < randByte(1, max(2, LED_PAL_RAND_ENTR)); j++) {
+        for (byte j = 0; j < randByte(1, maxInt(2, LED_PAL_RAND_ENTR)); j++) {
             for (byte i = 0; i < paletteListOrderIndex; i++) {
                 const byte n { randByte(paletteListOrderIndex - 1) };
                 const byte v { paletteListOrder[n] };
@@ -158,7 +158,7 @@ unsigned int getLedPaletteListRandIndxSeql(bool internalIndex)
 
     --paletteListOrderIndex;
 
-    return paletteListOrder[constrain(paletteListOrderIndex, 0, getLedPaletteListSize() - 1)];
+    return paletteListOrder[conInt(paletteListOrderIndex, 0, getLedPaletteListSize() - 1)];
 }
 
 unsigned int getLedPaletteListRandIndx()

@@ -14,7 +14,7 @@ void EffectFactorGenerator::refresh()
 {
     const byte random = (randByte() * _resultBase / 255);
 
-    _factor = constrain(random, _resultMins, _resultBase);
+    _factor = conInt(random, _resultMins, _resultBase);
 }
 
 byte EffectFactorGenerator::resolve()

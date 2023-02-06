@@ -12,6 +12,7 @@
 
 #include "CommonArduino.h"
 #include "PeriodUnits.h"
+#include "UtilitiesMath.h"
 
 class PeriodTimer {
     protected:

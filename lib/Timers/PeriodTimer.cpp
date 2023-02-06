@@ -20,7 +20,7 @@ PeriodTimer::PeriodTimer(PeriodUnits periodUnit, unsigned long periodTime, bool 
 
 void PeriodTimer::setPeriodTime(unsigned long periodTime)
 {
-    _periodOrig = max(0, periodTime);
+    _periodOrig = maxInt(0, periodTime);
     _periodTime = _periodOrig * getPeriodUnitMultiplier();
 
     if (_resetsAuto) {
@@ -62,7 +62,7 @@ unsigned long PeriodTimer::getPeriodElapsed()
 
 unsigned long PeriodTimer::getPeriodRemaining()
 {
-    unsigned long remaining = max(0, _periodTime - getPeriodElapsed());
+    unsigned long remaining = maxInt(0, _periodTime - getPeriodElapsed());
 
     return remaining > getPeriodTime() ? 0 : remaining;
 }
