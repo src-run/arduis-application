@@ -97,5 +97,5 @@ unsigned int getRandomSeed()
 
 unsigned int getRandomIndx(unsigned int size)
 {
-    return randUInt(max(0, size - 1));
+    return randUInt(max(0U, size - 1));
 }

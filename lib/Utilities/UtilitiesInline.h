@@ -149,7 +149,7 @@ inline unsigned int cstrUInt(const long i)
 
 inline unsigned int cstrArrayIndex(const unsigned int index, const unsigned int size)
 {
-    return constrain(index, 0, max(0, size - 1));
+    return constrain(index, 0U, max(0U, size - 1));
 }
 
 unsigned int byteToPerc(const unsigned long i)

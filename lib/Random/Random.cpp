@@ -17,8 +17,8 @@ void setupRandom()
 
 void setRandomEntr(unsigned int low, unsigned int lim, bool inc)
 {
-    lim = max(1, lim);
-    low = max(0, min(lim, low));
+    lim = max(1U, lim);
+    low = max(0U, min(lim, low));
 
     for (byte i = 0; i < random8(low, lim); i++) {
         const unsigned long seed = (inc ? getRandomSeed() : 1) + getRandomEntr();
