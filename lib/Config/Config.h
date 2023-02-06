@@ -36,7 +36,7 @@
 #define LED_RELAY1_PIN    32U
 #define LED_RELAY2_PIN    33U
 
-#define LED_STR_NUM       50U * 6U
+#define LED_STR_NUM       50 * 6
 #ifdef _VARIANT_ARDUINO_DUE_X_
 #define LED_STR_PIN       3U
 #else

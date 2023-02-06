@@ -24,8 +24,8 @@ struct LEDMaxPower {
 class LEDManager {
     private:
         unsigned int       _ledStrSize;
-        LEDMaxPower        _ledsMaxPwr;
         LEDColorCorrection _correction;
+        LEDMaxPower        _ledsMaxPwr;
 
     public:
         CRGB               _ledColours[LED_STR_NUM];
